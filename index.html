@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --primary-blue: #2563eb;
+            --card-bg-white: #ffffff;
+            --card-c1: #f0fdf4; --border-c1: #bbf7d0; --badge-c1: #16a34a;
+            --card-c2: #eff6ff; --border-c2: #bfdbfe; --badge-c2: #2563eb;
+            --card-c3: #faf5ff; --border-c3: #e9d5ff; --badge-c3: #9333ea;
+            --card-c4: #fffbeb; --border-c4: #fef08a; --badge-c4: #d97706;
+            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --border-color: rgba(148, 163, 184, 0.2);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0b0f19;
+            --text-dark: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary-blue: #3b82f6;
+            --card-bg-white: #1e293b;
+            --card-c1: #064e3b33; --border-c1: #065f46; --badge-c1: #22c55e;
+            --card-c2: #1e3a8a33; --border-c2: #1d4ed8; --badge-c2: #3b82f6;
+            --card-c3: #581c8733; --border-c3: #6b21a8; --badge-c3: #a855f7;
+            --card-c4: #78350f33; --border-c4: #92400e; --badge-c4: #f59e0b;
+            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --border-color: rgba(148, 163, 184, 0.15);
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 20px 16px;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container { width: 100%; max-width: 1350px; margin: 0 auto; }
+
+        .top-toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg-white); border: 1px solid var(--border-color);
+            border-radius: 18px; padding: 12px 20px; margin-bottom: 20px;
+            box-shadow: var(--shadow-subtle); flex-wrap: wrap; gap: 12px;
+            backdrop-filter: blur(12px);
+        }
+
+        .brand-title { font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
+
+        .streak-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706); color: white;
+            padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.25);
+        }
+
+        .toolbar-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+        .view-switch-bar {
+            display: none; justify-content: center; margin-bottom: 20px;
+        }
+        .switch-container {
+            background: var(--card-bg-white); padding: 4px; border-radius: 16px;
+            border: 1px solid var(--border-color); display: inline-flex; gap: 6px;
+            box-shadow: var(--shadow-subtle);
+        }
+        .switch-btn {
+            font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+            padding: 8px 18px; border-radius: 12px; cursor: pointer; border: none;
+            background: transparent; color: var(--text-muted); transition: all 0.2s ease;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .switch-btn.active {
+            background: var(--primary-blue); color: white; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+        }
+        .switch-btn:hover:not(.active) { color: var(--primary-blue); background: rgba(37, 99, 235, 0.05); }
+
+        .control-hub {
+            display: none; background: var(--card-bg-white); padding: 16px 20px;
+            border-radius: 18px; margin-bottom: 22px; border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-subtle); gap: 12px; flex-direction: column; width: 100%;
+        }
+        .search-row { display: flex; gap: 10px; align-items: center; width: 100%; }
+        .search-input {
+            width: 100%; padding: 11px 16px; border-radius: 12px;
+            border: 2px solid var(--border-color); background: var(--bg-color);
+            color: var(--text-dark); font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none;
+            transition: all 0.2s ease;
+        }
+        .search-input:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); background: var(--card-bg-white); }
+
+        .filters-row {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+            padding-top: 10px; border-top: 1px dashed var(--border-color); width: 100%;
+        }
+        .filter-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        
+        .filter-dropdown {
+            padding: 7px 12px; border-radius: 10px; border: 2px solid var(--border-color);
+            background: var(--bg-color); color: var(--text-dark); font-family: 'Inter', sans-serif;
+            font-size: 0.85rem; font-weight: 600; outline: none; cursor: pointer; transition: border-color 0.2s;
+        }
+        .filter-dropdown:focus { border-color: var(--primary-blue); }
+
+        .filter-pill {
+            font-size: 0.8rem; font-weight: 600; padding: 6px 12px; border-radius: 12px;
+            background: var(--bg-color); color: var(--text-muted); cursor: pointer;
+            border: 1.5px solid var(--border-color); transition: all 0.2s ease;
+        }
+        .filter-pill:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: rgba(37, 99, 235, 0.04); }
+        .filter-pill.active { background: var(--primary-blue); color: white; border-color: var(--primary-blue); box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); }
+
+        .btn {
+            font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600;
+            padding: 8px 14px; border-radius: 10px; cursor: pointer;
+            border: 2px solid var(--primary-blue); background: var(--primary-blue);
+            color: white; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+            text-decoration: none; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); white-space: nowrap;
+        }
+        .btn-outline { background: transparent; color: var(--text-dark); border-color: var(--border-color); box-shadow: none; }
+        .btn-outline:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: rgba(37, 99, 235, 0.04); }
+        .btn-success { background: #16a34a; border-color: #16a34a; }
+        .btn-amber { background: #d97706; border-color: #d97706; }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25); }
+
+        .upload-section {
+            text-align: center; background: var(--card-bg-white);
+            border: 2px dashed var(--border-color); border-radius: 20px;
+            padding: 50px 20px; margin-bottom: 30px; box-shadow: var(--shadow-subtle);
+        }
+
+        .list-container { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; width: 100%; }
+
+        .edition-box {
+            background: var(--card-bg-white); border: 2px solid var(--border-color); border-radius: 18px;
+            padding: 18px 22px; box-shadow: var(--shadow-subtle); margin-bottom: 16px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+
+        .card {
+            border-radius: 18px; padding: 22px; position: relative; border: 2.5px solid;
+            box-shadow: var(--shadow-subtle); background: var(--card-bg-white);
+            transition: transform 0.2s ease, box-shadow 0.2s ease; width: 100%; margin-bottom: 16px;
+            font-family: 'Kalam', cursive; font-size: 1.1rem; line-height: 1.6;
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+        .card:nth-child(4n+1) { background: var(--card-c1); border-color: var(--border-c1); }
+        .card:nth-child(4n+2) { background: var(--card-c2); border-color: var(--border-c2); }
+        .card:nth-child(4n+3) { background: var(--card-c3); border-color: var(--border-c3); }
+        .card:nth-child(4n+4) { background: var(--card-c4); border-color: var(--border-c4); }
+
+        .badge {
+            position: absolute; top: -12px; left: -12px; width: 34px; height: 34px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Architects Daughter', cursive; font-size: 1.25rem; font-weight: bold;
+            color: white; box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+        .card:nth-child(4n+1) .badge { background: var(--badge-c1); }
+        .card:nth-child(4n+2) .badge { background: var(--badge-c2); }
+        .card:nth-child(4n+3) .badge { background: var(--badge-c3); }
+        .card:nth-child(4n+4) .badge { background: var(--badge-c4); }
+
+        .bookmark-btn {
+            position: absolute; top: 16px; right: 18px; background: transparent; border: none;
+            cursor: pointer; font-size: 1.3rem; color: #cbd5e1; transition: transform 0.2s, color 0.2s;
+        }
+        .bookmark-btn:hover { transform: scale(1.2); }
+        .bookmark-btn.bookmarked { color: #f59e0b; }
+
+        .card-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1.5px dashed rgba(100, 116, 139, 0.3);
+            padding-right: 32px;
+        }
+        .card-header h2 {
+            font-family: 'Architects Daughter', cursive; font-size: 1.55rem;
+            margin: 0; display: flex; align-items: center; gap: 8px; color: var(--text-dark);
+        }
+
+        ul { padding-left: 18px; margin: 0; }
+        li { margin-bottom: 8px; }
+
+        mark { background-color: rgba(254, 240, 138, 0.85); padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        [data-theme="dark"] mark { background-color: rgba(234, 179, 8, 0.35); color: #fef08a; }
+
+        .pill {
+            display: inline-block; padding: 2px 8px; border-radius: 10px;
+            font-size: 0.78rem; font-weight: 700; font-family: 'Inter', sans-serif;
+            text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; margin-right: 6px;
+        }
+        .pill.prelims { background: #fee2e2; color: #991b1b; }
+        .pill.mains { background: #dbeafe; color: #1e40af; }
+        .pill.geo { background: #ffedd5; color: #9a3412; }
+
+        details {
+            margin-top: 14px; background: rgba(255, 255, 255, 0.7);
+            border: 1.5px solid var(--border-color); border-radius: 12px;
+            padding: 10px 14px; font-family: 'Inter', sans-serif;
+        }
+        [data-theme="dark"] details { background: rgba(15, 23, 42, 0.5); }
+        summary {
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; color: var(--primary-blue);
+            outline: none; display: flex; align-items: center; justify-content: space-between; user-select: none;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '▾ Expand Deep Dive'; font-size: 0.82rem; font-weight: 600; opacity: 0.85; }
+        details[open] summary::after { content: '▴ Collapse'; }
+        .details-body {
+            margin-top: 10px; padding-top: 10px; border-top: 1px dotted var(--border-color);
+            font-family: 'Kalam', cursive; font-size: 1.05rem;
+        }
+
+        #monthly-page, #reader-page { display: none; width: 100%; }
+
+        @media (max-width: 768px) {
+            body { padding: 12px 8px; }
+            .top-toolbar { flex-direction: column; align-items: stretch; }
+            .toolbar-actions { width: 100%; justify-content: space-between; }
+            .toolbar-actions .btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 8px; }
+            .filters-row { flex-direction: column; align-items: stretch; gap: 10px; }
+            .filter-group { width: 100%; justify-content: space-between; }
+            .filter-dropdown { width: 100%; }
+            .edition-box { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="brand-title">
+            <span>📚</span> UPSC Hub
+            <div class="streak-badge" id="streak-counter">🔥 0</div>
+        </div>
+        <div class="toolbar-actions">
+            <button class="btn btn-amber" id="random-card-btn" style="display: none;">🎲 Random</button>
+            <button class="btn btn-success" id="master-export-btn" style="display: none;">📥 Export</button>
+            <button class="btn btn-outline" id="change-folder-btn" style="display: none;">📁 Change Folder</button>
+            <button class="btn btn-outline" id="theme-btn">🌙</button>
+        </div>
+    </div>
+
+    <!-- View Switcher Bar -->
+    <div class="view-switch-bar" id="view-switch-bar">
+        <div class="switch-container">
+            <button class="switch-btn active" id="switch-weekly-btn">📂 Weekly Reports</button>
+            <button class="switch-btn" id="switch-monthly-btn">📅 Monthly Reports</button>
+        </div>
+    </div>
+
+    <!-- Folder Initial State -->
+    <div class="upload-section" id="upload-box">
+        <button class="btn" id="select-folder-btn" style="font-size: 1rem; padding: 12px 24px;">📁 Select Archive Root Folder</button>
+    </div>
+
+    <!-- Search & Filter Hub -->
+    <div class="control-hub" id="control-hub">
+        <div class="search-row">
+            <input type="text" class="search-input" id="global-search-input" placeholder="🔍 Search keywords...">
+        </div>
+        <div class="filters-row">
+            <div class="filter-group">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">MONTH:</span>
+                <select id="month-dropdown" class="filter-dropdown">
+                    <option value="ALL">All Months</option>
+                </select>
+            </div>
+            <div class="filter-group" id="tag-filters-container">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FILTER:</span>
+                <button class="filter-pill active" data-tag="ALL">All</button>
+                <button class="filter-pill" data-tag="Prelims">Prelims</button>
+                <button class="filter-pill" data-tag="Mains">Mains</button>
+                <button class="filter-pill" data-tag="Starred">⭐ Saved</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main List Container (Weekly) -->
+    <div class="list-container" id="weeks-list"></div>
+
+    <!-- Monthly Reports Page View -->
+    <div id="monthly-page">
+        <div class="list-container" id="monthly-results"></div>
+    </div>
+
+    <!-- Separate Full Reading Page View -->
+    <div id="reader-page">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: var(--card-bg-white); padding: 14px 20px; border-radius: 16px; border: 1px solid var(--border-color);">
+            <button class="btn btn-outline" id="back-to-hub-btn">⬅️ Back</button>
+            <h3 id="reader-title" style="margin: 0; font-family: 'Architects Daughter', cursive; color: var(--primary-blue);"></h3>
+            <button class="btn" onclick="window.print()">🖨️ Print</button>
+        </div>
+        <div class="list-container" id="reader-cards-container"></div>
+    </div>
+</div>
+
+<script>
+    const themeBtn = document.getElementById('theme-btn');
+    const selectFolderBtn = document.getElementById('select-folder-btn');
+    const changeFolderBtn = document.getElementById('change-folder-btn');
+    const masterExportBtn = document.getElementById('master-export-btn');
+    const randomCardBtn = document.getElementById('random-card-btn');
+    const viewSwitchBar = document.getElementById('view-switch-bar');
+    const switchWeeklyBtn = document.getElementById('switch-weekly-btn');
+    const switchMonthlyBtn = document.getElementById('switch-monthly-btn');
+    const monthlyPage = document.getElementById('monthly-page');
+    const readerPage = document.getElementById('reader-page');
+    const weeksList = document.getElementById('weeks-list');
+    const controlHub = document.getElementById('control-hub');
+    const uploadBox = document.getElementById('upload-box');
+    const monthlyResults = document.getElementById('monthly-results');
+    const monthDropdown = document.getElementById('month-dropdown');
+    const globalSearchInput = document.getElementById('global-search-input');
+    const streakCounter = document.getElementById('streak-counter');
+    const backToHubBtn = document.getElementById('back-to-hub-btn');
+    const readerTitle = document.getElementById('reader-title');
+    const readerCardsContainer = document.getElementById('reader-cards-container');
+
+    let allFilesData = [];
+    let allMonthlyFilesData = [];
+    let allExtractedCards = [];
+    let allMonthlyCards = [];
+    let currentFilterMonth = 'ALL';
+    let currentFilterTag = 'ALL';
+    let searchQuery = '';
+    let currentActiveTab = 'weekly';
+    let bookmarkedCards = JSON.parse(localStorage.getItem('upsc_bookmarks') || '{}');
+
+    function updateStreak() {
+        const lastVisit = localStorage.getItem('upsc_last_visit');
+        let streak = parseInt(localStorage.getItem('upsc_streak') || '0', 10);
+        const today = new Date().toDateString();
+
+        if (lastVisit !== today) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            if (lastVisit === yesterday.toDateString()) {
+                streak += 1;
+            } else if (!lastVisit) {
+                streak = 1;
+            } else {
+                streak = 1;
+            }
+            localStorage.setItem('upsc_last_visit', today);
+            localStorage.setItem('upsc_streak', streak);
+        }
+        streakCounter.innerText = `🔥 ${streak}`;
+    }
+    updateStreak();
+
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.body.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.body.removeAttribute('data-theme');
+            themeBtn.innerText = '🌙';
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+            themeBtn.innerText = '☀️';
+        }
+    });
+
+    const dbName = "UPSC_Archive_Master_DB_v21";
+    const storeName = "handles";
+
+    function openDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(dbName, 1);
+            request.onupgradeneeded = (e) => e.target.result.createObjectStore(storeName);
+            request.onsuccess = (e) => resolve(e.target.result);
+            request.onerror = (e) => reject(e.target.error);
+        });
+    }
+
+    async function saveDirectoryHandle(handle) {
+        const db = await openDB();
+        const tx = db.transaction(storeName, "readwrite");
+        tx.objectStore(storeName).put(handle, "folderHandle");
+        return tx.complete;
+    }
+
+    async function getSavedDirectoryHandle() {
+        const db = await openDB();
+        return new Promise((resolve) => {
+            const tx = db.transaction(storeName, "readonly");
+            const req = tx.objectStore(storeName).get("folderHandle");
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => resolve(null);
+        });
+    }
+
+    async function clearSavedDirectoryHandle() {
+        const db = await openDB();
+        const tx = db.transaction(storeName, "readwrite");
+        tx.objectStore(storeName).delete("folderHandle");
+        return tx.complete;
+    }
+
+    async function pickAndLoadFolder(requestNew = false) {
+        try {
+            let dirHandle;
+            if (!requestNew) {
+                dirHandle = await getSavedDirectoryHandle();
+                if (dirHandle) {
+                    const options = { mode: 'read' };
+                    if ((await dirHandle.queryPermission(options)) !== 'granted') {
+                        if ((await dirHandle.requestPermission(options)) !== 'granted') {
+                            dirHandle = null;
+                        }
+                    }
+                }
+            }
+
+            if (!dirHandle) {
+                if (!window.showDirectoryPicker) {
+                    alert('Browser not supported.');
+                    return;
+                }
+                dirHandle = await window.showDirectoryPicker();
+                await saveDirectoryHandle(dirHandle);
+            }
+
+            await parseDirectory(dirHandle);
+        } catch (err) {
+            console.log('Folder selection cancelled or failed:', err);
+        }
+    }
+
+    async function parseDirectory(dirHandle) {
+        const filesList = [];
+        const cardsList = [];
+        const monthlyCardsList = [];
+        const monthlyList = [];
+
+        async function processWeeklyFile(entry) {
+            const isQuiz = entry.name.toLowerCase().includes('quiz');
+            const match = entry.name.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
+
+            if (match) {
+                const [_, d1, m1, y1, d2, m2, y2] = match;
+                const startDate = new Date(`${y1}-${m1}-${d1}`);
+                const endDate = new Date(`${y2}-${m2}-${d2}`);
+                const fileObj = await entry.getFile();
+                const htmlText = await fileObj.text();
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                const cleanText = (doc.body ? doc.body.innerText || doc.body.textContent : htmlText).toLowerCase();
+
+                const startMonthYear = `${getMonthFullName(m1)} ${y1}`;
+                const endMonthYear = `${getMonthFullName(m2)} ${y2}`;
+                const formattedRange = `${d1} ${getMonthName(m1)} - ${d2} ${getMonthName(m2)}, ${y2}`;
+
+                const domCards = doc.querySelectorAll('.card');
+                const cardObjects = [];
+
+                if (!isQuiz) {
+                    domCards.forEach((cardEl, idx) => {
+                        const cardId = `${entry.name}_${idx}`;
+                        const cObj = {
+                            id: cardId,
+                            filename: entry.name,
+                            formattedRange: formattedRange,
+                            startDate: startDate,
+                            startMonthYear: startMonthYear,
+                            endMonthYear: endMonthYear,
+                            cardHTML: cardEl.outerHTML,
+                            cardText: cardEl.innerText.toLowerCase()
+                        };
+                        cardsList.push(cObj);
+                        cardObjects.push(cObj);
+                    });
+                }
+
+                filesList.push({
+                    file: fileObj,
+                    filename: entry.name,
+                    isQuiz: isQuiz,
+                    startDate: startDate,
+                    endDate: endDate,
+                    startMonthYear: startMonthYear,
+                    endMonthYear: endMonthYear,
+                    formattedRange: formattedRange,
+                    htmlText: htmlText,
+                    cleanText: cleanText,
+                    domDoc: doc,
+                    topicCount: domCards.length,
+                    cards: cardObjects
+                });
+            }
+        }
+
+        for await (const entry of dirHandle.values()) {
+            if (entry.kind === 'file' && entry.name.endsWith('.html')) {
+                await processWeeklyFile(entry);
+            }
+        }
+
+        try {
+            const weeklyDir = await dirHandle.getDirectoryHandle('weekly', { create: false });
+            for await (const entry of weeklyDir.values()) {
+                if (entry.kind === 'file' && entry.name.endsWith('.html')) {
+                    await processWeeklyFile(entry);
+                }
+            }
+        } catch (err) {}
+
+        try {
+            const monthlyDir = await dirHandle.getDirectoryHandle('monthly', { create: false });
+            for await (const entry of monthlyDir.values()) {
+                if (entry.kind === 'file' && entry.name.endsWith('.html')) {
+                    const fileObj = await entry.getFile();
+                    const htmlText = await fileObj.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    const domCards = doc.querySelectorAll('.card');
+
+                    let displayTitle = entry.name.replace('.html', '');
+                    let monthYearStr = '';
+                    const mMatch = entry.name.match(/^(\d{2})(\d{4})\.html$/);
+                    if (mMatch) {
+                        displayTitle = `${getMonthFullName(mMatch[1])} ${mMatch[2]}`;
+                        monthYearStr = `${getMonthFullName(mMatch[1])} ${mMatch[2]}`;
+                    }
+
+                    const cardObjects = [];
+                    domCards.forEach((cardEl, idx) => {
+                        const cardId = `monthly_${entry.name}_${idx}`;
+                        const cObj = {
+                            id: cardId,
+                            filename: entry.name,
+                            displayTitle: displayTitle,
+                            monthYearStr: monthYearStr,
+                            cardHTML: cardEl.outerHTML,
+                            cardText: cardEl.innerText.toLowerCase()
+                        };
+                        monthlyCardsList.push(cObj);
+                        cardObjects.push(cObj);
+                    });
+
+                    monthlyList.push({
+                        file: fileObj,
+                        filename: entry.name,
+                        displayTitle: displayTitle,
+                        monthYearStr: monthYearStr,
+                        topicCount: domCards.length,
+                        cards: cardObjects
+                    });
+                }
+            }
+        } catch (err) {}
+
+        filesList.sort((a, b) => b.startDate - a.startDate);
+        allFilesData = filesList;
+        allMonthlyFilesData = monthlyList;
+        allExtractedCards = cardsList;
+        allMonthlyCards = monthlyCardsList;
+        
+        buildMonthDropdown(filesList, monthlyList);
+        applyFiltersAndRender();
+
+        uploadBox.style.display = 'none';
+        changeFolderBtn.style.display = 'inline-flex';
+        masterExportBtn.style.display = 'inline-flex';
+        randomCardBtn.style.display = 'inline-flex';
+        viewSwitchBar.style.display = 'flex';
+        controlHub.style.display = 'flex';
+    }
+
+    function getMonthName(monthNum) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return months[parseInt(monthNum, 10) - 1] || monthNum;
+    }
+
+    function getMonthFullName(monthNum) {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return months[parseInt(monthNum, 10) - 1] || monthNum;
+    }
+
+    function buildMonthDropdown(files, monthlyFiles) {
+        const monthSet = new Set();
+        files.forEach(f => {
+            monthSet.add(f.startMonthYear);
+            monthSet.add(f.endMonthYear);
+        });
+        monthlyFiles.forEach(m => {
+            if (m.monthYearStr) monthSet.add(m.monthYearStr);
+        });
+
+        let optionsHTML = `<option value="ALL">All Months</option>`;
+        Array.from(monthSet).forEach(m => {
+            optionsHTML += `<option value="${m}">${m}</option>`;
+        });
+
+        monthDropdown.innerHTML = optionsHTML;
+    }
+
+    monthDropdown.addEventListener('change', (e) => {
+        currentFilterMonth = e.target.value;
+        applyFiltersAndRender();
+    });
+
+    switchWeeklyBtn.addEventListener('click', () => {
+        currentActiveTab = 'weekly';
+        switchWeeklyBtn.classList.add('active');
+        switchMonthlyBtn.classList.remove('active');
+        monthlyPage.style.display = 'none';
+        weeksList.style.display = 'flex';
+        applyFiltersAndRender();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    switchMonthlyBtn.addEventListener('click', () => {
+        currentActiveTab = 'monthly';
+        switchMonthlyBtn.classList.add('active');
+        switchWeeklyBtn.classList.remove('active');
+        weeksList.style.display = 'none';
+        monthlyPage.style.display = 'block';
+        applyFiltersAndRender();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.querySelectorAll('#tag-filters-container .filter-pill').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+            document.querySelectorAll('#tag-filters-container .filter-pill').forEach(p => p.classList.remove('active'));
+            e.target.classList.add('active');
+            currentFilterTag = e.target.getAttribute('data-tag');
+            applyFiltersAndRender();
+        });
+    });
+
+    globalSearchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        applyFiltersAndRender();
+    });
+
+    function toggleBookmark(cardId, btnEl) {
+        if (bookmarkedCards[cardId]) {
+            delete bookmarkedCards[cardId];
+            btnEl.classList.remove('bookmarked');
+            btnEl.innerText = '☆';
+        } else {
+            bookmarkedCards[cardId] = true;
+            btnEl.classList.add('bookmarked');
+            btnEl.innerText = '⭐';
+        }
+        localStorage.setItem('upsc_bookmarks', JSON.stringify(bookmarkedCards));
+    }
+
+    function injectCardFeatures(cardEl, cardId, sourceLabel) {
+        const isBookmarked = !!bookmarkedCards[cardId];
+        if (!cardEl.querySelector('.bookmark-btn')) {
+            const bookmarkBtn = document.createElement('button');
+            bookmarkBtn.className = `bookmark-btn ${isBookmarked ? 'bookmarked' : ''}`;
+            bookmarkBtn.innerHTML = isBookmarked ? '⭐' : '☆';
+            bookmarkBtn.title = 'Bookmark';
+            bookmarkBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleBookmark(cardId, bookmarkBtn);
+            });
+            cardEl.style.position = 'relative';
+            cardEl.appendChild(bookmarkBtn);
+        }
+
+        const headerEl = cardEl.querySelector('.card-header');
+        if (headerEl && !cardEl.querySelector('.source-tag')) {
+            const sourceTag = document.createElement('div');
+            sourceTag.className = 'source-tag';
+            sourceTag.style.cssText = "font-family: 'Inter', sans-serif; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px;";
+            sourceTag.innerHTML = `📅 ${sourceLabel}`;
+            cardEl.insertBefore(sourceTag, headerEl);
+        }
+    }
+
+    function openFullReaderPage(title, cardsArray) {
+        readerTitle.innerText = title;
+        readerCardsContainer.innerHTML = '';
+        
+        cardsArray.forEach(c => {
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = c.cardHTML;
+            const cardEl = wrapper.firstElementChild;
+            injectCardFeatures(cardEl, c.id, c.formattedRange || c.displayTitle);
+            readerCardsContainer.appendChild(cardEl);
+        });
+
+        controlHub.style.display = 'none';
+        weeksList.style.display = 'none';
+        monthlyPage.style.display = 'none';
+        viewSwitchBar.style.display = 'none';
+        readerPage.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    backToHubBtn.addEventListener('click', () => {
+        readerPage.style.display = 'none';
+        controlHub.style.display = 'flex';
+        viewSwitchBar.style.display = 'flex';
+        if (currentActiveTab === 'weekly') {
+            weeksList.style.display = 'flex';
+        } else {
+            monthlyPage.style.display = 'block';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    function applyFiltersAndRender() {
+        const isWeekly = currentActiveTab === 'weekly';
+        const container = isWeekly ? weeksList : monthlyResults;
+        container.innerHTML = '';
+        
+        let filteredFiles = isWeekly ? allFilesData : allMonthlyFilesData;
+
+        // 1. Filter by Month
+        if (currentFilterMonth !== 'ALL') {
+            filteredFiles = filteredFiles.filter(f => 
+                isWeekly 
+                    ? (f.startMonthYear === currentFilterMonth || f.endMonthYear === currentFilterMonth)
+                    : (f.monthYearStr === currentFilterMonth)
+            );
+        }
+
+        if (filteredFiles.length === 0) {
+            container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted); background: var(--card-bg-white); border-radius: 14px; border: 1px solid var(--border-color);">No files found for this month.</div>`;
+            return;
+        }
+
+        let totalRendered = 0;
+        const isSearchMode = searchQuery !== ''; 
+
+        filteredFiles.forEach(fileItem => {
+            if (isWeekly && fileItem.isQuiz) return;
+
+            let matchedCards = fileItem.cards;
+            
+            // 2. Filter Cards by Tags
+            if (currentFilterTag === 'Prelims') {
+                matchedCards = matchedCards.filter(c => c.cardText.includes('prelims'));
+            } else if (currentFilterTag === 'Mains') {
+                matchedCards = matchedCards.filter(c => c.cardText.includes('mains'));
+            } else if (currentFilterTag === 'Starred') {
+                matchedCards = matchedCards.filter(c => bookmarkedCards[c.id]);
+            }
+
+            // 3. Filter Cards by Search
+            if (isSearchMode) {
+                matchedCards = matchedCards.filter(c => c.cardText.includes(searchQuery));
+            }
+
+            if (matchedCards.length === 0) return;
+
+            // 4. Render Logic: Flashcards directly if searching, else Edition Boxes
+            if (isSearchMode) {
+                matchedCards.forEach(c => {
+                    const wrapper = document.createElement('div');
+                    wrapper.innerHTML = c.cardHTML;
+                    const cardEl = wrapper.firstElementChild;
+                    injectCardFeatures(cardEl, c.id, c.formattedRange || c.displayTitle);
+                    container.appendChild(cardEl);
+                    totalRendered++;
+                });
+            } else {
+                const editionBox = document.createElement('div');
+                editionBox.className = 'edition-box';
+                const titleText = isWeekly ? `Week: ${fileItem.formattedRange}` : `Monthly Report: ${fileItem.displayTitle}`;
+                const subText = isWeekly ? `📄 ${fileItem.filename}` : `📁 monthly/${fileItem.filename}`;
+                
+                editionBox.innerHTML = `
+                    <div>
+                        <h3 style="margin: 0 0 4px; font-family: 'Architects Daughter', cursive; font-size: 1.3rem;">${titleText}</h3>
+                        <div style="font-size: 0.82rem; color: var(--text-muted);">${subText} • 📌 ${matchedCards.length} Cards</div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-outline open-file-btn">👁️ View File</button>
+                        <button class="btn btn-outline open-reader-btn">📖 Reader</button>
+                    </div>
+                `;
+
+                editionBox.querySelector('.open-file-btn').onclick = () => {
+                    const fileURL = URL.createObjectURL(fileItem.file);
+                    window.open(fileURL, '_blank');
+                };
+
+                editionBox.querySelector('.open-reader-btn').onclick = () => {
+                    openFullReaderPage(titleText, matchedCards);
+                };
+
+                container.appendChild(editionBox);
+                totalRendered++;
+            }
+        });
+
+        if (totalRendered === 0) {
+            container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted); background: var(--card-bg-white); border-radius: 14px; border: 1px solid var(--border-color);">No matches found for your search/filters.</div>`;
+        }
+    }
+
+    masterExportBtn.addEventListener('click', () => {
+        const modalOverlay = document.createElement('div');
+        modalOverlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px);";
+
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = "background: var(--card-bg-white); color: var(--text-dark); padding: 24px; border-radius: 18px; max-width: 440px; width: 100%; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); font-family: 'Inter', sans-serif;";
+
+        const monthSet = new Set();
+        allExtractedCards.forEach(c => { monthSet.add(c.startMonthYear); monthSet.add(c.endMonthYear); });
+        allMonthlyCards.forEach(c => { if (c.monthYearStr) monthSet.add(c.monthYearStr); });
+
+        let monthOptions = '<option value="ALL">All Months</option>';
+        Array.from(monthSet).forEach(m => {
+            monthOptions += `<option value="${m}">${m}</option>`;
+        });
+
+        modalContent.innerHTML = `
+            <h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin-top: 0; font-size: 1.4rem;">📥 Export Quiz Data</h3>
+            
+            <div style="margin-bottom: 14px;">
+                <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">SOURCE:</label>
+                <select id="export-source" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
+                    <option value="all">Weekly & Monthly</option>
+                    <option value="weekly">Weekly Only</option>
+                    <option value="monthly">Monthly Only</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 14px;">
+                <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">MONTH:</label>
+                <select id="export-month" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
+                    ${monthOptions}
+                </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">FILTER:</label>
+                <select id="export-tag" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
+                    <option value="ALL">All Cards</option>
+                    <option value="Prelims">Prelims Only</option>
+                    <option value="Mains">Mains Only</option>
+                    <option value="Starred">Bookmarked Only</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button id="confirm-export-btn" class="btn" style="flex: 1; justify-content: center;">Download</button>
+                <button id="cancel-export-btn" class="btn btn-outline" style="flex: 1; justify-content: center;">Cancel</button>
+            </div>
+        `;
+
+        modalOverlay.appendChild(modalContent);
+        document.body.appendChild(modalOverlay);
+
+        modalOverlay.querySelector('#cancel-export-btn').onclick = () => document.body.removeChild(modalOverlay);
+        modalOverlay.onclick = (e) => { if (e.target === modalOverlay) document.body.removeChild(modalOverlay); };
+
+        modalOverlay.querySelector('#confirm-export-btn').onclick = () => {
+            const sourceType = document.getElementById('export-source').value;
+            const targetMonth = document.getElementById('export-month').value;
+            const targetTag = document.getElementById('export-tag').value;
+
+            let pool = [];
+            if (sourceType === 'all' || sourceType === 'weekly') pool = pool.concat(allExtractedCards);
+            if (sourceType === 'all' || sourceType === 'monthly') pool = pool.concat(allMonthlyCards);
+
+            if (targetMonth !== 'ALL') {
+                pool = pool.filter(c => c.startMonthYear === targetMonth || c.endMonthYear === targetMonth || c.monthYearStr === targetMonth);
+            }
+
+            if (targetTag === 'Prelims') pool = pool.filter(c => c.cardText.includes('prelims'));
+            else if (targetTag === 'Mains') pool = pool.filter(c => c.cardText.includes('mains'));
+            else if (targetTag === 'Starred') pool = pool.filter(c => bookmarkedCards[c.id]);
+
+            if (pool.length === 0) {
+                alert('No cards match selection.');
+                return;
+            }
+
+            let exportText = `UPSC EXPORT (${sourceType.toUpperCase()} - ${targetMonth})\n==================================================\n\n`;
+            pool.forEach((item, idx) => {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = item.cardHTML;
+                const title = tempDiv.querySelector('.card-header h2') ? tempDiv.querySelector('.card-header h2').innerText : 'Topic';
+                const bullets = Array.from(tempDiv.querySelectorAll('ul li')).map(li => `- ${li.innerText}`).join('\n');
+                const details = tempDiv.querySelector('.details-body') ? `Deep Dive: ${tempDiv.querySelector('.details-body').innerText}` : '';
+
+                exportText += `[${idx + 1}] ${title}\nSource: ${item.formattedRange || item.displayTitle}\n${bullets}\n`;
+                if (details) exportText += `${details}\n`;
+                exportText += `--------------------------------------------------\n\n`;
+            });
+
+            const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `UPSC_Export_${targetMonth}_${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            document.body.removeChild(modalOverlay);
+        };
+    });
+
+    randomCardBtn.addEventListener('click', () => {
+        const pool = currentActiveTab === 'weekly' ? allExtractedCards : allMonthlyCards;
+        if (pool.length === 0) return;
+        const randomCard = pool[Math.floor(Math.random() * pool.length)];
+        
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = randomCard.cardHTML;
+        const cardEl = wrapper.firstElementChild;
+        injectCardFeatures(cardEl, randomCard.id, randomCard.formattedRange || randomCard.displayTitle);
+
+        const modalOverlay = document.createElement('div');
+        modalOverlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px);";
+        
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = "background: var(--card-bg-white); padding: 24px; border-radius: 18px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative;";
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '✕ Close';
+        closeBtn.className = 'btn btn-outline';
+        closeBtn.style.cssText = "margin-top: 16px; width: 100%; justify-content: center;";
+        closeBtn.onclick = () => document.body.removeChild(modalOverlay);
+
+        modalContent.innerHTML = `<h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin-top: 0; font-size: 1.3rem;">🎲 Random Card</h3>`;
+        modalContent.appendChild(cardEl);
+        modalContent.appendChild(closeBtn);
+        modalOverlay.appendChild(modalContent);
+        document.body.appendChild(modalOverlay);
+    });
+
+    selectFolderBtn.addEventListener('click', () => pickAndLoadFolder(true));
+    changeFolderBtn.addEventListener('click', async () => {
+        await clearSavedDirectoryHandle();
+        pickAndLoadFolder(true);
+    });
+
+    window.addEventListener('DOMContentLoaded', async () => {
+        const saved = await getSavedDirectoryHandle();
+        if (saved) pickAndLoadFolder(false);
+    });
+</script>
+</body>
+</html>
