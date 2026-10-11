@@ -238,7 +238,7 @@
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 <div class="container">
     <!-- Top Toolbar -->
     <div class="top-toolbar">
@@ -250,7 +250,7 @@
             <button class="btn btn-amber" id="random-card-btn" style="display: none;">🎲 Random</button>
             <button class="btn btn-success" id="master-export-btn" style="display: none;">📥 Export</button>
             <button class="btn btn-outline" id="change-folder-btn" style="display: none;">📁 Change Folder</button>
-            <button class="btn btn-outline" id="theme-btn">🌙</button>
+            <button class="btn btn-outline" id="theme-btn">☀️</button>
         </div>
     </div>
 
@@ -340,6 +340,29 @@
     let currentActiveTab = 'weekly';
     let bookmarkedCards = JSON.parse(localStorage.getItem('upsc_bookmarks') || '{}');
 
+    // Theme Management with Local Storage
+    const savedTheme = localStorage.getItem('upsc_theme') || 'dark'; // Defaults to dark
+    if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        themeBtn.innerText = '☀️';
+    } else {
+        document.body.removeAttribute('data-theme');
+        themeBtn.innerText = '🌙';
+    }
+
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.body.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.body.removeAttribute('data-theme');
+            themeBtn.innerText = '🌙';
+            localStorage.setItem('upsc_theme', 'light');
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+            themeBtn.innerText = '☀️';
+            localStorage.setItem('upsc_theme', 'dark');
+        }
+    });
+
     function updateStreak() {
         const lastVisit = localStorage.getItem('upsc_last_visit');
         let streak = parseInt(localStorage.getItem('upsc_streak') || '0', 10);
@@ -361,17 +384,6 @@
         streakCounter.innerText = `🔥 ${streak}`;
     }
     updateStreak();
-
-    themeBtn.addEventListener('click', () => {
-        const isDark = document.body.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            document.body.removeAttribute('data-theme');
-            themeBtn.innerText = '🌙';
-        } else {
-            document.body.setAttribute('data-theme', 'dark');
-            themeBtn.innerText = '☀️';
-        }
-    });
 
     const dbName = "UPSC_Archive_Master_DB_v21";
     const storeName = "handles";
