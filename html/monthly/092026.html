@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC Visual Revision Notes: September Prism</title>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Kalam:wght@300;400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fbfaf5;
+            --text-dark: #1e293b;
+            --text-muted: #475569;
+            --primary-blue: #1d4ed8;
+            --card-c1: #eaf6ee; --border-c1: #a9dcba; --badge-c1: #2e7d32;
+            --card-c2: #ebf4fc; --border-c2: #abcff2; --badge-c2: #1e40af;
+            --card-c3: #f5edfc; --border-c3: #dbc5f5; --badge-c3: #7e22ce;
+            --card-c4: #fdf5e8; --border-c4: #f3d4a6; --badge-c4: #b45309;
+            --pill-prelims: #fee2e2; --pill-prelims-txt: #991b1b;
+            --pill-mains: #dbeafe; --pill-mains-txt: #1e40af;
+            --pill-geo: #ffedd5; --pill-geo-txt: #9a3412;
+            --card-bg-white: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-dark: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --primary-blue: #60a5fa;
+            --card-c1: #142a1f; --border-c1: #225c3b; --badge-c1: #22c55e;
+            --card-c2: #132438; --border-c2: #1e4672; --badge-c2: #3b82f6;
+            --card-c3: #231633; --border-c3: #52277d; --badge-c3: #a855f7;
+            --card-c4: #2b1f11; --border-c4: #6d4617; --badge-c4: #f59e0b;
+            --card-bg-white: #1e293b;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 26px 16px;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(rgba(148, 163, 184, 0.25) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: var(--text-dark);
+            font-family: 'Kalam', cursive;
+            font-size: 1.12rem;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        .top-toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg-white); border: 2px solid rgba(148, 163, 184, 0.3);
+            border-radius: 16px; padding: 12px 24px; margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            font-family: 'Inter', sans-serif;
+            flex-wrap: wrap; gap: 12px;
+        }
+
+        .top-toolbar-actions {
+            display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+        }
+
+        .syllabus-tag {
+            background: #f1f5f9; color: #334155; font-size: 0.9rem; font-weight: 700;
+            padding: 4px 12px; border-radius: 20px; border: 1px solid #cbd5e1;
+            display: inline-block; margin-bottom: 8px;
+        }
+        [data-theme="dark"] .syllabus-tag { background: #334155; color: #f1f5f9; border-color: #475569; }
+
+        .title-banner { text-align: center; margin-bottom: 30px; }
+        .title-banner h1 {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 2.5rem; color: var(--primary-blue); margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.06);
+            line-height: 1.3;
+        }
+        .title-banner p { font-size: 1.25rem; color: var(--text-muted); margin: 4px 0 0; }
+
+        .btn {
+            font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600;
+            padding: 8px 16px; border-radius: 10px; cursor: pointer;
+            border: 2px solid var(--primary-blue); background: var(--primary-blue);
+            color: white; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-outline { background: transparent; color: var(--primary-blue); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+        .btn-focus { background: #8b5cf6; border-color: #8b5cf6; color: white; }
+        .btn-focus:hover { background: #7c3aed; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px; margin-bottom: 36px;
+        }
+
+        .card {
+            border-radius: 20px; padding: 22px;
+            position: relative; border: 2.5px solid;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+
+        .card:nth-child(4n+1) { background: var(--card-c1); border-color: var(--border-c1); }
+        .card:nth-child(4n+2) { background: var(--card-c2); border-color: var(--border-c2); }
+        .card:nth-child(4n+3) { background: var(--card-c3); border-color: var(--border-c3); }
+        .card:nth-child(4n+4) { background: var(--card-c4); border-color: var(--border-c4); }
+
+        .badge {
+            position: absolute; top: -14px; left: -14px;
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Architects Daughter', cursive; font-size: 1.3rem; font-weight: bold;
+            color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+            z-index: 10;
+        }
+        .card:nth-child(4n+1) .badge { background: var(--badge-c1); }
+        .card:nth-child(4n+2) .badge { background: var(--badge-c2); }
+        .card:nth-child(4n+3) .badge { background: var(--badge-c3); }
+        .card:nth-child(4n+4) .badge { background: var(--badge-c4); }
+
+        .card details.primary-details { width: 100%; }
+        .card details.primary-details > summary {
+            list-style: none; outline: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1.5px dashed transparent;
+            transition: border-bottom 0.3s ease;
+            user-select: none;
+            gap: 12px;
+        }
+        .card details.primary-details[open] > summary {
+            border-bottom: 1.5px dashed rgba(100, 116, 139, 0.35);
+            margin-bottom: 12px; padding-bottom: 8px;
+        }
+        .card details.primary-details > summary::-webkit-details-marker { display: none; }
+        
+        .card details.primary-details > summary h2 {
+            font-family: 'Architects Daughter', cursive; font-size: 1.4rem;
+            margin: 0; display: flex; align-items: center; gap: 8px;
+            line-height: 1.2;
+        }
+        
+        .card details.primary-details > summary::after { 
+            content: '▾ Expand'; 
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem; font-weight: 600; opacity: 0.7; 
+            white-space: nowrap;
+        }
+        .card details.primary-details[open] > summary::after { content: '▴ Collapse'; }
+
+        .card-content {
+            margin-top: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ul { padding-left: 20px; margin: 0 0 10px 0; }
+        li { margin-bottom: 10px; }
+
+        mark { background-color: rgba(254, 240, 138, 0.85); padding: 2px 6px; border-radius: 4px; font-weight: bold; transition: filter 0.3s ease; }
+        [data-theme="dark"] mark { background-color: rgba(234, 179, 8, 0.35); color: #fef08a; }
+
+        body.revision-mode mark, body.revision-mode .pill.prelims {
+            filter: blur(5px);
+            cursor: pointer;
+            transition: filter 0.2s ease;
+        }
+        body.revision-mode mark:hover, body.revision-mode .pill.prelims:hover {
+            filter: blur(0);
+        }
+
+        .pill {
+            display: inline-block; padding: 2px 9px; border-radius: 12px;
+            font-size: 0.82rem; font-weight: 700; font-family: 'Inter', sans-serif;
+            text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; margin-right: 4px;
+            margin-bottom: 4px;
+        }
+        .pill.prelims { background: var(--pill-prelims); color: var(--pill-prelims-txt); }
+        .pill.mains { background: var(--pill-mains); color: var(--pill-mains-txt); }
+        .pill.geo { background: var(--pill-geo); color: var(--pill-geo-txt); }
+        
+        details.secondary-details {
+            margin-top: 14px; background: rgba(255, 255, 255, 0.65);
+            border: 1.5px solid rgba(148, 163, 184, 0.4); border-radius: 12px;
+            font-family: 'Inter', sans-serif; overflow: hidden;
+        }
+        [data-theme="dark"] details.secondary-details { background: rgba(15, 23, 42, 0.45); }
+        
+        details.secondary-details > summary {
+            list-style: none; outline: none; cursor: pointer;
+            display: block; padding: 10px 14px;
+            background: rgba(29, 78, 216, 0.05); color: var(--primary-blue);
+            font-weight: 700; font-size: 0.95rem; user-select: none;
+            transition: background 0.2s ease;
+        }
+        [data-theme="dark"] details.secondary-details > summary { background: rgba(96, 165, 250, 0.1); }
+        details.secondary-details > summary:hover { background: rgba(29, 78, 216, 0.1); }
+        details.secondary-details > summary::-webkit-details-marker { display: none; }
+        
+        .deep-dive {
+            padding: 14px; border-top: 1.5px dashed rgba(148, 163, 184, 0.3);
+        }
+        .deep-dive h4 {
+            margin: 0 0 8px 0; color: var(--primary-blue); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .deep-dive p { margin: 0 0 10px 0; font-family: 'Kalam', cursive; font-size: 1.05rem; }
+        .deep-dive ul { font-family: 'Kalam', cursive; font-size: 1.05rem; margin-bottom: 0; }
+
+        .footer-dashboard {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        }
+        .footer-box {
+            background: var(--card-bg-white); border-radius: 16px; padding: 18px;
+            border: 2px dashed rgba(148, 163, 184, 0.5); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            word-wrap: break-word; overflow-wrap: break-word;
+        }
+        .footer-box h3 {
+            font-family: 'Architects Daughter', cursive; font-size: 1.25rem; margin: 0 0 12px;
+            padding-bottom: 6px; border-bottom: 2px solid; text-align: center;
+        }
+        .footer-box:nth-child(1) h3 { color: #8b5cf6; border-color: #c4b5fd; }
+        .footer-box:nth-child(2) h3 { color: #16a34a; border-color: #86efac; }
+        .footer-box:nth-child(3) h3 { color: #dc2626; border-color: #fca5a5; }
+        .footer-box:nth-child(4) h3 { color: #d97706; border-color: #fde68a; }
+
+        .checklist { list-style: none; padding-left: 0; }
+        .checklist li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 1.02rem; }
+        .checklist input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-blue); cursor: pointer; margin-top: 4px; flex-shrink: 0; }
+
+        @media (max-width: 992px) {
+            .footer-dashboard { grid-template-columns: repeat(2, 1fr); }
+            .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            body { padding: 16px 12px; }
+            .top-toolbar { flex-direction: column; text-align: center; justify-content: center; padding: 16px; }
+            .top-toolbar > div { width: 100%; display: flex; justify-content: center; }
+            .footer-dashboard { grid-template-columns: 1fr; gap: 16px; }
+            .grid { grid-template-columns: 1fr; gap: 16px; }
+            .title-banner h1 { font-size: 1.8rem; }
+            .title-banner p { font-size: 1.1rem; }
+            .card details.primary-details > summary h2 { font-size: 1.25rem; }
+            .btn { width: 100%; justify-content: center; padding: 10px; font-size: 0.95rem; }
+            .top-toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 8px; }
+            .top-toolbar-actions .btn:last-child { grid-column: span 2; }
+        }
+
+        @media print {
+            .top-toolbar { display: none; }
+            details { border: 1px solid #ccc; background: transparent; }
+            details[open] .card-content, details[open] .deep-dive { display: block; }
+            body { background: white; color: black; }
+            .grid { display: block; }
+            .card { page-break-inside: avoid; margin-bottom: 20px; }
+            .footer-box { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+<div class="container">
+    <div class="top-toolbar">
+        <div><strong>📚 Interactive Revision Note</strong></div>
+        <div class="top-toolbar-actions">
+            <button class="btn btn-focus" id="revision-btn">🧠 Revision</button>
+            <button class="btn btn-outline" id="toggle-all-btn">📂 Expand</button>
+            <button class="btn btn-outline" id="theme-btn">☀️ Light</button>
+            <button class="btn" onclick="window.print()">🖨️ Save PDF</button>
+        </div>
+    </div>
+
+    <div class="title-banner">
+        <div class="syllabus-tag">[GS Papers I, II, III & IV - Current Affairs Compilation]</div>
+        <h1>UPSC HIGH-YIELD: PRISM MAGAZINE 📖</h1>
+        <p>12 Distilled Multi-Tier Flashcards | September 2026 Edition</p>
+    </div>
+
+    <div class="grid">
+        <!-- Topic 1 -->
+        <div class="card">
+            <div class="badge">1</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>100 Years of UPSC 🏛️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Origin</span> Est. 1 Oct 1926 following the <mark>Lee Commission (1924)</mark> recommendation.</li>
+                        <li><span class="pill mains">Constitutional</span> Covered under <mark>Part XIV (Articles 315-323)</mark> of the Constitution.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Historical Context</h4>
+                            <p>Merit-based ICS entry began in London in 1855. Satyendranath Tagore became the first Indian in the ICS in 1864. The exam age was progressively reduced from 23 to 19, intentionally disadvantaging Indians.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> The shift to conduct exams in India (Allahabad, 1922) was enabled by the Govt. of India Act 1919 (Montagu-Chelmsford).</li>
+                                <li><strong>Trap Alert:</strong> Sir Ross Barker was the *first* chairman of the Public Service Commission (1926).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 2 -->
+        <div class="card">
+            <div class="badge">2</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>BRICS Summit & Expansion 🌍</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Weight</span> Represents <mark>49.5% global population</mark> and 40% of Global GDP.</li>
+                        <li><span class="pill mains">Institutions</span> Key outcomes: <mark>New Development Bank (NDB)</mark> & Contingent Reserve Arrangement (CRA).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Context & Growth</h4>
+                            <p>Coined by Goldman Sachs in 2001. First summit held in 2009; South Africa joined in 2010/2011. Expanded heavily in 2024 and 2025.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> BRICS gives emerging economies a greater say in global governance, pushing for local currency trade.</li>
+                                <li><strong>Trap Alert:</strong> Saudi Arabia was formally invited but has NOT officially accepted membership as of current records, though frequently grouped.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 3 -->
+        <div class="card">
+            <div class="badge">3</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Literacy for All 📖</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Definition</span> Literacy now includes <mark>critical life skills</mark> (digital/financial literacy) + reading/writing with comprehension.</li>
+                        <li><span class="pill geo">Milestone</span> 95% adult literacy is considered <mark>"Full Literacy"</mark> (achieved by 10 States/UTs).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Flagship Initiatives</h4>
+                            <p>India's literacy rose from 18.32% (1951) to 74.04% (2011). A significant male/female gap remains.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Both schemes align directly with Sustainable Development Goal (SDG) 4 for Quality Education.</li>
+                                <li><strong>Trap Alert:</strong> ULLAS focuses on adults (15+ yrs) who missed schooling. NIPUN Bharat focuses on early foundational learning (children ages 3-8).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 4 -->
+        <div class="card">
+            <div class="badge">4</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Universal Health Coverage 🏥</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Scale</span> AB PM-JAY provides <mark>₹5 lakh cashless cover</mark> to ~33% of India's population.</li>
+                        <li><span class="pill mains">Impact</span> Out-of-pocket health expenditure fell from <mark>62.6% to 43.4%</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>4 Pillars of Ayushman Bharat</h4>
+                            <p>The scheme has structurally transformed healthcare financing in India to protect the most vulnerable families from catastrophic health expenses.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Primary care (Arogya Mandir), Digital integration (Digital Mission), Secondary/Tertiary cover (PM-JAY), and Infrastructure (PM-ABHIM).</li>
+                                <li><strong>Trap Alert:</strong> PM-ABHIM focuses strictly on physical health infrastructure/laboratories, not direct insurance payouts.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 5 -->
+        <div class="card">
+            <div class="badge">5</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>PM Matsya Sampada Yojana 🐟</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Target</span> Transforms the fisheries sector via a <mark>₹2500 cr allocation</mark> (2026-27).</li>
+                        <li><span class="pill mains">Economy</span> Focuses on the Blue Economy, doubling fishers' income, and aligning with <mark>SDG 14</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Sector Transformation</h4>
+                            <p>Fish production climbed to a record 197.75 lakh tons (2024-25). Requires modernizing value chains and post-harvest infrastructure to minimize losses.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Building sustainable fisheries requires traceability standards, robust aquatic animal health systems, and high-quality brood/seed.</li>
+                                <li><strong>Trap Alert:</strong> SDG 14 is "Life Below Water." This must be explicitly cited in any Blue Economy/Fisheries Mains answer.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 6 -->
+        <div class="card">
+            <div class="badge">6</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>India's Path to Blue Skies 💨</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">NCAP</span> The National Clean Air Program targets <mark>130 specific cities</mark>.</li>
+                        <li><span class="pill mains">Pollutants</span> PM2.5 (<mark>≤2.5 micrometers</mark>) easily bypasses lung filters causing severe damage.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>AQI & Measurement</h4>
+                            <p>The Air Quality Index (AQI) simplifies pollution data into 6 categories: Good (0-50), Satisfactory (51-100), Moderate (101-200), Poor (201-300), Very Poor (301-400), and Severe (401-500).</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Progress: 72 cities achieved a >20% reduction in particulate matter during FY 25-26.</li>
+                                <li><strong>Trap Alert:</strong> AQI is based on exactly 8 pollutants: PM10, PM2.5, NO2, SO2, CO, O3, NH3, Pb. Carbon Dioxide (CO2) is NOT one of them!</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 7 -->
+        <div class="card">
+            <div class="badge">7</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>PM SHRI Schools 🏫</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Scale</span> Upgrading <mark>14,500 exemplar schools</mark> aligned entirely with NEP 2020.</li>
+                        <li><span class="pill mains">Scheme Type</span> It is a <mark>Centrally Sponsored Scheme</mark> under the Ministry of Education.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Focus Areas</h4>
+                            <p>Focuses on 21st-century skills: critical thinking, problem-solving, digital literacy, and ethics. ~13,000 schools already selected via a 3-stage challenge mode.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Guided by 6 Quality Pillars covering curriculum, access, HR, inclusive practices, and beneficiary satisfaction.</li>
+                                <li><strong>Trap Alert:</strong> The scheme explicitly mandates "Gender Equity" (providing specific support to those who need it most to reach equal footing), not just "Gender Equality."</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 8 -->
+        <div class="card">
+            <div class="badge">8</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>PM Khanij Kshetra Kalyan Yojana ⛏️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">DMF</span> Introduced via the 2015 amendment to the <mark>MMDR Act 1957</mark>.</li>
+                        <li><span class="pill mains">Objective</span> Implements welfare projects via District Mineral Foundations (DMFs) for <mark>mining-affected areas</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>District Mineral Foundations</h4>
+                            <p>DMFs are non-profit trusts established across 656 districts in 23 states to ensure that communities suffering the environmental/social externalities of mining receive financial remediation.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Funds collected at the district level minimize the adverse effects on health, environment, and long-term socio-economic livelihoods.</li>
+                                <li><strong>Trap Alert:</strong> DMF operations fall entirely under the jurisdiction of the relevant STATE government, which frames its own distinct rules.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 9 -->
+        <div class="card">
+            <div class="badge">9</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Geothermal Energy 🌋</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill geo">First Site</span> India's first geothermal wells commissioned in <mark>Puga Valley, Ladakh</mark>.</li>
+                        <li><span class="pill prelims">Ministry</span> Nodal body: <mark>Ministry of New and Renewable Energy (MNRE)</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Clean Energy Reliability</h4>
+                            <p>Utilizes heat from the earth's interior (outer core is molten iron/nickel; mantle is hot rock) to generate steam and spin turbines. Crucial for achieving Net Zero 2070.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Unlike solar or wind, geothermal provides 24/7 round-the-clock baseload power without reliance on weather.</li>
+                                <li><span class="pill geo">Map Work</span> Other key sites identified by GSI: Manikaran (HP), Tattapani (CG), and sites across UK, Sikkim, and AP.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 10 -->
+        <div class="card">
+            <div class="badge">10</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Green Highways & Miyawaki 🌳</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Index</span> The NH Green Cover Index was prepared in collab with <mark>ISRO's NRSC</mark>.</li>
+                        <li><span class="pill mains">Miyawaki</span> "Pot plantation method" creating dense forest ecosystems <mark>10x faster</mark> in limited space.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Infrastructure & Green Cover</h4>
+                            <p>The National Highway network has expanded by 61% since 2014. The index represents India's first scientific and quantitative assessment of highway green coverage.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Balances rapid infrastructure development with climate-resilient road design and carbon sequestration.</li>
+                                <li><strong>Trap Alert:</strong> The Miyawaki method involves planting trees and shrubs *extremely close together* to force rapid upward vertical growth.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 11 -->
+        <div class="card">
+            <div class="badge">11</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>World Tourism Day ✈️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Impact</span> Tourism contributes <mark>5.22% to India's GDP</mark> and supports ~8.46 crore jobs.</li>
+                        <li><span class="pill mains">Digital</span> Theme focuses on redesigning tourism using <mark>AI & Digital Agendas</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Sector Growth</h4>
+                            <p>Observed on Sept 27th (UNWTO statute adoption in 1970). Globally, tourism accounts for roughly 10% of global GDP.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> India's digital tourism ecosystem is scaling via e-Visa and the Incredible India digital platform (NIDHI+).</li>
+                                <li><span class="pill geo">Map Work</span> Physical tourism circuits are being upgraded via Swadesh Darshan 2.0 and the PRASHAD scheme.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 12 -->
+        <div class="card">
+            <div class="badge">12</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Vibrant Villages Program (VVP) 🏔️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Shift</span> Border villages are now treated as <mark>"India's First Villages"</mark> acting as eyes & ears.</li>
+                        <li><span class="pill geo">Borders</span> India shares 15,000+ km of land borders across <mark>7 neighboring countries</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Border Security & Welfare</h4>
+                            <p>Aimed at providing livelihood generation, road/telecom connectivity, and preventing out-migration in northern border states (Ladakh, HP, UK, Sikkim, Arunachal).</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Fusing socio-economic development with strategic internal security goals.</li>
+                                <li><strong>Trap Alert:</strong> The longest international land boundary is with Bangladesh (4,096.7 km), followed by China and Pakistan.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- 4-BOX REVISION DASHBOARD -->
+    <div class="footer-dashboard">
+        <div class="footer-box">
+            <h3>Formulas & Mnemonics 🧠</h3>
+            <ul>
+                <li><strong>BRICS Theme:</strong> <mark>B-R-I-C-S</mark> (Building Resilience, Innovation, Cooperation, Sustainability).</li>
+                <li><strong>AQI 8 Pollutants:</strong> <mark>PM2+SCONPL</mark> (PM10, PM2.5, SO2, CO, O3, NO2, Pb-Lead, NH3).</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Exam Prelims Tricks ⚠️</h3>
+            <ul>
+                <li><strong>AQI Trick:</strong> <mark>Carbon Dioxide (CO2)</mark> is NEVER measured in the standard AQI.</li>
+                <li><strong>Literacy Trick:</strong> <mark>ULLAS</mark> = Adults (15+). <mark>NIPUN</mark> = Children (3-8).</li>
+                <li><strong>Border Trick:</strong> Longest boundary is <mark>Bangladesh</mark>, not China.</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Quick 1-Liner Revision 🏛️</h3>
+            <ul>
+                <li>India's 1st Geothermal Wells: <mark>Puga Valley, Ladakh</mark>.</li>
+                <li>DMF rules are formed by <mark>State Govts</mark>, not Central.</li>
+                <li>PM SHRI focuses on Gender <mark>Equity</mark>, not just equality.</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Memory Checklist ✅</h3>
+            <ul class="checklist">
+                <li><label><input type="checkbox"> 100 Yrs of UPSC & Arts 315-323</label></li>
+                <li><label><input type="checkbox"> BRICS Expansion & NDB/CRA</label></li>
+                <li><label><input type="checkbox"> ULLAS vs. NIPUN Bharat</label></li>
+                <li><label><input type="checkbox"> 4 Pillars of AB PM-JAY</label></li>
+                <li><label><input type="checkbox"> Matsya Sampada & SDG 14</label></li>
+                <li><label><input type="checkbox"> NCAP & 8 AQI Pollutants</label></li>
+                <li><label><input type="checkbox"> PM SHRI & 21st Century Skills</label></li>
+                <li><label><input type="checkbox"> PMKKKY & DMF Jurisdiction</label></li>
+                <li><label><input type="checkbox"> Puga Valley Geothermal Plant</label></li>
+                <li><label><input type="checkbox"> Miyawaki Plantation Method</label></li>
+                <li><label><input type="checkbox"> Tourism GDP (5.22%) & Nidhi+</label></li>
+                <li><label><input type="checkbox"> VVP & 7 Land Borders</label></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.body.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.body.removeAttribute('data-theme');
+            themeBtn.innerText = '🌙 Dark';
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+            themeBtn.innerText = '☀️ Light';
+        }
+    });
+
+    const toggleAllBtn = document.getElementById('toggle-all-btn');
+    let allExpanded = false;
+    toggleAllBtn.addEventListener('click', () => {
+        allExpanded = !allExpanded;
+        document.querySelectorAll('details').forEach(d => d.open = allExpanded);
+        toggleAllBtn.innerText = allExpanded ? '📁 Collapse' : '📂 Expand';
+    });
+    
+    const revisionBtn = document.getElementById('revision-btn');
+    revisionBtn.addEventListener('click', () => {
+        document.body.classList.toggle('revision-mode');
+        if(document.body.classList.contains('revision-mode')) {
+            revisionBtn.innerText = '📝 Exit Revision';
+            revisionBtn.style.background = '#dc2626';
+            revisionBtn.style.borderColor = '#dc2626';
+        } else {
+            revisionBtn.innerText = '🧠 Revision';
+            revisionBtn.style.background = '#8b5cf6';
+            revisionBtn.style.borderColor = '#8b5cf6';
+        }
+    });
+
+    window.addEventListener('beforeprint', () => {
+        document.querySelectorAll('details').forEach(d => d.open = true);
+        document.body.classList.remove('revision-mode');
+    });
+</script>
+</body>
+</html>
