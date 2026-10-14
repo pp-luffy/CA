@@ -136,11 +136,18 @@
         .btn-amber { background: #d97706; border-color: #d97706; }
         .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25); }
 
-        .upload-section {
+        .loading-section {
             text-align: center; background: var(--card-bg-white);
             border: 2px dashed var(--border-color); border-radius: 20px;
-            padding: 50px 20px; margin-bottom: 30px; box-shadow: var(--shadow-subtle);
+            padding: 60px 20px; margin-bottom: 30px; box-shadow: var(--shadow-subtle);
         }
+        
+        .spinner {
+            width: 44px; height: 44px; border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-blue); border-radius: 50%;
+            animation: spin 1s linear infinite; margin: 0 auto 16px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .list-container { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; width: 100%; }
 
@@ -249,7 +256,6 @@
         <div class="toolbar-actions">
             <button class="btn btn-amber" id="random-card-btn" style="display: none;">🎲 Random</button>
             <button class="btn btn-success" id="master-export-btn" style="display: none;">📥 Export</button>
-            <button class="btn btn-outline" id="change-folder-btn" style="display: none;">📁 Change Folder</button>
             <button class="btn btn-outline" id="theme-btn">☀️</button>
         </div>
     </div>
@@ -262,9 +268,11 @@
         </div>
     </div>
 
-    <!-- Folder Initial State -->
-    <div class="upload-section" id="upload-box">
-        <button class="btn" id="select-folder-btn" style="font-size: 1rem; padding: 12px 24px;">📁 Select Archive Root Folder</button>
+    <!-- Initial Loading State -->
+    <div class="loading-section" id="loading-box">
+        <div class="spinner"></div>
+        <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--primary-blue); margin: 0 0 8px;">Syncing Archives...</h3>
+        <div id="loading-subtext" style="color: var(--text-muted); font-size: 0.95rem;">Finding files in relative folders</div>
     </div>
 
     <!-- Search & Filter Hub -->
@@ -309,9 +317,22 @@
 </div>
 
 <script>
+    // =========================================================================================
+    // CONFIGURATION - Only edit this if you test locally via file:// or hit rate limits
+    // =========================================================================================
+    const CONFIG = {
+        // Fallback info if running locally (auto-detected on GitHub Pages)
+        githubOwner: "your-username", 
+        githubRepo: "your-repo",
+        
+        // OPTIONAL: If the GitHub API listing fails/rate-limits, or you want offline support,
+        // you can manually type out the file names here. Leave empty for auto-fetching.
+        manualWeeklyFiles: [],  // e.g., ["01102026-07102026.html", "08102026-14102026.html"]
+        manualMonthlyFiles: []  // e.g., ["102026.html"]
+    };
+    // =========================================================================================
+
     const themeBtn = document.getElementById('theme-btn');
-    const selectFolderBtn = document.getElementById('select-folder-btn');
-    const changeFolderBtn = document.getElementById('change-folder-btn');
     const masterExportBtn = document.getElementById('master-export-btn');
     const randomCardBtn = document.getElementById('random-card-btn');
     const viewSwitchBar = document.getElementById('view-switch-bar');
@@ -321,7 +342,8 @@
     const readerPage = document.getElementById('reader-page');
     const weeksList = document.getElementById('weeks-list');
     const controlHub = document.getElementById('control-hub');
-    const uploadBox = document.getElementById('upload-box');
+    const loadingBox = document.getElementById('loading-box');
+    const loadingSubtext = document.getElementById('loading-subtext');
     const monthlyResults = document.getElementById('monthly-results');
     const monthDropdown = document.getElementById('month-dropdown');
     const globalSearchInput = document.getElementById('global-search-input');
@@ -340,8 +362,8 @@
     let currentActiveTab = 'weekly';
     let bookmarkedCards = JSON.parse(localStorage.getItem('upsc_bookmarks') || '{}');
 
-    // Theme Management with Local Storage
-    const savedTheme = localStorage.getItem('upsc_theme') || 'dark'; // Defaults to dark
+    // Theme Management
+    const savedTheme = localStorage.getItem('upsc_theme') || 'dark';
     if (savedTheme === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
         themeBtn.innerText = '☀️';
@@ -385,164 +407,143 @@
     }
     updateStreak();
 
-    const dbName = "UPSC_Archive_Master_DB_v21";
-    const storeName = "handles";
-
-    function openDB() {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(dbName, 1);
-            request.onupgradeneeded = (e) => e.target.result.createObjectStore(storeName);
-            request.onsuccess = (e) => resolve(e.target.result);
-            request.onerror = (e) => reject(e.target.error);
-        });
+    function getMonthName(monthNum) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return months[parseInt(monthNum, 10) - 1] || monthNum;
     }
 
-    async function saveDirectoryHandle(handle) {
-        const db = await openDB();
-        const tx = db.transaction(storeName, "readwrite");
-        tx.objectStore(storeName).put(handle, "folderHandle");
-        return tx.complete;
+    function getMonthFullName(monthNum) {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return months[parseInt(monthNum, 10) - 1] || monthNum;
     }
 
-    async function getSavedDirectoryHandle() {
-        const db = await openDB();
-        return new Promise((resolve) => {
-            const tx = db.transaction(storeName, "readonly");
-            const req = tx.objectStore(storeName).get("folderHandle");
-            req.onsuccess = () => resolve(req.result);
-            req.onerror = () => resolve(null);
-        });
-    }
+    // =========================================================================
+    // FILE FETCHING CORE LOGIC
+    // =========================================================================
+    
+    // Gets the LIST of filenames using GitHub API (or manual config)
+    async function getFileList(folder) {
+        if (folder === 'html/weekly' && CONFIG.manualWeeklyFiles.length > 0) return CONFIG.manualWeeklyFiles;
+        if (folder === 'html/monthly' && CONFIG.manualMonthlyFiles.length > 0) return CONFIG.manualMonthlyFiles;
 
-    async function clearSavedDirectoryHandle() {
-        const db = await openDB();
-        const tx = db.transaction(storeName, "readwrite");
-        tx.objectStore(storeName).delete("folderHandle");
-        return tx.complete;
-    }
+        let owner = CONFIG.githubOwner;
+        let repo = CONFIG.githubRepo;
 
-    async function pickAndLoadFolder(requestNew = false) {
+        // Auto-detect if deployed on GitHub Pages
+        if (window.location.hostname.includes('github.io')) {
+            owner = window.location.hostname.split('.')[0];
+            const pathParts = window.location.pathname.split('/').filter(p => p);
+            if (pathParts.length > 0) repo = pathParts[0];
+        }
+
         try {
-            let dirHandle;
-            if (!requestNew) {
-                dirHandle = await getSavedDirectoryHandle();
-                if (dirHandle) {
-                    const options = { mode: 'read' };
-                    if ((await dirHandle.queryPermission(options)) !== 'granted') {
-                        if ((await dirHandle.requestPermission(options)) !== 'granted') {
-                            dirHandle = null;
-                        }
-                    }
-                }
-            }
-
-            if (!dirHandle) {
-                if (!window.showDirectoryPicker) {
-                    alert('Browser not supported.');
-                    return;
-                }
-                dirHandle = await window.showDirectoryPicker();
-                await saveDirectoryHandle(dirHandle);
-            }
-
-            await parseDirectory(dirHandle);
+            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folder}`);
+            if (!res.ok) throw new Error('API request failed');
+            const data = await res.json();
+            return data.filter(f => f.name.endsWith('.html')).map(f => f.name);
         } catch (err) {
-            console.log('Folder selection cancelled or failed:', err);
+            console.error(`Error fetching list for ${folder}:`, err);
+            return []; // Return empty so it doesn't crash the whole app
         }
     }
 
-    async function parseDirectory(dirHandle) {
-        const filesList = [];
-        const cardsList = [];
-        const monthlyCardsList = [];
-        const monthlyList = [];
+    async function initializeApp() {
+        try {
+            loadingSubtext.innerText = 'Requesting file lists...';
+            
+            // 1. Get the lists of files
+            const weeklyFiles = await getFileList('html/weekly');
+            const monthlyFiles = await getFileList('html/monthly');
+            
+            if (weeklyFiles.length === 0 && monthlyFiles.length === 0) {
+                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Ensure folders 'html/weekly' and 'html/monthly' exist relative to this file.</p>`;
+                return;
+            }
 
-        async function processWeeklyFile(entry) {
-            const isQuiz = entry.name.toLowerCase().includes('quiz');
-            const match = entry.name.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
+            loadingSubtext.innerText = 'Downloading and processing cards...';
 
-            if (match) {
-                const [_, d1, m1, y1, d2, m2, y2] = match;
-                const startDate = new Date(`${y1}-${m1}-${d1}`);
-                const endDate = new Date(`${y2}-${m2}-${d2}`);
-                const fileObj = await entry.getFile();
-                const htmlText = await fileObj.text();
+            const filesList = [];
+            const cardsList = [];
+            const monthlyList = [];
+            const monthlyCardsList = [];
 
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlText, 'text/html');
-                const cleanText = (doc.body ? doc.body.innerText || doc.body.textContent : htmlText).toLowerCase();
+            // 2. Fetch the actual content via relative path fetch
+            
+            // Process Weekly
+            for (const filename of weeklyFiles) {
+                try {
+                    const res = await fetch(`html/weekly/${filename}`);
+                    if (!res.ok) continue;
+                    const htmlText = await res.text();
+                    
+                    const isQuiz = filename.toLowerCase().includes('quiz');
+                    const match = filename.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
 
-                const startMonthYear = `${getMonthFullName(m1)} ${y1}`;
-                const endMonthYear = `${getMonthFullName(m2)} ${y2}`;
-                const formattedRange = `${d1} ${getMonthName(m1)} - ${d2} ${getMonthName(m2)}, ${y2}`;
+                    if (match) {
+                        const [_, d1, m1, y1, d2, m2, y2] = match;
+                        const startDate = new Date(`${y1}-${m1}-${d1}`);
+                        const endDate = new Date(`${y2}-${m2}-${d2}`);
+                        
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(htmlText, 'text/html');
+                        const cleanText = (doc.body ? doc.body.innerText || doc.body.textContent : htmlText).toLowerCase();
 
-                const domCards = doc.querySelectorAll('.card');
-                const cardObjects = [];
+                        const startMonthYear = `${getMonthFullName(m1)} ${y1}`;
+                        const endMonthYear = `${getMonthFullName(m2)} ${y2}`;
+                        const formattedRange = `${d1} ${getMonthName(m1)} - ${d2} ${getMonthName(m2)}, ${y2}`;
 
-                if (!isQuiz) {
-                    domCards.forEach((cardEl, idx) => {
-                        const cardId = `${entry.name}_${idx}`;
-                        const cObj = {
-                            id: cardId,
-                            filename: entry.name,
-                            formattedRange: formattedRange,
+                        const domCards = doc.querySelectorAll('.card');
+                        const cardObjects = [];
+
+                        if (!isQuiz) {
+                            domCards.forEach((cardEl, idx) => {
+                                const cardId = `${filename}_${idx}`;
+                                const cObj = {
+                                    id: cardId,
+                                    filename: filename,
+                                    formattedRange: formattedRange,
+                                    startDate: startDate,
+                                    startMonthYear: startMonthYear,
+                                    endMonthYear: endMonthYear,
+                                    cardHTML: cardEl.outerHTML,
+                                    cardText: cardEl.innerText.toLowerCase()
+                                };
+                                cardsList.push(cObj);
+                                cardObjects.push(cObj);
+                            });
+                        }
+
+                        filesList.push({
+                            filename: filename,
+                            isQuiz: isQuiz,
                             startDate: startDate,
+                            endDate: endDate,
                             startMonthYear: startMonthYear,
                             endMonthYear: endMonthYear,
-                            cardHTML: cardEl.outerHTML,
-                            cardText: cardEl.innerText.toLowerCase()
-                        };
-                        cardsList.push(cObj);
-                        cardObjects.push(cObj);
-                    });
-                }
-
-                filesList.push({
-                    file: fileObj,
-                    filename: entry.name,
-                    isQuiz: isQuiz,
-                    startDate: startDate,
-                    endDate: endDate,
-                    startMonthYear: startMonthYear,
-                    endMonthYear: endMonthYear,
-                    formattedRange: formattedRange,
-                    htmlText: htmlText,
-                    cleanText: cleanText,
-                    domDoc: doc,
-                    topicCount: domCards.length,
-                    cards: cardObjects
-                });
+                            formattedRange: formattedRange,
+                            htmlText: htmlText,
+                            cleanText: cleanText,
+                            topicCount: domCards.length,
+                            cards: cardObjects
+                        });
+                    }
+                } catch (e) { console.error('Failed to load', filename, e); }
             }
-        }
 
-        for await (const entry of dirHandle.values()) {
-            if (entry.kind === 'file' && entry.name.endsWith('.html')) {
-                await processWeeklyFile(entry);
-            }
-        }
+            // Process Monthly
+            for (const filename of monthlyFiles) {
+                try {
+                    const res = await fetch(`html/monthly/${filename}`);
+                    if (!res.ok) continue;
+                    const htmlText = await res.text();
 
-        try {
-            const weeklyDir = await dirHandle.getDirectoryHandle('weekly', { create: false });
-            for await (const entry of weeklyDir.values()) {
-                if (entry.kind === 'file' && entry.name.endsWith('.html')) {
-                    await processWeeklyFile(entry);
-                }
-            }
-        } catch (err) {}
-
-        try {
-            const monthlyDir = await dirHandle.getDirectoryHandle('monthly', { create: false });
-            for await (const entry of monthlyDir.values()) {
-                if (entry.kind === 'file' && entry.name.endsWith('.html')) {
-                    const fileObj = await entry.getFile();
-                    const htmlText = await fileObj.text();
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(htmlText, 'text/html');
                     const domCards = doc.querySelectorAll('.card');
 
-                    let displayTitle = entry.name.replace('.html', '');
+                    let displayTitle = filename.replace('.html', '');
                     let monthYearStr = '';
-                    const mMatch = entry.name.match(/^(\d{2})(\d{4})\.html$/);
+                    const mMatch = filename.match(/^(\d{2})(\d{4})\.html$/);
                     if (mMatch) {
                         displayTitle = `${getMonthFullName(mMatch[1])} ${mMatch[2]}`;
                         monthYearStr = `${getMonthFullName(mMatch[1])} ${mMatch[2]}`;
@@ -550,10 +551,10 @@
 
                     const cardObjects = [];
                     domCards.forEach((cardEl, idx) => {
-                        const cardId = `monthly_${entry.name}_${idx}`;
+                        const cardId = `monthly_${filename}_${idx}`;
                         const cObj = {
                             id: cardId,
-                            filename: entry.name,
+                            filename: filename,
                             displayTitle: displayTitle,
                             monthYearStr: monthYearStr,
                             cardHTML: cardEl.outerHTML,
@@ -564,42 +565,36 @@
                     });
 
                     monthlyList.push({
-                        file: fileObj,
-                        filename: entry.name,
+                        filename: filename,
                         displayTitle: displayTitle,
                         monthYearStr: monthYearStr,
                         topicCount: domCards.length,
                         cards: cardObjects
                     });
-                }
+                } catch (e) { console.error('Failed to load', filename, e); }
             }
-        } catch (err) {}
 
-        filesList.sort((a, b) => b.startDate - a.startDate);
-        allFilesData = filesList;
-        allMonthlyFilesData = monthlyList;
-        allExtractedCards = cardsList;
-        allMonthlyCards = monthlyCardsList;
-        
-        buildMonthDropdown(filesList, monthlyList);
-        applyFiltersAndRender();
+            filesList.sort((a, b) => b.startDate - a.startDate);
+            
+            allFilesData = filesList;
+            allMonthlyFilesData = monthlyList;
+            allExtractedCards = cardsList;
+            allMonthlyCards = monthlyCardsList;
+            
+            buildMonthDropdown(filesList, monthlyList);
+            applyFiltersAndRender();
 
-        uploadBox.style.display = 'none';
-        changeFolderBtn.style.display = 'inline-flex';
-        masterExportBtn.style.display = 'inline-flex';
-        randomCardBtn.style.display = 'inline-flex';
-        viewSwitchBar.style.display = 'flex';
-        controlHub.style.display = 'flex';
-    }
+            // Setup UI
+            loadingBox.style.display = 'none';
+            masterExportBtn.style.display = 'inline-flex';
+            randomCardBtn.style.display = 'inline-flex';
+            viewSwitchBar.style.display = 'flex';
+            controlHub.style.display = 'flex';
+            weeksList.style.display = 'flex';
 
-    function getMonthName(monthNum) {
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        return months[parseInt(monthNum, 10) - 1] || monthNum;
-    }
-
-    function getMonthFullName(monthNum) {
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        return months[parseInt(monthNum, 10) - 1] || monthNum;
+        } catch (err) {
+            loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading Files</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`;
+        }
     }
 
     function buildMonthDropdown(files, monthlyFiles) {
@@ -774,7 +769,7 @@
 
             if (matchedCards.length === 0) return;
 
-            // 4. Render Logic: Flashcards directly if searching, else Edition Boxes
+            // 4. Render Logic
             if (isSearchMode) {
                 matchedCards.forEach(c => {
                     const wrapper = document.createElement('div');
@@ -788,7 +783,7 @@
                 const editionBox = document.createElement('div');
                 editionBox.className = 'edition-box';
                 const titleText = isWeekly ? `Week: ${fileItem.formattedRange}` : `Monthly Report: ${fileItem.displayTitle}`;
-                const subText = isWeekly ? `📄 ${fileItem.filename}` : `📁 monthly/${fileItem.filename}`;
+                const subText = isWeekly ? `📄 html/weekly/${fileItem.filename}` : `📁 html/monthly/${fileItem.filename}`;
                 
                 editionBox.innerHTML = `
                     <div>
@@ -796,15 +791,10 @@
                         <div style="font-size: 0.82rem; color: var(--text-muted);">${subText} • 📌 ${matchedCards.length} Cards</div>
                     </div>
                     <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-outline open-file-btn">👁️ View File</button>
+                        <a href="${isWeekly ? `html/weekly/${fileItem.filename}` : `html/monthly/${fileItem.filename}`}" target="_blank" class="btn btn-outline" style="text-decoration:none;">👁️ View Raw</a>
                         <button class="btn btn-outline open-reader-btn">📖 Reader</button>
                     </div>
                 `;
-
-                editionBox.querySelector('.open-file-btn').onclick = () => {
-                    const fileURL = URL.createObjectURL(fileItem.file);
-                    window.open(fileURL, '_blank');
-                };
 
                 editionBox.querySelector('.open-reader-btn').onclick = () => {
                     openFullReaderPage(titleText, matchedCards);
@@ -953,16 +943,9 @@
         document.body.appendChild(modalOverlay);
     });
 
-    selectFolderBtn.addEventListener('click', () => pickAndLoadFolder(true));
-    changeFolderBtn.addEventListener('click', async () => {
-        await clearSavedDirectoryHandle();
-        pickAndLoadFolder(true);
-    });
+    // Boot up on load
+    window.addEventListener('DOMContentLoaded', initializeApp);
 
-    window.addEventListener('DOMContentLoaded', async () => {
-        const saved = await getSavedDirectoryHandle();
-        if (saved) pickAndLoadFolder(false);
-    });
 </script>
 </body>
 </html>
