@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC Visual Revision Notes: August 2026 Current Affairs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Kalam:wght@300;400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fbfaf5;
+            --text-dark: #1e293b;
+            --text-muted: #475569;
+            --primary-blue: #1d4ed8;
+            --card-c1: #eaf6ee; --border-c1: #a9dcba; --badge-c1: #2e7d32;
+            --card-c2: #ebf4fc; --border-c2: #abcff2; --badge-c2: #1e40af;
+            --card-c3: #f5edfc; --border-c3: #dbc5f5; --badge-c3: #7e22ce;
+            --card-c4: #fdf5e8; --border-c4: #f3d4a6; --badge-c4: #b45309;
+            --pill-prelims: #fee2e2; --pill-prelims-txt: #991b1b;
+            --pill-mains: #dbeafe; --pill-mains-txt: #1e40af;
+            --pill-geo: #ffedd5; --pill-geo-txt: #9a3412;
+            --card-bg-white: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-dark: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --primary-blue: #60a5fa;
+            --card-c1: #142a1f; --border-c1: #225c3b; --badge-c1: #22c55e;
+            --card-c2: #132438; --border-c2: #1e4672; --badge-c2: #3b82f6;
+            --card-c3: #231633; --border-c3: #52277d; --badge-c3: #a855f7;
+            --card-c4: #2b1f11; --border-c4: #6d4617; --badge-c4: #f59e0b;
+            --card-bg-white: #1e293b;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 26px 16px;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(rgba(148, 163, 184, 0.25) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: var(--text-dark);
+            font-family: 'Kalam', cursive;
+            font-size: 1.12rem;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        .top-toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg-white); border: 2px solid rgba(148, 163, 184, 0.3);
+            border-radius: 16px; padding: 12px 24px; margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            font-family: 'Inter', sans-serif;
+            flex-wrap: wrap; gap: 12px;
+        }
+
+        .top-toolbar-actions {
+            display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+        }
+
+        .syllabus-tag {
+            background: #f1f5f9; color: #334155; font-size: 0.9rem; font-weight: 700;
+            padding: 4px 12px; border-radius: 20px; border: 1px solid #cbd5e1;
+            display: inline-block; margin-bottom: 8px;
+        }
+        [data-theme="dark"] .syllabus-tag { background: #334155; color: #f1f5f9; border-color: #475569; }
+
+        .title-banner { text-align: center; margin-bottom: 30px; }
+        .title-banner h1 {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 2.5rem; color: var(--primary-blue); margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.06);
+            line-height: 1.3;
+        }
+        .title-banner p { font-size: 1.25rem; color: var(--text-muted); margin: 4px 0 0; }
+
+        .btn {
+            font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600;
+            padding: 8px 16px; border-radius: 10px; cursor: pointer;
+            border: 2px solid var(--primary-blue); background: var(--primary-blue);
+            color: white; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-outline { background: transparent; color: var(--primary-blue); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+        .btn-focus { background: #8b5cf6; border-color: #8b5cf6; color: white; }
+        .btn-focus:hover { background: #7c3aed; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px; margin-bottom: 36px;
+        }
+
+        .card {
+            border-radius: 20px; padding: 22px;
+            position: relative; border: 2.5px solid;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+
+        .card:nth-child(4n+1) { background: var(--card-c1); border-color: var(--border-c1); }
+        .card:nth-child(4n+2) { background: var(--card-c2); border-color: var(--border-c2); }
+        .card:nth-child(4n+3) { background: var(--card-c3); border-color: var(--border-c3); }
+        .card:nth-child(4n+4) { background: var(--card-c4); border-color: var(--border-c4); }
+
+        .badge {
+            position: absolute; top: -14px; left: -14px;
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Architects Daughter', cursive; font-size: 1.3rem; font-weight: bold;
+            color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+            z-index: 10;
+        }
+        .card:nth-child(4n+1) .badge { background: var(--badge-c1); }
+        .card:nth-child(4n+2) .badge { background: var(--badge-c2); }
+        .card:nth-child(4n+3) .badge { background: var(--badge-c3); }
+        .card:nth-child(4n+4) .badge { background: var(--badge-c4); }
+
+        .card details.primary-details { width: 100%; }
+        .card details.primary-details > summary {
+            list-style: none; outline: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1.5px dashed transparent;
+            transition: border-bottom 0.3s ease;
+            user-select: none;
+            gap: 12px;
+        }
+        .card details.primary-details[open] > summary {
+            border-bottom: 1.5px dashed rgba(100, 116, 139, 0.35);
+            margin-bottom: 12px; padding-bottom: 8px;
+        }
+        .card details.primary-details > summary::-webkit-details-marker { display: none; }
+        
+        .card details.primary-details > summary h2 {
+            font-family: 'Architects Daughter', cursive; font-size: 1.4rem;
+            margin: 0; display: flex; align-items: center; gap: 8px;
+            line-height: 1.2;
+        }
+        
+        .card details.primary-details > summary::after { 
+            content: '▾ Expand'; 
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem; font-weight: 600; opacity: 0.7; 
+            white-space: nowrap;
+        }
+        .card details.primary-details[open] > summary::after { content: '▴ Collapse'; }
+
+        .card-content {
+            margin-top: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ul { padding-left: 20px; margin: 0 0 10px 0; }
+        li { margin-bottom: 10px; }
+
+        mark { background-color: rgba(254, 240, 138, 0.85); padding: 2px 6px; border-radius: 4px; font-weight: bold; transition: filter 0.3s ease; }
+        [data-theme="dark"] mark { background-color: rgba(234, 179, 8, 0.35); color: #fef08a; }
+
+        /* Revision Mode Styles */
+        body.revision-mode mark, body.revision-mode .pill.prelims {
+            filter: blur(5px);
+            cursor: pointer;
+            transition: filter 0.2s ease;
+        }
+        body.revision-mode mark:hover, body.revision-mode .pill.prelims:hover {
+            filter: blur(0);
+        }
+
+        .pill {
+            display: inline-block; padding: 2px 9px; border-radius: 12px;
+            font-size: 0.82rem; font-weight: 700; font-family: 'Inter', sans-serif;
+            text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; margin-right: 4px;
+            margin-bottom: 4px;
+        }
+        .pill.prelims { background: var(--pill-prelims); color: var(--pill-prelims-txt); }
+        .pill.mains { background: var(--pill-mains); color: var(--pill-mains-txt); }
+        .pill.geo { background: var(--pill-geo); color: var(--pill-geo-txt); }
+        
+        /* Secondary Unlock Details Setup */
+        details.secondary-details {
+            margin-top: 14px; background: rgba(255, 255, 255, 0.65);
+            border: 1.5px solid rgba(148, 163, 184, 0.4); border-radius: 12px;
+            font-family: 'Inter', sans-serif; overflow: hidden;
+        }
+        [data-theme="dark"] details.secondary-details { background: rgba(15, 23, 42, 0.45); }
+        
+        details.secondary-details > summary {
+            list-style: none; outline: none; cursor: pointer;
+            display: block; padding: 10px 14px;
+            background: rgba(29, 78, 216, 0.05); color: var(--primary-blue);
+            font-weight: 700; font-size: 0.95rem; user-select: none;
+            transition: background 0.2s ease;
+        }
+        [data-theme="dark"] details.secondary-details > summary { background: rgba(96, 165, 250, 0.1); }
+        details.secondary-details > summary:hover { background: rgba(29, 78, 216, 0.1); }
+        details.secondary-details > summary::-webkit-details-marker { display: none; }
+        
+        .deep-dive {
+            padding: 14px; border-top: 1.5px dashed rgba(148, 163, 184, 0.3);
+        }
+        .deep-dive h4 {
+            margin: 0 0 8px 0; color: var(--primary-blue); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .deep-dive p { margin: 0 0 10px 0; font-family: 'Kalam', cursive; font-size: 1.05rem; }
+        .deep-dive ul { font-family: 'Kalam', cursive; font-size: 1.05rem; margin-bottom: 0; }
+
+        /* 4-Box Dashboard */
+        .footer-dashboard {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        }
+        .footer-box {
+            background: var(--card-bg-white); border-radius: 16px; padding: 18px;
+            border: 2px dashed rgba(148, 163, 184, 0.5); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            word-wrap: break-word; overflow-wrap: break-word;
+        }
+        .footer-box h3 {
+            font-family: 'Architects Daughter', cursive; font-size: 1.25rem; margin: 0 0 12px;
+            padding-bottom: 6px; border-bottom: 2px solid; text-align: center;
+        }
+        .footer-box:nth-child(1) h3 { color: #8b5cf6; border-color: #c4b5fd; }
+        .footer-box:nth-child(2) h3 { color: #16a34a; border-color: #86efac; }
+        .footer-box:nth-child(3) h3 { color: #dc2626; border-color: #fca5a5; }
+        .footer-box:nth-child(4) h3 { color: #d97706; border-color: #fde68a; }
+
+        .checklist { list-style: none; padding-left: 0; }
+        .checklist li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 1.02rem; }
+        .checklist input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-blue); cursor: pointer; margin-top: 4px; flex-shrink: 0; }
+
+        @media (max-width: 992px) {
+            .footer-dashboard { grid-template-columns: repeat(2, 1fr); }
+            .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            body { padding: 16px 12px; }
+            .top-toolbar { flex-direction: column; text-align: center; justify-content: center; padding: 16px; }
+            .top-toolbar > div { width: 100%; display: flex; justify-content: center; }
+            .footer-dashboard { grid-template-columns: 1fr; gap: 16px; }
+            .grid { grid-template-columns: 1fr; gap: 16px; }
+            .title-banner h1 { font-size: 1.8rem; }
+            .title-banner p { font-size: 1.1rem; }
+            .card details.primary-details > summary h2 { font-size: 1.25rem; }
+            .btn { width: 100%; justify-content: center; padding: 10px; font-size: 0.95rem; }
+            .top-toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 8px; }
+            .top-toolbar-actions .btn:last-child { grid-column: span 2; }
+        }
+
+        @media print {
+            .top-toolbar { display: none; }
+            details { border: 1px solid #ccc; background: transparent; }
+            details[open] .card-content, details[open] .deep-dive { display: block; }
+            body { background: white; color: black; }
+            .grid { display: block; }
+            .card { page-break-inside: avoid; margin-bottom: 20px; }
+            .footer-box { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+<div class="container">
+    <div class="top-toolbar">
+        <div><strong>📚 Interactive Revision Note</strong></div>
+        <div class="top-toolbar-actions">
+            <button class="btn btn-focus" id="revision-btn">🧠 Revision</button>
+            <button class="btn btn-outline" id="toggle-all-btn">📂 Expand</button>
+            <button class="btn btn-outline" id="theme-btn">☀️ Light</button>
+            <button class="btn" onclick="window.print()">🖨️ Save PDF</button>
+        </div>
+    </div>
+
+    <div class="title-banner">
+        <div class="syllabus-tag">[GS Papers II & III - Polity, IR, Economy, Environment & S&T]</div>
+        <h1>UPSC HIGH-YIELD: AUGUST 2026 CURRENT AFFAIRS 📖</h1>
+        <p>22 Distilled Multi-Tier Flashcards | Comprehensive Coverage</p>
+    </div>
+
+    <div class="grid">
+        <!-- Topic 1 -->
+        <div class="card">
+            <div class="badge">1</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>FCRA Amendment Bill 2026 📜</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Authority</span> Establishes a <mark>Designated Authority</mark> to seize/manage assets if FCRA registration ceases.</li>
+                        <li><span class="pill mains">Protection</span> Special protection for <mark>religious sites</mark> (cannot be repurposed/sold).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Asset Vesting</h4>
+                            <p>Provisional vesting if registration might be restored; Permanent vesting if not (assets auctioned, proceeds go to Consolidated Fund of India). Maximum imprisonment reduced from 5 years to 1 year.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">Prelims Trap</span> Appeals against the authority's order go before the <mark>District Judge</mark> (within 90 days), NOT the High Court.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 2 -->
+        <div class="card">
+            <div class="badge">2</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Saptadhara Framework 🇮🇳</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Vision</span> 7 streams of strength announced on the <mark>80th Independence Day</mark> for Viksit Bharat 2047.</li>
+                        <li><span class="pill mains">Pillars</span> Includes Manufacturing (Zero Defect), Tech (AI Skilling), <mark>Gati Shakti</mark> (Multimodal), and Soft Power.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Panch Pran vs. Saptadhara</h4>
+                            <p>Panch Pran (2022) are the 5 *resolves/commitments* (e.g., remove colonial mindset, pride in heritage). Saptadhara (2026) is the *action framework/areas of development*.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains Hook</span> Soft power diplomacy (Yoga, Ayurveda, Tourism) is explicitly categorized as the 7th pillar of Saptadhara.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 3 -->
+        <div class="card">
+            <div class="badge">3</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Tribunals Reforms Bill 2026 ⚖️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">New Body</span> Establishes the <mark>National Tribunals Commission</mark> to oversee appointments/service conditions.</li>
+                        <li><span class="pill mains">Objective</span> Curbs <mark>Executive Overreach</mark> based on Madras Bar Association vs. UoI ruling.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Constitutional Background</h4>
+                            <p>Added via 42nd CAA (1976) on Swaran Singh Committee recommendations. Art 323A (Administrative Tribunals) & Art 323B (Other matters like tax, environment).</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">Prelims Trap</span> The National Tribunals Commission composition includes a Chairperson, 2 Judicial Members, and 2 Technical Members (25 years experience).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 4 -->
+        <div class="card">
+            <div class="badge">4</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>National Honor Amendment Act 🎵</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Scope Expanded</span> The National Song (<mark>Vande Mataram</mark>) is now included under the Prevention of Insults to National Honor Act.</li>
+                        <li><span class="pill mains">Punishment</span> Section 3 prohibits <mark>intentional disturbance</mark> (Up to 3 years imprisonment/fine).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Vande Mataram History</h4>
+                            <p>Composed by Bankim Chandra Chatterjee (Sanskritized Bengali), published in Bangadarshan (1875), included in Anandamath (1882) regarding Sanyasi Rebellion. Sung first by Tagore at 1896 INC Session. Used globally (Bhikaji Cama, Madan Lal Dhingra).</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">Prelims Trap</span> The Constitution's Fundamental Duties (Art 51A) explicitly mention the National Flag and Anthem, but do NOT expressly mention the National Song.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 5 -->
+        <div class="card">
+            <div class="badge">5</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Fast-Track Courts for Exam Leaks 📝</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Context</span> Announced to tackle syndicates involved in public exam paper leaks (e.g., NEET UG 2026).</li>
+                        <li><span class="pill mains">Constitution</span> Right to Speedy Trial is read into <mark>Article 21</mark> (Hussainara Khatoon vs. State of Bihar, 1979).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>FTC Mechanics</h4>
+                            <p>No single central act exists for FTCs; they are created via Finance Commission recs, central schemes, or High Court notifications. Fast Track Special Courts (FTSCs) are centrally sponsored for Rape & POCSO cases.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">Prelims Trap</span> The POCSO Act is a gender-neutral law protecting both boys and girls.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 6 -->
+        <div class="card">
+            <div class="badge">6</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Kerala Renamed to Keralam 🥥</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Meaning</span> Malayalam word for <mark>"Land of Coconuts"</mark>.</li>
+                        <li><span class="pill mains">Article 3</span> Parliament alters state names; requires <mark>prior Presidential recommendation</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Constitutional Procedure</h4>
+                            <p>President refers it to the State Legislature, but their views are NOT binding. Amends the 1st and 4th Schedules.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">Prelims Trap</span> Under <mark>Article 4</mark>, laws made under Article 3 are NOT treated as Constitutional Amendments (under Art 368) and can be passed by a simple majority.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 7 -->
+        <div class="card">
+            <div class="badge">7</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>India Declared Naxal-Free 🛡️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Milestone</span> India became effectively free from Left-Wing Extremism (LWE) by <mark>31st March 2026</mark>.</li>
+                        <li><span class="pill mains">3 Pillars</span> Achieved via <mark>Vishwas</mark> (Trust), <mark>Nirman</mark> (Development), and <mark>Jan Kalyan</mark> (Public Welfare).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Historical Context</h4>
+                            <p>Originated with the 1967 Naxalbari movement in West Bengal. CPI (Maoist) completed 100 years in 2025 (est. 1925 Kanpur). The 'Red Corridor' has significantly shrunk.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains Hook</span> The strategy focused on destroying the ideology while rehabilitating the youth via surrender and community engagement programs.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 8 -->
+        <div class="card">
+            <div class="badge">8</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Cauvery Water Dispute 💧</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Dispute</span> Interstate dispute between upstream <mark>Karnataka</mark> & downstream <mark>Tamil Nadu</mark>.</li>
+                        <li><span class="pill mains">Governance</span> <mark>Regulation Committee</mark> manages day-to-day; <mark>Management Authority</mark> handles broad dispute resolution.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Cauvery (Ganges of the South)</h4>
+                            <p>Originates at Talakaveri, Brahmagiri Hills (Karnataka). Drains into BoB near Poompuhar. Major Dams: Krishna Raja Sagara (Karnataka), Mettur (TN).</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill geo">Map Work</span> Left Bank: Harangi, Hemavati, Shimsha, Arkavathi. Right Bank: Lakshmanatirtha, Kabini, Suvarnavati, Bhavani, Noyyal, Amaravati.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 9 -->
+        <div class="card">
+            <div class="badge">9</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Foreign Assets Disclosure Scheme 💰</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Target</span> One-time scheme (Finance Act 2026) for <mark>small taxpayers</mark> to disclose omitted foreign assets/income.</li>
+                        <li><span class="pill mains">Eligibility</span> Applies to Residents, Non-Residents, and Residents but Not Ordinarily Residents (RNOR).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Exclusions</h4>
+                            <p>Protects innocent omissions from future severe penalties/prosecution. However, assets currently under Prevention of Money Laundering Act (PMLA) scrutiny or completed Black Money Act (2015) proceedings CANNOT be declared.</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 10 -->
+        <div class="card">
+            <div class="badge">10</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Sovereign Green Bonds & Greenium 🌿</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Greenium</span> Investors accept a <mark>lower yield (interest rate)</mark> on green bonds to fund sustainable projects.</li>
+                        <li><span class="pill mains">Proceeds</span> Deposited in the <mark>Consolidated Fund of India</mark>, managed by Public Debt Management Cell via a 'Green Register'.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Bond Economics</h4>
+                            <p>Bond Price and Yield have an inverse relationship. A lower yield means a higher bond price; investors pay a premium for environmental impact. Eligible for Repo and SLR requirements.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">Prelims Trap</span> Sustainability Bonds fund *both* Green and Social projects, whereas Green Bonds are strictly environmental.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 11 -->
+        <div class="card">
+            <div class="badge">11</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Critical Minerals Security ⛏️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Dominance</span> China controls refining technology/supply of <mark>Rare Earth Metals</mark> (the "New Oil").</li>
+                        <li><span class="pill mains">India's List</span> Ministry of Mines identified <mark>30 Critical Minerals</mark> (e.g., Lithium, Cobalt, Nickel).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Strategic Importance</h4>
+                            <p>Vital for EVs, clean energy, semiconductors. "Rare Earths" aren't rare in availability, but their extraction/refining is highly complex. India is establishing Rare Earth Corridors (Odisha, Karnataka, Kerala).</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill geo">Map Work</span> Lithium reserves identified in Reasi district (J&K) and Karnataka, though extraction feasibility is pending.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 12 -->
+        <div class="card">
+            <div class="badge">12</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Makkah Joint Defense Agreement 🤝</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Triple Alliance</span> Signed by <mark>Pakistan, Saudi Arabia, and Turkey</mark> (Sunni majority).</li>
+                        <li><span class="pill mains">Feature</span> NATO Article 5 style clause: <mark>"Attack on one is an attack on all"</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Strategic Drivers</h4>
+                            <p>Saudi Arabia seeks protection from Houthi/Iranian proxies. Turkey wants leverage amid Gaza/Syria issues. Pakistan seeks economic/defense ties in West Asia. Raises security concerns for India.</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 13 -->
+        <div class="card">
+            <div class="badge">13</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>India-Romania Relations 🇷🇴</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Visit</span> First State Visit by an Indian President to Romania in <mark>nearly 30 years</mark>.</li>
+                        <li><span class="pill mains">Trade</span> India holds a <mark>Trade Surplus</mark> (Exporting petroleum, engineering; Importing machinery, Iron & Steel).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Geographical Significance</h4>
+                            <p>Romania is an EU/NATO member bordering the Black Sea and Ukraine. 1/3 Mountains (Carpathians), 1/3 Hills, 1/3 Plains. Key Europe-Asia gateway.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill geo">Map Work</span> Borders Ukraine, Moldova, Black Sea, Bulgaria, Serbia, Hungary. Key feature: Danube Delta (UNESCO site).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 14 -->
+        <div class="card">
+            <div class="badge">14</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>SHANTI Initiative (Bay of Bengal) 🌊</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">SHANTI</span> Securing Holistic Advancement through <mark>Norms, Trust, and Integrity</mark>.</li>
+                        <li><span class="pill mains">Vision</span> Positions India as the <mark>Preferred Security Partner & First Responder</mark> in the Indo-Pacific.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Evolution of Maritime Policy</h4>
+                            <p>Builds on SAGAR (Security and Growth for All in the Region) and MAHASAGAR. Uses the Bay of Bengal as a testing ground for normative rules-based maritime governance before expanding across the Indo-Pacific. Strengthens BIMSTEC.</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 15 -->
+        <div class="card">
+            <div class="badge">15</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>SC Ruling on Wetland Mining Buffers 🛑</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Ruling</span> SC extended the <mark>10km mining buffer</mark> from Asan Conservation Reserve (Uttarakhand) to neighboring Himachal Pradesh.</li>
+                        <li><span class="pill mains">Principle</span> Environmental protection <mark>supersedes state borders</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Legal Position vs SC Ruling</h4>
+                            <p>Legally, neither Ramsar Convention nor Wetland Rules prescribe a fixed buffer. National Parks/Sanctuaries usually have a 1km mining prohibition unless a larger ESZ is notified. The SC enforced a strict 10km buffer for this Conservation Reserve.</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 16 -->
+        <div class="card">
+            <div class="badge">16</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Clouded Leopard Conservation Action Plan 🐆</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Status</span> IUCN: <mark>Vulnerable</mark>. CITES: Appendix I. WPA: Schedule I.</li>
+                        <li><span class="pill mains">Action Plan</span> Uses <mark>M-STrIPES</mark> for scientific monitoring across 14 landscapes in Northeast India.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Species Info</h4>
+                            <p>Mainland Clouded Leopard is distinct from the Sunda species (Borneo/Sumatra). Found in NE evergreen forests (up to 9,000ft) and mangroves.</p>
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">Prelims Trap</span> State animal of Meghalaya, BUT India's first dedicated wildlife park is the <mark>Clouded Leopard National Park in Tripura</mark>.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 17 -->
+        <div class="card">
+            <div class="badge">17</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>NASA-ISRO Moon Base & PRAISE Mission 🚀</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Artemis</span> NASA invited ISRO to build a permanent lunar base at the <mark>Lunar South Pole</mark> (water-ice extraction for H2/O2).</li>
+                        <li><span class="pill mains">PRAISE</span> NASA mission for autonomous exploration and in-situ sampling of <mark>Planetary Rings</mark> (e.g., Saturn).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Space Vision</h4>
+                            <p>India signed the Artemis Accords (2023) for peaceful civil space exploration. Goal: Bharatiya Antariksha Station module by 2028, Moon landing by 2040. Ultimate Artemis goal: Future crewed Mars missions.</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 18 -->
+        <div class="card">
+            <div class="badge">18</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>SOFI Report: Hunger Epicenter Shifts 🌍</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Shift</span> For the first time, <mark>Africa surpassed Asia</mark> as the region with the highest absolute population facing hunger.</li>
+                        <li><span class="pill mains">Drivers</span> Climate change, geopolitical conflicts, and military coups (Sudan, DRC).</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>State of Food Security</h4>
+                            <p>Global undernourishment declined for the 3rd consecutive year, but 645 million remain undernourished (above pre-pandemic levels). 2.1 billion face food insecurity due to the high cost of healthy diets.</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 19 -->
+        <div class="card">
+            <div class="badge">19</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Important Scientific & Env Facts 🔬</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Oldest Life</span> 3.5 billion-year-old microbial bio-signature found in <mark>Singhbhum Craton (Chert rock)</mark>, Jharkhand/Odisha.</li>
+                        <li><span class="pill mains">Yale EPI</span> India ranked a dismal <mark>176 out of 177</mark> in the Environmental Performance Index 2026.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Additional Data Points</h4>
+                            <p>India is now the world's 2nd largest supplier of Seafarers. Heat waves and lightning have been added as Notified Natural Calamities (raising the list to 14) on 16th Finance Commission recs.</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 20 -->
+        <div class="card">
+            <div class="badge">20</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Defense Exercises & Commissionings ⚔️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Maitree</span> 15th Joint Military Exercise between <mark>India and Thailand</mark>.</li>
+                        <li><span class="pill mains">INS Malvan</span> Mahi-class <mark>Anti-Submarine Warfare Shallow Water Craft (ASW-SWC)</mark> commissioned.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Naval Capabilities</h4>
+                            <p>INS Malvan (built by Cochin Shipyard) is named after a Maharashtra town linked to Chhatrapati Shivaji's maritime legacy. Designed for shallow water anti-submarine warfare and mine operations.</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 21 -->
+        <div class="card">
+            <div class="badge">21</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Global Geography Map Work 🗺️</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill geo">Ceuta</span> Autonomous <mark>Spanish enclave in Africa</mark> facing a massive Moroccan migration crisis.</li>
+                        <li><span class="pill geo">Qeshm Island</span> <mark>Iran's island</mark> in the Strait of Hormuz; Hara Mangroves threatened by oil spills.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Geographical Significance</h4>
+                            <p>Ceuta is located at the Strait of Gibraltar (connecting Atlantic & Mediterranean). Qeshm Island contains the Middle East's first UNESCO Geopark and Hara Biosphere Reserve (Grey Mangroves, Hawksbill Turtles).</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- Topic 22 -->
+        <div class="card">
+            <div class="badge">22</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>E-Governance & Soft Power 🦚</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">CBDC DBT</span> E-Rupee tokens used for <mark>Food Subsidies (PMGKAY)</mark> for programmable tracking.</li>
+                        <li><span class="pill mains">Peacock Diplomacy</span> India gifted 5 male peafowls to the UN in Geneva, highlighting <mark>biodiversity heritage</mark>.</li>
+                    </ul>
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Additional Notes</h4>
+                            <p>India's 101st Ramsar Site: Glow Lake (Freshwater, Arunachal Pradesh's 1st). Parliament bypassed Rajya Sabha by passing the SC Judges Strength increase via the Money Bill route (Article 110(1)(g)).</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- 4-BOX REVISION DASHBOARD -->
+    <div class="footer-dashboard">
+        <div class="footer-box">
+            <h3>Formulas & Mnemonics 🧠</h3>
+            <ul>
+                <li><strong>Cauvery Tribs (Left):</strong> <mark>HH SA</mark> (Harangi, Hemavati, Shimsha, Arkavathi).</li>
+                <li><strong>3 Pillars of LWE:</strong> <mark>Vishwas, Nirman, Jan Kalyan</mark>.</li>
+                <li><strong>Saptadhara (7 Streams):</strong> Mfg, Agri, Tech, Gati Shakti, Defense, Green/Blue Econ, Soft Power.</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Exam Prelims Tricks ⚠️</h3>
+            <ul>
+                <li><strong>Art 3 Name Change:</strong> NOT considered a Constitutional Amendment under Art 368 (<mark>protected by Art 4</mark>).</li>
+                <li><strong>Clouded Leopard:</strong> State animal of Meghalaya, but the dedicated National Park is in <mark>Tripura</mark>.</li>
+                <li><strong>Money Bill Route:</strong> Rajya Sabha can only <mark>recommend</mark>; cannot reject/return a Money Bill.</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Quick 1-Liner Revision 🏛️</h3>
+            <ul>
+                <li><strong>101st Ramsar Site:</strong> <mark>Glow Lake (Arunachal Pradesh)</mark>.</li>
+                <li><strong>Oldest Bio-signature:</strong> 3.5B yr old Chert rock in <mark>Singhbhum Craton</mark>.</li>
+                <li><strong>Triple Defense Alliance:</strong> <mark>Pakistan, Saudi Arabia, Turkey</mark>.</li>
+                <li><strong>Yale EPI Rank:</strong> India ranks <mark>176/177</mark>.</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Memory Checklist ✅</h3>
+            <ul class="checklist">
+                <li><label><input type="checkbox"> FCRA Religious Site Exemption</label></li>
+                <li><label><input type="checkbox"> Saptadhara vs Panch Pran</label></li>
+                <li><label><input type="checkbox"> Tribunals Bill & Art 323A/B</label></li>
+                <li><label><input type="checkbox"> Vande Mataram & Art 51A</label></li>
+                <li><label><input type="checkbox"> Article 21 Speedy Trials</label></li>
+                <li><label><input type="checkbox"> Kerala to Keralam (Art 3 & 4)</label></li>
+                <li><label><input type="checkbox"> Naxal-Free & 3 Pillars</label></li>
+                <li><label><input type="checkbox"> Cauvery Dispute & CWC/CMA</label></li>
+                <li><label><input type="checkbox"> Foreign Asset Scheme & RNOR</label></li>
+                <li><label><input type="checkbox"> Greenium & Sovereign Bonds</label></li>
+                <li><label><input type="checkbox"> 30 Critical Minerals List</label></li>
+                <li><label><input type="checkbox"> Makkah Joint Defense Pact</label></li>
+                <li><label><input type="checkbox"> India-Romania (Black Sea)</label></li>
+                <li><label><input type="checkbox"> SHANTI (Bay of Bengal)</label></li>
+                <li><label><input type="checkbox"> Asan 10km Buffer SC Ruling</label></li>
+                <li><label><input type="checkbox"> Clouded Leopard ( त्रिपुरा )</label></li>
+                <li><label><input type="checkbox"> Lunar South Pole Base</label></li>
+                <li><label><input type="checkbox"> SOFI Report (Africa Epicenter)</label></li>
+                <li><label><input type="checkbox"> Heatwaves = Natural Calamity</label></li>
+                <li><label><input type="checkbox"> INS Malvan & Ex Maitree</label></li>
+                <li><label><input type="checkbox"> Ceuta (Spain) & Qeshm (Iran)</label></li>
+                <li><label><input type="checkbox"> Peacock Diplomacy & CBDC</label></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.body.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.body.removeAttribute('data-theme');
+            themeBtn.innerText = '🌙 Dark';
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+            themeBtn.innerText = '☀️ Light';
+        }
+    });
+
+    const toggleAllBtn = document.getElementById('toggle-all-btn');
+    let allExpanded = false;
+    toggleAllBtn.addEventListener('click', () => {
+        allExpanded = !allExpanded;
+        document.querySelectorAll('details').forEach(d => d.open = allExpanded);
+        toggleAllBtn.innerText = allExpanded ? '📁 Collapse' : '📂 Expand';
+    });
+    
+    const revisionBtn = document.getElementById('revision-btn');
+    revisionBtn.addEventListener('click', () => {
+        document.body.classList.toggle('revision-mode');
+        if(document.body.classList.contains('revision-mode')) {
+            revisionBtn.innerText = '📝 Exit Revision';
+            revisionBtn.style.background = '#dc2626';
+            revisionBtn.style.borderColor = '#dc2626';
+        } else {
+            revisionBtn.innerText = '🧠 Revision';
+            revisionBtn.style.background = '#8b5cf6';
+            revisionBtn.style.borderColor = '#8b5cf6';
+        }
+    });
+
+    window.addEventListener('beforeprint', () => {
+        document.querySelectorAll('details').forEach(d => d.open = true);
+        document.body.classList.remove('revision-mode');
+    });
+</script>
+</body>
+</html>
