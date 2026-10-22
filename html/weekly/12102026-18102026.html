@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIB Weekly Analysis (12–18 Oct 2026) | UPSC Visual Revision Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Kalam:wght@300;400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fbfaf5;
+            --text-dark: #1e293b;
+            --text-muted: #475569;
+            --primary-blue: #1d4ed8;
+            --card-c1: #eaf6ee; --border-c1: #a9dcba; --badge-c1: #2e7d32;
+            --card-c2: #ebf4fc; --border-c2: #abcff2; --badge-c2: #1e40af;
+            --card-c3: #f5edfc; --border-c3: #dbc5f5; --badge-c3: #7e22ce;
+            --card-c4: #fdf5e8; --border-c4: #f3d4a6; --badge-c4: #b45309;
+            --pill-prelims: #fee2e2; --pill-prelims-txt: #991b1b;
+            --pill-mains: #dbeafe; --pill-mains-txt: #1e40af;
+            --pill-geo: #ffedd5; --pill-geo-txt: #9a3412;
+            --card-bg-white: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-dark: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --primary-blue: #60a5fa;
+            --card-c1: #142a1f; --border-c1: #225c3b; --badge-c1: #22c55e;
+            --card-c2: #132438; --border-c2: #1e4672; --badge-c2: #3b82f6;
+            --card-c3: #231633; --border-c3: #52277d; --badge-c3: #a855f7;
+            --card-c4: #2b1f11; --border-c4: #6d4617; --badge-c4: #f59e0b;
+            --card-bg-white: #1e293b;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 26px 16px;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(rgba(148, 163, 184, 0.25) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: var(--text-dark);
+            font-family: 'Kalam', cursive;
+            font-size: 1.12rem;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        .top-toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg-white); border: 2px solid rgba(148, 163, 184, 0.3);
+            border-radius: 16px; padding: 12px 24px; margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            font-family: 'Inter', sans-serif;
+            flex-wrap: wrap; gap: 12px;
+        }
+
+        .top-toolbar-actions {
+            display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+        }
+
+        .syllabus-tag {
+            background: #f1f5f9; color: #334155; font-size: 0.9rem; font-weight: 700;
+            padding: 4px 12px; border-radius: 20px; border: 1px solid #cbd5e1;
+            display: inline-block; margin-bottom: 8px;
+        }
+        [data-theme="dark"] .syllabus-tag { background: #334155; color: #f1f5f9; border-color: #475569; }
+
+        .title-banner { text-align: center; margin-bottom: 30px; }
+        .title-banner h1 {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 2.5rem; color: var(--primary-blue); margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.06);
+            line-height: 1.3;
+        }
+        .title-banner p { font-size: 1.25rem; color: var(--text-muted); margin: 4px 0 0; }
+
+        .btn {
+            font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600;
+            padding: 8px 16px; border-radius: 10px; cursor: pointer;
+            border: 2px solid var(--primary-blue); background: var(--primary-blue);
+            color: white; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-outline { background: transparent; color: var(--primary-blue); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+        .btn-focus { background: #8b5cf6; border-color: #8b5cf6; color: white; }
+        .btn-focus:hover { background: #7c3aed; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px; margin-bottom: 36px;
+        }
+
+        .card {
+            border-radius: 20px; padding: 22px;
+            position: relative; border: 2.5px solid;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+
+        .card:nth-child(4n+1) { background: var(--card-c1); border-color: var(--border-c1); }
+        .card:nth-child(4n+2) { background: var(--card-c2); border-color: var(--border-c2); }
+        .card:nth-child(4n+3) { background: var(--card-c3); border-color: var(--border-c3); }
+        .card:nth-child(4n+4) { background: var(--card-c4); border-color: var(--border-c4); }
+
+        .badge {
+            position: absolute; top: -14px; left: -14px;
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Architects Daughter', cursive; font-size: 1.3rem; font-weight: bold;
+            color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+            z-index: 10;
+        }
+        .card:nth-child(4n+1) .badge { background: var(--badge-c1); }
+        .card:nth-child(4n+2) .badge { background: var(--badge-c2); }
+        .card:nth-child(4n+3) .badge { background: var(--badge-c3); }
+        .card:nth-child(4n+4) .badge { background: var(--badge-c4); }
+
+        /* Primary Flashcard Details Setup */
+        .card details.primary-details { width: 100%; }
+        .card details.primary-details > summary {
+            list-style: none; outline: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1.5px dashed transparent;
+            transition: border-bottom 0.3s ease;
+            user-select: none;
+            gap: 12px;
+        }
+        .card details.primary-details[open] > summary {
+            border-bottom: 1.5px dashed rgba(100, 116, 139, 0.35);
+            margin-bottom: 12px; padding-bottom: 8px;
+        }
+        .card details.primary-details > summary::-webkit-details-marker { display: none; }
+        
+        .card details.primary-details > summary h2 {
+            font-family: 'Architects Daughter', cursive; font-size: 1.4rem;
+            margin: 0; display: flex; align-items: center; gap: 8px;
+            line-height: 1.2;
+        }
+        
+        .card details.primary-details > summary::after { 
+            content: '▾ Expand'; 
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem; font-weight: 600; opacity: 0.7; 
+            white-space: nowrap;
+        }
+        .card details.primary-details[open] > summary::after { content: '▴ Collapse'; }
+
+        .card-content {
+            margin-top: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ul { padding-left: 20px; margin: 0 0 10px 0; }
+        li { margin-bottom: 10px; }
+
+        mark { background-color: rgba(254, 240, 138, 0.85); padding: 2px 6px; border-radius: 4px; font-weight: bold; transition: filter 0.3s ease; }
+        [data-theme="dark"] mark { background-color: rgba(234, 179, 8, 0.35); color: #fef08a; }
+
+        /* Revision Mode Styles */
+        body.revision-mode mark, body.revision-mode .pill.prelims {
+            filter: blur(5px);
+            cursor: pointer;
+            transition: filter 0.2s ease;
+        }
+        body.revision-mode mark:hover, body.revision-mode .pill.prelims:hover {
+            filter: blur(0);
+        }
+
+        .pill {
+            display: inline-block; padding: 2px 9px; border-radius: 12px;
+            font-size: 0.82rem; font-weight: 700; font-family: 'Inter', sans-serif;
+            text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; margin-right: 4px;
+            margin-bottom: 4px;
+        }
+        .pill.prelims { background: var(--pill-prelims); color: var(--pill-prelims-txt); }
+        .pill.mains { background: var(--pill-mains); color: var(--pill-mains-txt); }
+        .pill.geo { background: var(--pill-geo); color: var(--pill-geo-txt); }
+        
+        /* Secondary Unlock Details Setup */
+        details.secondary-details {
+            margin-top: 14px; background: rgba(255, 255, 255, 0.65);
+            border: 1.5px solid rgba(148, 163, 184, 0.4); border-radius: 12px;
+            font-family: 'Inter', sans-serif; overflow: hidden;
+        }
+        [data-theme="dark"] details.secondary-details { background: rgba(15, 23, 42, 0.45); }
+        
+        details.secondary-details > summary {
+            list-style: none; outline: none; cursor: pointer;
+            display: block; padding: 10px 14px;
+            background: rgba(29, 78, 216, 0.05); color: var(--primary-blue);
+            font-weight: 700; font-size: 0.95rem; user-select: none;
+            transition: background 0.2s ease;
+        }
+        [data-theme="dark"] details.secondary-details > summary { background: rgba(96, 165, 250, 0.1); }
+        details.secondary-details > summary:hover { background: rgba(29, 78, 216, 0.1); }
+        details.secondary-details > summary::-webkit-details-marker { display: none; }
+        
+        .deep-dive {
+            padding: 14px; border-top: 1.5px dashed rgba(148, 163, 184, 0.3);
+        }
+        .deep-dive h4 {
+            margin: 0 0 8px 0; color: var(--primary-blue); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .deep-dive p { margin: 0 0 10px 0; font-family: 'Kalam', cursive; font-size: 1.05rem; }
+        .deep-dive ul { font-family: 'Kalam', cursive; font-size: 1.05rem; margin-bottom: 0; }
+
+        /* 4-Box Dashboard */
+        .footer-dashboard {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        }
+        .footer-box {
+            background: var(--card-bg-white); border-radius: 16px; padding: 18px;
+            border: 2px dashed rgba(148, 163, 184, 0.5); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            word-wrap: break-word; overflow-wrap: break-word;
+        }
+        .footer-box h3 {
+            font-family: 'Architects Daughter', cursive; font-size: 1.25rem; margin: 0 0 12px;
+            padding-bottom: 6px; border-bottom: 2px solid; text-align: center;
+        }
+        .footer-box:nth-child(1) h3 { color: #8b5cf6; border-color: #c4b5fd; }
+        .footer-box:nth-child(2) h3 { color: #16a34a; border-color: #86efac; }
+        .footer-box:nth-child(3) h3 { color: #dc2626; border-color: #fca5a5; }
+        .footer-box:nth-child(4) h3 { color: #d97706; border-color: #fde68a; }
+
+        .checklist { list-style: none; padding-left: 0; }
+        .checklist li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 1.02rem; }
+        .checklist input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-blue); cursor: pointer; margin-top: 4px; flex-shrink: 0; }
+
+        @media (max-width: 992px) {
+            .footer-dashboard { grid-template-columns: repeat(2, 1fr); }
+            .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            body { padding: 16px 12px; }
+            .top-toolbar { flex-direction: column; text-align: center; justify-content: center; padding: 16px; }
+            .top-toolbar > div { width: 100%; display: flex; justify-content: center; }
+            .footer-dashboard { grid-template-columns: 1fr; gap: 16px; }
+            .grid { grid-template-columns: 1fr; gap: 16px; }
+            .title-banner h1 { font-size: 1.8rem; }
+            .title-banner p { font-size: 1.1rem; }
+            .card details.primary-details > summary h2 { font-size: 1.25rem; }
+            .btn { width: 100%; justify-content: center; padding: 10px; font-size: 0.95rem; }
+            .top-toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 8px; }
+            .top-toolbar-actions .btn:last-child { grid-column: span 2; }
+        }
+
+        @media print {
+            .top-toolbar { display: none; }
+            details { border: 1px solid #ccc; background: transparent; }
+            details[open] .card-content, details[open] .deep-dive { display: block; }
+            body { background: white; color: black; }
+            .grid { display: block; }
+            .card { page-break-inside: avoid; margin-bottom: 20px; }
+            .footer-box { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+<div class="container">
+    <div class="top-toolbar">
+        <div><strong>📚 Interactive Revision Note • PIB Weekly (12–18 Oct 2026)</strong></div>
+        <div class="top-toolbar-actions">
+            <button class="btn btn-focus" id="revision-btn">🧠 Revision</button>
+            <button class="btn btn-outline" id="toggle-all-btn">📂 Expand</button>
+            <button class="btn btn-outline" id="theme-btn">☀️ Light</button>
+            <button class="btn" onclick="window.print()">🖨️ Save PDF</button>
+        </div>
+    </div>
+
+    <div class="title-banner">
+        <div class="syllabus-tag">GS Paper II &amp; III • Governance, Social Justice, Agriculture, Economy, Environment &amp; Health</div>
+        <h1>UPSC HIGH-YIELD REVISION: PIB WEEKLY ANALYSIS</h1>
+        <p>12th October to 18th October 2026 • Complete 8-Topic Synthesis + Prelims MCQ Arena</p>
+    </div>
+
+    <div class="grid">
+        <!-- CARD 1: Coloured Potato Varieties & Biofortification -->
+        <div class="card">
+            <div class="badge">1</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Biofortified Coloured Potatoes (ICAR-CPRI) 🥔</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Developer</span> <mark>ICAR</mark> and <mark>Central Potato Research Institute (CPRI)</mark> developed nutrient-rich coloured potato varieties to combat <mark>Hidden Hunger</mark> in India.</li>
+                        <li><span class="pill prelims">3 Key Varieties</span> <mark>Kufri Neelkanth</mark> (2018, purple-skinned, antioxidant-rich), <mark>Kufri Manik</mark> (2021, red potato, rich in anthocyanins, <mark>Zinc &amp; Iron</mark>), and <mark>Kufri Jamunia</mark> (newly developed <mark>purple-fleshed</mark> variety).</li>
+                        <li><span class="pill prelims">Kufri Jamunia Specs</span> Packed with <mark>Vitamin C, Anthocyanins, Carotenoids, Iron, and Zinc</mark>; yields <mark>32–35 tonnes/hectare</mark>; recommended for <mark>Northern Indian Plains</mark>.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background &amp; Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Core Concepts: Hidden Hunger &amp; Biofortification</h4>
+                            <p><strong>Hidden Hunger:</strong> A chronic deficiency of essential micronutrients (vitamins, minerals like Fe/Zn, and protein) even when a person consumes sufficient calories/staple food (e.g., adequate rice or chapatis).<br>
+                            <strong>Biofortification:</strong> Improving the nutritional content of food crops through conventional <mark>plant breeding</mark>, agronomic practices, or biotechnology. <strong>Anthocyanin</strong> is the natural water-soluble pigment responsible for the bluish/purplish colour and high antioxidant properties.</p>
+                            
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Links directly to GS-II (Malnutrition/POSHAN Abhiyaan) &amp; GS-III (Crop Diversification, Farmer Income Augmentation, Post-Harvest Processing).</li>
+                                <li><span class="pill geo">Agronomy</span> High storage quality (low rotting) and suitable for both traditional dishes (e.g., aloo paratha) and processed foods.</li>
+                                <li><strong>Trap Alert:</strong> Do not confuse <em>Kufri Neelkanth</em> (purple-skinned, 2018) with <em>Kufri Jamunia</em> (purple-fleshed, rich in carotenoids + Vit C + Fe + Zn).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- CARD 2: Mahila Kisan Diwas 2026 -->
+        <div class="card">
+            <div class="badge">2</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Mahila Kisan Diwas 2026 (15th Oct) 👩‍🌾</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Event &amp; Date</span> Celebrated on <mark>15th October 2026</mark> at <mark>Dr. Ambedkar International Centre, New Delhi</mark>.</li>
+                        <li><span class="pill prelims">Nodal Ministry</span> Organized by the <mark>Department of Agriculture and Farmers Welfare</mark>, Ministry of Agriculture &amp; Farmers Welfare (MoA&amp;FW).</li>
+                        <li><span class="pill prelims">2026 Theme</span> <mark>"Role of Women Farmers in Building a Developed Agriculture and a Developed India"</mark>.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background &amp; Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Contextual Background &amp; Highlights</h4>
+                            <p>Celebrated annually to recognize women's multi-dimensional contributions across crop cultivation, livestock rearing, seed conservation, and agri-marketing despite structural barriers in institutional credit and land ownership. Key 2026 highlights included honoring high-achieving women farmers, special focus on <mark>women farmers from tribal regions</mark>, and releasing the book <mark>"Women Farmers of India: Journey from Challenges to Success"</mark>.</p>
+                            
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Mains</span> Quote in essays/GS-III answers on <em>"Feminization of Indian Agriculture"</em> — empowering women via <mark>affordable credit, skill development, women-friendly farm mechanization, and market access</mark> for <em>Viksit Bharat</em>.</li>
+                                <li><strong>Trap Alert:</strong> Organized by the Ministry of Agriculture &amp; Farmers Welfare, <em>not</em> the Ministry of Women and Child Development.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- CARD 3: National Strategic Trade Command Centre (NSTCC) -->
+        <div class="card">
+            <div class="badge">3</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>National Strategic Trade Command Centre 📊</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Launch &amp; Ministry</span> <mark>NSTCC</mark> launched in <mark>New Delhi</mark> by the <mark>Department of Commerce, Ministry of Commerce and Industry</mark>.</li>
+                        <li><span class="pill prelims">Core Role</span> A centralized <mark>digital monitoring center</mark> tracking India's imports, exports, FTA utilization, and international trade performance on one unified dashboard.</li>
+                        <li><span class="pill prelims">Tech Integration</span> Integrated with existing <mark>DGFT (Directorate General of Foreign Trade)</mark> systems and the <mark>Trade Connect e-Platform</mark>.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background &amp; Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Key Foreign Trade Instruments Monitored</h4>
+                            <p>The NSTCC rests on three pillars — <strong>Integrated Monitoring, Performance Assessment (of Export Promotion Schemes &amp; DGFT regional offices), and Evidence-Based Policy Input</strong>. It tracks five critical trade mechanisms:</p>
+                            <ul>
+                                <li><strong>IEC (Importer-Exporter Code):</strong> Mandatory unique identification code for businesses importing/exporting goods.</li>
+                                <li><strong>Advance Authorization:</strong> Permits duty-free import of raw materials/inputs that are physically incorporated into export products.</li>
+                                <li><strong>EPCG (Export Promotion Capital Goods):</strong> Allows import of <mark>machinery/capital goods at zero customs duty</mark> for export production.</li>
+                                <li><strong>Certificate of Origin (CoO):</strong> Certifies the country of manufacture to claim tariff concessions under Free Trade Agreements (FTAs).</li>
+                                <li><strong>SCOMET:</strong> <mark>Special Chemicals, Organisms, Materials, Equipment and Technologies</mark> — strict export control regime for <mark>dual-use items</mark> (both civilian and military applications).</li>
+                                <li><span class="pill mains">Mains</span> Future expansion includes automated bottleneck alerts and linking State Governments &amp; Export Promotion Councils (EPCs).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- CARD 4: 5 Years of PM GatiShakti National Master Plan -->
+        <div class="card">
+            <div class="badge">4</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>5 Years of PM GatiShakti Master Plan 🚄</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Milestone</span> Completed <mark>5 years in October 2026</mark> (originally launched in <mark>October 2021</mark>) for integrated infrastructure planning and multimodal connectivity.</li>
+                        <li><span class="pill prelims">Tech Developer</span> GIS-based geospatial digital platform developed by <mark>BISAG-N</mark> (Bhaskaracharya National Institute for Space Applications and Geo-informatics).</li>
+                        <li><span class="pill prelims">5-Year Scale</span> Integrated <mark>1,800+ data layers</mark> across <mark>58 Central Ministries</mark> and <mark>all 36 States/UTs</mark>; Network Planning Group (NPG) evaluated <mark>421 projects worth ₹20.23 lakh crore</mark>.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background &amp; Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>New Institutional &amp; Public Expansions</h4>
+                            <p>Beyond 65+ digital tools, 100+ web/mobile apps, and district-level social infrastructure planning (schools, hospitals, water pipelines), two major expansions were highlighted:</p>
+                            <ul>
+                                <li><strong>PM GatiShakti Public Platform (Sept 2025):</strong> Powered by <mark>UGI (Unified Geospatial Interface)</mark> to open non-sensitive geospatial data analytics to private businesses and citizens.</li>
+                                <li><strong>Integrated Transport and Logistics Authority (ITLA):</strong> Approved by the <mark>Union Cabinet</mark> to institutionalize transport planning, project appraisal, and logistics efficiency.</li>
+                                <li><span class="pill mains">Mains</span> Breaks inter-ministerial silos ("Whole-of-Government approach"), avoids duplication of road/pipeline digging, improves last-mile connectivity, and lowers India's logistics cost toward global benchmarks for <em>Viksit Bharat 2047</em>.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- CARD 5: National Social Assistance Programme (NSAP) / PM Samajik Sahayata Yojana -->
+        <div class="card">
+            <div class="badge">5</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>NSAP Revamped: PM Samajik Sahayata Yojana 🤝</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">Rebranding &amp; Tenure</span> <mark>National Social Assistance Programme (NSAP)</mark> (launched 15 Aug 1995) renamed as <mark>Pradhan Mantri Samajik Sahayata Yojana (PMSSY)</mark> and extended for 5 years (<mark>2026–27 to 2030–31</mark>).</li>
+                        <li><span class="pill prelims">Nodal Ministry &amp; Funding</span> Administered by <mark>Ministry of Rural Development (MoRD)</mark> with <mark>100% Central Assistance</mark>; covers <mark>3.20 crore beneficiaries</mark> across all 36 States/UTs.</li>
+                        <li><span class="pill prelims">Big Disability Reform</span> Disability eligibility threshold slashed from <mark>80% to 40%</mark>, minimum age made <mark>eligible from birth</mark>, and monthly pension raised to <mark>₹375 (below 80 yrs)</mark> and <mark>₹625 (80+ yrs)</mark>.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background &amp; Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>4 Renamed Sub-Schemes &amp; Constitutional Backing</h4>
+                            <p>The revamped umbrella has four components: (1) <strong>PM Vriddhavastha Pension Yojana</strong> (elderly), (2) <strong>PM Vidhwa Pension Yojana</strong> (widows), (3) <strong>PM Divyangjan Pension Yojana</strong> (PwDs), and (4) <strong>PM Parivar Labh Yojana</strong> (<mark>one-time lump-sum grant</mark> on death of primary breadwinner).</p>
+                            
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill mains">Constitution</span> Directly operationalizes <mark>Article 41 (DPSP)</mark> (Right to public assistance in old age, sickness, and disablement) and harmonizes with the <mark>Rights of Persons with Disabilities (RPwD) Act, 2016</mark> (which defines benchmark disability at 40%).</li>
+                                <li><strong>Trap Alert (HIGH PROBABILITY):</strong> Pension amounts under Old Age Pension, Widow Pension, and Family Benefit Scheme <mark>remain unchanged</mark> — ONLY the Divyangjan (Disability) pension rates and eligibility criteria were revised!</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- CARD 6: India's Ramsar Sites Reach 103 -->
+        <div class="card">
+            <div class="badge">6</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>India's Ramsar Sites Tally Reaches 103 🦢</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">New Total</span> India's total number of Ramsar Sites rose to <mark>103</mark> following the addition of two new wetlands announced by the Union Environment Minister.</li>
+                        <li><span class="pill prelims">New Site 1</span> <mark>Sukhna Wetland</mark> — located in <mark>Chandigarh</mark>.</li>
+                        <li><span class="pill prelims">New Site 2</span> <mark>Sauj Jheel</mark> — located in <mark>Mainpuri district, Uttar Pradesh</mark>.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background &amp; Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Ramsar Convention (1971) &amp; Ecological Value</h4>
+                            <p>Wetlands designated under the <strong>Ramsar Convention (1971, Iran)</strong> are recognized as wetlands of international importance for conserving biological diversity, migratory waterbirds, hydrology, and sustainable livelihoods.</p>
+                            
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill geo">Map Work</span> Pinpoint <strong>Sukhna Lake/Wetland</strong> (Shivalik foothills, Chandigarh) and <strong>Sauj Jheel</strong> (Mainpuri, Upper Ganga-Yamuna Doab region of UP).</li>
+                                <li><span class="pill mains">Mains</span> Supports water security, flood buffering, carbon sequestration, climate resilience, and sustainable wetland tourism (<em>Amrit Dharohar</em> initiative).</li>
+                                <li><strong>Trap Alert:</strong> Sukhna Wetland is in Chandigarh, while Sauj Jheel is in Uttar Pradesh (do not mark both in Chandigarh!).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- CARD 7: International Big Cat Alliance (IBCA) Headquarters -->
+        <div class="card">
+            <div class="badge">7</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>International Big Cat Alliance (IBCA) HQ 🐅</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">New Permanent HQ</span> Union Environment Minister inaugurated the new IBCA Headquarters at <mark>55, Lodi Estate, New Delhi</mark>.</li>
+                        <li><span class="pill prelims">Legal Status &amp; Scope</span> A <mark>treaty-based intergovernmental international organization</mark> conserving <mark>7 Big Cats</mark>: Lion, Tiger, Leopard, Snow Leopard, Cheetah, Jaguar, and Puma.</li>
+                        <li><span class="pill prelims">Funding &amp; Membership</span> India committed <mark>₹150 crore for 5 years (2023–24 to 2027–28)</mark>; currently comprises <mark>29 Member Countries</mark>, <mark>5 Observer States</mark>, and 11 additional consenting countries.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background &amp; Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>PRIME Program &amp; International Synergies</h4>
+                            <p>IBCA conducts international capacity-building workshops under the <mark>ITEC (Indian Technical and Economic Cooperation)</mark> programme of MEA, and aligns conservation efforts with <mark>CITES</mark> (curbing illegal wildlife trade), <mark>UNFCCC</mark>, and <mark>COP</mark> mandates.</p>
+                            
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">PRIME Initiative</span> Specialized big cat health and disease-management training program for <mark>veterinary doctors from 20 countries</mark>.</li>
+                                <li><span class="pill geo">Biogeography Trap</span> Out of the 7 big cats covered by IBCA, <strong>5 are found in India</strong> (Tiger, Lion, Leopard, Snow Leopard, and reintroduced Cheetah), whereas <mark>Jaguar and Puma (Cougar) are NOT found in the wild in India</mark>.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- CARD 8: Towards a TB-Free India -->
+        <div class="card">
+            <div class="badge">8</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>Towards a TB-Free India: JOSH &amp; BPaLM 🫁</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">2015–2024 Progress</span> India's TB incidence fell by <mark>21%</mark> (vs. <mark>12% global average</mark>), TB deaths dropped by <mark>28%</mark>, and treatment coverage reached <mark>92%</mark> (vs. 78% globally).</li>
+                        <li><span class="pill prelims">JOSH Campaign</span> <mark>Joint Squad for Health (JOSH)</mark> launched on <mark>13th October 2026</mark> across <mark>11 States and 55 Districts</mark> to mobilize youth for TB awareness and early detection.</li>
+                        <li><span class="pill prelims">BPaLM Regimen</span> Shorter <mark>6-month treatment course</mark> for <mark>Drug-Resistant TB (MDR-TB)</mark> comprising <mark>Bedaquiline, Pretomanid, Linezolid, and Moxifloxacin</mark>.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock UPSC Background &amp; Revision Data</summary>
+                        <div class="deep-dive">
+                            <h4>Programmatic &amp; Technological Ecosystem</h4>
+                            <p><strong>Causative Pathogen:</strong> <mark>Mycobacterium tuberculosis</mark> (an airborne <strong>bacterium</strong> primarily affecting lungs; symptoms include prolonged cough, fever, night sweats, and weight loss).<br>
+                            <strong>NTEP (National TB Elimination Programme):</strong> Renamed from RNTCP in 2020; operates on 4 pillars: <mark>Detect – Treat – Prevent – Build</mark>.</p>
+                            
+                            <h4>Revision Hooks</h4>
+                            <ul>
+                                <li><span class="pill prelims">PM TB Mukt Bharat Abhiyan</span> Launched <strong>9 Sept 2022</strong>; screened <mark>28.1+ crore people</mark>, gave preventive therapy to 20 lakh people, and certified <mark>46,018 Gram Panchayats TB-free</mark>.</li>
+                                <li><span class="pill prelims">Nikshay Poshan &amp; Tech</span> Provides <mark>₹1,000/month</mark> nutritional support to notified TB patients; deploys <mark>AI-enabled portable X-rays</mark>, <strong>TB Mukt Bharat App</strong>, and the <mark>"Khushi" AI Chatbot</mark> to achieve <strong>UN SDG 3</strong>.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+
+        <!-- CARD 9: PIB Lecture Prelims Practice Arena (2 MCQs) -->
+        <div class="card">
+            <div class="badge">9</div>
+            <details class="primary-details">
+                <summary>
+                    <h2>PIB Lecture Prelims MCQ Drill (2 Qs) 🎯</h2>
+                </summary>
+                <div class="card-content">
+                    <ul>
+                        <li><span class="pill prelims">MCQ 1 (NSAP)</span> (1) Administered by MoRD &amp; linked to Art 41. (2) Disability requirement reduced from 80% to 40%. (3) Increased pension amounts under ALL sub-schemes including old age &amp; widow. <br>👉 <strong>Correct Answer:</strong> <mark>B (1 and 2 only)</mark>.</li>
+                        <li><span class="pill prelims">MCQ 2 (GatiShakti / Ramsar / IBCA)</span> (1) PM GatiShakti uses GIS platform by BISAG-N. (2) Sukhna Wetland and Sauj Jheel are both in Chandigarh. (3) IBCA is a treaty-based intergovernmental body for 7 big cats. <br>👉 <strong>Correct Answer:</strong> <mark>C (1 and 3 only)</mark>.</li>
+                    </ul>
+                    
+                    <details class="secondary-details">
+                        <summary>🔓 Unlock Detailed Statement Elimination Logic</summary>
+                        <div class="deep-dive">
+                            <h4>Why Statements Were Eliminated</h4>
+                            <ul>
+                                <li><strong>MCQ 1, Statement 3 is FALSE:</strong> Under the revamped <em>PM Samajik Sahayata Yojana</em>, monthly pension rates were revised <strong>only for Divyangjan (Disability) Pension</strong> (to ₹375/month below 80 yrs and ₹625/month for 80+ yrs). Old age, widow, and family benefit rates remain unchanged.</li>
+                                <li><strong>MCQ 2, Statement 2 is FALSE:</strong> While <strong>Sukhna Wetland</strong> is located in Chandigarh, <strong>Sauj Jheel</strong> is located in <strong>Mainpuri district, Uttar Pradesh</strong>.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div class="footer-dashboard">
+        <div class="footer-box">
+            <h3>Formulas &amp; Mnemonics 🧠</h3>
+            <ul>
+                <li><strong>BPaLM (6-Month MDR-TB Regimen):</strong> <strong>B</strong>edaquiline + <strong>P</strong>retomanid + <strong>L</strong>inezolid + <strong>M</strong>oxifloxacin.</li>
+                <li><strong>NTEP 4 Pillars:</strong> <strong>D-T-P-B</strong> → <em>Detect, Treat, Prevent, Build</em>.</li>
+                <li><strong>3 Coloured Potatoes:</strong> <em>Neelkanth</em> (2018, Purple skin) → <em>Manik</em> (2021, Red, Fe/Zn) → <em>Jamunia</em> (Purple flesh, 32–35 t/ha).</li>
+                <li><strong>IBCA 7 Big Cats:</strong> 5 Indian (Tiger, Lion, Leopard, Snow Leopard, Cheetah) + 2 Americas (Jaguar, Puma).</li>
+                <li><strong>SCOMET:</strong> Special Chemicals, Organisms, Materials, Equipment &amp; Technologies (Dual-use export control).</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Exam Prelims Tricks ⚠️</h3>
+            <ul>
+                <li><strong>NSAP Trap:</strong> Disability threshold cut from 80% to 40% &amp; age from birth, <em>but</em> Old Age &amp; Widow pension amounts were <strong>NOT</strong> increased.</li>
+                <li><strong>Ramsar Trap:</strong> Sukhna Wetland = Chandigarh; Sauj Jheel = Mainpuri (UP). Total = <strong>103</strong>.</li>
+                <li><strong>Pathogen Trap:</strong> TB is caused by a <strong>bacterium</strong> (<em>M. tuberculosis</em>), not a virus.</li>
+                <li><strong>Ministry Traps:</strong> NSTCC = M/o Commerce; NSAP = M/o Rural Development; Mahila Kisan Diwas = M/o Agriculture.</li>
+                <li><strong>EPCG vs Advance Auth:</strong> EPCG is zero-duty on <em>machinery/capital goods</em>; Advance Authorization is duty-free on <em>raw materials/inputs</em>.</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Quick 1-Liner Revision 🏛️</h3>
+            <ul>
+                <li><strong>Anthocyanin:</strong> Natural pigment giving Kufri Jamunia its purple flesh &amp; antioxidants.</li>
+                <li><strong>15 Oct 2026:</strong> Mahila Kisan Diwas at Dr. Ambedkar International Centre, New Delhi.</li>
+                <li><strong>₹20.23 Lakh Cr:</strong> Value of 421 projects evaluated by PM GatiShakti NPG in 5 years.</li>
+                <li><strong>Article 41 (DPSP):</strong> Constitutional basis for NSAP / PM Samajik Sahayata Yojana.</li>
+                <li><strong>55, Lodi Estate:</strong> New permanent HQ of International Big Cat Alliance in New Delhi.</li>
+                <li><strong>PRIME &amp; Khushi:</strong> PRIME = IBCA vet training (20 nations); Khushi = AI chatbot for TB screening.</li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Memory Checklist ✅</h3>
+            <ul class="checklist">
+                <li><label><input type="checkbox"> Topic 1: Kufri Jamunia nutrients &amp; 32–35 t/ha yield</label></li>
+                <li><label><input type="checkbox"> Topic 2: Mahila Kisan Diwas 2026 theme &amp; book title</label></li>
+                <li><label><input type="checkbox"> Topic 3: NSTCC, DGFT, Trade Connect &amp; SCOMET</label></li>
+                <li><label><input type="checkbox"> Topic 4: PM GatiShakti 5-yr stats, BISAG-N, UGI &amp; ITLA</label></li>
+                <li><label><input type="checkbox"> Topic 5: PMSSY 4 sub-schemes, 80%→40% disability rule &amp; Art 41</label></li>
+                <li><label><input type="checkbox"> Topic 6: 103 Ramsar Sites (Sukhna &amp; Sauj Jheel locations)</label></li>
+                <li><label><input type="checkbox"> Topic 7: IBCA 7 Big Cats, ₹150 Cr grant, 29 members &amp; PRIME</label></li>
+                <li><label><input type="checkbox"> Topic 8: TB 21% drop, JOSH (13 Oct), BPaLM &amp; Nikshay ₹1,000</label></li>
+                <li><label><input type="checkbox"> Topic 9: Solved both Lecture Prelims Multi-Statement MCQs</label></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.body.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.body.removeAttribute('data-theme');
+            themeBtn.innerText = '🌙 Dark';
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+            themeBtn.innerText = '☀️ Light';
+        }
+    });
+
+    const toggleAllBtn = document.getElementById('toggle-all-btn');
+    let allExpanded = false;
+    toggleAllBtn.addEventListener('click', () => {
+        allExpanded = !allExpanded;
+        document.querySelectorAll('details').forEach(d => d.open = allExpanded);
+        toggleAllBtn.innerText = allExpanded ? '📁 Collapse' : '📂 Expand';
+    });
+    
+    const revisionBtn = document.getElementById('revision-btn');
+    revisionBtn.addEventListener('click', () => {
+        document.body.classList.toggle('revision-mode');
+        if(document.body.classList.contains('revision-mode')) {
+            revisionBtn.innerText = '📝 Exit Revision';
+            revisionBtn.style.background = '#dc2626';
+            revisionBtn.style.borderColor = '#dc2626';
+        } else {
+            revisionBtn.innerText = '🧠 Revision';
+            revisionBtn.style.background = '#8b5cf6';
+            revisionBtn.style.borderColor = '#8b5cf6';
+        }
+    });
+
+    window.addEventListener('beforeprint', () => {
+        document.querySelectorAll('details').forEach(d => d.open = true);
+        document.body.classList.remove('revision-mode');
+    });
+</script>
+</body>
+</html>
