@@ -101,7 +101,6 @@
         .edition-box { background: var(--card-bg-white); border: 2px solid var(--border-color); border-radius: 18px; padding: 18px 22px; box-shadow: var(--shadow-subtle); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
         .edition-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--primary-blue); }
 
-        /* Sketchnote Card Compatibility on Hub Search */
         .sketch-card {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border: 2px dashed #38bdf8;
@@ -235,9 +234,12 @@
 
 <script>
     const CONFIG = { 
-        githubOwner: "your-username", 
-        githubRepo: "your-repo", 
-        manualWeeklyFiles: [], 
+        githubOwner: "", 
+        githubRepo: "", 
+        // MANUAL OVERRIDE: Add your exact weekly filename here so it loads instantly!
+        manualWeeklyFiles: [
+            "12102026-18102026.html"
+        ], 
         manualMonthlyFiles: [] 
     };
     
@@ -280,7 +282,6 @@
         else { document.body.setAttribute('data-theme', 'dark'); themeBtn.innerText = '☀️'; localStorage.setItem('upsc_theme', 'dark'); }
     });
 
-    // Native Text-to-Speech (TTS) Logic
     function toggleTTS(cardEl, btnEl) {
         if ('speechSynthesis' in window) {
             if (window.speechSynthesis.speaking) {
@@ -359,6 +360,9 @@
     function getMonthFullName(monthNum) { const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; return months[parseInt(monthNum, 10) - 1] || monthNum; }
 
     async function getFileList(folder) {
+        if (folder === 'html/weekly' && CONFIG.manualWeeklyFiles.length > 0) return CONFIG.manualWeeklyFiles;
+        if (folder === 'html/monthly' && CONFIG.manualMonthlyFiles.length > 0) return CONFIG.manualMonthlyFiles;
+
         let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
         if (window.location.hostname.includes('github.io')) {
             owner = window.location.hostname.split('.')[0];
@@ -370,7 +374,10 @@
             if (!res.ok) throw new Error('API request failed');
             const data = await res.json();
             return data.filter(f => f.name.endsWith('.html')).map(f => f.name);
-        } catch (err) { console.error(`Error fetching list for ${folder}:`, err); return []; }
+        } catch (err) { 
+            console.warn(`API list fallback used for ${folder}`); 
+            return folder === 'html/weekly' ? CONFIG.manualWeeklyFiles : CONFIG.manualMonthlyFiles; 
+        }
     }
 
     async function initializeApp() {
@@ -378,50 +385,65 @@
             loadingSubtext.innerText = 'Requesting file lists...';
             const weeklyFiles = await getFileList('html/weekly');
             const monthlyFiles = await getFileList('html/monthly');
+
             if (weeklyFiles.length === 0 && monthlyFiles.length === 0) {
-                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Ensure folders 'html/weekly' and 'html/monthly' exist relative to this file.</p>`;
+                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Ensure folders 'html/weekly' and 'html/monthly' contain your HTML files.</p>`;
                 return;
             }
+
             loadingSubtext.innerText = 'Downloading and parsing sketchnote cards...';
             const filesList = [], cardsList = [], monthlyList = [], monthlyCardsList = [];
 
             for (const filename of weeklyFiles) {
                 try {
-                    const res = await fetch(`html/weekly/${filename}`); if (!res.ok) continue;
+                    const res = await fetch(`html/weekly/${filename}`); 
+                    if (!res.ok) continue;
                     const htmlText = await res.text();
+                    
+                    // Flexible Date Range Matcher (Supports DDMMYYYY-DDMMYYYY or generic date strings)
                     const match = filename.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
+                    let startDate = new Date(), endDate = new Date(), startMonthYear = "October 2026", endMonthYear = "October 2026", formattedRange = filename.replace('.html', '');
+
                     if (match) {
                         const [_, d1, m1, y1, d2, m2, y2] = match;
-                        const startDate = new Date(`${y1}-${m1}-${d1}`), endDate = new Date(`${y2}-${m2}-${d2}`);
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(htmlText, 'text/html');
-                        const cleanText = (doc.body ? doc.body.innerText || doc.body.textContent : htmlText).toLowerCase();
-                        const startMonthYear = `${getMonthFullName(m1)} ${y1}`, endMonthYear = `${getMonthFullName(m2)} ${y2}`;
-                        const formattedRange = `${d1} ${getMonthName(m1)} - ${d2} ${getMonthName(m2)}, ${y2}`;
-                        
-                        // Select Sketchnote cards (.sketch-card)
-                        const domCards = doc.querySelectorAll('.sketch-card');
-                        const cardObjects = [];
-                        domCards.forEach((cardEl, idx) => {
-                            const cardId = `${filename}_${idx}`;
-                            const cObj = { id: cardId, filename: filename, formattedRange: formattedRange, startDate: startDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
-                            cardsList.push(cObj); cardObjects.push(cObj);
-                        });
-                        filesList.push({ filename: filename, startDate: startDate, endDate: endDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, formattedRange: formattedRange, htmlText: htmlText, cleanText: cleanText, topicCount: domCards.length, cards: cardObjects });
+                        startDate = new Date(`${y1}-${m1}-${d1}`);
+                        endDate = new Date(`${y2}-${m2}-${d2}`);
+                        startMonthYear = `${getMonthFullName(m1)} ${y1}`;
+                        endMonthYear = `${getMonthFullName(m2)} ${y2}`;
+                        formattedRange = `${d1} ${getMonthName(m1)} - ${d2} ${getMonthName(m2)}, ${y2}`;
                     }
-                } catch (e) { console.error('Failed to load', filename, e); }
+
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    const cleanText = (doc.body ? doc.body.innerText || doc.body.textContent : htmlText).toLowerCase();
+                    
+                    // Scrape both .sketch-card and .card elements for maximum compatibility
+                    const domCards = doc.querySelectorAll('.sketch-card, .card');
+                    const cardObjects = [];
+                    
+                    domCards.forEach((cardEl, idx) => {
+                        const cardId = `${filename}_${idx}`;
+                        const cObj = { id: cardId, filename: filename, formattedRange: formattedRange, startDate: startDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
+                        cardsList.push(cObj); 
+                        cardObjects.push(cObj);
+                    });
+
+                    filesList.push({ filename: filename, startDate: startDate, endDate: endDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, formattedRange: formattedRange, htmlText: htmlText, cleanText: cleanText, topicCount: domCards.length, cards: cardObjects });
+                } catch (e) { console.error('Failed to load weekly file:', filename, e); }
             }
 
             for (const filename of monthlyFiles) {
                 try {
-                    const res = await fetch(`html/monthly/${filename}`); if (!res.ok) continue;
+                    const res = await fetch(`html/monthly/${filename}`); 
+                    if (!res.ok) continue;
                     const htmlText = await res.text();
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(htmlText, 'text/html');
-                    const domCards = doc.querySelectorAll('.sketch-card');
+                    const domCards = doc.querySelectorAll('.sketch-card, .card');
                     let displayTitle = filename.replace('.html', ''), monthYearStr = '';
                     const mMatch = filename.match(/^(\d{2})(\d{4})\.html$/);
                     if (mMatch) { displayTitle = `${getMonthFullName(mMatch[1])} ${mMatch[2]}`; monthYearStr = displayTitle; }
+                    
                     const cardObjects = [];
                     domCards.forEach((cardEl, idx) => {
                         const cardId = `monthly_${filename}_${idx}`;
@@ -429,7 +451,7 @@
                         monthlyCardsList.push(cObj); cardObjects.push(cObj);
                     });
                     monthlyList.push({ filename: filename, displayTitle: displayTitle, monthYearStr: monthYearStr, topicCount: domCards.length, cards: cardObjects });
-                } catch (e) { console.error('Failed to load', filename, e); }
+                } catch (e) { console.error('Failed to load monthly file:', filename, e); }
             }
 
             filesList.sort((a, b) => b.startDate - a.startDate);
@@ -445,7 +467,9 @@
             if (currentActiveTab === 'weekly') weeksList.style.display = 'flex';
             else monthlyPage.style.display = 'block';
 
-        } catch (err) { loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading Files</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; }
+        } catch (err) { 
+            loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading Files</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; 
+        }
     }
 
     function buildMonthDropdown(files, monthlyFiles) {
