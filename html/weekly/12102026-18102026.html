@@ -1,623 +1,558 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIB Weekly Analysis (12th - 18th Oct) - Sketchnote UPSC Board</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        slate: { 850: '#151e3f', 900: '#0f172a', 950: '#090d16' }
-                    },
-                    fontFamily: {
-                        sketch: ['"Caveat"', '"Patrick Hand"', 'cursive', 'sans-serif'],
-                        sans: ['"Inter"', 'sans-serif']
-                    }
-                }
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIB Weekly Analysis (12th - 18th October 2026) - Sketchnote Revision Board</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            slate: { 850: '#151e32', 900: '#0f172a', 950: '#0a0f1d' }
+          }
         }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
-    <style>
-        .handwritten { font-family: 'Caveat', cursive; }
-        .sketch-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px dashed #38bdf8;
-            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .sketch-card:hover {
-            transform: translateY(-4px);
-            border-color: #facc15;
-            box-shadow: 0 20px 35px -10px rgba(250, 204, 21, 0.25);
-        }
-        .modal-backdrop {
-            background: rgba(9, 13, 22, 0.85);
-            backdrop-filter: blur(8px);
-        }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
-    </style>
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+    .font-hand { font-family: 'Caveat', cursive; }
+    body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+    .sketch-card {
+      background: #1e293b;
+      border: 2px dashed #334155;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sketch-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.25);
+    }
+    .know-more-btn {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+    }
+    .sketch-card:hover .know-more-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Custom Scrollbar for Modals */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen selection:bg-sky-500 selection:text-white">
+<body class="min-h-screen bg-slate-900 text-slate-100 p-4 sm:p-6 lg:p-8">
 
-    <!-- Top Header Banner -->
-    <header class="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-40 backdrop-blur-md px-4 py-4">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="bg-sky-500/20 p-2 rounded-xl border border-sky-500/40 text-sky-400 font-sketch text-2xl font-bold px-3">
-                    UPSC REVISION
-                </div>
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                        PIB Weekly Analysis <span class="text-amber-400 text-lg font-sketch">12th - 18th Oct 2026</span>
-                    </h1>
-                    <p class="text-xs text-slate-400">Rajanha | Dishis IAS Aram Batch | Comprehensive Zero-Omission Sketchnote Board</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 text-xs text-sky-300 font-mono">
-                    Total Topics: 8 Core Pillars
-                </div>
-                <button onclick="expandAllModals()" class="bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition shadow-lg shadow-sky-600/20">
-                    ⚡ Quick Scan All
-                </button>
-            </div>
+  <!-- HEADER -->
+  <header class="max-w-7xl mx-auto mb-10 text-center">
+    <div class="inline-block px-4 py-1.5 mb-3 text-xs font-semibold tracking-wider text-sky-400 uppercase bg-sky-950/60 border border-sky-800/50 rounded-full">
+      UPSC Civil Services • PIB Weekly Intelligence • 12th - 18th Oct 2026
+    </div>
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3">
+      PIB Sketchnote <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-amber-400">Master Board</span>
+    </h1>
+    <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+      Zero-omission interactive revision board covering CPRI nutrient potatoes, Mahila Kisan Diwas, NSTCC, Gati Shakti, NSAP pension reforms, Ramsar wetlands, IBCA, and TB elimination.
+    </p>
+  </header>
+
+  <!-- MAIN SKETCHNOTE GRID (8 TOPICS) -->
+  <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+
+    <!-- TOPIC 1: CPRI NUTRIENT-RICH POTATOES -->
+    <div class="sketch-card rounded-2xl p-5 flex flex-col justify-between relative group cursor-pointer" onclick="openModal('modal-potato')">
+      <div>
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-bold px-2.5 py-1 bg-purple-950/80 text-purple-300 rounded-lg border border-purple-800">ICAR / CPRI</span>
+          <span class="text-xs font-mono text-slate-400">#01 Biofort</span>
         </div>
-    </header>
-
-    <!-- Main Sketchnote Canvas Grid -->
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            <!-- TOPIC 1: ICAR Nutrient-Rich Potatoes -->
-            <div class="sketch-card rounded-2xl p-5 relative flex flex-col justify-between group">
-                <div class="absolute -top-3 -right-3 bg-amber-500 text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-full shadow border border-amber-300">
-                    ICAR | Biofortification
-                </div>
-                <div>
-                    <!-- SVG Illustration -->
-                    <div class="w-full bg-slate-900/60 rounded-xl p-2 mb-4 border border-slate-800 flex justify-center">
-                        <svg class="sketch-svg w-36 h-28" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Potato outlines with purple/red tint -->
-                            <ellipse cx="50" cy="60" rx="25" ry="18" fill="#3b0764" stroke="#c084fc" stroke-dashcol="2" />
-                            <ellipse cx="90" cy="50" rx="22" ry="16" fill="#7f1d1d" stroke="#fca5a5" />
-                            <!-- Vitamins sparkles -->
-                            <path d="M70 25 L73 32 L80 35 L73 38 L70 45 L67 38 L60 35 L67 32 Z" fill="#facc15" stroke="#ca8a04" stroke-width="1"/>
-                            <path d="M25 35 L27 40 L32 42 L27 44 L25 49 L23 44 L18 42 L23 40 Z" fill="#38bdf8" stroke="#0284c7" stroke-width="1"/>
-                            <text x="32" y="98" fill="#e2e8f0" font-size="10" font-family="sans-serif" font-weight="bold">Hidden Hunger Fix</text>
-                        </svg>
-                    </div>
-                    
-                    <div class="handwritten text-3xl text-amber-400 font-bold mb-1">Kufri Neel & Jamuni</div>
-                    <div class="text-xs font-mono text-sky-400 mb-3">Target: Hidden Hunger (32-35 t/ha)</div>
-                    
-                    <!-- Micro-bullets (Max 6 words per line) -->
-                    <ul class="space-y-1.5 text-xs text-slate-300 mb-6">
-                        <li class="flex items-center gap-1.5">🥔 <span class="font-medium">Purple/red flesh loaded with anthocyanin.</span></li>
-                        <li class="flex items-center gap-1.5">🧬 <span class="font-medium">Biofortified via plant breeding.</span></li>
-                        <li class="flex items-center gap-1.5">🛡️ <span class="font-medium">High zinc, iron & vitamin C.</span></li>
-                        <li class="flex items-center gap-1.5">📦 <span class="font-medium">Excellent storage & low rotting.</span></li>
-                    </ul>
-                </div>
-
-                <!-- Hover Trigger Button -->
-                <button onclick="openModal('modal-1')" class="w-full bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-slate-700 group-hover:border-sky-400 flex items-center justify-center gap-1.5 shadow-md">
-                    <span>🔍 Know More (Deep Dive)</span>
-                </button>
-            </div>
-
-            <!-- TOPIC 2: Mahila Kisan Diwas 2026 -->
-            <div class="sketch-card rounded-2xl p-5 relative flex flex-col justify-between group">
-                <div class="absolute -top-3 -right-3 bg-pink-500 text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-full shadow border border-pink-300">
-                    15th Oct 2026
-                </div>
-                <div>
-                    <!-- SVG Illustration -->
-                    <div class="w-full bg-slate-900/60 rounded-xl p-2 mb-4 border border-slate-800 flex justify-center">
-                        <svg class="sketch-svg w-36 h-28" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Farmer woman silhouette / sprout -->
-                            <circle cx="70" cy="38" r="14" fill="#fbcfe8" stroke="#db2777"/>
-                            <path d="M45 85 C45 60 95 60 95 85" stroke="#f472b6" stroke-width="3" fill="none"/>
-                            <!-- Sprout leaf -->
-                            <path d="M70 20 Q75 10 85 15 Q80 25 70 20 Z" fill="#4ade80" stroke="#16a34a"/>
-                            <path d="M70 20 Q65 10 55 15 Q60 25 70 20 Z" fill="#4ade80" stroke="#16a34a"/>
-                            <text x="24" y="102" fill="#e2e8f0" font-size="10" font-family="sans-serif" font-weight="bold">Women in Agriculture</text>
-                        </svg>
-                    </div>
-                    
-                    <div class="handwritten text-3xl text-pink-400 font-bold mb-1">Mahila Kisan Diwas</div>
-                    <div class="text-xs font-mono text-sky-400 mb-3">Venue: Dr. Ambedkar Intl Center, Delhi</div>
-                    
-                    <ul class="space-y-1.5 text-xs text-slate-300 mb-6">
-                        <li class="flex items-center gap-1.5">👩‍🌾 <span class="font-medium">Honoring stellar women farmers & tribes.</span></li>
-                        <li class="flex items-center gap-1.5">💳 <span class="font-medium">Focus: Affordable credit & mech.</span></li>
-                        <li class="flex items-center gap-1.5">📖 <span class="font-medium">Book released: Challenges to Success.</span></li>
-                        <li class="flex items-center gap-1.5">🚀 <span class="font-medium">Empowering rural entrepreneurship & Viksit Bharat.</span></li>
-                    </ul>
-                </div>
-
-                <button onclick="openModal('modal-2')" class="w-full bg-slate-800 hover:bg-pink-600 text-slate-200 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-slate-700 group-hover:border-pink-400 flex items-center justify-center gap-1.5 shadow-md">
-                    <span>🔍 Know More (Deep Dive)</span>
-                </button>
-            </div>
-
-            <!-- TOPIC 3: National Strategic Trade Command Center (NSTCC) -->
-            <div class="sketch-card rounded-2xl p-5 relative flex flex-col justify-between group">
-                <div class="absolute -top-3 -right-3 bg-sky-500 text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-full shadow border border-sky-300">
-                    New Delhi
-                </div>
-                <div>
-                    <!-- SVG Illustration -->
-                    <div class="w-full bg-slate-900/60 rounded-xl p-2 mb-4 border border-slate-800 flex justify-center">
-                        <svg class="sketch-svg w-36 h-28" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Radar / Global Trade monitor -->
-                            <circle cx="70" cy="55" r="35" stroke="#38bdf8" stroke-dasharray="3 3"/>
-                            <circle cx="70" cy="55" r="20" stroke="#facc15"/>
-                            <circle cx="70" cy="55" r="5" fill="#38bdf8"/>
-                            <line x1="70" y1="55" x2="95" y2="30" stroke="#f43f5e" stroke-width="2"/>
-                            <text x="28" y="102" fill="#e2e8f0" font-size="10" font-family="sans-serif" font-weight="bold">Digital Trade Monitor</text>
-                        </svg>
-                    </div>
-                    
-                    <div class="handwritten text-3xl text-sky-400 font-bold mb-1">NSTCC Command</div>
-                    <div class="text-xs font-mono text-sky-400 mb-3">Ministry of Commerce & Industry</div>
-                    
-                    <ul class="space-y-1.5 text-xs text-slate-300 mb-6">
-                        <li class="flex items-center gap-1.5">📊 <span class="font-medium">Real-time import/export tracking hub.</span></li>
-                        <li class="flex items-center gap-1.5">🔗 <span class="font-medium">Integrated with DGFT & Trade Connect.</span></li>
-                        <li class="flex items-center gap-1.5">🛡️ <span class="font-medium">SCOMET & advance auth oversight.</span></li>
-                        <li class="flex items-center gap-1.5">⚡ <span class="font-medium">Evidence-based trade policymaking.</span></li>
-                    </ul>
-                </div>
-
-                <button onclick="openModal('modal-3')" class="w-full bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-slate-700 group-hover:border-sky-400 flex items-center justify-center gap-1.5 shadow-md">
-                    <span>🔍 Know More (Deep Dive)</span>
-                </button>
-            </div>
-
-            <!-- TOPIC 4: PM GatiShakti National Master Plan -->
-            <div class="sketch-card rounded-2xl p-5 relative flex flex-col justify-between group">
-                <div class="absolute -top-3 -right-3 bg-emerald-500 text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-full shadow border border-emerald-300">
-                    5 Years Completed
-                </div>
-                <div>
-                    <!-- SVG Illustration -->
-                    <div class="w-full bg-slate-900/60 rounded-xl p-2 mb-4 border border-slate-800 flex justify-center">
-                        <svg class="sketch-svg w-36 h-28" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Multi-modal transport network -->
-                            <path d="M15 70 Q50 30 85 70 T125 50" stroke="#34d399" stroke-width="3" fill="none"/>
-                            <!-- Train / Road / Port icons -->
-                            <rect x="35" y="45" width="16" height="10" rx="2" fill="#34d399"/>
-                            <circle cx="85" cy="40" r="8" fill="#facc15"/>
-                            <text x="25" y="98" fill="#e2e8f0" font-size="10" font-family="sans-serif" font-weight="bold">BISAG-N Geospatial</text>
-                        </svg>
-                    </div>
-                    
-                    <div class="handwritten text-3xl text-emerald-400 font-bold mb-1">PM GatiShakti NMP</div>
-                    <div class="text-xs font-mono text-sky-400 mb-3">Launched Oct 2021 | 1,800+ Layers</div>
-                    
-                    <ul class="space-y-1.5 text-xs text-slate-300 mb-6">
-                        <li class="flex items-center gap-1.5">🌐 <span class="font-medium">Multi-modal infrastructure connectivity.</span></li>
-                        <li class="flex items-center gap-1.5">🏗️ <span class="font-medium">Zero duplication across ministries.</span></li>
-                        <li class="flex items-center gap-1.5">🗺️ <span class="font-medium">Powered by BISAG-N GIS tech.</span></li>
-                        <li class="flex items-center gap-1.5">💰 <span class="font-medium">Drastic reduction in logistic costs.</span></li>
-                    </ul>
-                </div>
-
-                <button onclick="openModal('modal-4')" class="w-full bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-slate-700 group-hover:border-emerald-400 flex items-center justify-center gap-1.5 shadow-md">
-                    <span>🔍 Know More (Deep Dive)</span>
-                </button>
-            </div>
-
-            <!-- TOPIC 5: National Social Assistance Program (PMSSY) -->
-            <div class="sketch-card rounded-2xl p-5 relative flex flex-col justify-between group">
-                <div class="absolute -top-3 -right-3 bg-purple-500 text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-full shadow border border-purple-300">
-                    Article 41 DPSP
-                </div>
-                <div>
-                    <!-- SVG Illustration -->
-                    <div class="w-full bg-slate-900/60 rounded-xl p-2 mb-4 border border-slate-800 flex justify-center">
-                        <svg class="sketch-svg w-36 h-28" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Shield / Social Security -->
-                            <path d="M70 20 L105 35 V60 C105 82 70 95 70 95 C70 95 35 82 35 60 V35 Z" fill="#581c87" stroke="#c084fc" stroke-width="2"/>
-                            <!-- Heart / Hands -->
-                            <path d="M70 50 C65 40 50 45 55 60 L70 75 L85 60 C90 45 75 40 70 50 Z" fill="#f472b6"/>
-                            <text x="25" y="102" fill="#e2e8f0" font-size="10" font-family="sans-serif" font-weight="bold">Vulnerable Support</text>
-                        </svg>
-                    </div>
-                    
-                    <div class="handwritten text-3xl text-purple-400 font-bold mb-1">PM Samajik Sahayata</div>
-                    <div class="text-xs font-mono text-sky-400 mb-3">Min of Rural Development | 100% Central</div>
-                    
-                    <ul class="space-y-1.5 text-xs text-slate-300 mb-6">
-                        <li class="flex items-center gap-1.5">👵 <span class="font-medium">Old age, widow & disability pensions.</span></li>
-                        <li class="flex items-center gap-1.5">♿ <span class="font-medium">Disability eligibility eased: 80% to 40%.</span></li>
-                        <li class="flex items-center gap-1.5">👶 <span class="font-medium">Disability pension eligible from birth.</span></li>
-                        <li class="flex items-center gap-1.5">🏛️ <span class="font-medium">Backed by DPSP Article 41.</span></li>
-                    </ul>
-                </div>
-
-                <button onclick="openModal('modal-5')" class="w-full bg-slate-800 hover:bg-purple-600 text-slate-200 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-slate-700 group-hover:border-purple-400 flex items-center justify-center gap-1.5 shadow-md">
-                    <span>🔍 Know More (Deep Dive)</span>
-                </button>
-            </div>
-
-            <!-- TOPIC 6: India's Ramsar Sites (103 Total) -->
-            <div class="sketch-card rounded-2xl p-5 relative flex flex-col justify-between group">
-                <div class="absolute -top-3 -right-3 bg-teal-500 text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-full shadow border border-teal-300">
-                    Total 103 Sites
-                </div>
-                <div>
-                    <!-- SVG Illustration -->
-                    <div class="w-full bg-slate-900/60 rounded-xl p-2 mb-4 border border-slate-800 flex justify-center">
-                        <svg class="sketch-svg w-36 h-28" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Wetland & Bird -->
-                            <path d="M20 75 Q70 50 120 75 V90 H20 Z" fill="#042f2e" stroke="#2dd4bf"/>
-                            <path d="M50 45 Q55 30 65 40 L70 55" stroke="#99f6e4" stroke-width="2"/>
-                            <circle cx="65" cy="30" r="4" fill="#99f6e4"/>
-                            <text x="20" y="102" fill="#e2e8f0" font-size="10" font-family="sans-serif" font-weight="bold">Sukna & Sahi Jheel</text>
-                        </svg>
-                    </div>
-                    
-                    <div class="handwritten text-3xl text-teal-400 font-bold mb-1">New Ramsar Wetlands</div>
-                    <div class="text-xs font-mono text-sky-400 mb-3">Chandigarh & Mainpuri, UP</div>
-                    
-                    <ul class="space-y-1.5 text-xs text-slate-300 mb-6">
-                        <li class="flex items-center gap-1.5">🌊 <span class="font-medium">Sukna Wetland (Chandigarh added).</span></li>
-                        <li class="flex items-center gap-1.5">🦆 <span class="font-medium">Sahi Jheel (Mainpuri, UP added).</span></li>
-                        <li class="flex items-center gap-1.5">📜 <span class="font-medium">Ramsar Convention 1971 protection.</span></li>
-                        <li class="flex items-center gap-1.5">🌍 <span class="font-medium">Boosts water security & climate resilience.</span></li>
-                    </ul>
-                </div>
-
-                <button onclick="openModal('modal-6')" class="w-full bg-slate-800 hover:bg-teal-600 text-slate-200 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-slate-700 group-hover:border-teal-400 flex items-center justify-center gap-1.5 shadow-md">
-                    <span>🔍 Know More (Deep Dive)</span>
-                </button>
-            </div>
-
-            <!-- TOPIC 7: International Big Cat Alliance (IBCA) -->
-            <div class="sketch-card rounded-2xl p-5 relative flex flex-col justify-between group">
-                <div class="absolute -top-3 -right-3 bg-amber-600 text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-full shadow border border-amber-300">
-                    29 Countries
-                </div>
-                <div>
-                    <!-- SVG Illustration -->
-                    <div class="w-full bg-slate-900/60 rounded-xl p-2 mb-4 border border-slate-800 flex justify-center">
-                        <svg class="sketch-svg w-36 h-28" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Tiger / Big cat face -->
-                            <path d="M45 40 Q70 20 95 40 L105 70 Q70 95 35 70 Z" fill="#451a03" stroke="#f59e0b"/>
-                            <circle cx="55" cy="50" r="5" fill="#f59e0b"/>
-                            <circle cx="85" cy="50" r="5" fill="#f59e0b"/>
-                            <path d="M65 65 Q70 70 75 65" stroke="#f59e0b" stroke-width="2"/>
-                            <text x="22" y="102" fill="#e2e8f0" font-size="10" font-family="sans-serif" font-weight="bold">7 Big Cat Species</text>
-                        </svg>
-                    </div>
-                    
-                    <div class="handwritten text-3xl text-amber-500 font-bold mb-1">IBCA HQ New Delhi</div>
-                    <div class="text-xs font-mono text-sky-400 mb-3">Funded: ₹150 Cr (5 Years)</div>
-                    
-                    <ul class="space-y-1.5 text-xs text-slate-300 mb-6">
-                        <li class="flex items-center gap-1.5">🐅 <span class="font-medium">Protects 7 species (Lion, Tiger, etc.).</span></li>
-                        <li class="flex items-center gap-1.5">🎓 <span class="font-medium">PRIME vet training for 20 nations.</span></li>
-                        <li class="flex items-center gap-1.5">🏛️ <span class="font-medium">HQ: 55 Lodi Estate, New Delhi.</span></li>
-                        <li class="flex items-center gap-1.5">🤝 <span class="font-medium">Treaty-based intergovernmental cooperation.</span></li>
-                    </ul>
-                </div>
-
-                <button onclick="openModal('modal-7')" class="w-full bg-slate-800 hover:bg-amber-600 text-slate-200 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-slate-700 group-hover:border-amber-400 flex items-center justify-center gap-1.5 shadow-md">
-                    <span>🔍 Know More (Deep Dive)</span>
-                </button>
-            </div>
-
-            <!-- TOPIC 8: TB-Free India & JOUSH Campaign -->
-            <div class="sketch-card rounded-2xl p-5 relative flex flex-col justify-between group">
-                <div class="absolute -top-3 -right-3 bg-red-500 text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-full shadow border border-red-300">
-                    -21% TB Incidence
-                </div>
-                <div>
-                    <!-- SVG Illustration -->
-                    <div class="w-full bg-slate-900/60 rounded-xl p-2 mb-4 border border-slate-800 flex justify-center">
-                        <svg class="sketch-svg w-36 h-28" viewBox="0 0 140 110" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Lungs & Medical Cross -->
-                            <path d="M50 35 C35 35 30 50 35 65 C40 80 55 85 60 70 V45 Z" fill="#450a0a" stroke="#f87171"/>
-                            <path d="M90 35 C105 35 110 50 105 65 C100 80 85 85 80 70 V45 Z" fill="#450a0a" stroke="#f87171"/>
-                            <rect x="64" y="40" width="12" height="30" fill="#f87171"/>
-                            <rect x="55" y="49" width="30" height="12" fill="#f87171"/>
-                            <text x="30" y="102" fill="#e2e8f0" font-size="10" font-family="sans-serif" font-weight="bold">BPaL Regimen & AI X-Ray</text>
-                        </svg>
-                    </div>
-                    
-                    <div class="handwritten text-3xl text-red-400 font-bold mb-1">TB-Free India 2026</div>
-                    <div class="text-xs font-mono text-sky-400 mb-3">JOUSH Campaign | BPaL Regimen</div>
-                    
-                    <ul class="space-y-1.5 text-xs text-slate-300 mb-6">
-                        <li class="flex items-center gap-1.5">🦠 <span class="font-medium">Mycobacterium tuberculosis bacterium.</span></li>
-                        <li class="flex items-center gap-1.5">💊 <span class="font-medium">6-month BPaL regimen for drug resistance.</span></li>
-                        <li class="flex items-center gap-1.5">🤖 <span class="font-medium">AI portable X-Ray & Kushi chatbot.</span></li>
-                        <li class="flex items-center gap-1.5">🎯 <span class="font-medium">Aligned with SDG 3 good health.</span></li>
-                    </ul>
-                </div>
-
-                <button onclick="openModal('modal-8')" class="w-full bg-slate-800 hover:bg-red-600 text-slate-200 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-slate-700 group-hover:border-red-400 flex items-center justify-center gap-1.5 shadow-md">
-                    <span>🔍 Know More (Deep Dive)</span>
-                </button>
-            </div>
-
+        <!-- SVG Illustration -->
+        <div class="w-full bg-slate-950/50 rounded-xl p-2 mb-3 flex justify-center items-center">
+          <svg class="sketch-svg" viewBox="0 0 140 110" width="100" height="80">
+            <!-- Potato Body -->
+            <ellipse cx="70" cy="60" rx="35" ry="25" fill="#581c87" stroke="#c084fc" stroke-width="2" />
+            <circle cx="55" cy="50" r="3" fill="#e9d5ff" />
+            <circle cx="85" cy="65" r="2.5" fill="#e9d5ff" />
+            <circle cx="70" cy="75" r="2" fill="#e9d5ff" />
+            <!-- Nutrient Sparkles -->
+            <path d="M30 30 L35 40 L45 35 L35 30 Z" fill="#facc15" />
+            <path d="M105 35 L108 43 L116 40 L108 37 Z" fill="#38bdf8" />
+            <text x="50" y="22" fill="#c084fc" font-size="10" font-weight="bold" class="font-hand">Antioxidants</text>
+          </svg>
         </div>
-
-        <!-- Bottom 4-Box Sketchnote Revision Strip -->
-        <section class="mt-12 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-            <h3 class="text-xl font-bold text-amber-400 mb-4 flex items-center gap-2">
-                <span>📌</span> Rapid Revision & Exam Anchors (UPSC / OSSC / OPSC)
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <div class="font-bold text-sky-400 text-sm mb-1">1. Biofortification Core</div>
-                    <p class="text-xs text-slate-300">Developing nutrient-dense crops via plant breeding to eradicate hidden hunger (micronutrient deficiency despite adequate caloric intake).</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <div class="font-bold text-pink-400 text-sm mb-1">2. Mahila Kisan Diwas</div>
-                    <p class="text-xs text-slate-300">Celebrated on 15th October to recognize women farmers, enhance financial credit access, and elevate rural entrepreneurship under Viksit Bharat.</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <div class="font-bold text-purple-400 text-sm mb-1">3. NSAP / PMSSY (Article 41)</div>
-                    <p class="text-xs text-slate-300">DPSP mandate for public assistance in old age and disability. Disability threshold reduced from 80% to 40% with eligibility starting from birth.</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <div class="font-bold text-teal-400 text-sm mb-1">4. Ramsar & IBCA Milestones</div>
-                    <p class="text-xs text-slate-300">India reaches 103 Ramsar sites with Sukna and Sahi Jheel. IBCA headquartered in New Delhi protects 7 big cat species across 29 nations.</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- HIDDEN POP-UP MODALS FOR DEEP DIVE -->
-
-    <!-- Modal 1: ICAR Potatoes -->
-    <div id="modal-1" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button onclick="closeModal('modal-1')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
-            <h2 class="text-2xl font-bold text-amber-400 mb-2">ICAR & Central Potato Research Institute (CPRI)</h2>
-            <p class="text-xs text-sky-400 font-mono mb-4">Topic: Nutrient-Rich Colored Potato Varieties & Biofortification</p>
-            
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">What is Hidden Hunger?</h4>
-                    <p>Hidden hunger occurs when a person consumes sufficient calories (chapatis, rice) but suffers from chronic micronutrient deficiencies (essential vitamins, minerals, and proteins).</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Key Potato Varieties Developed</h4>
-                    <ul class="list-disc pl-5 space-y-1 mt-2">
-                        <li><strong class="text-purple-300">Kufri Neel (2018):</strong> Purple-skinned, rich in antioxidants.</li>
-                        <li><strong class="text-red-400">Kufri Manik (2021):</strong> Red potato rich in anthocyanins, zinc, and iron.</li>
-                        <li><strong class="text-indigo-300">Kufri Jamuni:</strong> Purple-fleshed, high yield (32-35 tons/hectare), excellent storage quality, low rotting, ideal for traditional dishes (aloo paratha) and processing.</li>
-                    </ul>
-                </div>
-                <div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl text-amber-200 text-xs">
-                    ⚠️ <strong>Prelims Trap Alert:</strong> Biofortification is achieved through traditional plant breeding / genetic selection, NOT through genetically modified (GM) transgenic insertion in these specific varieties.
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('modal-1')" class="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs">Close Modal</button>
-            </div>
-        </div>
+        <h2 class="text-lg font-bold text-white mb-1">Colored Potatoes</h2>
+        <div class="text-2xl font-black text-purple-400 mb-2">Kufri Neel / Manik</div>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4">
+          <li class="flex items-center">🥔 <span class="ml-1.5">Addresses hidden hunger</span></li>
+          <li class="flex items-center">🍇 <span class="ml-1.5">Rich in Anthocyanins</span></li>
+          <li class="flex items-center">🧪 <span class="ml-1.5">Zinc & Iron enriched</span></li>
+        </ul>
+      </div>
+      <button class="know-more-btn w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1">
+        <span>🔍 Know More (Deep Dive)</span>
+      </button>
     </div>
 
-    <!-- Modal 2: Mahila Kisan Diwas -->
-    <div id="modal-2" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button onclick="closeModal('modal-2')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
-            <h2 class="text-2xl font-bold text-pink-400 mb-2">Mahila Kisan Diwas 2026 (15th October)</h2>
-            <p class="text-xs text-sky-400 font-mono mb-4">Organized by: Ministry of Agriculture & Farmers Welfare</p>
-            
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Objective & Significance</h4>
-                    <p>Recognizes the foundational role of women in agriculture (crop cultivation, animal rearing, seed saving). Venue: Dr. Ambedkar International Center, New Delhi.</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Key Highlights & Launches</h4>
-                    <ul class="list-disc pl-5 space-y-1 mt-2">
-                        <li>Honoring outstanding women farmers across tribal and rural regions.</li>
-                        <li>Release of book: <em class="text-pink-300">"Women Farmers of India: Journey from Challenges to Success"</em>.</li>
-                        <li>Focus on affordable credit, farm mechanization, modern equipment access, and rural entrepreneurship.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('modal-2')" class="bg-pink-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs">Close Modal</button>
-            </div>
+    <!-- TOPIC 2: MAHILA KISAN DIWAS 2026 -->
+    <div class="sketch-card rounded-2xl p-5 flex flex-col justify-between relative group cursor-pointer" onclick="openModal('modal-mahila')">
+      <div>
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-bold px-2.5 py-1 bg-pink-950/80 text-pink-300 rounded-lg border border-pink-800">15th Oct</span>
+          <span class="text-xs font-mono text-slate-400">#02 Agri Women</span>
         </div>
+        <div class="w-full bg-slate-950/50 rounded-xl p-2 mb-3 flex justify-center items-center">
+          <svg class="sketch-svg" viewBox="0 0 140 110" width="100" height="80">
+            <!-- Woman Farmer / Plant Symbol -->
+            <circle cx="70" cy="38" r="14" fill="#f43f5e" />
+            <path d="M45 80 C45 60, 95 60, 95 80" fill="none" stroke="#f43f5e" stroke-width="6" stroke-linecap="round" />
+            <path d="M70 48 L70 70" stroke="#38bdf8" stroke-width="3" />
+            <path d="M60 40 L50 25 M80 40 L90 25" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" />
+            <path d="M65 20 Q70 10 75 20 Z" fill="#38bdf8" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white mb-1">Mahila Kisan Diwas</h2>
+        <div class="text-2xl font-black text-pink-400 mb-2">New Delhi Event</div>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4">
+          <li class="flex items-center">👩‍🌾 <span class="ml-1.5">Recognizing women farmers</span></li>
+          <li class="flex items-center">📜 <span class="ml-1.5">Book: Journey to Success</span></li>
+          <li class="flex items-center">💡 <span class="ml-1.5">Tribal region focus</span></li>
+        </ul>
+      </div>
+      <button class="know-more-btn w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1">
+        <span>🔍 Know More (Deep Dive)</span>
+      </button>
     </div>
 
-    <!-- Modal 3: NSTCC -->
-    <div id="modal-3" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button onclick="closeModal('modal-3')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
-            <h2 class="text-2xl font-bold text-sky-400 mb-2">National Strategic Trade Command Center (NSTCC)</h2>
-            <p class="text-xs text-sky-400 font-mono mb-4">Developed by: Department of Commerce, Ministry of Commerce & Industry</p>
-            
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Core Function</h4>
-                    <p>A centralized digital monitoring center tracking India's imports, exports, and international trade activities under one roof using interactive dashboards.</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Integration & Key Areas</h4>
-                    <ul class="list-disc pl-5 space-y-1 mt-2">
-                        <li>Integrated with <strong>DGFT</strong> (Directorate General of Foreign Trade) and Trade Connect e-Platform.</li>
-                        <li>Covers Importer-Exporter Code (IEC), Advance Authorization, Export Promotion Capital Goods (EPCG), Certificate of Origin (CoO), and SCOMET (Special Chemicals, Organisms, Materials, Equipment, and Technologies).</li>
-                        <li>SCOMET regulates sensitive items having both civilian and military utility.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('modal-3')" class="bg-sky-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs">Close Modal</button>
-            </div>
+    <!-- TOPIC 3: NATIONAL STRATEGIC TRADE COMMAND CENTER -->
+    <div class="sketch-card rounded-2xl p-5 flex flex-col justify-between relative group cursor-pointer" onclick="openModal('modal-nstcc')">
+      <div>
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-bold px-2.5 py-1 bg-blue-950/80 text-blue-300 rounded-lg border border-blue-800">Min of Commerce</span>
+          <span class="text-xs font-mono text-slate-400">#03 NSTCC</span>
         </div>
+        <div class="w-full bg-slate-950/50 rounded-xl p-2 mb-3 flex justify-center items-center">
+          <svg class="sketch-svg" viewBox="0 0 140 110" width="100" height="80">
+            <!-- Digital Trade Monitor -->
+            <rect x="20" y="20" width="100" height="60" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="2" />
+            <line x1="30" y1="40" x2="110" y2="40" stroke="#334155" stroke-width="1" />
+            <polyline points="30,65 50,45 70,55 90,35 110,50" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" />
+            <circle cx="90" cy="35" r="4" fill="#facc15" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white mb-1">NSTCC Launched</h2>
+        <div class="text-2xl font-black text-blue-400 mb-2">Trade Intelligence</div>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4">
+          <li class="flex items-center">📊 <span class="ml-1.5">Digital monitoring center</span></li>
+          <li class="flex items-center">🔗 <span class="ml-1.5">DGFT & Trade Connect</span></li>
+          <li class="flex items-center">⚡ <span class="ml-1.5">Evidence-based policy</span></li>
+        </ul>
+      </div>
+      <button class="know-more-btn w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1">
+        <span>🔍 Know More (Deep Dive)</span>
+      </button>
     </div>
 
-    <!-- Modal 4: PM GatiShakti -->
-    <div id="modal-4" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button onclick="closeModal('modal-4')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
-            <h2 class="text-2xl font-bold text-emerald-400 mb-2">PM GatiShakti National Master Plan (5 Years)</h2>
-            <p class="text-xs text-sky-400 font-mono mb-4">Developed by: BISAG-N (Bhaskaracharya National Institute for Space Applications and Geo-informatics)</p>
-            
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Objective & Technology</h4>
-                    <p>Launched in October 2021 to integrate infrastructure planning across ministries, enhance multi-modal connectivity, and reduce logistic costs using geospatial technology (GIS).</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Key Achievements</h4>
-                    <ul class="list-disc pl-5 space-y-1 mt-2">
-                        <li>Integrated over 1,800 data layers (railways, highways, forests, industrial zones).</li>
-                        <li>Covers 58 central ministries and all 36 States/UTs.</li>
-                        <li>Prevents departmental duplication of work and curtails project delays.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('modal-4')" class="bg-emerald-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs">Close Modal</button>
-            </div>
+    <!-- TOPIC 4: PM GATI SHAKTI NATIONAL MASTER PLAN -->
+    <div class="sketch-card rounded-2xl p-5 flex flex-col justify-between relative group cursor-pointer" onclick="openModal('modal-gatishakti')">
+      <div>
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-bold px-2.5 py-1 bg-amber-950/80 text-amber-300 rounded-lg border border-amber-800">5 Years</span>
+          <span class="text-xs font-mono text-slate-400">#04 GatiShakti</span>
         </div>
+        <div class="w-full bg-slate-950/50 rounded-xl p-2 mb-3 flex justify-center items-center">
+          <svg class="sketch-svg" viewBox="0 0 140 110" width="100" height="80">
+            <!-- Multi-modal Network -->
+            <circle cx="70" cy="55" r="30" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4" />
+            <path d="M30 55 L110 55 M70 25 L70 85" stroke="#38bdf8" stroke-width="3" />
+            <circle cx="70" cy="55" r="8" fill="#f59e0b" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white mb-1">PM Gati Shakti</h2>
+        <div class="text-2xl font-black text-amber-400 mb-2">Multimodal Plan</div>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4">
+          <li class="flex items-center">🌐 <span class="ml-1.5">BISAG-N GIS platform</span></li>
+          <li class="flex items-center">🛤️ <span class="ml-1.5">Reduced logistics costs</span></li>
+          <li class="flex items-center">🏢 <span class="ml-1.5">1800+ integrated data layers</span></li>
+        </ul>
+      </div>
+      <button class="know-more-btn w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1">
+        <span>🔍 Know More (Deep Dive)</span>
+      </button>
     </div>
 
-    <!-- Modal 5: NSAP -->
-    <div id="modal-5" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button onclick="closeModal('modal-5')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
-            <h2 class="text-2xl font-bold text-purple-400 mb-2">National Social Assistance Program (PMSSY)</h2>
-            <p class="text-xs text-sky-400 font-mono mb-4">Nodal Ministry: Ministry of Rural Development | Funding: 100% Central Assistance</p>
-            
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Constitutional Link & Sub-schemes</h4>
-                    <p>Backed by <strong>Article 41 of the Constitution (DPSP)</strong> directing public assistance for old age, unemployment, sickness, and disability. Renamed to Pradhan Mantri Samajik Sahayata Yojana (Old Age, Widow, and Divyangjan pensions).</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Major Structural Reforms</h4>
-                    <ul class="list-disc pl-5 space-y-1 mt-2">
-                        <li>Disability threshold relaxed from <strong>80% down to 40%</strong>.</li>
-                        <li>Disability pension eligibility now starts <strong>from birth</strong>.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('modal-5')" class="bg-purple-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs">Close Modal</button>
-            </div>
+    <!-- TOPIC 5: NATIONAL SOCIAL ASSISTANCE PROGRAM -->
+    <div class="sketch-card rounded-2xl p-5 flex flex-col justify-between relative group cursor-pointer" onclick="openModal('modal-nsap')">
+      <div>
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-bold px-2.5 py-1 bg-emerald-950/80 text-emerald-300 rounded-lg border border-emerald-800">Article 41</span>
+          <span class="text-xs font-mono text-slate-400">#05 NSAP</span>
         </div>
+        <div class="w-full bg-slate-950/50 rounded-xl p-2 mb-3 flex justify-center items-center">
+          <svg class="sketch-svg" viewBox="0 0 140 110" width="100" height="80">
+            <!-- Social Protection Shield -->
+            <path d="M70 15 L105 30 L105 60 C105 85, 70 100, 70 100 C70 100, 35 85, 35 60 L35 30 Z" fill="#065f46" stroke="#34d399" stroke-width="2" />
+            <path d="M55 55 L65 65 L85 45" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white mb-1">Social Assistance</h2>
+        <div class="text-2xl font-black text-emerald-400 mb-2">100% Central Fund</div>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4">
+          <li class="flex items-center">👵 <span class="ml-1.5">Old age, widow & PWD pensions</span></li>
+          <li class="flex items-center">📉 <span class="ml-1.5">Disability eligibility: 80% to 40%</span></li>
+          <li class="flex items-center">⚖️ <span class="ml-1.5">Linked to DPSP Article 41</span></li>
+        </ul>
+      </div>
+      <button class="know-more-btn w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1">
+        <span>🔍 Know More (Deep Dive)</span>
+      </button>
     </div>
 
-    <!-- Modal 6: Ramsar Sites -->
-    <div id="modal-6" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button onclick="closeModal('modal-6')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
-            <h2 class="text-2xl font-bold text-teal-400 mb-2">India's Ramsar Sites (Total: 103)</h2>
-            <p class="text-xs text-sky-400 font-mono mb-4">Ramsar Convention: 1971 (Iran)</p>
-            
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Newly Added Wetlands</h4>
-                    <ul class="list-disc pl-5 space-y-1 mt-2">
-                        <li><strong class="text-teal-300">Sukna Wetland:</strong> Located in Chandigarh.</li>
-                        <li><strong class="text-teal-300">Sahi Jheel:</strong> Located in Mainpuri District, Uttar Pradesh.</li>
-                    </ul>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Ecological Significance</h4>
-                    <p>Protects wetland biodiversity, secures groundwater, strengthens climate resilience, and promotes sustainable ecotourism.</p>
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('modal-6')" class="bg-teal-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs">Close Modal</button>
-            </div>
+    <!-- TOPIC 6: INDIA'S RAMSAR SITES (TOTAL 103) -->
+    <div class="sketch-card rounded-2xl p-5 flex flex-col justify-between relative group cursor-pointer" onclick="openModal('modal-ramsar')">
+      <div>
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-bold px-2.5 py-1 bg-teal-950/80 text-teal-300 rounded-lg border border-teal-800">103 Wetlands</span>
+          <span class="text-xs font-mono text-slate-400">#06 Ramsar</span>
         </div>
+        <div class="w-full bg-slate-950/50 rounded-xl p-2 mb-3 flex justify-center items-center">
+          <svg class="sketch-svg" viewBox="0 0 140 110" width="100" height="80">
+            <!-- Wetland / Lotus / Duck Symbol -->
+            <path d="M20 80 Q70 60 120 80 L120 90 L20 90 Z" fill="#0d9488" />
+            <path d="M70 30 Q60 50 70 70 Q80 50 70 30" fill="#2dd4bf" />
+            <path d="M40 75 Q70 45 100 75" fill="none" stroke="#5eead4" stroke-width="2" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white mb-1">Ramsar Sites</h2>
+        <div class="text-2xl font-black text-teal-400 mb-2">Total 103 Sites</div>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4">
+          <li class="flex items-center">📍 <span class="ml-1.5">Sukna Wetland (Chandigarh)</span></li>
+          <li class="flex items-center">📍 <span class="ml-1.5">Saw Jheel (Mainpuri, UP)</span></li>
+          <li class="flex items-center">🌿 <span class="ml-1.5">Ramsar Convention 1971</span></li>
+        </ul>
+      </div>
+      <button class="know-more-btn w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1">
+        <span>🔍 Know More (Deep Dive)</span>
+      </button>
     </div>
 
-    <!-- Modal 7: IBCA -->
-    <div id="modal-7" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button onclick="closeModal('modal-7')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
-            <h2 class="text-2xl font-bold text-amber-500 mb-2">International Big Cat Alliance (IBCA)</h2>
-            <p class="text-xs text-sky-400 font-mono mb-4">Headquarters: 55 Lodi Estate, New Delhi, India</p>
-            
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">The 7 Target Big Cats</h4>
-                    <p class="text-amber-300 font-medium">Lion, Tiger, Leopard, Snow Leopard, Cheetah, Jaguar, and Puma.</p>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Membership & Funding</h4>
-                    <ul class="list-disc pl-5 space-y-1 mt-2">
-                        <li>29 member countries (including India).</li>
-                        <li>India's financial contribution: ₹150 Crore over 5 years.</li>
-                        <li>PRIME program for veterinary doctor training across 20 countries.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('modal-7')" class="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs">Close Modal</button>
-            </div>
+    <!-- TOPIC 7: INTERNATIONAL BIG CAT ALLIANCE (IBCA) -->
+    <div class="sketch-card rounded-2xl p-5 flex flex-col justify-between relative group cursor-pointer" onclick="openModal('modal-ibca')">
+      <div>
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-bold px-2.5 py-1 bg-orange-950/80 text-orange-300 rounded-lg border border-orange-800">New Delhi HQ</span>
+          <span class="text-xs font-mono text-slate-400">#07 IBCA</span>
         </div>
+        <div class="w-full bg-slate-950/50 rounded-xl p-2 mb-3 flex justify-center items-center">
+          <svg class="sketch-svg" viewBox="0 0 140 110" width="100" height="80">
+            <!-- Tiger Face Silhouette -->
+            <polygon points="70,20 40,50 50,90 90,90 100,50" fill="#c2410c" stroke="#fb923c" stroke-width="2" />
+            <circle cx="55" cy="50" r="6" fill="#facc15" />
+            <circle cx="85" cy="50" r="6" fill="#facc15" />
+            <path d="M60 70 Q70 80 80 70" fill="none" stroke="#f8fafc" stroke-width="3" stroke-linecap="round" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white mb-1">Big Cat Alliance</h2>
+        <div class="text-2xl font-black text-orange-400 mb-2">29 Member Countries</div>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4">
+          <li class="flex items-center">🐅 <span class="ml-1.5">7 big cats conservation</span></li>
+          <li class="flex items-center">💰 <span class="ml-1.5">India grant: ₹150 Cr</span></li>
+          <li class="flex items-center">🩺 <span class="ml-1.5">PRIME veterinary training</span></li>
+        </ul>
+      </div>
+      <button class="know-more-btn w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1">
+        <span>🔍 Know More (Deep Dive)</span>
+      </button>
     </div>
 
-    <!-- Modal 8: TB-Free India -->
-    <div id="modal-8" class="fixed inset-0 modal-backdrop hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button onclick="closeModal('modal-8')" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 p-2 rounded-full">✕</button>
-            <h2 class="text-2xl font-bold text-red-400 mb-2">TB-Free India & JOUSH Campaign</h2>
-            <p class="text-xs text-sky-400 font-mono mb-4">Causative Agent: Mycobacterium tuberculosis (Bacterial)</p>
-            
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Key Statistics & BPaL Regimen</h4>
-                    <ul class="list-disc pl-5 space-y-1 mt-2">
-                        <li>India's TB incidence declined by <strong>21%</strong> (2015–2024), outperforming global averages. Treatment coverage reached 92%.</li>
-                        <li><strong>BPaL Regimen:</strong> Shorter 6-month treatment course for drug-resistant TB (Bedaquiline, Pretomanid, Linezolid, Moxifloxacin).</li>
-                    </ul>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <h4 class="font-bold text-white mb-1">Technology & Mobilization</h4>
-                    <p>AI-enabled portable X-rays, Kushi AI chatbot for screening, and the <strong>JOUSH</strong> (Joint Squad for Health) youth mobilization campaign.</p>
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('modal-8')" class="bg-red-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs">Close Modal</button>
-            </div>
+    <!-- TOPIC 8: TOWARDS A TB-FREE INDIA -->
+    <div class="sketch-card rounded-2xl p-5 flex flex-col justify-between relative group cursor-pointer" onclick="openModal('modal-tb')">
+      <div>
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-bold px-2.5 py-1 bg-red-950/80 text-red-300 rounded-lg border border-red-800">SDG 3 Goal</span>
+          <span class="text-xs font-mono text-slate-400">#08 TB Free</span>
         </div>
+        <div class="w-full bg-slate-950/50 rounded-xl p-2 mb-3 flex justify-center items-center">
+          <svg class="sketch-svg" viewBox="0 0 140 110" width="100" height="80">
+            <!-- Medical Cross & Bacteria -->
+            <rect x="55" y="30" width="30" height="50" rx="4" fill="#ef4444" />
+            <rect x="40" y="45" width="60" height="20" rx="4" fill="#ef4444" />
+            <circle cx="30" cy="30" r="4" fill="#38bdf8" />
+            <circle cx="110" cy="80" r="5" fill="#facc15" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white mb-1">TB-Free India</h2>
+        <div class="text-2xl font-black text-red-400 mb-2">-21% Incidence</div>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4">
+          <li class="flex items-center">💊 <span class="ml-1.5">BPaL 6-month drug regimen</span></li>
+          <li class="flex items-center">🤖 <span class="ml-1.5">AI chatbot 'Kushi' & X-ray</span></li>
+          <li class="flex items-center">🏃 <span class="ml-1.5">JoSH campaign for youth</span></li>
+        </ul>
+      </div>
+      <button class="know-more-btn w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1">
+        <span>🔍 Know More (Deep Dive)</span>
+      </button>
     </div>
 
-    <!-- Interactive Modal JavaScript -->
-    <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-        function expandAllModals() {
-            openModal('modal-1');
-        }
-        // Close on ESC key
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                ['modal-1','modal-2','modal-3','modal-4','modal-5','modal-6','modal-7','modal-8'].forEach(id => closeModal(id));
-            }
-        });
-    </script>
+  </main>
+
+  <!-- BOTTOM 4-BOX REVISION STRIP -->
+  <section class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+    <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4">
+      <div class="text-sky-400 font-bold text-xs uppercase mb-1">🎯 Prelims Core Anchor</div>
+      <p class="text-xs text-slate-300">Remember CPRI's Kufri Neel, Manik, and Jamuni for biofortified anthocyanin-rich potato varieties targeting hidden hunger.</p>
+    </div>
+    <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4">
+      <div class="text-amber-400 font-bold text-xs uppercase mb-1">⚙️ Infrastructure Tech</div>
+      <p class="text-xs text-slate-300">PM Gati Shakti uses BISAG-N geospatial platforms, integrating 1,800+ data layers across 58 central ministries.</p>
+    </div>
+    <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4">
+      <div class="text-emerald-400 font-bold text-xs uppercase mb-1">⚖️ Constitutional Link</div>
+      <p class="text-xs text-slate-300">National Social Assistance Program (NSAP) draws from Directive Principles of State Policy (DPSP) Article 41.</p>
+    </div>
+    <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4">
+      <div class="text-purple-400 font-bold text-xs uppercase mb-1">🐯 Wildlife Treaty</div>
+      <p class="text-xs text-slate-300">IBCA is headquartered in New Delhi, focusing on 7 big cats with India committing ₹150 Crores over 5 years.</p>
+    </div>
+  </section>
+
+  <!-- MODALS FOR DEEP DIVE (100% COMPREHENSIVE DETAIL) -->
+
+  <!-- MODAL 1: POTATO -->
+  <div id="modal-potato" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closeModal('modal-potato')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      <span class="text-xs font-bold px-2.5 py-1 bg-purple-950 text-purple-300 rounded-lg border border-purple-800">Topic 01</span>
+      <h2 class="text-2xl font-bold text-white mt-2 mb-4">ICAR & Central Potato Research Institute (CPRI): Nutrient-Rich Colored Potatoes</h2>
+      
+      <div class="space-y-4 text-slate-300 text-sm">
+        <p><strong class="text-white">Core Objective:</strong> Developed to address <em>hidden hunger</em> in India through biofortification.</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <h4 class="font-bold text-purple-400 mb-2">Key Varieties & Characteristics:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Kufri Neel (2018):</strong> Purple-skinned potato rich in antioxidants. ("Neel" = bluish).</li>
+            <li><strong>Kufri Manik (2021):</strong> Red potato rich in anthocyanins, zinc, and iron.</li>
+            <li><strong>Kufri Jamuni:</strong> Purple-fleshed potato with Vitamin C, zinc, iron, carotenoids, and anthocyanins (natural pigment providing color). Average yield: 32-35 tons/hectare. Recommended for Northern Indian plains.</li>
+          </ul>
+        </div>
+        <p><strong>Significance:</strong> Enhances nutritional security, dietary diversity, and increases farmer income opportunities while maintaining good storage quality (low rotting) suitable for traditional and processed foods (e.g., Aloo Paratha).</p>
+        <div class="bg-amber-950/40 border border-amber-800/60 p-3 rounded-xl text-xs text-amber-200">
+          <strong>⚠️ Prelims Trap:</strong> Biofortification is achieved through plant breeding, NOT genetic modification (GMO). Anthocyanin is a natural pigment, not an artificial additive.
+        </div>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="closeModal('modal-potato')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: MAHILA KISAN -->
+  <div id="modal-mahila" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closeModal('modal-mahila')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      <span class="text-xs font-bold px-2.5 py-1 bg-pink-950 text-pink-300 rounded-lg border border-pink-800">Topic 02</span>
+      <h2 class="text-2xl font-bold text-white mt-2 mb-4">Mahila Kisan Diwas 2026 (15th October 2026)</h2>
+      
+      <div class="space-y-4 text-slate-300 text-sm">
+        <p><strong class="text-white">Organized By:</strong> Department of Agriculture & Farmers Welfare, Ministry of Agriculture and Farmers Welfare.</p>
+        <p><strong class="text-white">Venue:</strong> Dr. Ambedkar International Center, New Delhi.</p>
+        <p><strong class="text-white">Theme:</strong> <mark class="bg-pink-950 text-pink-200 px-1 rounded">"Role of women farmers in building developed agriculture and a developed India"</mark>.</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <h4 class="font-bold text-pink-400 mb-2">Major Highlights & Focus Points:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Honoring outstanding women farmers for achievements in crop production, animal husbandry, and seed saving.</li>
+            <li>Release of book titled <strong>"Women Farmers of India: Journey from Challenges to Success"</strong>.</li>
+            <li>Special emphasis on empowering women farmers from tribal regions.</li>
+            <li>Key focus on affordable credit, technology, skill development, farm mechanization, and market access.</li>
+          </ul>
+        </div>
+        <div class="bg-sky-950/40 border border-sky-800/60 p-3 rounded-xl text-xs text-sky-200">
+          <strong>✍️ Mains Analytical Hook:</strong> Women constitute over 40% of agricultural labor in India ("feminization of agriculture"), yet own less land titles. Empowering women with credit and mechanization is vital for Viksit Bharat 2047.
+        </div>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="closeModal('modal-mahila')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: NSTCC -->
+  <div id="modal-nstcc" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closeModal('modal-nstcc')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      <span class="text-xs font-bold px-2.5 py-1 bg-blue-950 text-blue-300 rounded-lg border border-blue-800">Topic 03</span>
+      <h2 class="text-2xl font-bold text-white mt-2 mb-4">National Strategic Trade Command Center (NSTCC)</h2>
+      
+      <div class="space-y-4 text-slate-300 text-sm">
+        <p><strong class="text-white">Launched By:</strong> Department of Commerce, Ministry of Commerce and Industry in New Delhi.</p>
+        <p><strong class="text-white">What is it?</strong> A digital monitoring center tracking India's imports, exports, and international trade activities in one place using interactive dashboards.</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <h4 class="font-bold text-blue-400 mb-2">Key Integrations & Areas Covered:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Integrated with <strong>DGFT</strong> (Directorate General of Foreign Trade) and <strong>Trade Connect E-Platform</strong>.</li>
+            <li><strong>IEC:</strong> Importer-Exporter Code (unique ID for trade).</li>
+            <li><strong>Advanced Authorization & EPCG:</strong> Duty-free import of raw materials/machineries for export production.</li>
+            <li><strong>SCOMET:</strong> Special Chemicals, Organisms, Materials, Equipment, and Technologies (sensitive dual-use items).</li>
+          </ul>
+        </div>
+        <p><strong>Significance:</strong> Enables evidence-based policymaking, faster trade decisions, reduced delays, greater transparency, and enhanced export competitiveness.</p>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="closeModal('modal-nstcc')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: GATISHAKTI -->
+  <div id="modal-gatishakti" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closeModal('modal-gatishakti')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      <span class="text-xs font-bold px-2.5 py-1 bg-amber-950 text-amber-300 rounded-lg border border-amber-800">Topic 04</span>
+      <h2 class="text-2xl font-bold text-white mt-2 mb-4">PM Gati Shakti National Master Plan (Completed 5 Years)</h2>
+      
+      <div class="space-y-4 text-slate-300 text-sm">
+        <p><strong class="text-white">Launched:</strong> October 2021 by PM. Developed by <strong>BISAG-N</strong> (Bhaskaracharya National Institute for Space Applications and Geo-informatics) using geospatial technology.</p>
+        <p><strong class="text-white">Objective:</strong> Integrate infrastructure planning, multimodal connectivity (roads, railways, ports, airports), and reduce logistics costs.</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <h4 class="font-bold text-amber-400 mb-2">Major Achievements & Features:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Integrated over <strong>1,800 data layers</strong> (railways, forests, highways, industrial zones).</li>
+            <li>Covers 58 central ministries/departments and all 36 States/UTs.</li>
+            <li>Network Planning Group evaluated 421 infrastructure projects worth ₹20.22 Lakh Crores.</li>
+            <li>PM Gati Shakti Public Platform launched via UGIF (Unified Geospatial Interface).</li>
+          </ul>
+        </div>
+        <p><strong>Significance:</strong> Prevents duplication of work across departments, eliminates project delays, and lowers logistics costs.</p>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="closeModal('modal-gatishakti')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: NSAP -->
+  <div id="modal-nsap" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closeModal('modal-nsap')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      <span class="text-xs font-bold px-2.5 py-1 bg-emerald-950 text-emerald-300 rounded-lg border border-emerald-800">Topic 05</span>
+      <h2 class="text-2xl font-bold text-white mt-2 mb-4">National Social Assistance Program (Pradhan Mantri Samajik Sahayata Yojana)</h2>
+      
+      <div class="space-y-4 text-slate-300 text-sm">
+        <p><strong class="text-white">Nodal Ministry:</strong> Ministry of Rural Development. Funding: <strong>100% Central Assistance</strong>.</p>
+        <p><strong class="text-white">Constitutional Link:</strong> <mark class="bg-emerald-950 text-emerald-200 px-1 rounded">Article 41 of DPSP</mark> (Right to work, to education, and to public assistance in certain cases).</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <h4 class="font-bold text-emerald-400 mb-2">Key Reforms & Sub-Schemes:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Renamed to <em>Pradhan Mantri Samajik Sahayata Yojana</em>.</li>
+            <li>Sub-schemes: Old Age Pension, Widow Pension (Vidhwa), Disability Pension (Divyangjan), and Family Benefit (Parivar Labh).</li>
+            <li><strong>Disability Eligibility Reduced:</strong> From 80% down to <strong>40%</strong>. Minimum age for disability pension is now <em>from birth</em>.</li>
+            <li>Disability pension rates: ₹375/month (&lt;80 yrs) and ₹625/month (&gt;80 yrs).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="closeModal('modal-nsap')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 6: RAMSAR SITES -->
+  <div id="modal-ramsar" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closeModal('modal-ramsar')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      <span class="text-xs font-bold px-2.5 py-1 bg-teal-950 text-teal-300 rounded-lg border border-teal-800">Topic 06</span>
+      <h2 class="text-2xl font-bold text-white mt-2 mb-4">India's Ramsar Sites Reaches 103 Wetlands</h2>
+      
+      <div class="space-y-4 text-slate-300 text-sm">
+        <p><strong class="text-white">Recent Additions:</strong> Two new wetlands added, taking India's total Ramsar count to <mark class="bg-teal-950 text-teal-200 px-1 rounded">103 sites</mark>.</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
+          <p><strong>1. Sukna Wetland:</strong> Located in Chandigarh.</p>
+          <p><strong>2. Saw Jheel:</strong> Located in Mainpuri district, Uttar Pradesh.</p>
+        </div>
+        <p><strong>Background:</strong> Ramsar Convention was signed in 1971 (Iran) for the conservation and sustainable use of wetlands, protecting biodiversity, water security, and climate resilience.</p>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="closeModal('modal-ramsar')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 7: IBCA -->
+  <div id="modal-ibca" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closeModal('modal-ibca')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      <span class="text-xs font-bold px-2.5 py-1 bg-orange-950 text-orange-300 rounded-lg border border-orange-800">Topic 07</span>
+      <h2 class="text-2xl font-bold text-white mt-2 mb-4">International Big Cat Alliance (IBCA)</h2>
+      
+      <div class="space-y-4 text-slate-300 text-sm">
+        <p><strong class="text-white">Headquarters:</strong> 55 Lodi/Lii Estate, New Delhi, India. Treaty-based intergovernmental organization.</p>
+        <p><strong class="text-white">The 7 Big Cats:</strong> Lion, Tiger, Leopard, Snow Leopard, Cheetah, Jaguar, and Puma.</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <h4 class="font-bold text-orange-400 mb-2">Key Highlights:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>India's financial contribution: ₹150 Crores for 5 years (2023-24 to 2027-28).</li>
+            <li>Membership: 29 countries + 5 observer states + 11 prospective countries.</li>
+            <li><strong>PRIME Program:</strong> Big cat health training for veterinary doctors across 20 countries.</li>
+            <li>Integrated with CITES and UNFCCC frameworks.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="closeModal('modal-ibca')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 8: TB FREE -->
+  <div id="modal-tb" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closeModal('modal-tb')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
+      <span class="text-xs font-bold px-2.5 py-1 bg-red-950 text-red-300 rounded-lg border border-red-800">Topic 08</span>
+      <h2 class="text-2xl font-bold text-white mt-2 mb-4">Towards a TB-Free India (Tuberculosis Elimination)</h2>
+      
+      <div class="space-y-4 text-slate-300 text-sm">
+        <p><strong class="text-white">Causative Organism:</strong> <em>Mycobacterium tuberculosis</em> (Bacterial disease affecting lungs and other body parts).</p>
+        <p><strong class="text-white">Key Stats:</strong> India's TB incidence declined by <mark class="bg-red-950 text-red-200 px-1 rounded">21% (2015-2024)</mark> (Global decline: 12%). Treatment coverage reached 92% (Global average: 78%).</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+          <h4 class="font-bold text-red-400 mb-2">Innovations & Schemes:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>BPaL Regimen:</strong> Shorter 6-month treatment for drug-resistant TB (Bedaquiline, Pretomanid, Linezolid, Moxifloxacin).</li>
+            <li><strong>Ni-kshay Poshan Yojana:</strong> ₹1,000/month nutritional support for notified TB patients.</li>
+            <li><strong>JoSH Campaign:</strong> Joint Squad for Health launched to mobilize youth for TB awareness.</li>
+            <li><strong>Tech Support:</strong> AI-enabled portable X-rays, TB Mukt Bharat app, and AI chatbot 'Kushi'.</li>
+          </ul>
+        </div>
+        <p><strong>SDG Alignment:</strong> Directly supports Sustainable Development Goal 3 (Good Health and Well-being).</p>
+      </div>
+      <div class="mt-6 text-right">
+        <button onclick="closeModal('modal-tb')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT FOR MODALS -->
+  <script>
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    // Close on backdrop click
+    window.onclick = function(event) {
+      if (event.target.classList.contains('bg-slate-950/80')) {
+        event.target.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+    }
+  </script>
+
 </body>
 </html>
