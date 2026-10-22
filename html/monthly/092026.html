@@ -3,704 +3,938 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPSC Visual Revision Notes: September Prism</title>
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Kalam:wght@300;400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Drishti IAS - September 2026 National Events Sketchnote Board</title>
     <style>
         :root {
-            --bg-color: #fbfaf5;
-            --text-dark: #1e293b;
-            --text-muted: #475569;
-            --primary-blue: #1d4ed8;
-            --card-c1: #eaf6ee; --border-c1: #a9dcba; --badge-c1: #2e7d32;
-            --card-c2: #ebf4fc; --border-c2: #abcff2; --badge-c2: #1e40af;
-            --card-c3: #f5edfc; --border-c3: #dbc5f5; --badge-c3: #7e22ce;
-            --card-c4: #fdf5e8; --border-c4: #f3d4a6; --badge-c4: #b45309;
-            --pill-prelims: #fee2e2; --pill-prelims-txt: #991b1b;
-            --pill-mains: #dbeafe; --pill-mains-txt: #1e40af;
-            --pill-geo: #ffedd5; --pill-geo-txt: #9a3412;
-            --card-bg-white: #ffffff;
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --accent-blue: #38bdf8;
+            --accent-yellow: #facc15;
+            --accent-green: #4ade80;
+            --accent-pink: #f472b6;
+            --accent-purple: #c084fc;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
-
-        [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --text-dark: #f1f5f9;
-            --text-muted: #cbd5e1;
-            --primary-blue: #60a5fa;
-            --card-c1: #142a1f; --border-c1: #225c3b; --badge-c1: #22c55e;
-            --card-c2: #132438; --border-c2: #1e4672; --badge-c2: #3b82f6;
-            --card-c3: #231633; --border-c3: #52277d; --badge-c3: #a855f7;
-            --card-c4: #2b1f11; --border-c4: #6d4617; --badge-c4: #f59e0b;
-            --card-bg-white: #1e293b;
-        }
-
-        * { box-sizing: border-box; }
-        body {
-            margin: 0; padding: 26px 16px;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(rgba(148, 163, 184, 0.25) 1.5px, transparent 1.5px);
-            background-size: 24px 24px;
-            color: var(--text-dark);
-            font-family: 'Kalam', cursive;
-            font-size: 1.12rem;
-            line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .container { max-width: 1400px; margin: 0 auto; }
-
-        .top-toolbar {
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--card-bg-white); border: 2px solid rgba(148, 163, 184, 0.3);
-            border-radius: 16px; padding: 12px 24px; margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            font-family: 'Inter', sans-serif;
-            flex-wrap: wrap; gap: 12px;
-        }
-
-        .top-toolbar-actions {
-            display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
-        }
-
-        .syllabus-tag {
-            background: #f1f5f9; color: #334155; font-size: 0.9rem; font-weight: 700;
-            padding: 4px 12px; border-radius: 20px; border: 1px solid #cbd5e1;
-            display: inline-block; margin-bottom: 8px;
-        }
-        [data-theme="dark"] .syllabus-tag { background: #334155; color: #f1f5f9; border-color: #475569; }
-
-        .title-banner { text-align: center; margin-bottom: 30px; }
-        .title-banner h1 {
-            font-family: 'Architects Daughter', cursive;
-            font-size: 2.5rem; color: var(--primary-blue); margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.06);
-            line-height: 1.3;
-        }
-        .title-banner p { font-size: 1.25rem; color: var(--text-muted); margin: 4px 0 0; }
-
-        .btn {
-            font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600;
-            padding: 8px 16px; border-radius: 10px; cursor: pointer;
-            border: 2px solid var(--primary-blue); background: var(--primary-blue);
-            color: white; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
-        }
-        .btn-outline { background: transparent; color: var(--primary-blue); }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
-        .btn-focus { background: #8b5cf6; border-color: #8b5cf6; color: white; }
-        .btn-focus:hover { background: #7c3aed; }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px; margin-bottom: 36px;
-        }
-
-        .card {
-            border-radius: 20px; padding: 22px;
-            position: relative; border: 2.5px solid;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
-
-        .card:nth-child(4n+1) { background: var(--card-c1); border-color: var(--border-c1); }
-        .card:nth-child(4n+2) { background: var(--card-c2); border-color: var(--border-c2); }
-        .card:nth-child(4n+3) { background: var(--card-c3); border-color: var(--border-c3); }
-        .card:nth-child(4n+4) { background: var(--card-c4); border-color: var(--border-c4); }
-
-        .badge {
-            position: absolute; top: -14px; left: -14px;
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Architects Daughter', cursive; font-size: 1.3rem; font-weight: bold;
-            color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.18);
-            z-index: 10;
-        }
-        .card:nth-child(4n+1) .badge { background: var(--badge-c1); }
-        .card:nth-child(4n+2) .badge { background: var(--badge-c2); }
-        .card:nth-child(4n+3) .badge { background: var(--badge-c3); }
-        .card:nth-child(4n+4) .badge { background: var(--badge-c4); }
-
-        .card details.primary-details { width: 100%; }
-        .card details.primary-details > summary {
-            list-style: none; outline: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1.5px dashed transparent;
-            transition: border-bottom 0.3s ease;
-            user-select: none;
-            gap: 12px;
-        }
-        .card details.primary-details[open] > summary {
-            border-bottom: 1.5px dashed rgba(100, 116, 139, 0.35);
-            margin-bottom: 12px; padding-bottom: 8px;
-        }
-        .card details.primary-details > summary::-webkit-details-marker { display: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.5; padding: 20px; }
+        header { text-align: center; margin-bottom: 40px; border-bottom: 2px dashed var(--card-border); padding-bottom: 20px; }
+        h1 { font-size: 2.5rem; color: var(--accent-yellow); margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; }
         
-        .card details.primary-details > summary h2 {
-            font-family: 'Architects Daughter', cursive; font-size: 1.4rem;
-            margin: 0; display: flex; align-items: center; gap: 8px;
-            line-height: 1.2;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; max-width: 1400px; margin: 0 auto; }
         
-        .card details.primary-details > summary::after { 
-            content: '▾ Expand'; 
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem; font-weight: 600; opacity: 0.7; 
-            white-space: nowrap;
-        }
-        .card details.primary-details[open] > summary::after { content: '▴ Collapse'; }
-
-        .card-content {
-            margin-top: 10px;
-            animation: fadeIn 0.3s ease;
-        }
+        .card { background-color: var(--card-bg); border: 2px solid var(--card-border); border-radius: 16px; padding: 20px; position: relative; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, border-color 0.2s; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
+        .card:hover { transform: translateY(-4px); border-color: var(--accent-blue); }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        ul { padding-left: 20px; margin: 0 0 10px 0; }
-        li { margin-bottom: 10px; }
-
-        mark { background-color: rgba(254, 240, 138, 0.85); padding: 2px 6px; border-radius: 4px; font-weight: bold; transition: filter 0.3s ease; }
-        [data-theme="dark"] mark { background-color: rgba(234, 179, 8, 0.35); color: #fef08a; }
-
-        body.revision-mode mark, body.revision-mode .pill.prelims {
-            filter: blur(5px);
-            cursor: pointer;
-            transition: filter 0.2s ease;
-        }
-        body.revision-mode mark:hover, body.revision-mode .pill.prelims:hover {
-            filter: blur(0);
-        }
-
-        .pill {
-            display: inline-block; padding: 2px 9px; border-radius: 12px;
-            font-size: 0.82rem; font-weight: 700; font-family: 'Inter', sans-serif;
-            text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; margin-right: 4px;
-            margin-bottom: 4px;
-        }
-        .pill.prelims { background: var(--pill-prelims); color: var(--pill-prelims-txt); }
-        .pill.mains { background: var(--pill-mains); color: var(--pill-mains-txt); }
-        .pill.geo { background: var(--pill-geo); color: var(--pill-geo-txt); }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .category-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); font-weight: 700; border: 1px solid var(--accent-blue); }
+        .stat-badge { font-size: 0.85rem; font-weight: bold; color: var(--accent-yellow); background: rgba(250, 204, 21, 0.1); padding: 4px 8px; border-radius: 6px; }
         
-        details.secondary-details {
-            margin-top: 14px; background: rgba(255, 255, 255, 0.65);
-            border: 1.5px solid rgba(148, 163, 184, 0.4); border-radius: 12px;
-            font-family: 'Inter', sans-serif; overflow: hidden;
-        }
-        [data-theme="dark"] details.secondary-details { background: rgba(15, 23, 42, 0.45); }
+        h2 { font-size: 1.25rem; color: var(--text-main); margin-bottom: 10px; min-height: 3.2rem; }
         
-        details.secondary-details > summary {
-            list-style: none; outline: none; cursor: pointer;
-            display: block; padding: 10px 14px;
-            background: rgba(29, 78, 216, 0.05); color: var(--primary-blue);
-            font-weight: 700; font-size: 0.95rem; user-select: none;
-            transition: background 0.2s ease;
-        }
-        [data-theme="dark"] details.secondary-details > summary { background: rgba(96, 165, 250, 0.1); }
-        details.secondary-details > summary:hover { background: rgba(29, 78, 216, 0.1); }
-        details.secondary-details > summary::-webkit-details-marker { display: none; }
+        .sketch-container { width: 100%; height: 110px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--card-border); overflow: hidden; }
+        .sketch-svg { width: 100%; height: 100%; }
         
-        .deep-dive {
-            padding: 14px; border-top: 1.5px dashed rgba(148, 163, 184, 0.3);
-        }
-        .deep-dive h4 {
-            margin: 0 0 8px 0; color: var(--primary-blue); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .deep-dive p { margin: 0 0 10px 0; font-family: 'Kalam', cursive; font-size: 1.05rem; }
-        .deep-dive ul { font-family: 'Kalam', cursive; font-size: 1.05rem; margin-bottom: 0; }
+        ul.micro-bullets { list-style: none; margin-bottom: 15px; }
+        ul.micro-bullets li { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        ul.micro-bullets li::before { content: "▪"; color: var(--accent-blue); font-weight: bold; }
+        
+        .know-more-btn { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: var(--bg-dark); border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; transition: opacity 0.2s; text-align: center; }
+        .know-more-btn:hover { opacity: 0.9; }
 
-        .footer-dashboard {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
-        }
-        .footer-box {
-            background: var(--card-bg-white); border-radius: 16px; padding: 18px;
-            border: 2px dashed rgba(148, 163, 184, 0.5); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            word-wrap: break-word; overflow-wrap: break-word;
-        }
-        .footer-box h3 {
-            font-family: 'Architects Daughter', cursive; font-size: 1.25rem; margin: 0 0 12px;
-            padding-bottom: 6px; border-bottom: 2px solid; text-align: center;
-        }
-        .footer-box:nth-child(1) h3 { color: #8b5cf6; border-color: #c4b5fd; }
-        .footer-box:nth-child(2) h3 { color: #16a34a; border-color: #86efac; }
-        .footer-box:nth-child(3) h3 { color: #dc2626; border-color: #fca5a5; }
-        .footer-box:nth-child(4) h3 { color: #d97706; border-color: #fde68a; }
-
-        .checklist { list-style: none; padding-left: 0; }
-        .checklist li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 1.02rem; }
-        .checklist input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-blue); cursor: pointer; margin-top: 4px; flex-shrink: 0; }
-
-        @media (max-width: 992px) {
-            .footer-dashboard { grid-template-columns: repeat(2, 1fr); }
-            .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-        }
-        @media (max-width: 640px) {
-            body { padding: 16px 12px; }
-            .top-toolbar { flex-direction: column; text-align: center; justify-content: center; padding: 16px; }
-            .top-toolbar > div { width: 100%; display: flex; justify-content: center; }
-            .footer-dashboard { grid-template-columns: 1fr; gap: 16px; }
-            .grid { grid-template-columns: 1fr; gap: 16px; }
-            .title-banner h1 { font-size: 1.8rem; }
-            .title-banner p { font-size: 1.1rem; }
-            .card details.primary-details > summary h2 { font-size: 1.25rem; }
-            .btn { width: 100%; justify-content: center; padding: 10px; font-size: 0.95rem; }
-            .top-toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 8px; }
-            .top-toolbar-actions .btn:last-child { grid-column: span 2; }
-        }
-
-        @media print {
-            .top-toolbar { display: none; }
-            details { border: 1px solid #ccc; background: transparent; }
-            details[open] .card-content, details[open] .deep-dive { display: block; }
-            body { background: white; color: black; }
-            .grid { display: block; }
-            .card { page-break-inside: avoid; margin-bottom: 20px; }
-            .footer-box { page-break-inside: avoid; }
-        }
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(5px); }
+        .modal-container { background: var(--card-bg); border: 2px solid var(--accent-blue); border-radius: 16px; max-width: 800px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 30px; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); }
+        .close-btn { position: absolute; top: 20px; right: 20px; background: var(--card-border); color: var(--text-main); border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .close-btn:hover { background: var(--accent-pink); color: var(--bg-dark); }
+        
+        .modal-title { font-size: 1.8rem; color: var(--accent-yellow); margin-bottom: 15px; }
+        .modal-section { margin-bottom: 20px; }
+        .modal-section h3 { color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 8px; border-bottom: 1px solid var(--card-border); padding-bottom: 4px; }
+        .modal-section p, .modal-section li { color: var(--text-main); font-size: 0.95rem; margin-bottom: 6px; }
+        .modal-section ul { padding-left: 20px; }
+        mark { background: rgba(250, 204, 21, 0.2); color: var(--accent-yellow); padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+        
+        .alert-box { background: rgba(244, 114, 182, 0.1); border-left: 4px solid var(--accent-pink); padding: 12px; border-radius: 0 8px 8px 0; margin: 10px 0; }
+        .mains-box { background: rgba(74, 222, 128, 0.1); border-left: 4px solid var(--accent-green); padding: 12px; border-radius: 0 8px 8px 0; margin: 10px 0; }
+        
+        footer.revision-strip { margin-top: 50px; background: var(--card-bg); border-top: 3px solid var(--accent-yellow); padding: 25px; border-radius: 12px; max-width: 1400px; margin-left: auto; margin-right: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .strip-box h4 { color: var(--accent-yellow); margin-bottom: 8px; font-size: 1.1rem; }
+        .strip-box p { font-size: 0.85rem; color: var(--text-muted); }
     </style>
 </head>
-<body data-theme="dark">
-<div class="container">
-    <div class="top-toolbar">
-        <div><strong>📚 Interactive Revision Note</strong></div>
-        <div class="top-toolbar-actions">
-            <button class="btn btn-focus" id="revision-btn">🧠 Revision</button>
-            <button class="btn btn-outline" id="toggle-all-btn">📂 Expand</button>
-            <button class="btn btn-outline" id="theme-btn">☀️ Light</button>
-            <button class="btn" onclick="window.print()">🖨️ Save PDF</button>
+<body>
+
+    <header>
+        <h1>🏛️ Drishti IAS - September 2026 National Events</h1>
+        <p class="subtitle">Complete UPSC Revision Sketchnote Board | Zero-Omission Comprehensive Coverage</p>
+    </header>
+
+    <div class="grid" id="card-grid"></div>
+
+    <!-- Modal Template Container -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container" id="modalContainer">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div id="modalContent"></div>
         </div>
     </div>
 
-    <div class="title-banner">
-        <div class="syllabus-tag">[GS Papers I, II, III & IV - Current Affairs Compilation]</div>
-        <h1>UPSC HIGH-YIELD: PRISM MAGAZINE 📖</h1>
-        <p>12 Distilled Multi-Tier Flashcards | September 2026 Edition</p>
-    </div>
+    <!-- Bottom 4-Box Revision Strip -->
+    <footer class="revision-strip">
+        <div class="strip-box">
+            <h4>📌 Polity & Governance Anchors</h4>
+            <p>Article 22(1) safeguards, Supreme Court Article 142 complete justice power, Judicial Collegium transparency reforms, and Industrial Relations Code 2020 definition review.</p>
+        </div>
+        <div class="strip-box">
+            <h4>⚡ Economy & Infrastructure</h4>
+            <p>NITI Aayog EV Mobility Index 2025 (Delhi top), Dedicated Freight Corridors (Eastern & Western), UPI MDR high-value thresholds (0.4%), & Middle-Income Trap dual squeeze.</p>
+        </div>
+        <div class="strip-box">
+            <h4>🌍 International & Environment</h4>
+            <p>Partners for Multilateralism (P4M), V4 + India ties, UK CBAM recognition of CCTS, UNCCD COP 17 Mongolia, and UNEP 1.5°C overshoot report.</p>
+        </div>
+        <div class="strip-box">
+            <h4>🚀 Science & Tech / Species</h4>
+            <p>EOS-05 GEO imaging satellite (GSLV F17), Deep-Sea Mining polymetallic nodules, Mount Anak Krakatau eruption, World Rhino Day (Keep 5 Alive), and New Bolivia Cat Species (Tl'kayo).</p>
+        </div>
+    </footer>
 
-    <div class="grid">
-        <!-- Topic 1 -->
-        <div class="card">
-            <div class="badge">1</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>100 Years of UPSC 🏛️</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Origin</span> Est. 1 Oct 1926 following the <mark>Lee Commission (1924)</mark> recommendation.</li>
-                        <li><span class="pill mains">Constitutional</span> Covered under <mark>Part XIV (Articles 315-323)</mark> of the Constitution.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Historical Context</h4>
-                            <p>Merit-based ICS entry began in London in 1855. Satyendranath Tagore became the first Indian in the ICS in 1864. The exam age was progressively reduced from 23 to 19, intentionally disadvantaging Indians.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> The shift to conduct exams in India (Allahabad, 1922) was enabled by the Govt. of India Act 1919 (Montagu-Chelmsford).</li>
-                                <li><strong>Trap Alert:</strong> Sir Ross Barker was the *first* chairman of the Public Service Commission (1926).</li>
-                            </ul>
+    <script>
+        const topicsData = [
+            {
+                id: 1,
+                category: "Polity & Governance",
+                title: "Strict Arrest Safeguards & Re-arrest",
+                stat: "Art. 22(1)",
+                bullets: [
+                    "Failure to communicate grounds illegal",
+                    "Jaskaranjit Singh Deol 2026 case",
+                    "Stringent magistrate re-arrest rules",
+                    "Departmental inquiry for violations"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <rect x="25" y="25" width="40" height="55" fill="none" stroke="#38bdf8" stroke-width="2.5" rx="4"/>
+                    <line x1="33" y1="38" x2="57" y2="38" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="33" y1="48" x2="50" y2="48" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="85" cy="50" r="18" fill="none" stroke="#facc15" stroke-width="2.5"/>
+                    <path d="M78 50 L83 55 L93 43" fill="none" stroke="#facc15" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 85 L125 85" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/>
+                </svg>`,
+                modalTitle: "Strict Safeguards for Arrest & Re-arrest (Jaskaranjit Singh Deol Case 2026)",
+                background: "The Supreme Court in <i>Jaskaranjit Singh Deol v. State of Punjab (2026)</i> held that failure to properly communicate grounds of arrest violates Article 22(1) of the Constitution, rendering detention unconstitutional and illegal.",
+                keyPoints: [
+                    "<b>Article 22(1) Mandate:</b> Arrested individuals must be informed of arrest grounds as soon as possible and have the right to consult a lawyer.",
+                    "<b>Statutory Duty:</b> Bharatiya Nyaya Sanhita (BNS) reinforces the police's statutory duty to communicate arrest details clearly.",
+                    "<b>Illegal Detention vs. Bail:</b> Illegal detention occurs when initial procedure or grounds are unlawful (mandating immediate release by Magistrate). Bail applies when valid lawful detention is granted temporary relief.",
+                    "<b>Stringent Re-arrest Procedure:</b> Agencies cannot directly re-arrest a person released due to Article 22 violations. Fresh re-arrest requires Magistrate approval, endorsement by a senior police officer, transfer of investigation to a new officer, and a departmental inquiry against the violating officer."
+                ],
+                trap: "Do not confuse Article 22(1) ordinary arrest safeguards with preventive detention rules under Article 22(3)-(7) which do not require producing the detenue before a magistrate within 24 hours.",
+                mains: "Analyze how strengthening procedural safeguards during arrest balances state police powers with fundamental rights under Articles 21 and 22.",
+                statutory: "Constitution of India: Article 21, Article 22(1) & (2); BNS statutory provisions."
+            },
+            {
+                id: 2,
+                category: "Economy & Infrastructure",
+                title: "India Electric Mobility Index 2025",
+                stat: "Delhi #1",
+                bullets: [
+                    "Released by NITI Aayog & WRI India",
+                    "Second edition measuring EV transition",
+                    "Transport electrification (50% weight)",
+                    "FAME & PM E-Drive scheme backing"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M30 65 L45 45 L95 45 L110 65 Z" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <circle cx="45" cy="70" r="10" fill="none" stroke="#facc15" stroke-width="2.5"/>
+                    <circle cx="95" cy="70" r="10" fill="none" stroke="#facc15" stroke-width="2.5"/>
+                    <path d="M65 30 L75 15 L70 30 L80 30 L70 45" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>`,
+                modalTitle: "India Electric Mobility Index 2025 (2nd Edition)",
+                background: "Released by NITI Aayog in collaboration with World Resources Institute India (WRI India), tracking EV adoption, charging infrastructure readiness, and innovation across states and UTs.",
+                keyPoints: [
+                    "<b>Top Performers:</b> Delhi emerged as the top-performing state/UT; Manipur topped among Northeastern states.",
+                    "<b>Three Core Pillars:</b> (1) Transport Electrification Progress (50% weight), (2) Charging Infrastructure Readiness (30% weight), (3) Research & Innovation Ecosystem (20% weight).",
+                    "<b>Policy Backing:</b> Supported by FAME phases 1 & 2, PM E-Drive scheme, and Production-Linked Incentive (PLI) schemes for advanced chemistry cells and automotive sectors.",
+                    "<b>Strategic Vision:</b> Aims to reduce India's 89% import dependence on crude oil, curb CO2 emissions, and align with Paris Agreement targets towards Viksit Bharat 2047."
+                ],
+                trap: "FAME is not the newest scheme; PM E-Drive succeeded FAME-2 to further boost EV fleet adoption.",
+                mains: "Examine how competitive and cooperative federalism can accelerate state-level EV transition and reduce India's import energy vulnerability.",
+                statutory: "NITI Aayog Index Framework; FAME / PM E-Drive / PLI Schemes."
+            },
+            {
+                id: 3,
+                category: "Polity & Governance",
+                title: "Supreme Court Article 142 Powers",
+                stat: "Complete Justice",
+                bullets: [
+                    "Empowers SC to pass decrees for justice",
+                    "Quashed NEET paper leak protest FIRs",
+                    "Not available to High Courts",
+                    "Must comply with Fundamental Rights"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <line x1="70" y1="20" x2="70" y2="90" stroke="#facc15" stroke-width="2.5"/>
+                    <line x1="40" y1="35" x2="100" y2="35" stroke="#facc15" stroke-width="2.5"/>
+                    <path d="M35 50 L45 35 L55 50 Z" fill="none" stroke="#38bdf8" stroke-width="2"/>
+                    <path d="M85 50 L95 35 L105 50 Z" fill="none" stroke="#38bdf8" stroke-width="2"/>
+                    <circle cx="70" cy="20" r="5" fill="#facc15"/>
+                </svg>`,
+                modalTitle: "Article 142 of the Constitution: Enforcement of Decrees and Orders",
+                background: "Invoked by the Supreme Court to quash FIRs against student protesters during NEET paper leak agitations, highlighting extraordinary remedial powers.",
+                keyPoints: [
+                    "<b>Constitutional Scope:</b> Empowers the Supreme Court to pass any decree or order necessary for doing <i>'complete justice'</i> in any pending matter.",
+                    "<b>Exclusive SC Power:</b> Only exercisable by the Supreme Court, not High Courts.",
+                    "<b>Undefined Term:</b> 'Complete justice' is not explicitly defined in the Constitution, leaving broad judicial interpretation.",
+                    "<b>Limitations & Guardrails (Prem Chand Garg case):</b> Article 142 supplements statutes but cannot supplant (override) existing laws or violate Fundamental Rights."
+                ],
+                trap: "Article 142 powers belong exclusively to the Supreme Court; High Courts do not possess equivalent Article 142 jurisdiction.",
+                mains: "Discuss the doctrinal boundaries of judicial activism and judicial overreach in the context of Article 142 invocations.",
+                statutory: "Article 142, Constitution of India."
+            },
+            {
+                id: 4,
+                category: "Polity & Governance",
+                title: "Collegium Transparency Concerns",
+                stat: "30% Family Ties",
+                bullets: [
+                    "President appoints judges in consultation",
+                    "Supreme Court & High Court collegiums",
+                    "Uncle judges controversy & nepotism",
+                    "Advocacy for merit & open vacancies"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <circle cx="70" cy="40" r="15" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <path d="M45 80 C45 65 55 60 70 60 C85 60 95 65 95 80" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <circle cx="35" cy="50" r="10" fill="none" stroke="#facc15" stroke-width="2"/>
+                    <circle cx="105" cy="50" r="10" fill="none" stroke="#facc15" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "Transparency Concerns in the Judicial Collegium System",
+                background: "Re-examination of judicial appointment mechanisms amid data indicating significant familial linkages among appointees and public trust demands.",
+                keyPoints: [
+                    "<b>The System:</b> Supreme Court collegium (CJI + 4 senior judges) and High Court collegiums (CJ + 2 senior judges) recommend judicial appointments to the President.",
+                    "<b>Criticisms:</b> Lack of codified objective criteria, opaque in-house recommendations, and absence of public vacancy advertisements disadvantage first-generation lawyers.",
+                    "<b>'Uncle Judges' Controversy:</b> Allegations of preferential treatment and nepotism favoring relatives of former/sitting judges.",
+                    "<b>Reform Imperative:</b> Greater openness in reasoning, codified competency metrics, and rigorous scrutiny to safeguard public confidence and merit."
+                ],
+                trap: "The President appoints judges, but recommendations by the collegium are constitutionally binding upon the executive after reiteration.",
+                mains: "Analyze the institutional friction between executive independence and judicial autonomy in the appointment of higher judiciary judges.",
+                statutory: "Articles 124 and 217 of the Constitution; Judges Cases (I, II, III)."
+            },
+            {
+                id: 5,
+                category: "Nation & States",
+                title: "Vibrant Village Program (VVP 1 & 2)",
+                stat: "Border Security",
+                bullets: [
+                    "Shifting narrative from 'last' to 'first' village",
+                    "VVP-1: Northern Himalayan borders (2023)",
+                    "VVP-2: All other land borders (2026)",
+                    "Stopping out-migration & boosting livelihood"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M20 80 L70 30 L120 80 Z" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+                    <rect x="60" y="55" width="20" height="25" fill="none" stroke="#facc15" stroke-width="2"/>
+                    <path d="M30 90 L110 90" stroke="#38bdf8" stroke-width="2.5"/>
+                </svg>`,
+                modalTitle: "Vibrant Village Program (VVP 1 & 2)",
+                background: "Transforming border villages into economically secure frontier hubs, shifting the national narrative from 'last villages' to 'first villages'.",
+                keyPoints: [
+                    "<b>VVP-1 (2023):</b> Centrally sponsored scheme focusing on northern Himalayan borders (Arunachal, Sikkim, Ladakh, Himachal, Uttarakhand) focusing on infrastructure and livelihood.",
+                    "<b>VVP-2 (2026):</b> Central sector scheme (100% central funding) covering all other land borders across 15 states and 2 UTs.",
+                    "<b>Core Objectives:</b> Curbing out-migration, enhancing socio-economic conditions, securing porous borders against trafficking, and delivering basic services locally.",
+                    "<b>Ministry:</b> Implemented under the Ministry of Home Affairs."
+                ],
+                trap: "VVP-1 is a Centrally Sponsored Scheme (shared funding), whereas VVP-2 is a Central Sector Scheme (100% central funding).",
+                mains: "Evaluate the strategic significance of comprehensive border area development in safeguarding national security and territorial integrity.",
+                statutory: "Ministry of Home Affairs guidelines; Centrally Sponsored & Central Sector frameworks."
+            },
+            {
+                id: 6,
+                category: "Economic Scenario",
+                title: "Dedicated Freight Corridors (EDFC & WDFC)",
+                stat: "2,843 km",
+                bullets: [
+                    "Separates goods traffic from passenger rails",
+                    "Eastern (Ludhiana to Sonnagar/Dankuni)",
+                    "Western (Dadri to JNPT Mumbai)",
+                    "Aligned with PM Gati Shakti & Sagarmala"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <line x1="20" y1="45" x2="120" y2="45" stroke="#38bdf8" stroke-width="3"/>
+                    <line x1="20" y1="65" x2="120" y2="65" stroke="#facc15" stroke-width="3"/>
+                    <rect x="35" y="38" width="15" height="15" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <rect x="85" y="58" width="15" height="15" fill="#1e293b" stroke="#facc15" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "Dedicated Freight Corridors (EDFC & WDFC)",
+                background: "Full operationalization of the Eastern and Western Dedicated Freight Corridors, creating a massive 2,843 km freight rail network under PM Gati Shakti.",
+                keyPoints: [
+                    "<b>Network Structure:</b> EDFC runs from Ludhiana to Sonnagar (with extensions to Dankuni, WB); WDFC runs from Dadri to JNPT Mumbai, converging at Dadri.",
+                    "<b>Implementing Agency:</b> Dedicated Freight Corridor Corporation of India Limited (DFCCIL), a special purpose vehicle under the Ministry of Railways.",
+                    "<b>Economic Impact:</b> Eliminates passenger-freight line congestion, lowers logistical time and cost delays, and boosts industrial exports.",
+                    "<b>Policy Alignment:</b> Directly supports PM Gati Shakti multi-modal connectivity and the Sagarmala project."
+                ],
+                trap: "Western DFC is longer than Eastern DFC, and both corridors converge strategically at Dadri.",
+                mains: "Analyze how multimodal logistics infrastructure and dedicated freight corridors enhance India's global manufacturing competitiveness.",
+                statutory: "Companies Act 1956; Ministry of Railways / DFCCIL framework."
+            },
+            {
+                id: 7,
+                category: "Economic Scenario",
+                title: "UPI Merchant Discount Rate (MDR) Rules",
+                stat: "0.4% above ₹2k",
+                bullets: [
+                    "Introduced by NPCI for high-value P2M",
+                    "P2P & micro-merchants (&lt;₹1L/mo) exempt",
+                    "Capped at ₹300 for large transactions",
+                    "Ensures digital payment infrastructure sustainability"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <rect x="35" y="20" width="70" height="70" rx="8" fill="none" stroke="#facc15" stroke-width="2.5"/>
+                    <path d="M50 40 L90 40 M50 55 L90 55 M50 70 L75 70" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="85" cy="70" r="4" fill="#4ade80"/>
+                </svg>`,
+                modalTitle: "Merchant Discount Rate (MDR) on High-Value UPI Transactions",
+                background: "NPCI directive establishing a regulated MDR framework to support payment gateway sustainability while safeguarding small vendors and person-to-person transfers.",
+                keyPoints: [
+                    "<b>What is MDR?</b> A discounted fee deducted from merchants to maintain payment infrastructure (not a discount for merchants).",
+                    "<b>Exemptions:</b> Person-to-Person (P2P) transfers, small merchant transactions under ₹2,000, and small vendors earning under ₹1 lakh per month.",
+                    "<b>High-Value Threshold:</b> P2M transactions above ₹2,000 attract 0.4% MDR, capped at a maximum of ₹300 per transaction (e.g. mutual funds/stocks).",
+                    "<b>Thin-Margin Sectors:</b> Special capped flat fees (e.g., ₹5) for essential sectors like railways and fuel."
+                ],
+                trap: "MDR is a fee paid by merchants/banks to sustain infrastructure, not a discount given to the buyer or merchant.",
+                mains: "Discuss the trade-offs between financial inclusion incentives (zero MDR) and payment gateway financial sustainability in India's digital economy.",
+                statutory: "NPCI / RBI Payment and Settlement Systems Act."
+            },
+            {
+                id: 8,
+                category: "Economic Scenario",
+                title: "Bamboo Economy & World Bamboo Day",
+                stat: "Green Gold",
+                bullets: [
+                    "Reclassified as grass in 2017 (Act reform)",
+                    "World Bamboo Day observed on 18th Sept",
+                    "Theme: Bamboo Beyond Borders (BBB)",
+                    "National Bamboo Mission & Engineered Bamboo"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <line x1="55" y1="15" x2="55" y2="95" stroke="#4ade80" stroke-width="4"/>
+                    <line x1="85" y1="15" x2="85" y2="95" stroke="#4ade80" stroke-width="4"/>
+                    <line x1="45" y1="35" x2="95" y2="35" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="45" y1="65" x2="95" y2="65" stroke="#38bdf8" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "Transforming India's Bamboo Economy & World Bamboo Day",
+                background: "Celebration of World Bamboo Day (18 Sept) under theme 'Bamboo Beyond Borders', capitalizing on bamboo's reclassification as grass to boost rural livelihoods.",
+                keyPoints: [
+                    "<b>Legal Reform:</b> Moved from tree category (Indian Forest Act 1927) to woody grass category in 2017, enabling private cultivation and easy harvesting.",
+                    "<b>National Bamboo Mission:</b> Centrally sponsored scheme promoting green gold bioeconomy, cluster-based farming, and tribal livelihoods.",
+                    "<b>Engineered Bamboo:</b> Composite panels made by binding fibers for disaster relief housing and modern furniture.",
+                    "<b>Employment:</b> Generates millions of mandays across Northeast India and tribal handicraft sectors."
+                ],
+                trap: "Bamboo is legally classified as a grass (woody grass), not a tree, exempting non-forest cultivation from stringent tree-felling permits.",
+                mains: "Examine how bioeconomy initiatives like the National Bamboo Mission can drive sustainable rural development and climate resilience.",
+                statutory: "Indian Forest (Amendment) Act 2017; National Bamboo Mission."
+            },
+            {
+                id: 9,
+                category: "Economic Scenario",
+                title: "India's Middle-Income Trap Challenge",
+                stat: "Dual Squeeze",
+                bullets: [
+                    "Stuck between low-income & advanced economies",
+                    "Premature deindustrialization phenomenon",
+                    "Skill mismatch & weak vocational training",
+                    "Firm dwarfism (low post-age growth)"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M20 80 Q 70 20 120 80" fill="none" stroke="#f472b6" stroke-width="3"/>
+                    <circle cx="70" cy="50" r="12" fill="none" stroke="#facc15" stroke-width="2.5"/>
+                    <line x1="70" y1="40" x2="70" y2="60" stroke="#facc15" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "Navigating India's Middle-Income Trap & Dual Squeeze",
+                background: "Analysis of India's economic transition challenges as it scales per capita income past low-income thresholds but faces hurdles entering high-income innovation status.",
+                keyPoints: [
+                    "<b>The Dual Squeeze:</b> Squeezed from below by low-income nations offering cheaper labor (e.g. Bangladesh), and from above by advanced economies with sophisticated tech (USA, Germany).",
+                    "<b>Premature Deindustrialization:</b> Transitioning directly from agriculture to services without sufficient manufacturing growth (stagnating around 14-17% of GDP).",
+                    "<b>Structural Impediments:</b> Disguised unemployment in agriculture, weak formal vocational training (&lt;3% workforce), and 'firm dwarfism' where Indian firms fail to scale up with age.",
+                    "<b>Global Lessons:</b> Successful economies like South Korea and Taiwan utilized mass secondary education and strategic industrial policy."
+                ],
+                trap: "India is currently the sixth largest economy by nominal GDP, but structural per capita income places it firmly in the lower-middle income category.",
+                mains: "Analyze structural bottlenecks preventing India from escaping the middle-income trap and achieving Viksit Bharat 2047 goals.",
+                statutory: "World Bank Country Classifications (Low, Lower-Middle, Upper-Middle, High Income)."
+            },
+            {
+                id: 10,
+                category: "Economic Scenario",
+                title: "Decade of Flexible Inflation Targeting (FIT)",
+                stat: "4% ± 2%",
+                bullets: [
+                    "Completed 10 years of framework (2016-2026)",
+                    "Retained target (2% to 6%) for 2026-2031",
+                    "Utilizes headline CPI consumer prices",
+                    "Flat Phillips curve & informal sector challenges"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <line x1="20" y1="85" x2="120" y2="85" stroke="#94a3b8" stroke-width="2"/>
+                    <line x1="20" y1="15" x2="20" y2="85" stroke="#94a3b8" stroke-width="2"/>
+                    <path d="M20 70 Q 60 50 120 30" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <line x1="20" y1="50" x2="120" y2="50" stroke="#facc15" stroke-width="1.5" stroke-dasharray="3 3"/>
+                </svg>`,
+                modalTitle: "Decade of Flexible Inflation Targeting (FIT) & Monetary Policy",
+                background: "Marking 10 years of India's FIT framework managed by the RBI Monetary Policy Committee (MPC), maintaining headline inflation at 4% with a 2-6% tolerance band.",
+                keyPoints: [
+                    "<b>Framework Mandate:</b> Established via Urjit Patel committee recommendations in 2016; retained for 2026–2031.",
+                    "<b>Accountability Mechanism:</b> Failure to maintain inflation within 2-6% for three consecutive quarters requires RBI to submit a formal explanatory report to the government.",
+                    "<b>Critique & Phillips Curve:</b> India exhibits a relatively 'flat Phillips curve' (weak trade-off between unemployment and inflation), complicated by a large informal sector (92% workforce) with flawed wage data.",
+                    "<b>Policy Evolution:</b> Exploring New Keynesian Phillips curve models incorporating economic output and broader supply shocks."
+                ],
+                trap: "RBI targets Headline CPI (combined consumer price index including food and fuel), not WPI (Wholesale Price Index).",
+                mains: "Examine the efficacy of interest rate-based monetary policy in managing supply-side food inflation in developing economies.",
+                statutory: "RBI Act 1934 (Section 45ZRA); Monetary Policy Committee framework."
+            },
+            {
+                id: 11,
+                category: "Economic Scenario",
+                title: "Supreme Court Industry Definition Review",
+                stat: "Clean Slate",
+                bullets: [
+                    "Revisited 1978 Bangalore Water Supply case",
+                    "Challenged ambiguous 'Triple Test'",
+                    "Industrial Relations Code 2020 application",
+                    "Excludes core sovereign defense/judiciary"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <rect x="25" y="30" width="90" height="55" rx="6" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <line x1="40" y1="50" x2="100" y2="50" stroke="#facc15" stroke-width="2"/>
+                    <line x1="40" y1="65" x2="80" y2="65" stroke="#facc15" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "Supreme Court Re-examination of 'Industry' Definition",
+                background: "The Supreme Court revisited the landmark 1978 definition of 'industry' to clarify ambiguities ahead of implementing the Industrial Relations Code 2020.",
+                keyPoints: [
+                    "<b>The 1978 'Triple Test':</b> Previously categorized institutions as industries based on systematic activity, employer-employee cooperation, and service delivery, inadvertently including charities and hospitals without profit motives.",
+                    "<b>Concerns & Trade Unions:</b> Unions raised fears that narrowing the definition under IRC 2020 would strip workers of collective bargaining rights and minimum wage protections.",
+                    "<b>Sovereign Exclusions:</b> Core sovereign functions (defense, law & order, judiciary) remain strictly outside the industry ambit.",
+                    "<b>Constitutional Backdrop:</b> Aligns with Directive Principles under Article 43 (living wage) and Article 43A (workers' participation in management)."
+                ],
+                trap: "Charitable and philanthropic organizations may lose automatic 'industry' protection under strict new statutory definitions, impacting labor rights.",
+                mains: "Discuss the balance between labor market flexibility for corporate growth and constitutionally mandated worker welfare protections.",
+                statutory: "Industrial Relations Code 2020; Article 43 & 43A of the Constitution."
+            },
+            {
+                id: 12,
+                category: "International Relations",
+                title: "Partners for Multilateralism (P4M) & V4+India",
+                stat: "Global South",
+                bullets: [
+                    "Inaugural P4M Summit on UNGA sidelines",
+                    "Visegrad Group (Czech, Hungary, Poland, Slovakia)",
+                    "Addressing 4 F's: Fuel, Food, Fertilizer, Finance",
+                    "Demanding UNSC permanent reform"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <circle cx="70" cy="55" r="30" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <path d="M40 55 L100 55 M70 25 L70 85" stroke="#facc15" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "Partners for Multilateralism (P4M) & Visegrad (V4) + India",
+                background: "India's diplomatic push at UNGA via the inaugural Partners for Multilateralism summit and the V4 + India foreign ministers meeting for institutional global reforms.",
+                keyPoints: [
+                    "<b>P4M Initiative:</b> Co-sponsored by India, EU, Brazil, Kenya, Canada, and Australia to promote international law, open framework cooperation, and tackle the '4 F crisis' (Fuel, Food, Fertilizer, Finance).",
+                    "<b>Visegrad Group (V4):</b> Central European cooperation comprising Czech Republic, Hungary, Poland, and Slovakia (all EU/NATO members).",
+                    "<b>Strategic Gateway:</b> V4 acts as Central Europe's gateway for supply chain diversification (China+1 strategy) and defense ties.",
+                    "<b>Multilateral Reform:</b> Demanding permanent UNSC expansion and fairer voting rights in Bretton Woods institutions for the Global South."
+                ],
+                trap: "India is not a member of the Visegrad Group (V4); V4 is exclusively a Central European regional bloc.",
+                mains: "Analyze how middle-power coalitions like V4+India and plurilateral platforms strengthen India's strategic autonomy and multipolar diplomacy.",
+                statutory: "UN Charter principles; UNGA diplomatic frameworks."
+            },
+            {
+                id: 13,
+                category: "International Relations",
+                title: "UK Recognition of India's CCTS & CBAM",
+                stat: "Double Pricing Relief",
+                bullets: [
+                    "UK recognizes India Carbon Credit Trading Scheme",
+                    "Qualifying mechanism under Carbon Border Tax",
+                    "Prevents double carbon pricing for exporters",
+                    "Boosts green export competitiveness"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <rect x="30" y="30" width="80" height="50" rx="6" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+                    <path d="M45 55 L65 70 L95 40" fill="none" stroke="#facc15" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`,
+                modalTitle: "UK Recognition of India's Carbon Credit Trading Scheme (CCTS)",
+                background: "The UK recognized India's domestic CCTS as a qualifying carbon pricing mechanism under its Carbon Border Adjustment Mechanism (CBAM), granting relief to Indian exporters.",
+                keyPoints: [
+                    "<b>What is CBAM?</b> A carbon tax imposed by developed nations (EU/UK) on imported goods produced with high carbon emissions to level the playing field against domestic green regulations.",
+                    "<b>The Double Pricing Issue:</b> Indian companies complying with domestic carbon pricing faced punishing tariffs at Western borders.",
+                    "<b>The Resolution:</b> UK CBAM now allows carbon price relief for Indian exporters who have already paid under India's CCTS.",
+                    "<b>Significance:</b> Avoids double carbon taxation and enhances the export competitiveness of Indian manufacturing."
+                ],
+                trap: "CBAM acts as a border carbon tariff protecting domestic industries; recognition of domestic CCTS provides exemption relief.",
+                mains: "Examine the trade implications of carbon border adjustment mechanisms (CBAM) on developing nation exports and climate equity.",
+                statutory: "UK CBAM regulations; India Energy Conservation Act (CCTS framework)."
+            },
+            {
+                id: 14,
+                category: "International Relations",
+                title: "International Criminal Court (ICC) Challenges",
+                stat: "The Hague",
+                bullets: [
+                    "Established by 1998 Rome Statute",
+                    "Prosecutes individuals for grave crimes",
+                    "Faced US sanctions & member withdrawals",
+                    "India, US, China & Israel are not members"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <circle cx="70" cy="50" r="25" fill="none" stroke="#f472b6" stroke-width="2.5"/>
+                    <line x1="70" y1="25" x2="70" y2="75" stroke="#f472b6" stroke-width="2"/>
+                    <path d="M50 85 L90 85" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+                </svg>`,
+                modalTitle: "International Criminal Court (ICC): Structure & Contemporary Crises",
+                background: "Renewed geopolitical challenges amid US sanctions on ICC officials and member state withdrawals, raising questions on global criminal accountability.",
+                keyPoints: [
+                    "<b>Mandate:</b> Prosecutes individuals (not states) for genocide, crimes against humanity, war crimes, and crimes of aggression.",
+                    "<b>Legal Basis:</b> Established by the Rome Statute (1998, operational 2002); headquartered in The Hague, Netherlands.",
+                    "<b>Distinction from ICJ:</b> ICC trials individuals; ICJ settles legal disputes between sovereign UN member states.",
+                    "<b>India's Stance:</b> India is not a member of the ICC due to objections over UNSC referral powers and jurisdictional overreach."
+                ],
+                trap: "Do not confuse ICC (prosecutes individuals, independent body) with ICJ (settles disputes between states, principal UN organ).",
+                mains: "Discuss the limitations of international criminal jurisprudence and why major powers remain outside the Rome Statute framework.",
+                statutory: "Rome Statute 1998."
+            },
+            {
+                id: 15,
+                category: "International Relations",
+                title: "BRICS Power Framework & Summit",
+                stat: "11 Members",
+                bullets: [
+                    "New Delhi Bharat Mandapam Summit",
+                    "P-O-W-E-R Framework (Principle, Open, Win-Win, Engine, Responsibility)",
+                    "Represents 50% global population & 30% GDP",
+                    "Promoting multipolarity & Global South voice"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <polygon points="70,20 115,50 95,90 45,90 25,50" fill="none" stroke="#facc15" stroke-width="2.5"/>
+                    <circle cx="70" cy="55" r="12" fill="none" stroke="#38bdf8" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "BRICS Power Framework & New Delhi Summit",
+                background: "Adoption of the comprehensive POWER framework during the BRICS Summit in New Delhi, reinforcing multipolarity and economic coordination.",
+                keyPoints: [
+                    "<b>The POWER Framework:</b><br>• <b>P</b>rinciple: UN Charter & sovereign equality.<br>• <b>O</b>penness: WTO-based open trade.<br>• <b>W</b>in-Win: Sustainable SDG cooperation.<br>• <b>E</b>ngine: Economic growth driver.<br>• <b>R</b>esponsibility: Global stability & multipolarity.",
+                    "<b>Global Weight:</b> BRICS represents 50% of global population, 30% of global GDP, and 20% of global trade.",
+                    "<b>Membership:</b> Expanded to 11 members (including recent inclusions)."
+                ],
+                trap: "BRICS is an intergovernmental association of emerging economies, distinct from Western-led multilateral financial institutions.",
+                mains: "Evaluate how BRICS expansion and alternative financial frameworks challenge western hegemony and reshape global economic governance.",
+                statutory: "BRICS Summit Declarations."
+            },
+            {
+                id: 16,
+                category: "International Relations",
+                title: "26th SCO Summit & Bishkek Declaration",
+                stat: "25th Anniversary",
+                bullets: [
+                    "Hosted in Bishkek, Kyrgyzstan",
+                    "Marking 25 years since 2001 inception",
+                    "Regional Anti-Terrorist Structure (RATS)",
+                    "Combating the Three Evils (Terror, Extremism, Separatism)"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <rect x="30" y="35" width="80" height="50" rx="6" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <circle cx="70" cy="60" r="14" fill="none" stroke="#facc15" stroke-width="2"/>
+                    <path d="M62 60 L68 66 L80 50" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`,
+                modalTitle: "26th Shanghai Cooperation Organisation (SCO) Summit",
+                background: "The 26th SCO Summit in Bishkek celebrated 25 years of regional security cooperation under the Bishkek Declaration.",
+                keyPoints: [
+                    "<b>Origins:</b> Evolved from 'Shanghai Five' (1996) into a permanent intergovernmental organization in 2001.",
+                    "<b>Core Mandate:</b> Combating the 'Three Evils'—terrorism, separatism, and extremism—via the Regional Anti-Terrorist Structure (RATS) secretariat.",
+                    "<b>Strategic Importance:</b> Rare multilateral platform where India, Pakistan, China, and Russia engage directly.",
+                    "<b>Global Footprint:</b> Represents 40% of the world population and 25% of global GDP."
+                ],
+                trap: "SCO is primarily a Eurasian security and economic bloc, not a defense alliance like NATO.",
+                mains: "Analyze India's strategic calculus in engaging with the SCO amidst regional security dynamics and bilateral tensions.",
+                statutory: "SCO Charter; RATS framework."
+            },
+            {
+                id: 17,
+                category: "Environment & Ecology",
+                title: "World Rhino Day & 'Keep 5 Alive'",
+                stat: "4,075 Population",
+                bullets: [
+                    "Observed on 22nd September",
+                    "Theme: Keep the Five Alive (rhino species)",
+                    "India's great one-horned rhino success",
+                    "New Delhi Declaration on Asian Rhinos"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M30 65 Q 50 35 90 55 L110 65 L110 80 L30 80 Z" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+                    <path d="M85 45 L95 20 L98 42" fill="none" stroke="#facc15" stroke-width="2.5" stroke-linejoin="round"/>
+                    <circle cx="45" cy="60" r="4" fill="#38bdf8"/>
+                </svg>`,
+                modalTitle: "World Rhino Day & Asian Rhino Conservation",
+                background: "Marked on 22 September with the theme 'Keep the Five Alive', celebrating India's stellar rhino conservation milestones and the New Delhi Declaration.",
+                keyPoints: [
+                    "<b>Five Species:</b> Greater one-horned, Black rhino, White rhino, Javan rhino, and Sumatran rhino.",
+                    "<b>India's Milestone:</b> Great one-horned rhino population in Assam (Kaziranga) rose to ~4,075 with zero poaching recorded in 2026.",
+                    "<b>New Delhi Declaration:</b> Signed by India, Bhutan, Nepal, Indonesia, and Malaysia to strengthen Asian rhino conservation and anti-poaching measures.",
+                    "<b>Nepal's Success:</b> Achieved multiple zero-poaching years under robust regional protection frameworks."
+                ],
+                trap: "The Great One-Horned Rhinoceros is native to the Indian subcontinent (Assam/Terai), whereas Javan and Sumatran rhinos inhabit Southeast Asia.",
+                mains: "Evaluate community-led conservation and anti-poaching strategies in preserving endangered megafauna like the Indian rhinoceros.",
+                statutory: "Wildlife Protection Act 1972 (Schedule I); CITES Appendix I."
+            },
+            {
+                id: 18,
+                category: "Environment & Ecology",
+                title: "Montreal Protocol & Kigali Amendment",
+                stat: "HFC Phase-out",
+                bullets: [
+                    "World Ozone Day celebrated on 16th September",
+                    "Phase-out of Ozone Depleting Substances (ODS)",
+                    "Kigali Amendment tackles Hydrofluorocarbons",
+                    "Target: 85% HFC reduction by 2047"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <circle cx="70" cy="55" r="25" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <path d="M45 55 Q 70 30 95 55 Q 70 80 45 55" fill="none" stroke="#facc15" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "Montreal Protocol & Kigali Amendment on Ozone & Climate",
+                background: "World Ozone Day (16 Sept) spotlighted progress under the Montreal Protocol and India's ratification of the Kigali Amendment targeting hydrofluorocarbons.",
+                keyPoints: [
+                    "<b>Montreal Protocol (1987):</b> Landmark treaty phasing out Ozone Depleting Substances (CFCs and HCFCs) to repair the stratospheric ozone layer.",
+                    "<b>Kigali Amendment (2016):</b> Extended phase-down to Hydrofluorocarbons (HFCs)—potent greenhouse gases used as substitutes.",
+                    "<b>India's Targets:</b> Freezing HFC consumption by 2028 and reducing them by 85% by 2047.",
+                    "<b>Climate Co-benefit:</b> Preventing up to 0.5°C of global warming by century's end."
+                ],
+                trap: "HFCs do not deplete the ozone layer (unlike CFCs), but they are powerful greenhouse gases driving global warming, necessitating the Kigali Amendment.",
+                mains: "Assess how international environmental protocols like Montreal/Kigali successfully harmonize ozone layer repair with global climate mitigation.",
+                statutory: "Vienna Convention / Montreal Protocol / Kigali Amendment."
+            },
+            {
+                id: 19,
+                category: "Environment & Ecology",
+                title: "Hanging Glaciers & Climate Risks",
+                stat: "219 in Alaknanda",
+                bullets: [
+                    "Located on steep mountain slopes",
+                    "High risk of sudden ice avalanches",
+                    "Common along Himalayan pilgrimage routes",
+                    "Triggered by rapid warming & climate variability"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M20 90 L70 20 L120 90 Z" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <path d="M55 45 L70 35 L85 50 L75 60 Z" fill="#facc15" opacity="0.8"/>
+                    <path d="M50 75 L90 75" stroke="#f472b6" stroke-width="2" stroke-dasharray="3 3"/>
+                </svg>`,
+                modalTitle: "Hanging Glaciers: Formation, Risks & Climate Vulnerability",
+                background: "Scientific focus on hanging glaciers perched on steep Himalayan slopes, posing severe ice avalanche and GLOF risks along pilgrimage routes.",
+                keyPoints: [
+                    "<b>What are Hanging Glaciers?</b> Dense masses of ice perched on steep mountain slopes, often detached from main glacier valley systems.",
+                    "<b>Himalayan Distribution:</b> Over 219 hanging glaciers identified in the Alaknanda basin of the Garhwal Himalayas.",
+                    "<b>Hazards:</b> Sudden thermal detachment causes catastrophic ice avalanches, debris flows, and Glacial Lake Outburst Floods (GLOFs) threatening infrastructure.",
+                    "<b>Driver:</b> Accelerated global warming and high climate variability in fragile high-altitude terrains."
+                ],
+                trap: "Hanging glaciers do not reach valley floors in standard tongue formations; they cling precariously to steep cliff walls, making collapses unpredictable.",
+                mains: "Examine the geo-hazard risks posed by receding Himalayan glaciers and hanging ice bodies on infrastructure projects and local communities.",
+                statutory: "National Disaster Management Authority (NDMA) guidelines on GLOF."
+            },
+            {
+                id: 20,
+                category: "Environment & Ecology",
+                title: "UNEP 1.5°C Overshoot Report",
+                stat: "1.8°C Projected",
+                bullets: [
+                    "Title: 'Limiting Overshoot' report by UNEP",
+                    "Paris Agreement 1.5°C target breach inevitable",
+                    "Even full NDC implementation leads to 1.8°C",
+                    "Strategy: Overshoot, Peak, and Decline (OPD)"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M20 80 Q 70 10 120 70" fill="none" stroke="#f472b6" stroke-width="3"/>
+                    <line x1="20" y1="50" x2="120" y2="50" stroke="#facc15" stroke-width="2" stroke-dasharray="4 4"/>
+                </svg>`,
+                modalTitle: "UNEP Report: Limiting Overshoot & Managing 1.5°C Breach",
+                background: "UNEP's 'Limiting Overshoot' report warns that temporary breaching of the Paris Agreement 1.5°C threshold is now inevitable under current global trajectories.",
+                keyPoints: [
+                    "<b>Current Projections:</b> Even if all nations fully implement their NDCs, global warming is projected to reach ~1.8°C.",
+                    "<b>The 'OPD' Strategy:</b> <b>O</b>vershoot the 1.5°C limit temporarily, reach a <b>P</b>eak, and aggressively <b>D</b>ecline temperatures back below 1.5°C by 2100 using carbon removal.",
+                    "<b>Adaptation Urgency:</b> Demands massive scale-up in climate adaptation finance for vulnerable nations facing extreme weather extremes."
+                ],
+                trap: "Overshooting does not mean abandoning the 1.5°C target; it necessitates carbon dioxide removal (CDR) to bring temperatures back down post-peak.",
+                mains: "Critically evaluate the feasibility of carbon removal technologies in reversing a temporary 1.5°C global temperature overshoot.",
+                statutory: "Paris Agreement Article 2 & 4; UNEP Emissions Gap reports."
+            },
+            {
+                id: 21,
+                category: "Environment & Ecology",
+                title: "UNCCD COP 17 Mongolia & Drought Index",
+                stat: "40% Land Degraded",
+                bullets: [
+                    "Hosted in Ulaanbaatar, Mongolia",
+                    "Mongolia's 1 Billion Trees Campaign",
+                    "World's first AI-powered Drought Resilience Index",
+                    "Theme: Restoring Land, Restoring Hope"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <circle cx="70" cy="50" r="22" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+                    <path d="M50 70 L90 70 M70 28 L70 72" stroke="#4ade80" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "UNCCD COP 17 in Mongolia & Drought Resilience Index",
+                background: "The 17th Conference of Parties to UNCCD in Ulaanbaatar focused on halting land degradation, launching the Drought Resilience Index, and scaling reforestation.",
+                keyPoints: [
+                    "<b>The Crisis:</b> Land degradation affects up to 40% of global land surface, triggering food insecurity and forced migration.",
+                    "<b>Host Leadership:</b> Mongolia showcased its 'Billion Trees Campaign' to combat extensive desertification across 77% degraded land.",
+                    "<b>Drought Resilience Index:</b> World's first AI-powered technical tool combining vulnerability mapping and analytics for proactive drought management.",
+                    "<b>Next Host:</b> COP 18 scheduled in Sharm El Sheikh, Egypt."
+                ],
+                trap: "UNCCD is the sole legally binding international agreement linking environment and development to sustainable land management.",
+                mains: "Analyze how combating desertification through global conventions like UNCCD advances food security and climate mitigation goals.",
+                statutory: "United Nations Convention to Combat Desertification (UNCCD)."
+            },
+            {
+                id: 22,
+                category: "Science & Technology",
+                title: "Deep-Sea Mining & Polymetallic Nodules",
+                stat: "ISA & UNCLOS",
+                bullets: [
+                    "Exploration of seabed polymetallic nodules",
+                    "Deep Ocean Mission & Matsya 6000 submersible",
+                    "International Seabed Authority (ISA) contracts",
+                    "Conservation debate on fragile abyss ecosystems"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M20 70 Q 70 30 120 70 L120 90 L20 90 Z" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <circle cx="50" cy="65" r="6" fill="#facc15"/>
+                    <circle cx="85" cy="60" r="8" fill="#facc15"/>
+                    <circle cx="100" cy="70" r="5" fill="#facc15"/>
+                </svg>`,
+                modalTitle: "Deep-Sea Mining: Mineral Security vs. Marine Ecosystem Conservation",
+                background: "Balancing India's Deep Ocean Mission mineral ambitions (polymetallic nodules containing nickel, cobalt, copper) with marine ecological preservation.",
+                keyPoints: [
+                    "<b>Target Resources:</b> Polymetallic nodules on abyssal plains, cobalt-rich ferromanganese crusts, and seafloor massive sulfides.",
+                    "<b>The Area:</b> Seabed beyond national jurisdiction governed by UNCLOS and regulated by the International Seabed Authority (ISA) as 'common heritage of mankind'.",
+                    "<b>India's Initiatives:</b> Deep Ocean Mission (Ministry of Earth Sciences); Matsya 6000 manned submersible under Samudrayan; Varaha underwater mining test rig; ISA exploration contracts.",
+                    "<b>Conservation Debate:</b> Marine biologists warn against irreversible biodiversity loss in fragile abyssal ecosystems."
+                ],
+                trap: "The seabed beyond national jurisdiction is legally termed 'The Area' under UNCLOS and is administered by the ISA, not any single nation.",
+                mains: "Examine the geopolitical scramble for critical minerals in international waters and the ecological imperative of moratoriums on deep-sea mining.",
+                statutory: "UNCLOS; International Seabed Authority; India Deep Ocean Mission Act/Guidelines."
+            },
+            {
+                id: 23,
+                category: "Science & Technology",
+                title: "EOS-05 GEO Imaging Satellite",
+                stat: "GSLV F17",
+                bullets: [
+                    "India's first dedicated GEO imaging satellite",
+                    "Referred to as 'Eye in the Sky'",
+                    "Carried heaviest payload (2,367 kg) on GSLV",
+                    "Continuous real-time optical/infrared view"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <circle cx="70" cy="55" r="15" fill="none" stroke="#facc15" stroke-width="2.5"/>
+                    <path d="M30 55 L55 55 M85 55 L110 55" stroke="#38bdf8" stroke-width="3"/>
+                    <path d="M70 20 L70 40" stroke="#4ade80" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "EOS-05 Earth Observation Satellite & GSLV F17",
+                background: "ISRO successfully launched India's first dedicated GEO imaging satellite (EOS-05) via GSLV F17, providing continuous real-time monitoring from geostationary orbit.",
+                keyPoints: [
+                    "<b>Orbit & Capability:</b> Positioned in Geosynchronous Earth Orbit (~36,000 km), offering a permanent, continuous view of vast land regions ('Eye in the Sky').",
+                    "<b>Launch Vehicle:</b> GSLV F17 carried a record 2,367 kg payload, utilizing its three-stage configuration with a cryogenic upper stage.",
+                    "<b>Payload:</b> Equipped with advanced optical and infrared imaging sensors for continuous weather and strategic observation.",
+                    "<b>LEO vs. GEO:</b> Unlike Low Earth Orbit (LEO) satellites that provide high-resolution snapshots during passes, GEO satellites provide continuous staring capability."
+                ],
+                trap: "EOS-05 operates in Geosynchronous Earth Orbit (GEO ~36,000 km), unlike typical Earth observation satellites that operate in Low Earth Orbit (LEO).",
+                mains: "Analyze the strategic and meteorological advantages of geostationary earth observation satellites in disaster management and national security.",
+                statutory: "ISRO Space Policy / Launch Vehicle framework."
+            },
+            {
+                id: 24,
+                category: "Static GK / Exercises",
+                title: "Dadasaheb Phalke & Ramon Magsaysay Awards",
+                stat: "Anantnag & 3 Winners",
+                bullets: [
+                    "Dadasaheb Phalke Award 2026: Actor Anantnag",
+                    "Instituted in 1969 for cinema excellence",
+                    "Ramon Magsaysay Award: Asia's Nobel Prize",
+                    "2026 Winners: Tommy Koh, Rohana Khan, Bo Kyi"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <polygon points="70,25 80,45 102,48 86,63 90,85 70,75 50,85 54,63 38,48 60,45" fill="none" stroke="#facc15" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>`,
+                modalTitle: "Dadasaheb Phalke Award & Ramon Magsaysay Awards 2026",
+                background: "Announcement of premier honors: veteran actor Anantnag receiving the Dadasaheb Phalke Award and Asian leaders winning the Ramon Magsaysay Award.",
+                keyPoints: [
+                    "<b>Dadasaheb Phalke Award:</b> India's highest cinema honor, instituted in 1969 in memory of the father of Indian cinema (director of <i>Raja Harishchandra</i>). Awarded in 2026 to veteran Kannada actor Anantnag.",
+                    "<b>Ramon Magsaysay Award:</b> Regarded as 'Asia's Nobel Prize', established in 1958.",
+                    "<b>2026 Magsaysay Laureates:</b> Tommy Koh (Singapore), Rohana Khan (Bangladesh), and Bo Kyi (Myanmar)."
+                ],
+                trap: "Dadasaheb Phalke is awarded for lifetime contribution to Indian cinema, whereas the National Film Awards honor specific annual films.",
+                mains: "Assess the soft power significance of cultural and humanitarian awards in fostering regional solidarity across Asia.",
+                statutory: "Ministry of Information & Broadcasting guidelines; Ramon Magsaysay Award Foundation."
+            },
+            {
+                id: 25,
+                category: "Static GK / Exercises",
+                title: "Naval & Military Exercises (SLINEX, Nomadic, Yudh Abhyas)",
+                stat: "Interoperability",
+                bullets: [
+                    "SLINEX 2026: India-Sri Lanka Naval Exercise (Visakhapatnam)",
+                    "Nomadic Elephant: India-Mongolia Military Exercise",
+                    "Yudh Abhyas 22nd Edition: India-US Army Exercise",
+                    "Focus on joint tactical interoperability"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M30 65 L45 45 L95 45 L110 65 Z" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    <circle cx="50" cy="75" r="8" fill="none" stroke="#facc15" stroke-width="2"/>
+                    <circle cx="90" cy="75" r="8" fill="none" stroke="#facc15" stroke-width="2"/>
+                    <path d="M40 30 L100 30" stroke="#4ade80" stroke-width="2"/>
+                </svg>`,
+                modalTitle: "Bilateral Defense Exercises: SLINEX, Nomadic Elephant & Yudh Abhyas",
+                background: "Highlighting key bilateral military and naval exercises enhancing tactical readiness and defense interoperability between India and partner nations.",
+                keyPoints: [
+                    "<b>SLINEX 2026:</b> 13th edition of India-Sri Lanka bilateral naval exercise held in Visakhapatnam (Harbor & Sea phases); featuring INS Kavaratti and INS Jyoti.",
+                    "<b>Nomadic Elephant:</b> 18th edition of India-Mongolia military exercise held in Pithoragarh, Uttarakhand (focusing on counter-terrorism in mountainous terrain).",
+                    "<b>Yudh Abhyas:</b> 22nd edition of India-US army exercise conducted simultaneously in Uttarakhand and Rajasthan.",
+                    "<b>Strategic Objective:</b> Enhancing interoperability, shared operational doctrines, and joint peacekeeping capabilities."
+                ],
+                trap: "SLINEX is a naval exercise (navy-to-navy), whereas Nomadic Elephant and Yudh Abhyas are military/army exercises.",
+                mains: "Analyze the role of bilateral defense diplomacy and joint military exercises in strengthening regional deterrence and Indo-Pacific security architectures.",
+                statutory: "Ministry of Defence bilateral cooperation frameworks."
+            },
+            {
+                id: 26,
+                category: "Static GK / Exercises",
+                title: "World Circular Economy Forum & Volcanos",
+                stat: "5 R's Model",
+                bullets: [
+                    "WCEF 2026 hosted in Gandhinagar, Gujarat",
+                    "First time hosted in South Asia",
+                    "Mount Anak Krakatau eruption (Indonesia)",
+                    "New Cat Species: Tl'kayo wild cat in Bolivia"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M30 80 L70 30 L110 80 Z" fill="none" stroke="#facc15" stroke-width="2.5"/>
+                    <path d="M60 45 L80 45 L75 30 Z" fill="#f472b6"/>
+                    <path d="M20 90 L120 90" stroke="#38bdf8" stroke-width="2.5"/>
+                </svg>`,
+                modalTitle: "World Circular Economy Forum, Mount Anak Krakatau & Tl'kayo Cat",
+                background: "Roundup of global events: WCEF in Gujarat, volcanic eruption of Mount Anak Krakatau in Indonesia, and discovery of the Tl'kayo wild cat in Bolivia.",
+                keyPoints: [
+                    "<b>World Circular Economy Forum (WCEF) 2026:</b> Hosted in Gandhinagar, Gujarat—marking its inaugural edition in South Asia—promoting the 5 R's (Reduce, Reuse, Recycle, Refurbish, Repair) over linear economies.",
+                    "<b>Mount Anak Krakatau Volcanic Eruption:</b> Active stratovolcano in the Sunda Strait (Indonesia) erupted violently; formed in the Pacific Ring of Fire due to Indo-Australian and Eurasian plate subduction.",
+                    "<b>New Cat Species Discovery:</b> <i>Tl'kayo</i> wild cat identified in Bolivia's Yungas cloud forests—the first formal description of a new living cat species in over a century."
+                ],
+                trap: "Mount Anak Krakatau ('Child of Krakatau') is located in the Sunda Strait between Java and Sumatra, part of Indonesia's volcanic arc.",
+                mains: "Examine how circular economy transitions can decouple economic growth from resource depletion and waste generation.",
+                statutory: "Global Circular Economy Coalition; IUCN biodiversity documentation."
+            },
+            {
+                id: 27,
+                category: "Static GK / Exercises",
+                title: "Pygmy Hog Conservation Success",
+                stat: "Endangered",
+                bullets: [
+                    "World's smallest & rarest wild pig",
+                    "Endemic to Himalayan foothills (Assam)",
+                    "Pygmy Hog Conservation Programme (PHCP)",
+                    "IUCN Endangered & WPA Schedule I protected"
+                ],
+                svg: `<svg class="sketch-svg" viewBox="0 0 140 110">
+                    <path d="M35 60 Q 70 35 105 60 L105 80 L35 80 Z" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+                    <circle cx="95" cy="55" r="4" fill="#facc15"/>
+                    <path d="M25 65 L35 60" stroke="#4ade80" stroke-width="2.5"/>
+                </svg>`,
+                modalTitle: "Pygmy Hog Conservation Programme & Habitat Ecology",
+                background: "Celebration of successful conservation milestones for the pygmy hog, the world's smallest wild pig, recovering across grasslands in Assam.",
+                keyPoints: [
+                    "<b>Taxonomy & Habitat:</b> World's smallest wild pig (genus <i>Porcula</i>), endemic to tall alluvial grasslands in the Himalayan foothills (spanning Assam, Bengal, Nepal Terai).",
+                    "<b>Diet & Behavior:</b> Omnivorous (roots, tubers, insects, small invertebrates); solitary males with females living in small family groups.",
+                    "<b>Conservation Status:</b> IUCN Endangered; Wildlife Protection Act 1972 Schedule I; CITES Appendix I.",
+                    "<b>Success Story:</b> Decades of dedicated captive breeding and reintroduction via the Pygmy Hog Conservation Programme (PHCP) have successfully revived wild populations in Assam."
+                ],
+                trap: "Pygmy hogs are strictly endemic to tall wet grasslands along the Himalayan foothills, unlike wild boars which have generalist habitats.",
+                mains: "Analyze the significance of species-specific recovery programs in preserving micro-habitat biodiversity in grassland ecosystems.",
+                statutory: "Wildlife Protection Act 1972 (Schedule I); IUCN Red List."
+            }
+        ];
+
+        function renderGrid() {
+            const grid = document.getElementById('card-grid');
+            grid.innerHTML = topicsData.map(topic => `
+                <div class="card">
+                    <div>
+                        <div class="card-header">
+                            <span class="category-tag">${topic.category}</span>
+                            <span class="stat-badge">${topic.stat}</span>
                         </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 2 -->
-        <div class="card">
-            <div class="badge">2</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>BRICS Summit & Expansion 🌍</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Weight</span> Represents <mark>49.5% global population</mark> and 40% of Global GDP.</li>
-                        <li><span class="pill mains">Institutions</span> Key outcomes: <mark>New Development Bank (NDB)</mark> & Contingent Reserve Arrangement (CRA).</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Context & Growth</h4>
-                            <p>Coined by Goldman Sachs in 2001. First summit held in 2009; South Africa joined in 2010/2011. Expanded heavily in 2024 and 2025.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> BRICS gives emerging economies a greater say in global governance, pushing for local currency trade.</li>
-                                <li><strong>Trap Alert:</strong> Saudi Arabia was formally invited but has NOT officially accepted membership as of current records, though frequently grouped.</li>
-                            </ul>
+                        <h2>${topic.title}</h2>
+                        <div class="sketch-container">
+                            ${topic.svg}
                         </div>
-                    </details>
+                        <ul class="micro-bullets">
+                            ${topic.bullets.map(b => `<li>${b}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <button class="know-more-btn" onclick="openModal(${topic.id})">🔍 Know More</button>
                 </div>
-            </details>
-        </div>
-
-        <!-- Topic 3 -->
-        <div class="card">
-            <div class="badge">3</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>Literacy for All 📖</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Definition</span> Literacy now includes <mark>critical life skills</mark> (digital/financial literacy) + reading/writing with comprehension.</li>
-                        <li><span class="pill geo">Milestone</span> 95% adult literacy is considered <mark>"Full Literacy"</mark> (achieved by 10 States/UTs).</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Flagship Initiatives</h4>
-                            <p>India's literacy rose from 18.32% (1951) to 74.04% (2011). A significant male/female gap remains.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Both schemes align directly with Sustainable Development Goal (SDG) 4 for Quality Education.</li>
-                                <li><strong>Trap Alert:</strong> ULLAS focuses on adults (15+ yrs) who missed schooling. NIPUN Bharat focuses on early foundational learning (children ages 3-8).</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 4 -->
-        <div class="card">
-            <div class="badge">4</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>Universal Health Coverage 🏥</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Scale</span> AB PM-JAY provides <mark>₹5 lakh cashless cover</mark> to ~33% of India's population.</li>
-                        <li><span class="pill mains">Impact</span> Out-of-pocket health expenditure fell from <mark>62.6% to 43.4%</mark>.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>4 Pillars of Ayushman Bharat</h4>
-                            <p>The scheme has structurally transformed healthcare financing in India to protect the most vulnerable families from catastrophic health expenses.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Primary care (Arogya Mandir), Digital integration (Digital Mission), Secondary/Tertiary cover (PM-JAY), and Infrastructure (PM-ABHIM).</li>
-                                <li><strong>Trap Alert:</strong> PM-ABHIM focuses strictly on physical health infrastructure/laboratories, not direct insurance payouts.</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 5 -->
-        <div class="card">
-            <div class="badge">5</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>PM Matsya Sampada Yojana 🐟</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Target</span> Transforms the fisheries sector via a <mark>₹2500 cr allocation</mark> (2026-27).</li>
-                        <li><span class="pill mains">Economy</span> Focuses on the Blue Economy, doubling fishers' income, and aligning with <mark>SDG 14</mark>.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Sector Transformation</h4>
-                            <p>Fish production climbed to a record 197.75 lakh tons (2024-25). Requires modernizing value chains and post-harvest infrastructure to minimize losses.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Building sustainable fisheries requires traceability standards, robust aquatic animal health systems, and high-quality brood/seed.</li>
-                                <li><strong>Trap Alert:</strong> SDG 14 is "Life Below Water." This must be explicitly cited in any Blue Economy/Fisheries Mains answer.</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 6 -->
-        <div class="card">
-            <div class="badge">6</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>India's Path to Blue Skies 💨</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">NCAP</span> The National Clean Air Program targets <mark>130 specific cities</mark>.</li>
-                        <li><span class="pill mains">Pollutants</span> PM2.5 (<mark>≤2.5 micrometers</mark>) easily bypasses lung filters causing severe damage.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>AQI & Measurement</h4>
-                            <p>The Air Quality Index (AQI) simplifies pollution data into 6 categories: Good (0-50), Satisfactory (51-100), Moderate (101-200), Poor (201-300), Very Poor (301-400), and Severe (401-500).</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Progress: 72 cities achieved a >20% reduction in particulate matter during FY 25-26.</li>
-                                <li><strong>Trap Alert:</strong> AQI is based on exactly 8 pollutants: PM10, PM2.5, NO2, SO2, CO, O3, NH3, Pb. Carbon Dioxide (CO2) is NOT one of them!</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 7 -->
-        <div class="card">
-            <div class="badge">7</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>PM SHRI Schools 🏫</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Scale</span> Upgrading <mark>14,500 exemplar schools</mark> aligned entirely with NEP 2020.</li>
-                        <li><span class="pill mains">Scheme Type</span> It is a <mark>Centrally Sponsored Scheme</mark> under the Ministry of Education.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Focus Areas</h4>
-                            <p>Focuses on 21st-century skills: critical thinking, problem-solving, digital literacy, and ethics. ~13,000 schools already selected via a 3-stage challenge mode.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Guided by 6 Quality Pillars covering curriculum, access, HR, inclusive practices, and beneficiary satisfaction.</li>
-                                <li><strong>Trap Alert:</strong> The scheme explicitly mandates "Gender Equity" (providing specific support to those who need it most to reach equal footing), not just "Gender Equality."</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 8 -->
-        <div class="card">
-            <div class="badge">8</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>PM Khanij Kshetra Kalyan Yojana ⛏️</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">DMF</span> Introduced via the 2015 amendment to the <mark>MMDR Act 1957</mark>.</li>
-                        <li><span class="pill mains">Objective</span> Implements welfare projects via District Mineral Foundations (DMFs) for <mark>mining-affected areas</mark>.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>District Mineral Foundations</h4>
-                            <p>DMFs are non-profit trusts established across 656 districts in 23 states to ensure that communities suffering the environmental/social externalities of mining receive financial remediation.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Funds collected at the district level minimize the adverse effects on health, environment, and long-term socio-economic livelihoods.</li>
-                                <li><strong>Trap Alert:</strong> DMF operations fall entirely under the jurisdiction of the relevant STATE government, which frames its own distinct rules.</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 9 -->
-        <div class="card">
-            <div class="badge">9</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>Geothermal Energy 🌋</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill geo">First Site</span> India's first geothermal wells commissioned in <mark>Puga Valley, Ladakh</mark>.</li>
-                        <li><span class="pill prelims">Ministry</span> Nodal body: <mark>Ministry of New and Renewable Energy (MNRE)</mark>.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Clean Energy Reliability</h4>
-                            <p>Utilizes heat from the earth's interior (outer core is molten iron/nickel; mantle is hot rock) to generate steam and spin turbines. Crucial for achieving Net Zero 2070.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Unlike solar or wind, geothermal provides 24/7 round-the-clock baseload power without reliance on weather.</li>
-                                <li><span class="pill geo">Map Work</span> Other key sites identified by GSI: Manikaran (HP), Tattapani (CG), and sites across UK, Sikkim, and AP.</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 10 -->
-        <div class="card">
-            <div class="badge">10</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>Green Highways & Miyawaki 🌳</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Index</span> The NH Green Cover Index was prepared in collab with <mark>ISRO's NRSC</mark>.</li>
-                        <li><span class="pill mains">Miyawaki</span> "Pot plantation method" creating dense forest ecosystems <mark>10x faster</mark> in limited space.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Infrastructure & Green Cover</h4>
-                            <p>The National Highway network has expanded by 61% since 2014. The index represents India's first scientific and quantitative assessment of highway green coverage.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Balances rapid infrastructure development with climate-resilient road design and carbon sequestration.</li>
-                                <li><strong>Trap Alert:</strong> The Miyawaki method involves planting trees and shrubs *extremely close together* to force rapid upward vertical growth.</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 11 -->
-        <div class="card">
-            <div class="badge">11</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>World Tourism Day ✈️</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Impact</span> Tourism contributes <mark>5.22% to India's GDP</mark> and supports ~8.46 crore jobs.</li>
-                        <li><span class="pill mains">Digital</span> Theme focuses on redesigning tourism using <mark>AI & Digital Agendas</mark>.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Sector Growth</h4>
-                            <p>Observed on Sept 27th (UNWTO statute adoption in 1970). Globally, tourism accounts for roughly 10% of global GDP.</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> India's digital tourism ecosystem is scaling via e-Visa and the Incredible India digital platform (NIDHI+).</li>
-                                <li><span class="pill geo">Map Work</span> Physical tourism circuits are being upgraded via Swadesh Darshan 2.0 and the PRASHAD scheme.</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-
-        <!-- Topic 12 -->
-        <div class="card">
-            <div class="badge">12</div>
-            <details class="primary-details">
-                <summary>
-                    <h2>Vibrant Villages Program (VVP) 🏔️</h2>
-                </summary>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="pill prelims">Shift</span> Border villages are now treated as <mark>"India's First Villages"</mark> acting as eyes & ears.</li>
-                        <li><span class="pill geo">Borders</span> India shares 15,000+ km of land borders across <mark>7 neighboring countries</mark>.</li>
-                    </ul>
-                    <details class="secondary-details">
-                        <summary>🔓 Unlock UPSC Background & Revision Data</summary>
-                        <div class="deep-dive">
-                            <h4>Border Security & Welfare</h4>
-                            <p>Aimed at providing livelihood generation, road/telecom connectivity, and preventing out-migration in northern border states (Ladakh, HP, UK, Sikkim, Arunachal).</p>
-                            <h4>Revision Hooks</h4>
-                            <ul>
-                                <li><span class="pill mains">Mains</span> Fusing socio-economic development with strategic internal security goals.</li>
-                                <li><strong>Trap Alert:</strong> The longest international land boundary is with Bangladesh (4,096.7 km), followed by China and Pakistan.</li>
-                            </ul>
-                        </div>
-                    </details>
-                </div>
-            </details>
-        </div>
-    </div>
-
-    <!-- 4-BOX REVISION DASHBOARD -->
-    <div class="footer-dashboard">
-        <div class="footer-box">
-            <h3>Formulas & Mnemonics 🧠</h3>
-            <ul>
-                <li><strong>BRICS Theme:</strong> <mark>B-R-I-C-S</mark> (Building Resilience, Innovation, Cooperation, Sustainability).</li>
-                <li><strong>AQI 8 Pollutants:</strong> <mark>PM2+SCONPL</mark> (PM10, PM2.5, SO2, CO, O3, NO2, Pb-Lead, NH3).</li>
-            </ul>
-        </div>
-        <div class="footer-box">
-            <h3>Exam Prelims Tricks ⚠️</h3>
-            <ul>
-                <li><strong>AQI Trick:</strong> <mark>Carbon Dioxide (CO2)</mark> is NEVER measured in the standard AQI.</li>
-                <li><strong>Literacy Trick:</strong> <mark>ULLAS</mark> = Adults (15+). <mark>NIPUN</mark> = Children (3-8).</li>
-                <li><strong>Border Trick:</strong> Longest boundary is <mark>Bangladesh</mark>, not China.</li>
-            </ul>
-        </div>
-        <div class="footer-box">
-            <h3>Quick 1-Liner Revision 🏛️</h3>
-            <ul>
-                <li>India's 1st Geothermal Wells: <mark>Puga Valley, Ladakh</mark>.</li>
-                <li>DMF rules are formed by <mark>State Govts</mark>, not Central.</li>
-                <li>PM SHRI focuses on Gender <mark>Equity</mark>, not just equality.</li>
-            </ul>
-        </div>
-        <div class="footer-box">
-            <h3>Memory Checklist ✅</h3>
-            <ul class="checklist">
-                <li><label><input type="checkbox"> 100 Yrs of UPSC & Arts 315-323</label></li>
-                <li><label><input type="checkbox"> BRICS Expansion & NDB/CRA</label></li>
-                <li><label><input type="checkbox"> ULLAS vs. NIPUN Bharat</label></li>
-                <li><label><input type="checkbox"> 4 Pillars of AB PM-JAY</label></li>
-                <li><label><input type="checkbox"> Matsya Sampada & SDG 14</label></li>
-                <li><label><input type="checkbox"> NCAP & 8 AQI Pollutants</label></li>
-                <li><label><input type="checkbox"> PM SHRI & 21st Century Skills</label></li>
-                <li><label><input type="checkbox"> PMKKKY & DMF Jurisdiction</label></li>
-                <li><label><input type="checkbox"> Puga Valley Geothermal Plant</label></li>
-                <li><label><input type="checkbox"> Miyawaki Plantation Method</label></li>
-                <li><label><input type="checkbox"> Tourism GDP (5.22%) & Nidhi+</label></li>
-                <li><label><input type="checkbox"> VVP & 7 Land Borders</label></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<script>
-    const themeBtn = document.getElementById('theme-btn');
-    themeBtn.addEventListener('click', () => {
-        const isDark = document.body.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            document.body.removeAttribute('data-theme');
-            themeBtn.innerText = '🌙 Dark';
-        } else {
-            document.body.setAttribute('data-theme', 'dark');
-            themeBtn.innerText = '☀️ Light';
+            `).join('');
         }
-    });
 
-    const toggleAllBtn = document.getElementById('toggle-all-btn');
-    let allExpanded = false;
-    toggleAllBtn.addEventListener('click', () => {
-        allExpanded = !allExpanded;
-        document.querySelectorAll('details').forEach(d => d.open = allExpanded);
-        toggleAllBtn.innerText = allExpanded ? '📁 Collapse' : '📂 Expand';
-    });
-    
-    const revisionBtn = document.getElementById('revision-btn');
-    revisionBtn.addEventListener('click', () => {
-        document.body.classList.toggle('revision-mode');
-        if(document.body.classList.contains('revision-mode')) {
-            revisionBtn.innerText = '📝 Exit Revision';
-            revisionBtn.style.background = '#dc2626';
-            revisionBtn.style.borderColor = '#dc2626';
-        } else {
-            revisionBtn.innerText = '🧠 Revision';
-            revisionBtn.style.background = '#8b5cf6';
-            revisionBtn.style.borderColor = '#8b5cf6';
+        function openModal(id) {
+            const topic = topicsData.find(t => t.id === id);
+            if (!topic) return;
+
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <h2 class="modal-title">${topic.modalTitle}</h2>
+                
+                <div class="modal-section">
+                    <h3>📖 Background & Context</h3>
+                    <p>${topic.background}</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>⚡ Key Detailed Points</h3>
+                    <ul>
+                        ${topic.keyPoints.map(kp => `<li>${kp}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="alert-box">
+                    <strong>⚠️ Prelims Trap Alert:</strong> ${topic.trap}
+                </div>
+                
+                <div class="mains-box">
+                    <strong>✍️ Mains Analytical Hook:</strong> ${topic.mains}
+                </div>
+                
+                <div class="modal-section" style="margin-top: 15px;">
+                    <h3>🗺️ / ⚖️ Statutory & Constitutional Anchors</h3>
+                    <p>${topic.statutory || 'Standard UPSC GS Paper syllabus mapping.'}</p>
+                </div>
+            `;
+
+            document.getElementById('modalOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-    });
 
-    window.addEventListener('beforeprint', () => {
-        document.querySelectorAll('details').forEach(d => d.open = true);
-        document.body.classList.remove('revision-mode');
-    });
-</script>
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const overlay = document.getElementById('modalOverlay');
+            if (event.target === overlay) {
+                closeModal();
+            }
+        }
+
+        window.onload = renderGrid;
+    </script>
 </body>
 </html>
