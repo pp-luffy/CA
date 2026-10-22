@@ -1,24 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPSC Hub</title>
+    <title>UPSC Hub - Sketchnote Edition</title>
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0b0f19">
     <link rel="apple-touch-icon" href="icon-192.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Architects+Daughter&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 850: '#151e3f', 900: '#0f172a', 950: '#090d16' }
+                    },
+                    fontFamily: {
+                        sketch: ['"Caveat"', '"Patrick Hand"', 'cursive', 'sans-serif'],
+                        sans: ['"Inter"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         :root {
             --bg-color: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b;
             --primary-blue: #2563eb; --card-bg-white: #ffffff;
-            --card-c1: #f0fdf4; --border-c1: #bbf7d0; --badge-c1: #16a34a;
-            --card-c2: #eff6ff; --border-c2: #bfdbfe; --badge-c2: #2563eb;
-            --card-c3: #faf5ff; --border-c3: #e9d5ff; --badge-c3: #9333ea;
-            --card-c4: #fffbeb; --border-c4: #fef08a; --badge-c4: #d97706;
             --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
             --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
             --border-color: rgba(148, 163, 184, 0.2);
@@ -27,10 +40,6 @@
         [data-theme="dark"] {
             --bg-color: #0b0f19; --text-dark: #f8fafc; --text-muted: #94a3b8;
             --primary-blue: #3b82f6; --card-bg-white: #1e293b;
-            --card-c1: #064e3b33; --border-c1: #065f46; --badge-c1: #22c55e;
-            --card-c2: #1e3a8a33; --border-c2: #1d4ed8; --badge-c2: #3b82f6;
-            --card-c3: #581c8733; --border-c3: #6b21a8; --badge-c3: #a855f7;
-            --card-c4: #78350f33; --border-c4: #92400e; --badge-c4: #f59e0b;
             --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
             --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
             --border-color: rgba(148, 163, 184, 0.15);
@@ -92,49 +101,27 @@
         .edition-box { background: var(--card-bg-white); border: 2px solid var(--border-color); border-radius: 18px; padding: 18px 22px; box-shadow: var(--shadow-subtle); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
         .edition-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--primary-blue); }
 
-        .card { border-radius: 18px; padding: 22px; position: relative; border: 2.5px solid; box-shadow: var(--shadow-subtle); background: var(--card-bg-white); transition: transform 0.2s ease, box-shadow 0.2s ease; width: 100%; margin-bottom: 16px; font-family: 'Kalam', cursive; font-size: 1.1rem; line-height: 1.6; }
-        .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        /* Sketchnote Card Compatibility on Hub Search */
+        .sketch-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px dashed #38bdf8;
+            border-radius: 18px;
+            padding: 22px;
+            position: relative;
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 16px;
+            color: #f8fafc;
+        }
+        .handwritten { font-family: 'Caveat', cursive; }
 
-        .card:nth-child(4n+1) { background: var(--card-c1); border-color: var(--border-c1); }
-        .card:nth-child(4n+2) { background: var(--card-c2); border-color: var(--border-c2); }
-        .card:nth-child(4n+3) { background: var(--card-c3); border-color: var(--border-c3); }
-        .card:nth-child(4n+4) { background: var(--card-c4); border-color: var(--border-c4); }
-
-        .badge { position: absolute; top: -12px; left: -12px; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Architects Daughter', cursive; font-size: 1.25rem; font-weight: bold; color: white; box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
-        .card:nth-child(4n+1) .badge { background: var(--badge-c1); }
-        .card:nth-child(4n+2) .badge { background: var(--badge-c2); }
-        .card:nth-child(4n+3) .badge { background: var(--badge-c3); }
-        .card:nth-child(4n+4) .badge { background: var(--badge-c4); }
-
-        /* Icon Buttons layout inside card */
-        .bookmark-btn { position: absolute; top: 16px; right: 18px; background: transparent; border: none; cursor: pointer; font-size: 1.3rem; color: #cbd5e1; transition: transform 0.2s, color 0.2s; }
+        .bookmark-btn { position: absolute; top: 16px; right: 18px; background: transparent; border: none; cursor: pointer; font-size: 1.3rem; color: #cbd5e1; transition: transform 0.2s, color 0.2s; z-index: 10; }
         .bookmark-btn:hover { transform: scale(1.2); }
         .bookmark-btn.bookmarked { color: #f59e0b; }
 
-        .tts-btn { position: absolute; top: 16px; right: 50px; background: transparent; border: none; cursor: pointer; font-size: 1.3rem; transition: transform 0.2s; opacity: 0.8; }
+        .tts-btn { position: absolute; top: 16px; right: 50px; background: transparent; border: none; cursor: pointer; font-size: 1.3rem; transition: transform 0.2s; opacity: 0.8; z-index: 10; }
         .tts-btn:hover { transform: scale(1.2); opacity: 1; }
 
-        .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1.5px dashed rgba(100, 116, 139, 0.3); padding-right: 70px; }
-        .card-header h2 { font-family: 'Architects Daughter', cursive; font-size: 1.55rem; margin: 0; display: flex; align-items: center; gap: 8px; color: var(--text-dark); }
-
-        ul { padding-left: 18px; margin: 0; }
-        li { margin-bottom: 8px; }
-
-        mark { background-color: rgba(254, 240, 138, 0.85); padding: 2px 4px; border-radius: 4px; font-weight: bold; color: #000; }
-        [data-theme="dark"] mark { background-color: rgba(234, 179, 8, 0.4); color: #fef08a; }
-
-        .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: 700; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; margin-right: 6px; }
-        .pill.prelims { background: #fee2e2; color: #991b1b; }
-        .pill.mains { background: #dbeafe; color: #1e40af; }
-        .pill.geo { background: #ffedd5; color: #9a3412; }
-
-        details { margin-top: 14px; background: rgba(255, 255, 255, 0.7); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 14px; font-family: 'Inter', sans-serif; }
-        [data-theme="dark"] details { background: rgba(15, 23, 42, 0.5); }
-        summary { font-weight: 700; font-size: 0.9rem; cursor: pointer; color: var(--primary-blue); outline: none; display: flex; align-items: center; justify-content: space-between; user-select: none; }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: '▾ Expand Deep Dive'; font-size: 0.82rem; font-weight: 600; opacity: 0.85; }
-        details[open] summary::after { content: '▴ Collapse'; }
-        .details-body { margin-top: 10px; padding-top: 10px; border-top: 1px dotted var(--border-color); font-family: 'Kalam', cursive; font-size: 1.05rem; }
+        mark { background-color: rgba(234, 179, 8, 0.4); padding: 2px 4px; border-radius: 4px; font-weight: bold; color: #fef08a; }
 
         #monthly-page, #reader-page { display: none; width: 100%; }
         @media (max-width: 768px) {
@@ -153,7 +140,7 @@
 <div class="container">
     <div class="top-toolbar">
         <div class="brand-title">
-            <span>📚</span> UPSC Hub
+            <span>📚</span> UPSC Hub (Sketchnote Edition)
             <div class="streak-badge" id="streak-counter">🔥 0</div>
         </div>
         <div class="toolbar-actions">
@@ -174,13 +161,13 @@
 
     <div class="loading-section" id="loading-box">
         <div class="spinner"></div>
-        <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--primary-blue); margin: 0 0 8px;">Syncing Archives...</h3>
+        <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--primary-blue); margin: 0 0 8px;">Syncing Sketchnote Archives...</h3>
         <div id="loading-subtext" style="color: var(--text-muted); font-size: 0.95rem;">Finding files in relative folders</div>
     </div>
 
     <div class="control-hub" id="control-hub">
         <div class="search-row">
-            <input type="text" class="search-input" id="global-search-input" placeholder="🔍 Search keywords...">
+            <input type="text" class="search-input" id="global-search-input" placeholder="🔍 Search keywords across sketchnotes...">
         </div>
         <div class="filters-row">
             <div class="filter-group">
@@ -190,8 +177,6 @@
             <div class="filter-group" id="tag-filters-container">
                 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FILTER:</span>
                 <button class="filter-pill active" data-tag="ALL">All</button>
-                <button class="filter-pill" data-tag="Prelims">Prelims</button>
-                <button class="filter-pill" data-tag="Mains">Mains</button>
                 <button class="filter-pill" data-tag="Starred">⭐ Saved</button>
             </div>
         </div>
@@ -216,7 +201,7 @@
         <h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin: 0; font-size: 1.4rem;">📤 Upload New File</h3>
         
         <div>
-            <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">GITHUB TOKEN (Saves to device)</label>
+            <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">GITHUB TOKEN</label>
             <input type="password" id="gh-token" class="search-input" placeholder="ghp_xxxxxxxxxxxxxxxxx" style="padding: 8px 12px;">
         </div>
 
@@ -230,7 +215,7 @@
             </div>
             <div style="flex: 2;">
                 <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FILENAME</label>
-                <input type="text" id="upload-filename" class="search-input" placeholder="e.g., 15102026-21102026.html" style="padding: 8px 12px;">
+                <input type="text" id="upload-filename" class="search-input" placeholder="e.g., 12102026-18102026.html" style="padding: 8px 12px;">
             </div>
         </div>
 
@@ -256,7 +241,6 @@
         manualMonthlyFiles: [] 
     };
     
-    // Global elements
     const themeBtn = document.getElementById('theme-btn');
     const refreshBtn = document.getElementById('refresh-btn');
     const masterExportBtn = document.getElementById('master-export-btn');
@@ -304,20 +288,18 @@
                 document.querySelectorAll('.tts-btn').forEach(b => b.innerText = '🔊');
                 if (btnEl.dataset.playing === 'true') {
                     btnEl.dataset.playing = 'false';
-                    return; // Stop and exit
+                    return;
                 }
             }
 
             document.querySelectorAll('.tts-btn').forEach(b => { b.innerText = '🔊'; b.dataset.playing = 'false'; });
             
-            const title = cardEl.querySelector('.card-header h2')?.innerText || '';
+            const title = cardEl.querySelector('.handwritten')?.innerText || '';
             const bullets = Array.from(cardEl.querySelectorAll('li')).map(li => li.innerText).join('. ');
-            const deepDive = cardEl.querySelector('.details-body')?.innerText || '';
-            const textToRead = `${title}. ${bullets}. ${deepDive}`;
+            const textToRead = `${title}. ${bullets}`;
             
             const utterance = new SpeechSynthesisUtterance(textToRead);
-            utterance.rate = 0.95; // Slightly slower for better comprehension
-            
+            utterance.rate = 0.95;
             utterance.onend = () => { btnEl.innerText = '🔊'; btnEl.dataset.playing = 'false'; };
             
             btnEl.innerText = '⏹️';
@@ -328,13 +310,11 @@
         }
     }
 
-    // Safely highlight search terms within text nodes only
     function highlightSearchTerm(element, term) {
         if (!term) return;
         const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        
         function traverse(node) {
-            if (node.nodeType === 3) { // Text node
+            if (node.nodeType === 3) {
                 if (regex.test(node.nodeValue)) {
                     const temp = document.createElement('span');
                     temp.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
@@ -353,7 +333,7 @@
     refreshBtn.addEventListener('click', () => {
         weeksList.style.display = 'none'; monthlyPage.style.display = 'none';
         controlHub.style.display = 'none'; readerPage.style.display = 'none';
-        loadingBox.style.display = 'block'; loadingSubtext.innerText = 'Refreshing resources...';
+        loadingBox.style.display = 'block'; loadingSubtext.innerText = 'Refreshing sketchnotes...';
         allFilesData = []; allMonthlyFilesData = []; allExtractedCards = []; allMonthlyCards = [];
         initializeApp();
     });
@@ -379,8 +359,6 @@
     function getMonthFullName(monthNum) { const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; return months[parseInt(monthNum, 10) - 1] || monthNum; }
 
     async function getFileList(folder) {
-        if (folder === 'html/weekly' && CONFIG.manualWeeklyFiles.length > 0) return CONFIG.manualWeeklyFiles;
-        if (folder === 'html/monthly' && CONFIG.manualMonthlyFiles.length > 0) return CONFIG.manualMonthlyFiles;
         let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
         if (window.location.hostname.includes('github.io')) {
             owner = window.location.hostname.split('.')[0];
@@ -401,17 +379,16 @@
             const weeklyFiles = await getFileList('html/weekly');
             const monthlyFiles = await getFileList('html/monthly');
             if (weeklyFiles.length === 0 && monthlyFiles.length === 0) {
-                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Ensure folders 'html/weekly' and 'html/monthly' exist relative to this file.</p>`;
+                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Ensure folders 'html/weekly' and 'html/monthly' exist relative to this file.</p>`;
                 return;
             }
-            loadingSubtext.innerText = 'Downloading and processing cards...';
+            loadingSubtext.innerText = 'Downloading and parsing sketchnote cards...';
             const filesList = [], cardsList = [], monthlyList = [], monthlyCardsList = [];
 
             for (const filename of weeklyFiles) {
                 try {
                     const res = await fetch(`html/weekly/${filename}`); if (!res.ok) continue;
                     const htmlText = await res.text();
-                    const isQuiz = filename.toLowerCase().includes('quiz');
                     const match = filename.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
                     if (match) {
                         const [_, d1, m1, y1, d2, m2, y2] = match;
@@ -421,16 +398,16 @@
                         const cleanText = (doc.body ? doc.body.innerText || doc.body.textContent : htmlText).toLowerCase();
                         const startMonthYear = `${getMonthFullName(m1)} ${y1}`, endMonthYear = `${getMonthFullName(m2)} ${y2}`;
                         const formattedRange = `${d1} ${getMonthName(m1)} - ${d2} ${getMonthName(m2)}, ${y2}`;
-                        const domCards = doc.querySelectorAll('.card');
+                        
+                        // Select Sketchnote cards (.sketch-card)
+                        const domCards = doc.querySelectorAll('.sketch-card');
                         const cardObjects = [];
-                        if (!isQuiz) {
-                            domCards.forEach((cardEl, idx) => {
-                                const cardId = `${filename}_${idx}`;
-                                const cObj = { id: cardId, filename: filename, formattedRange: formattedRange, startDate: startDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
-                                cardsList.push(cObj); cardObjects.push(cObj);
-                            });
-                        }
-                        filesList.push({ filename: filename, isQuiz: isQuiz, startDate: startDate, endDate: endDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, formattedRange: formattedRange, htmlText: htmlText, cleanText: cleanText, topicCount: domCards.length, cards: cardObjects });
+                        domCards.forEach((cardEl, idx) => {
+                            const cardId = `${filename}_${idx}`;
+                            const cObj = { id: cardId, filename: filename, formattedRange: formattedRange, startDate: startDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
+                            cardsList.push(cObj); cardObjects.push(cObj);
+                        });
+                        filesList.push({ filename: filename, startDate: startDate, endDate: endDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, formattedRange: formattedRange, htmlText: htmlText, cleanText: cleanText, topicCount: domCards.length, cards: cardObjects });
                     }
                 } catch (e) { console.error('Failed to load', filename, e); }
             }
@@ -441,7 +418,7 @@
                     const htmlText = await res.text();
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(htmlText, 'text/html');
-                    const domCards = doc.querySelectorAll('.card');
+                    const domCards = doc.querySelectorAll('.sketch-card');
                     let displayTitle = filename.replace('.html', ''), monthYearStr = '';
                     const mMatch = filename.match(/^(\d{2})(\d{4})\.html$/);
                     if (mMatch) { displayTitle = `${getMonthFullName(mMatch[1])} ${mMatch[2]}`; monthYearStr = displayTitle; }
@@ -519,15 +496,6 @@
             ttsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleTTS(cardEl, ttsBtn); });
             cardEl.appendChild(ttsBtn);
         }
-
-        const headerEl = cardEl.querySelector('.card-header');
-        if (headerEl && !cardEl.querySelector('.source-tag')) {
-            const sourceTag = document.createElement('div');
-            sourceTag.className = 'source-tag';
-            sourceTag.style.cssText = "font-family: 'Inter', sans-serif; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px;";
-            sourceTag.innerHTML = `📅 ${sourceLabel}`;
-            cardEl.insertBefore(sourceTag, headerEl);
-        }
     }
 
     function openFullReaderPage(title, cardsArray) {
@@ -542,7 +510,7 @@
     }
 
     backToHubBtn.addEventListener('click', () => {
-        window.speechSynthesis.cancel(); // Stop audio when navigating back
+        window.speechSynthesis.cancel();
         readerPage.style.display = 'none'; controlHub.style.display = 'flex'; viewSwitchBar.style.display = 'flex';
         if (currentActiveTab === 'weekly') weeksList.style.display = 'flex'; else monthlyPage.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -564,12 +532,9 @@
         let totalRendered = 0; const isSearchMode = searchQuery !== ''; 
 
         filteredFiles.forEach(fileItem => {
-            if (isWeekly && fileItem.isQuiz) return;
             let matchedCards = fileItem.cards;
             
-            if (currentFilterTag === 'Prelims') matchedCards = matchedCards.filter(c => c.cardText.includes('prelims'));
-            else if (currentFilterTag === 'Mains') matchedCards = matchedCards.filter(c => c.cardText.includes('mains'));
-            else if (currentFilterTag === 'Starred') matchedCards = matchedCards.filter(c => bookmarkedCards[c.id]);
+            if (currentFilterTag === 'Starred') matchedCards = matchedCards.filter(c => bookmarkedCards[c.id]);
 
             if (isSearchMode) matchedCards = matchedCards.filter(c => c.cardText.includes(searchQuery));
             if (matchedCards.length === 0) return;
@@ -579,20 +544,20 @@
                     const wrapper = document.createElement('div'); wrapper.innerHTML = c.cardHTML;
                     const cardEl = wrapper.firstElementChild;
                     injectCardFeatures(cardEl, c.id, c.formattedRange || c.displayTitle);
-                    highlightSearchTerm(cardEl, searchQuery); // Appply search highlights safely
+                    highlightSearchTerm(cardEl, searchQuery);
                     container.appendChild(cardEl);
                     totalRendered++;
                 });
             } else {
                 const editionBox = document.createElement('div'); editionBox.className = 'edition-box';
-                const titleText = isWeekly ? `Week: ${fileItem.formattedRange}` : `Monthly Report: ${fileItem.displayTitle}`;
+                const titleText = isWeekly ? `Week: ${fileItem.formattedRange}` : `Monthly Sketchnotes: ${fileItem.displayTitle}`;
                 const subText = isWeekly ? `📄 html/weekly/${fileItem.filename}` : `📁 html/monthly/${fileItem.filename}`;
                 const fileUrl = isWeekly ? `html/weekly/${fileItem.filename}` : `html/monthly/${fileItem.filename}`;
                 
                 editionBox.innerHTML = `
                     <div style="flex: 1;">
                         <h3 style="margin: 0 0 4px; font-family: 'Architects Daughter', cursive; font-size: 1.3rem; display: flex; align-items: center; gap: 6px;">${titleText}</h3>
-                        <div style="font-size: 0.82rem; color: var(--text-muted);">${subText} • 📌 ${matchedCards.length} Cards</div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted);">${subText} • 📌 ${matchedCards.length} Sketchnotes</div>
                     </div>
                     <div style="display: flex; gap: 8px;">
                         <button class="btn btn-outline open-reader-btn" style="position: relative; z-index: 2;">📖 Reader</button>
@@ -626,7 +591,7 @@
         Array.from(monthSet).forEach(m => { monthOptions += `<option value="${m}">${m}</option>`; });
 
         modalContent.innerHTML = `
-            <h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin-top: 0; font-size: 1.4rem;">📥 Export Quiz Data</h3>
+            <h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin-top: 0; font-size: 1.4rem;">📥 Export Sketchnote Summary</h3>
             <div style="margin-bottom: 14px;">
                 <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">SOURCE:</label>
                 <select id="export-source" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
@@ -644,9 +609,7 @@
             <div style="margin-bottom: 20px;">
                 <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">FILTER:</label>
                 <select id="export-tag" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
-                    <option value="ALL">All Cards</option>
-                    <option value="Prelims">Prelims Only</option>
-                    <option value="Mains">Mains Only</option>
+                    <option value="ALL">All Sketchnotes</option>
                     <option value="Starred">Bookmarked Only</option>
                 </select>
             </div>
@@ -675,29 +638,25 @@
                 pool = pool.filter(c => c.startMonthYear === targetMonth || c.endMonthYear === targetMonth || c.monthYearStr === targetMonth);
             }
 
-            if (targetTag === 'Prelims') pool = pool.filter(c => c.cardText.includes('prelims'));
-            else if (targetTag === 'Mains') pool = pool.filter(c => c.cardText.includes('mains'));
-            else if (targetTag === 'Starred') pool = pool.filter(c => bookmarkedCards[c.id]);
+            if (targetTag === 'Starred') pool = pool.filter(c => bookmarkedCards[c.id]);
 
             if (pool.length === 0) { alert('No cards match selection.'); return; }
 
-            let exportText = `UPSC EXPORT (${sourceType.toUpperCase()} - ${targetMonth})\n==================================================\n\n`;
+            let exportText = `UPSC SKETCHNOTE EXPORT (${sourceType.toUpperCase()} - ${targetMonth})\n==================================================\n\n`;
             pool.forEach((item, idx) => {
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = item.cardHTML;
-                const title = tempDiv.querySelector('.card-header h2') ? tempDiv.querySelector('.card-header h2').innerText : 'Topic';
-                const bullets = Array.from(tempDiv.querySelectorAll('ul li')).map(li => `- ${li.innerText}`).join('\n');
-                const details = tempDiv.querySelector('.details-body') ? `Deep Dive: ${tempDiv.querySelector('.details-body').innerText}` : '';
+                const title = tempDiv.querySelector('.handwritten') ? tempDiv.querySelector('.handwritten').innerText : 'Topic';
+                const bullets = Array.from(tempDiv.querySelectorAll('li')).map(li => `- ${li.innerText}`).join('\n');
 
                 exportText += `[${idx + 1}] ${title}\nSource: ${item.formattedRange || item.displayTitle}\n${bullets}\n`;
-                if (details) exportText += `${details}\n`;
                 exportText += `--------------------------------------------------\n\n`;
             });
 
             const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url; a.download = `UPSC_Export_${targetMonth}_${Date.now()}.txt`;
+            a.href = url; a.download = `UPSC_Sketchnote_Export_${targetMonth}_${Date.now()}.txt`;
             document.body.appendChild(a); a.click(); document.body.removeChild(a); document.body.removeChild(modalOverlay);
         };
     });
@@ -722,12 +681,12 @@
         closeBtn.innerHTML = '✕ Close'; closeBtn.className = 'btn btn-outline'; closeBtn.style.cssText = "margin-top: 16px; width: 100%; justify-content: center;";
         closeBtn.onclick = () => document.body.removeChild(modalOverlay);
 
-        modalContent.innerHTML = `<h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin-top: 0; font-size: 1.3rem;">🎲 Random Card</h3>`;
+        modalContent.innerHTML = `<h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin-top: 0; font-size: 1.3rem;">🎲 Random Sketchnote Card</h3>`;
         modalContent.appendChild(cardEl); modalContent.appendChild(closeBtn);
         modalOverlay.appendChild(modalContent); document.body.appendChild(modalOverlay);
     });
 
-    // --- UPLOAD LOGIC ---
+    // UPLOAD LOGIC
     const uploadBtn = document.getElementById('upload-btn');
     const uploadModal = document.getElementById('upload-modal');
     const closeUploadBtn = document.getElementById('close-upload-btn');
@@ -735,7 +694,6 @@
     const uploadStatus = document.getElementById('upload-status');
     const ghTokenInput = document.getElementById('gh-token');
 
-    // Load saved token on mobile
     ghTokenInput.value = localStorage.getItem('upsc_gh_token') || '';
 
     uploadBtn.addEventListener('click', () => { uploadModal.style.display = 'flex'; uploadStatus.style.display = 'none'; });
@@ -760,7 +718,6 @@
         uploadStatus.innerText = 'Uploading to GitHub...';
 
         try {
-            // Encode safely to Base64 avoiding UTF-8 issues
             const utf8Bytes = new TextEncoder().encode(content);
             const base64Content = btoa(String.fromCharCode(...utf8Bytes));
 
@@ -793,18 +750,15 @@
         }
     });
 
-    // --- SERVICE WORKER REGISTRATION (PWA Offline Mode) ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js').then(registration => {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }).catch(err => { console.log('ServiceWorker registration failed: ', err); });
+                console.log('ServiceWorker registered with scope:', registration.scope);
+            }).catch(err => { console.log('ServiceWorker registration failed:', err); });
         });
     }
 
-    // Boot up on load
     window.addEventListener('DOMContentLoaded', initializeApp);
-
 </script>
 </body>
 </html>
