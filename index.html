@@ -214,7 +214,7 @@
             </div>
             <div style="flex: 2;">
                 <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FILENAME</label>
-                <input type="text" id="upload-filename" class="search-input" placeholder="e.g., 12102026-18102026.html" style="padding: 8px 12px;">
+                <input type="text" id="upload-filename" class="search-input" placeholder="Enter filename (e.g. 19102026-25102026.html)" style="padding: 8px 12px;">
             </div>
         </div>
 
@@ -234,8 +234,8 @@
 
 <script>
     const CONFIG = { 
-        githubOwner: "", 
-        githubRepo: ""
+        githubOwner: "pp-luffy", // Replace with your exact GitHub username
+        githubRepo: "CA" // Replace with your exact repository name
     }; 
     
     const themeBtn = document.getElementById('theme-btn');
@@ -356,34 +356,38 @@
 
     async function getFileList(folder) {
         let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
+        
+        // Auto-detect owner and repo if hosted on GitHub Pages
         if (window.location.hostname.includes('github.io')) {
             owner = window.location.hostname.split('.')[0];
             const pathParts = window.location.pathname.split('/').filter(p => p);
             if (pathParts.length > 0) repo = pathParts[0];
         }
+
         try {
-            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folder}`);
-            if (!res.ok) throw new Error('API request failed');
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
+            const res = await fetch(apiUrl);
+            if (!res.ok) throw new Error(`API fetch failed with status: ${res.status}`);
             const data = await res.json();
             return data.filter(f => f.name.endsWith('.html')).map(f => f.name);
         } catch (err) { 
-            console.error(`API list fallback failed for ${folder}`, err); 
-            return [];
+            console.error(`API list fallback failed for ${folder}`, err);
+            return []; 
         }
     }
 
     async function initializeApp() {
         try {
-            loadingSubtext.innerText = 'Requesting file lists...';
+            loadingSubtext.innerText = 'Requesting file lists from GitHub API...';
             const weeklyFiles = await getFileList('html/weekly');
             const monthlyFiles = await getFileList('html/monthly');
 
             if (weeklyFiles.length === 0 && monthlyFiles.length === 0) {
-                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Ensure folders 'html/weekly' and 'html/monthly' contain your HTML files and GitHub API is accessible.</p>`;
+                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Make sure your repository has 'html/weekly' and 'html/monthly' folders, and that the GitHub API is accessible.</p>`;
                 return;
             }
 
-            loadingSubtext.innerText = 'Downloading and parsing sketchnote cards...';
+            loadingSubtext.innerText = `Found ${weeklyFiles.length} weekly and ${monthlyFiles.length} monthly files. Parsing cards...`;
             const filesList = [], cardsList = [], monthlyList = [], monthlyCardsList = [];
 
             for (const filename of weeklyFiles) {
@@ -392,7 +396,6 @@
                     if (!res.ok) continue;
                     const htmlText = await res.text();
                     
-                    // Flexible Date Range Matcher (Supports DDMMYYYY-DDMMYYYY or generic date strings)
                     const match = filename.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
                     let startDate = new Date(), endDate = new Date(), startMonthYear = "October 2026", endMonthYear = "October 2026", formattedRange = filename.replace('.html', '');
 
@@ -409,7 +412,6 @@
                     const doc = parser.parseFromString(htmlText, 'text/html');
                     const cleanText = (doc.body ? doc.body.innerText || doc.body.textContent : htmlText).toLowerCase();
                     
-                    // Scrape both .sketch-card and .card elements for maximum compatibility
                     const domCards = doc.querySelectorAll('.sketch-card, .card');
                     const cardObjects = [];
                     
