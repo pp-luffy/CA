@@ -235,13 +235,8 @@
 <script>
     const CONFIG = { 
         githubOwner: "", 
-        githubRepo: "", 
-        // MANUAL OVERRIDE: Add your exact weekly filename here so it loads instantly!
-        manualWeeklyFiles: [
-            "12102026-18102026.html"
-        ], 
-        manualMonthlyFiles: [] 
-    };
+        githubRepo: ""
+    }; 
     
     const themeBtn = document.getElementById('theme-btn');
     const refreshBtn = document.getElementById('refresh-btn');
@@ -360,9 +355,6 @@
     function getMonthFullName(monthNum) { const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; return months[parseInt(monthNum, 10) - 1] || monthNum; }
 
     async function getFileList(folder) {
-        if (folder === 'html/weekly' && CONFIG.manualWeeklyFiles.length > 0) return CONFIG.manualWeeklyFiles;
-        if (folder === 'html/monthly' && CONFIG.manualMonthlyFiles.length > 0) return CONFIG.manualMonthlyFiles;
-
         let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
         if (window.location.hostname.includes('github.io')) {
             owner = window.location.hostname.split('.')[0];
@@ -375,8 +367,8 @@
             const data = await res.json();
             return data.filter(f => f.name.endsWith('.html')).map(f => f.name);
         } catch (err) { 
-            console.warn(`API list fallback used for ${folder}`); 
-            return folder === 'html/weekly' ? CONFIG.manualWeeklyFiles : CONFIG.manualMonthlyFiles; 
+            console.error(`API list fallback failed for ${folder}`, err); 
+            return [];
         }
     }
 
@@ -387,7 +379,7 @@
             const monthlyFiles = await getFileList('html/monthly');
 
             if (weeklyFiles.length === 0 && monthlyFiles.length === 0) {
-                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Ensure folders 'html/weekly' and 'html/monthly' contain your HTML files.</p>`;
+                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Ensure folders 'html/weekly' and 'html/monthly' contain your HTML files and GitHub API is accessible.</p>`;
                 return;
             }
 
