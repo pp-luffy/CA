@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC PIB Weekly Analysis | Sketchnote Revision Board</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;600;800&display=swap');
+
+    :root {
+        --bg-slate: #0f172a;
+        --card-slate: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #cbd5e1;
+        --accent-blue: #38bdf8;
+        --accent-yellow: #facc15;
+        --accent-emerald: #10b981;
+        --accent-rose: #f43f5e;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: var(--bg-slate);
+        color: var(--text-main);
+        font-family: 'Inter', system-ui, sans-serif;
+        margin: 0;
+        padding: 2rem;
+        line-height: 1.5;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 3rem;
+        border-bottom: 3px dashed var(--accent-blue);
+        padding-bottom: 1.5rem;
+    }
+
+    header h1 {
+        font-family: 'Caveat', cursive;
+        font-size: 3.5rem;
+        color: var(--accent-yellow);
+        margin: 0 0 0.5rem 0;
+        letter-spacing: 2px;
+        transform: rotate(-1deg);
+    }
+
+    header p {
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background-color: var(--card-slate);
+        border: 2px solid var(--accent-blue);
+        border-radius: 15px 5px 25px 5px;
+        padding: 1.5rem;
+        position: relative;
+        box-shadow: 5px 5px 0 var(--accent-blue);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 8px 8px 0 var(--accent-yellow);
+        border-color: var(--accent-yellow);
+    }
+
+    .sketch-svg {
+        width: 100%;
+        height: 120px;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+    }
+
+    .card h2 {
+        font-family: 'Caveat', cursive;
+        font-size: 2rem;
+        color: var(--text-main);
+        margin: 0 0 0.5rem 0;
+        line-height: 1.1;
+    }
+
+    .giant-stat {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: rgba(56, 189, 248, 0.2);
+        z-index: 0;
+    }
+
+    .micro-bullets {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+        flex-grow: 1;
+        position: relative;
+        z-index: 1;
+    }
+
+    .micro-bullets li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    .micro-bullets li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--accent-yellow);
+        font-weight: bold;
+    }
+
+    .know-more {
+        background-color: transparent;
+        color: var(--accent-yellow);
+        border: 2px dashed var(--accent-yellow);
+        padding: 8px 16px;
+        font-family: 'Caveat', cursive;
+        font-size: 1.3rem;
+        cursor: pointer;
+        border-radius: 5px 15px 5px 15px;
+        align-self: flex-start;
+        transition: all 0.2s;
+    }
+
+    .know-more:hover {
+        background-color: var(--accent-yellow);
+        color: var(--bg-slate);
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(15, 23, 42, 0.9);
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background-color: var(--card-slate);
+        border: 3px solid var(--accent-blue);
+        border-radius: 12px;
+        padding: 2.5rem;
+        max-width: 750px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 10px 10px 0 rgba(56, 189, 248, 0.3);
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 2.5rem;
+        color: var(--accent-rose);
+        cursor: pointer;
+        font-family: monospace;
+        transition: transform 0.2s;
+    }
+
+    .close:hover {
+        transform: scale(1.2);
+    }
+
+    .modal-content h3 {
+        font-family: 'Caveat', cursive;
+        font-size: 2.5rem;
+        color: var(--accent-yellow);
+        margin-top: 0;
+        border-bottom: 2px dashed var(--text-muted);
+        padding-bottom: 10px;
+    }
+
+    .modal-content p.background {
+        font-style: italic;
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid var(--accent-blue);
+        padding-left: 15px;
+    }
+
+    .modal-content ul {
+        padding-left: 20px;
+        margin-bottom: 2rem;
+    }
+
+    .modal-content li {
+        margin-bottom: 12px;
+        font-size: 1.05rem;
+    }
+
+    mark {
+        background-color: var(--accent-yellow);
+        color: var(--bg-slate);
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: 800;
+    }
+
+    .alert-box {
+        background-color: rgba(244, 63, 94, 0.1);
+        border: 2px solid var(--accent-rose);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .hook-box {
+        background-color: rgba(16, 185, 129, 0.1);
+        border: 2px solid var(--accent-emerald);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .anchor-box {
+        background-color: rgba(56, 189, 248, 0.1);
+        border: 2px solid var(--accent-blue);
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .box-title {
+        font-weight: 800;
+        display: block;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
+
+    .alert-box .box-title { color: var(--accent-rose); }
+    .hook-box .box-title { color: var(--accent-emerald); }
+    .anchor-box .box-title { color: var(--accent-blue); }
+
+    /* Bottom Strip */
+    .revision-strip {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 4rem auto 0 auto;
+        padding-top: 2rem;
+        border-top: 3px dashed var(--accent-yellow);
+        max-width: 1400px;
+    }
+
+    .strip-box {
+        background: rgba(30, 41, 59, 0.5);
+        border: 2px solid var(--accent-blue);
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 4px 4px 0 var(--accent-blue);
+    }
+
+    .strip-box h4 {
+        font-family: 'Caveat', cursive;
+        color: var(--accent-yellow);
+        font-size: 1.5rem;
+        margin: 0 0 10px 0;
+        letter-spacing: 1px;
+    }
+
+    .strip-box p {
+        font-size: 0.9rem;
+        margin: 0;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    /* Scrollbar customization */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-slate); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>UPSC PIB Weekly Analysis</h1>
+    <p>19th - 25th October 2026 | Visual Revision Board</p>
+</header>
+
+<main class="grid-container">
+
+    <!-- Node 1: FTA -->
+    <div class="card">
+        <div class="giant-stat">$20B</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,70 L40,50 L60,60 L90,30" stroke="#38bdf8" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <rect x="70" y="20" width="50" height="60" stroke="#f8fafc" stroke-width="2" fill="none" rx="3"/>
+            <line x1="80" y1="35" x2="110" y2="35" stroke="#facc15" stroke-width="2" stroke-linecap="round"/>
+            <line x1="80" y1="50" x2="100" y2="50" stroke="#facc15" stroke-width="2" stroke-linecap="round"/>
+            <path d="M30,90 Q70,110 110,90" stroke="#38bdf8" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+        </svg>
+        <h2>India-NZ FTA</h2>
+        <ul class="micro-bullets">
+            <li>Effective 20 Oct 2026.</li>
+            <li>New Zealand invests heavily.</li>
+            <li>Excludes sensitive dairy sectors.</li>
+            <li>Focuses on MSME exports.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal1')">Know More</button>
+    </div>
+
+    <!-- Node 2: PLFS -->
+    <div class="card">
+        <div class="giant-stat">2027</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="20" width="60" height="80" stroke="#38bdf8" stroke-width="3" fill="none" rx="4"/>
+            <path d="M55,20 v-5 a5,5 0 0,1 5,-5 h20 a5,5 0 0,1 5,5 v5" stroke="#38bdf8" stroke-width="3" fill="none"/>
+            <circle cx="70" cy="50" r="10" stroke="#facc15" stroke-width="2" fill="none"/>
+            <path d="M55,75 c0,-10 30,-10 30,0" stroke="#facc15" stroke-width="2" fill="none"/>
+            <line x1="50" y1="90" x2="90" y2="90" stroke="#f8fafc" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h2>PLFS Changes</h2>
+        <ul class="micro-bullets">
+            <li>Measures national employment trends.</li>
+            <li>Special gig worker sampling.</li>
+            <li>Captures unpaid caregiving work.</li>
+            <li>NSO serves as agency.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal2')">Know More</button>
+    </div>
+
+    <!-- Node 3: IMC Gaya -->
+    <div class="card">
+        <div class="giant-stat">1670</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,90 L20,50 L40,50 L40,30 L60,30 L60,50 L80,50 L80,20 L120,20 L120,90 Z" stroke="#38bdf8" stroke-width="3" fill="none" stroke-linejoin="round"/>
+            <path d="M35,20 c5,-10 15,-10 20,-20" stroke="#facc15" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="3 3"/>
+            <path d="M75,10 c5,-10 15,-10 20,-20" stroke="#facc15" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="3 3"/>
+            <line x1="20" y1="90" x2="120" y2="90" stroke="#f8fafc" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <h2>Mfg Cluster Gaya</h2>
+        <ul class="micro-bullets">
+            <li>Spans across 1670 acres.</li>
+            <li>Shared industrial infrastructure setup.</li>
+            <li>Reduces core business costs.</li>
+            <li>Amritsar-Kolkata Corridor project.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal3')">Know More</button>
+    </div>
+
+    <!-- Node 4: Farmer IDs -->
+    <div class="card">
+        <div class="giant-stat">11Cr</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="30" width="100" height="60" stroke="#38bdf8" stroke-width="3" fill="none" rx="5"/>
+            <circle cx="45" cy="60" r="12" stroke="#facc15" stroke-width="2" fill="none"/>
+            <path d="M35,80 c0,-10 20,-10 20,0" stroke="#facc15" stroke-width="2" fill="none"/>
+            <line x1="70" y1="50" x2="110" y2="50" stroke="#f8fafc" stroke-width="2" stroke-linecap="round"/>
+            <line x1="70" y1="65" x2="100" y2="65" stroke="#f8fafc" stroke-width="2" stroke-linecap="round"/>
+            <path d="M100,20 c0,0 -10,-10 -20,0 c0,10 20,20 20,20 c0,0 20,-10 20,-20 c-10,-10 -20,0 -20,0" stroke="#10b981" stroke-width="2" fill="none"/>
+        </svg>
+        <h2>Farmer IDs</h2>
+        <ul class="micro-bullets">
+            <li>Creates unique digital identity.</li>
+            <li>Speeds up agricultural schemes.</li>
+            <li>Prevents systemic duplication fraud.</li>
+            <li>Over 11 crore generated.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal4')">Know More</button>
+    </div>
+
+    <!-- Node 5: Agrivoltaics -->
+    <div class="card">
+        <div class="giant-stat">7th</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,50 L100,20 L120,40 L40,70 Z" stroke="#38bdf8" stroke-width="3" fill="none" stroke-linejoin="round"/>
+            <line x1="40" y1="70" x2="40" y2="100" stroke="#38bdf8" stroke-width="3"/>
+            <line x1="120" y1="40" x2="120" y2="90" stroke="#38bdf8" stroke-width="3"/>
+            <path d="M30,100 Q40,80 50,100" stroke="#10b981" stroke-width="2" fill="none"/>
+            <path d="M60,95 Q70,75 80,95" stroke="#10b981" stroke-width="2" fill="none"/>
+            <circle cx="30" cy="20" r="10" stroke="#facc15" stroke-width="2" fill="none" stroke-dasharray="4 2"/>
+        </svg>
+        <h2>Agrivoltaics Conf.</h2>
+        <ul class="micro-bullets">
+            <li>Dual solar and farming.</li>
+            <li>7th Edition in Delhi.</li>
+            <li>First in Global South.</li>
+            <li>Annadata becomes Urjadata now.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal5')">Know More</button>
+    </div>
+
+    <!-- Node 6: Khet Bachao -->
+    <div class="card">
+        <div class="giant-stat">Rabi</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40,30 L40,80 a20,20 0 0,0 40,0 L80,30" stroke="#38bdf8" stroke-width="3" fill="none"/>
+            <line x1="30" y1="30" x2="90" y2="30" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="60" cy="70" r="10" stroke="#facc15" stroke-width="2" fill="none"/>
+            <path d="M90,80 Q110,60 120,90" stroke="#10b981" stroke-width="2" fill="none"/>
+            <line x1="100" y1="20" x2="130" y2="50" stroke="#f43f5e" stroke-width="3" stroke-linecap="round"/>
+            <line x1="130" y1="20" x2="100" y2="50" stroke="#f43f5e" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <h2>Khet Bachao</h2>
+        <ul class="micro-bullets">
+            <li>Targets Rabi sowing season.</li>
+            <li>Focuses on soil testing.</li>
+            <li>Checks excessive fertilizer use.</li>
+            <li>Launched from Karnal Haryana.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal6')">Know More</button>
+    </div>
+
+    <!-- Node 7: ATAL -->
+    <div class="card">
+        <div class="giant-stat">72H</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,90 L30,40 L70,40 Z" stroke="#38bdf8" stroke-width="3" fill="none" stroke-linejoin="round"/>
+            <line x1="50" y1="40" x2="50" y2="20" stroke="#38bdf8" stroke-width="3"/>
+            <ellipse cx="50" cy="20" rx="15" ry="5" stroke="#38bdf8" stroke-width="2" fill="none"/>
+            <path d="M80,60 A 20 20 0 1 1 120 60 A 20 20 0 1 1 80 60" stroke="#facc15" stroke-width="3" fill="none" stroke-dasharray="4 2"/>
+            <line x1="100" y1="80" x2="120" y2="100" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="50" cy="70" r="3" fill="#f8fafc"/>
+        </svg>
+        <h2>ATAL Lab</h2>
+        <ul class="micro-bullets">
+            <li>Advanced aerosol toxicity lab.</li>
+            <li>Identifies exact pollution sources.</li>
+            <li>Gives 72-hour air forecast.</li>
+            <li>Assists CAQM and GRAP.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal7')">Know More</button>
+    </div>
+
+    <!-- Node 8: PSP -->
+    <div class="card">
+        <div class="giant-stat">105G</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="20" width="40" height="20" stroke="#38bdf8" stroke-width="3" fill="none"/>
+            <rect x="90" y="70" width="40" height="20" stroke="#38bdf8" stroke-width="3" fill="none"/>
+            <path d="M50,30 L90,80" stroke="#f8fafc" stroke-width="3" fill="none" stroke-dasharray="5 5"/>
+            <path d="M70,40 L65,60 L80,55 Z" stroke="#facc15" stroke-width="2" fill="none"/>
+            <line x1="10" y1="30" x2="50" y2="30" stroke="#38bdf8" stroke-width="1"/>
+            <line x1="90" y1="80" x2="130" y2="80" stroke="#38bdf8" stroke-width="1"/>
+        </svg>
+        <h2>Water Battery</h2>
+        <ul class="micro-bullets">
+            <li>Stores long-duration energy.</li>
+            <li>Known as Water Battery.</li>
+            <li>Western region highest potential.</li>
+            <li>India ranks 4th globally.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal8')">Know More</button>
+    </div>
+
+    <!-- Node 9: AIP System -->
+    <div class="card">
+        <div class="giant-stat">Ph-2</div>
+        <svg class="sketch-svg" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30,60 C30,40 110,40 110,60 C110,80 30,80 30,60" stroke="#38bdf8" stroke-width="3" fill="none"/>
+            <rect x="60" y="35" width="20" height="15" stroke="#38bdf8" stroke-width="2" fill="none"/>
+            <line x1="70" y1="35" x2="70" y2="20" stroke="#facc15" stroke-width="2"/>
+            <path d="M10,60 L30,50 L30,70 Z" stroke="#38bdf8" stroke-width="2" fill="none"/>
+            <path d="M20,90 Q70,100 120,90" stroke="#10b981" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
+            <circle cx="90" cy="60" r="5" stroke="#f8fafc" stroke-width="2" fill="none"/>
+        </svg>
+        <h2>Indigenous AIP</h2>
+        <ul class="micro-bullets">
+            <li>Air-Independent Propulsion tech.</li>
+            <li>Longer underwater submarine endurance.</li>
+            <li>Zero atmospheric oxygen needed.</li>
+            <li>For Kalvari class vessels.</li>
+        </ul>
+        <button class="know-more" onclick="openModal('modal9')">Know More</button>
+    </div>
+
+</main>
+
+<!-- Bottom Sketchnote Revision Strip -->
+<div class="revision-strip">
+    <div class="strip-box">
+        <h4>1. Economic Pivot</h4>
+        <p>India-NZ FTA brings $20B investment & boosts MSMEs, while IMC Gaya cuts core business infra costs.</p>
+    </div>
+    <div class="strip-box">
+        <h4>2. Agri-Tech Leap</h4>
+        <p>11 Cr Farmer IDs digitize DBT + Agrivoltaics creates dual 'Urjadata' solar-farming revenue streams.</p>
+    </div>
+    <div class="strip-box">
+        <h4>3. Climate Resilience</h4>
+        <p>ATAL tracks exact aerosol toxicity (PM2.5 sources) + PSP "Water Batteries" stabilize green grids.</p>
+    </div>
+    <div class="strip-box">
+        <h4>4. Defense & Data</h4>
+        <p>PLFS reform measures unpaid caregiving; DRDO's Phase-2 AIP boosts Kalvari-class underwater stealth.</p>
+    </div>
+</div>
+
+<!-- MODALS -->
+
+<!-- Modal 1: FTA -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal1')">&times;</span>
+        <h3>India-New Zealand FTA</h3>
+        <p class="background">A bilateral trade agreement designed to eliminate customs duties on traded goods, effective from Vijay Dashmi (Oct 20, 2026).</p>
+        <ul>
+            <li><mark>New Zealand committed $20B</mark> in investments to India.</li>
+            <li>Benefits Indian exports in textiles, footwear, pharma, and gems.</li>
+            <li>Secures access to 118 services sectors, <mark>5,000 temporary employment visas</mark>, and 1,000 working holiday visas annually.</li>
+            <li>Indian STEM students get 3-year post-study work visas (4 years for Doctoral scholars).</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>Sensitive agricultural sectors like <mark>dairy, sugar, and edible oils</mark> are explicitly excluded from tariff concessions to protect domestic farmers.</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>Boosts India's MSME export ecosystem and secures global supply chain integration, perfectly aligning with the "Viksit Bharat 2047" economic vision.</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">⚖️ Statutory Anchors</span>
+            <p>Subject to stringent "Rules of Origin" mechanisms to prevent third-party misuse.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2: PLFS -->
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal2')">&times;</span>
+        <h3>Changes in PLFS (Jan 2027)</h3>
+        <p class="background">The primary survey measuring India's employment and unemployment rates is being overhauled to reflect modern labor realities.</p>
+        <ul>
+            <li>Introduces a separate sampling frame specifically for <mark>gig and platform workers</mark>.</li>
+            <li>New 2027-28 sample frame reflects rapid urbanization and redrawn district boundaries.</li>
+            <li>The Jan-Mar 2027 transition period will merge data from both old and new sampling frames.</li>
+            <li>Crucially, new questionnaires will track <mark>unpaid household, volunteer, and caregiving work</mark> (age 15+).</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>The nodal agency conducting PLFS is the National Statistics Office (NSO) under the <mark>Ministry of Statistics and Programme Implementation (MoSPI)</mark>, NOT the Ministry of Labour.</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>Measuring unpaid caregiving work represents a watershed moment for recognizing women's invisible economic contributions and framing inclusive GDP metrics.</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">🗺️ Statutory Anchors</span>
+            <p>Executed by the National Statistics Office (NSO).</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 3: IMC Gaya -->
+<div id="modal3" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal3')">&times;</span>
+        <h3>Integrated Mfg Cluster, Gaya</h3>
+        <p class="background">A centralized industrial zone providing shared physical infrastructure to massively reduce setup costs for incoming industries.</p>
+        <ul>
+            <li>Spread across <mark>1,670 acres in Dobhi block, Gaya (Bihar)</mark>.</li>
+            <li>Joint venture executed by BIADA and NICDIT.</li>
+            <li>Targeted focus on agro-based industries, textiles, garments, and engineering fabrication.</li>
+            <li>Provides shared roads, water supply, power, and solid waste management.</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>This specific node falls strictly under the <mark>Amritsar-Kolkata Industrial Corridor</mark> development project.</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>Shared infrastructure models act as catalysts for MSME and foreign direct investment by mitigating massive initial capital expenditure (CAPEX) hurdles in developing states like Bihar.</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">⚖️ Statutory Anchors</span>
+            <p>National Industrial Corridor Development Program.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 4: Farmer IDs -->
+<div id="modal4" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal4')">&times;</span>
+        <h3>Farmer IDs (Digital Agriculture)</h3>
+        <p class="background">A unique digital identity assigned to farmers to streamline the delivery of state agriculture benefits without repeated paperwork.</p>
+        <ul>
+            <li>Created <mark>11 crore Farmer IDs</mark> by Oct 2026, hitting the target 5 months early.</li>
+            <li>Approved in September 2024 under the <mark>Digital Agriculture Mission</mark>.</li>
+            <li>Simplifies rapid access to Kisan Credit Cards, crop insurance, and disaster relief funds.</li>
+            <li>Over 6 crore farmers are already receiving direct benefits through this ID pipeline.</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>Farmer IDs are an initiative under the broader <mark>Digital Agriculture Mission</mark> by the Ministry of Agriculture and Farmers Welfare, acting as a foundational registry, not just a scheme.</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>Showcases "Cooperative Federalism" in action. By preventing systemic duplication and fraud, it ensures leak-proof Direct Benefit Transfers (DBT) to the most vulnerable.</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">⚖️ Statutory Anchors</span>
+            <p>Digital Agriculture Mission rollout.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 5: Agrivoltaics -->
+<div id="modal5" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal5')">&times;</span>
+        <h3>Agrivoltaics World Conference</h3>
+        <p class="background">The concurrent use of a single parcel of land for both agricultural crop production and solar electricity generation.</p>
+        <ul>
+            <li>7th Edition held at Bharat Mandapam, New Delhi (Oct 2026).</li>
+            <li>Organized by <mark>Ministry of New and Renewable Energy (MNRE)</mark> with Germany's BMUV.</li>
+            <li><mark>First time ever hosted in the Global South</mark>.</li>
+            <li>Aims to transform farmers from food producers (<mark>Annadata</mark>) into energy producers (<mark>Urjadata</mark>).</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>Agrivoltaics does NOT mean alternating seasons between crops and solar. It explicitly means dual-use of the <mark>same land at the same time</mark> (e.g., elevated panels over growing crops).</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>Provides a scalable solution to the historic "Food vs. Fuel/Energy" land debate, simultaneously boosting rural incomes, grid capacity, and climate resilience.</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">🗺️ Statutory Anchors</span>
+            <p>MNRE policy frameworks and solar mandates.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 6: Khet Bachao -->
+<div id="modal6" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal6')">&times;</span>
+        <h3>Khet Bachao Abhiyan (Rabi 2026)</h3>
+        <p class="background">An awareness campaign urging farmers to test their soil first and apply chemical fertilizers only if scientifically required.</p>
+        <ul>
+            <li>Launched from Karnal, Haryana, targeting the <mark>Rabi Sowing Season</mark> (Oct-Dec).</li>
+            <li>Core focus on balanced fertilizer usage to drastically cut input costs and protect soil health.</li>
+            <li>Promotes crop diversification, natural farming, and <mark>crop residue management</mark>.</li>
+            <li>Aims to reach 1 crore participants through Kisan Chaupals and ATMA functionaries.</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>Be crystal clear on crop classification: <mark>Wheat, mustard, gram, barley, and peas</mark> are Rabi crops (sown Oct-Dec, harvested Mar-Apr).</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>Blind fertilizer application degrades soil productivity over time. Rationalizing usage based on lab testing ensures sustainable agriculture, lowers farmer debt, and curtails chemical runoff into water tables.</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">⚖️ Statutory Anchors</span>
+            <p>Ministry of Agriculture & Farmers Welfare grassroots outreach via ATMA.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 7: ATAL -->
+<div id="modal7" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal7')">&times;</span>
+        <h3>ATAL (Air Pollution Lab)</h3>
+        <p class="background">Integrated Atmospheric Chemistry and Aerosol Toxicity Analysis Laboratory, inaugurated to decode the exact chemical threat of Delhi NCR smog.</p>
+        <ul>
+            <li>Established under <mark>Mission Mausam</mark> at IITM’s Delhi branch.</li>
+            <li>Goes beyond standard AQI to measure actual <mark>aerosol toxicity</mark> (metals, toxic PM2.5 elements).</li>
+            <li>Deploys the <mark>Air-wise system</mark>: a 400m high-resolution air quality forecast for the next 72 hours.</li>
+            <li>Pinpoints specific sources like stubble burning, vehicular exhaust, and construction dust.</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>ATAL does not just spit out a generic numerical AQI. Its primary function is analyzing the <mark>chemical composition and biological health impacts</mark> of the pollutants.</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>Provides robust empirical data directly to the Commission for Air Quality Management (CAQM), allowing for pinpoint, legally-defensible enforcement of the Graded Response Action Plan (GRAP).</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">🗺️ Statutory Anchors</span>
+            <p>Mission Mausam & CAQM jurisdiction.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 8: PSP -->
+<div id="modal8" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal8')">&times;</span>
+        <h3>Pumped Storage Hydropower</h3>
+        <p class="background">Colloquially known as a "Water Battery", it uses excess electricity to pump water uphill, storing gravitational potential energy to be released later.</p>
+        <ul>
+            <li>Uses surplus daytime solar energy to push water to an <mark>upper reservoir</mark>.</li>
+            <li>At night, water is released downhill to spin turbines, supplying electricity when the sun isn't shining.</li>
+            <li>India’s <mark>Western region</mark> holds the highest potential (129.72 GW).</li>
+            <li>Currently operational: 7.43 GW. Target: 105.56 GW by 2035-36. India is 4th globally.</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>Pumped Storage (PSP) is strictly for <mark>long-duration</mark> energy storage, whereas Battery Energy Storage Systems (BESS) are preferred for rapid-response, short-duration needs.</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>As India pivots toward its 500 GW non-fossil fuel target by 2030, PSPs are critical macro-infrastructure to stabilize grids against the intermittent nature of wind and solar power.</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">⚖️ Statutory Anchors</span>
+            <p>Central Electricity Authority (CEA) guidelines.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 9: AIP System -->
+<div id="modal9" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal9')">&times;</span>
+        <h3>Indigenous AIP System</h3>
+        <p class="background">Air-Independent Propulsion technology allows diesel-electric submarines to operate underwater for extended periods without surfacing for air.</p>
+        <ul>
+            <li>Phase-2 (Energy Module) inaugurated by DRDO’s Naval Materials Research Laboratory (NMRL) at <mark>L&T Hazira Complex, Gujarat</mark>.</li>
+            <li>Drastically reduces a submarine's dependence on atmospheric oxygen for power generation.</li>
+            <li>Slated for integration into the Indian Navy's <mark>Kalvari-class submarines</mark> by early 2027.</li>
+        </ul>
+        <div class="alert-box">
+            <span class="box-title">⚠️ Prelims Trap Alert</span>
+            <p>AIP technology is designed specifically to upgrade <mark>diesel-electric</mark> submarines. Nuclear submarines already possess limitless underwater endurance and do not require AIP.</p>
+        </div>
+        <div class="hook-box">
+            <span class="box-title">✍️ Mains Analytical Hook</span>
+            <p>A masterclass in DRDO-industry synergy. Mastering AIP domestically shatters import reliance and geometrically increases the stealth and lethality of India's underwater fleet in the Indo-Pacific.</p>
+        </div>
+        <div class="anchor-box">
+            <span class="box-title">🗺️ Statutory Anchors</span>
+            <p>Atmanirbhar Bharat defense manufacturing mandate.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(id) {
+        document.getElementById(id).style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal if user clicks outside the modal content
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+</script>
+
+</body>
+</html>
