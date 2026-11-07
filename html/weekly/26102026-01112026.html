@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC Visual Revision Board - PIP Weekly Analysis</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-yellow: #facc15;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --highlight-bg: rgba(250, 204, 21, 0.2);
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+        h1.main-title {
+            text-align: center;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+            color: var(--accent-yellow);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 1rem;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        .sketch-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 4px 4px 0px var(--accent-blue);
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .sketch-card:hover {
+            transform: translateY(-5px);
+        }
+        .handwritten {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+            color: var(--accent-blue);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .sketch-svg {
+            width: 100%;
+            height: auto;
+            max-height: 120px;
+            margin-bottom: 1rem;
+            stroke: var(--accent-yellow);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .giant-stat {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-yellow);
+            margin-bottom: 0.5rem;
+        }
+        .micro-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        .micro-bullets li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .micro-bullets li::before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+        }
+        .know-more-btn {
+            background-color: transparent;
+            border: 2px dashed var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .know-more-btn:hover {
+            background-color: var(--accent-blue);
+            color: var(--bg-color);
+        }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 8px 8px 0px var(--accent-blue);
+        }
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .close-modal:hover {
+            color: var(--text-main);
+        }
+        
+        mark {
+            background-color: var(--highlight-bg);
+            color: var(--accent-yellow);
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+        
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+        .modal-section h4 {
+            color: var(--accent-yellow);
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.25rem;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+        }
+        
+        .revision-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            background-color: var(--card-bg);
+            border: 2px dashed var(--accent-yellow);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+        .strip-box {
+            text-align: center;
+            padding: 0.5rem;
+            border-right: 1px solid var(--border-color);
+        }
+        .strip-box:last-child {
+            border-right: none;
+        }
+        .strip-box h4 {
+            color: var(--accent-blue);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+        }
+        .strip-box p {
+            font-size: 0.85rem;
+            margin: 0;
+            color: var(--text-muted);
+        }
+        
+        @media (max-width: 768px) {
+            .revision-strip {
+                grid-template-columns: 1fr 1fr;
+            }
+            .strip-box:nth-child(2) { border-right: none; }
+            .strip-box:nth-child(3) { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="main-title">PIP Weekly Analysis - Visual Board</h1>
+    
+    <div class="grid-container">
+        
+        <!-- Topic 1 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <rect x="20" y="40" width="100" height="60" rx="5" />
+                <path d="M20 40 L70 10 L120 40" />
+                <circle cx="70" cy="70" r="15" />
+                <path d="M55 70 A 15 15 0 0 0 85 70" />
+            </svg>
+            <h2 class="handwritten">12th BRICS Forum</h2>
+            <div class="giant-stat">2026 | New Delhi</div>
+            <ul class="micro-bullets">
+                <li>People-centric development focus.</li>
+                <li>UN Reforms for Global South.</li>
+                <li>Implement CCIT framework.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-1')">Know More</button>
+        </div>
+
+        <!-- Topic 2 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <circle cx="70" cy="55" r="30" stroke-dasharray="5,5" />
+                <text x="70" y="65" text-anchor="middle" font-size="24" font-weight="bold" fill="var(--accent-yellow)" stroke="none">%</text>
+                <path d="M20 20 L 40 40 M 120 20 L 100 40 M 20 90 L 40 70 M 120 90 L 100 70" />
+            </svg>
+            <h2 class="handwritten">Diwali Mahotsav Sale</h2>
+            <div class="giant-stat">60% OFF</div>
+            <ul class="micro-bullets">
+                <li>Foundation Day twin celebration.</li>
+                <li>GS Foundation & Flagship courses.</li>
+                <li>Offer valid till Nov 6.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-2')">Know More</button>
+        </div>
+
+        <!-- Topic 3 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <path d="M70 100 Q 70 50 70 10" />
+                <path d="M70 80 Q 40 80 40 50 Q 70 50 70 80" />
+                <path d="M70 60 Q 100 60 100 30 Q 70 30 70 60" />
+            </svg>
+            <h2 class="handwritten">CBD COP 17</h2>
+            <div class="giant-stat">Target 2030</div>
+            <ul class="micro-bullets">
+                <li>Yerevan, Armenia venue.</li>
+                <li>Reverse biodiversity loss.</li>
+                <li>Cali fund for benefit sharing.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-3')">Know More</button>
+        </div>
+
+        <!-- Topic 4 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <path d="M10 60 L 70 20 L 130 60" />
+                <rect x="30" y="60" width="80" height="40" />
+                <rect x="55" y="70" width="30" height="30" />
+                <path d="M90 20 L 90 40" stroke-width="4"/>
+            </svg>
+            <h2 class="handwritten">Viksit Gram Swaraj</h2>
+            <div class="giant-stat">2.55L Panchayats</div>
+            <ul class="micro-bullets">
+                <li>Holistic village planning.</li>
+                <li>AI-enabled Pancham platform.</li>
+                <li>Boost own source revenue.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-4')">Know More</button>
+        </div>
+
+        <!-- Topic 5 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <rect x="20" y="80" width="100" height="10" />
+                <rect x="30" y="30" width="15" height="50" />
+                <rect x="62.5" y="30" width="15" height="50" />
+                <rect x="95" y="30" width="15" height="50" />
+                <path d="M10 30 L 70 10 L 130 30 Z" />
+                <text x="70" y="65" text-anchor="middle" font-size="28" font-weight="bold" fill="var(--accent-yellow)" stroke="none">₹</text>
+            </svg>
+            <h2 class="handwritten">Banking Committee</h2>
+            <div class="giant-stat">6-Month Tenure</div>
+            <ul class="micro-bullets">
+                <li>Suresh N Patel chairs.</li>
+                <li>Review long-term capital needs.</li>
+                <li>Promote AI & digital banking.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-5')">Know More</button>
+        </div>
+
+        <!-- Topic 6 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <path d="M20 10 L 20 90 L 120 90" />
+                <rect x="30" y="60" width="20" height="30" />
+                <rect x="60" y="40" width="20" height="50" />
+                <rect x="90" y="20" width="20" height="70" />
+            </svg>
+            <h2 class="handwritten">ASUSE Data</h2>
+            <div class="giant-stat">April - March</div>
+            <ul class="micro-bullets">
+                <li>Unincorporated non-agri sector.</li>
+                <li>Gender-specific challenges added.</li>
+                <li>Tracks e-commerce & UPI.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-6')">Know More</button>
+        </div>
+
+        <!-- Topic 7 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <rect x="20" y="50" width="25" height="50" />
+                <rect x="45" y="30" width="35" height="70" />
+                <rect x="80" y="60" width="30" height="40" />
+                <circle cx="100" cy="25" r="12" />
+                <path d="M100 8 L 100 2 M 100 42 L 100 48 M 83 25 L 77 25 M 123 25 L 129 25" />
+            </svg>
+            <h2 class="handwritten">Delhi Declaration</h2>
+            <div class="giant-stat">Local Climate Action</div>
+            <ul class="micro-bullets">
+                <li>Promotes circular economy.</li>
+                <li>Ensures grassroot climate finance.</li>
+                <li>Youth & Global South leadership.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-7')">Know More</button>
+        </div>
+
+        <!-- Topic 8 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <rect x="40" y="20" width="40" height="80" rx="5" />
+                <rect x="45" y="30" width="30" height="25" />
+                <path d="M80 60 L 100 60 L 100 30 C 100 10 120 10 120 30 L 120 80" />
+                <circle cx="120" cy="80" r="5" fill="var(--accent-blue)" stroke="none" />
+            </svg>
+            <h2 class="handwritten">Flex Fuel Rules</h2>
+            <div class="giant-stat">E85 & E100 Blends</div>
+            <ul class="micro-bullets">
+                <li>Automatically adjust engine operation.</li>
+                <li>Reduces crude oil dependence.</li>
+                <li>No mandatory vehicle switch.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-8')">Know More</button>
+        </div>
+
+        <!-- Topic 9 -->
+        <div class="sketch-card">
+            <svg class="sketch-svg" viewBox="0 0 140 110">
+                <path d="M70 10 C 90 40 90 80 70 100 C 50 80 50 40 70 10" />
+                <path d="M55 80 L 30 100 L 70 95 L 110 100 L 85 80" />
+                <circle cx="70" cy="50" r="8" />
+            </svg>
+            <h2 class="handwritten">GSLV F18 & NVS-03</h2>
+            <div class="giant-stat">NavIC Constellation</div>
+            <ul class="micro-bullets">
+                <li>Indigenous atomic clock.</li>
+                <li>Cryogenic upper stage.</li>
+                <li>Position, navigation, and timing.</li>
+            </ul>
+            <button class="know-more-btn" onclick="openModal('modal-9')">Know More</button>
+        </div>
+    </div>
+
+    <!-- Revision Strip -->
+    <div class="revision-strip">
+        <div class="strip-box">
+            <h4>Global Pacts</h4>
+            <p>BRICS & COP 17 center on Global South rights & Climate Finance access.</p>
+        </div>
+        <div class="strip-box">
+            <h4>Space Tech</h4>
+            <p>NavIC NVS-03 fortifies indigenous atomic clock and PNT capabilities.</p>
+        </div>
+        <div class="strip-box">
+            <h4>Green Energy</h4>
+            <p>E85 Flex Fuels & Delhi Declaration push circularity and zero waste.</p>
+        </div>
+        <div class="strip-box">
+            <h4>Governance</h4>
+            <p>Viksit Gram Swaraj & Banking Committee align structures for Viksit Bharat 2047.</p>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    
+    <!-- Modal 1 -->
+    <div class="modal-overlay" id="modal-1">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-1')">&times;</button>
+            <h2 class="handwritten">12th BRICS Parliamentary Forum 2026</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>Held in New Delhi, the theme was "Fostering parliaments for people-centric development." Focuses on SDGs, poverty eradication, climate finance, and safe AI public infrastructure.</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚠️ Prelims Trap Alert</h4>
+                <p><mark>CCIT</mark> (Comprehensive Convention on International Terrorism) is a proposed international framework—it is called for early adoption, not yet fully enforced universally.</p>
+            </div>
+            <div class="modal-section">
+                <h4>✍️ Mains Analytical Hook</h4>
+                <p>BRICS acts as the voice of the <mark>Global South</mark>, directly demanding reforms in the United Nations Security Council (UNSC) for equitable representation.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal-overlay" id="modal-2">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-2')">&times;</button>
+            <h2 class="handwritten">Drishti IAS Diwali Sale</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>A twin celebration for Diwali and Drishti IAS Foundation Day, providing massive discounts on test series, books, and courses up to 60% off.</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚠️ Prelims Trap Alert</h4>
+                <p>Ensure you know the deadline—<mark>November 6, 2026</mark> is the last day to avail the foundation and flagship course discounts.</p>
+            </div>
+            <div class="modal-section">
+                <h4>✍️ Mains Analytical Hook</h4>
+                <p>Includes access to comprehensive essay writing classes and personal mentorship, crucial for scaling the UPSC Mains examination.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div class="modal-overlay" id="modal-3">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-3')">&times;</button>
+            <h2 class="handwritten">India at CBD COP 17</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>Conference of Parties 17 for the Convention on Biological Diversity took place in <mark>Yerevan, Armenia</mark>. Focuses on the Kunming-Montreal Global Biodiversity Framework.</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚠️ Prelims Trap Alert</h4>
+                <p>The Kunming-Montreal Framework aims to halt/reverse biodiversity loss by <mark>2030</mark> and achieve a world living in harmony with nature by <mark>2050</mark>.</p>
+            </div>
+            <div class="modal-section">
+                <h4>🗺️ Statutory Anchors</h4>
+                <p>India highlighted its <mark>Cali Fund</mark> support for sharing benefits from Digital Sequence Information (DSI) on genetic resources. India operates 1,134 protected areas, 103 Ramsar sites, and 18 Biosphere Reserves.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4 -->
+    <div class="modal-overlay" id="modal-4">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-4')">&times;</button>
+            <h2 class="handwritten">Pradhan Mantri Viksit Gram Swaraj Yojana</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>A centrally sponsored scheme (2026-27 to 2030-31) to empower 2.55 lakh Gram Panchayats as centers of effective grassroot governance.</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚠️ Prelims Trap Alert</h4>
+                <p>The scheme introduces the <mark>Pancham platform</mark>, which is an AI-enabled multilingual tool for spreading awareness and connecting national priorities with local needs.</p>
+            </div>
+            <div class="modal-section">
+                <h4>✍️ Mains Analytical Hook</h4>
+                <p>Focuses on financial accountability by helping Panchayats generate <mark>Own Source Revenue</mark> and utilizing e-GramSwaraj for digital governance.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5 -->
+    <div class="modal-overlay" id="modal-5">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-5')">&times;</button>
+            <h2 class="handwritten">Committee on Banking for Viksit Bharat</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>A High-Level Committee chaired by former CVC <mark>Suresh N Patel</mark> with a 6-month tenure to review India's banking system for 2047 readiness.</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚖️ Statutory Anchors</h4>
+                <p>The committee's terms of reference include reviewing banking rules for Commercial Banks, Regional Rural Banks (RRBs), and Cooperative Banks, as well as Priority Sector Lending.</p>
+            </div>
+            <div class="modal-section">
+                <h4>✍️ Mains Analytical Hook</h4>
+                <p>Balancing AI and digital banking expansion while strictly protecting against cyber threats, ensuring banks are globally competitive yet financially inclusive.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6 -->
+    <div class="modal-overlay" id="modal-6">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-6')">&times;</button>
+            <h2 class="handwritten">ASUSE Data (2027-28)</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>Annual Survey of Unincorporated Sector Enterprises conducted by the NSO (MOSPI) to collect data on India's non-agricultural enterprises.</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚠️ Prelims Trap Alert</h4>
+                <p>The survey cycle has officially shifted from the calendar year (Jan-Dec) to the <mark>Financial Year (April-March)</mark>.</p>
+            </div>
+            <div class="modal-section">
+                <h4>✍️ Mains Analytical Hook</h4>
+                <p>Newly incorporates questionnaires to capture <mark>gender-specific challenges</mark> faced by female entrepreneurs, alongside tracking e-commerce, digital payments (UPI), and traditional sectors like handlooms.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 7 -->
+    <div class="modal-overlay" id="modal-7">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-7')">&times;</button>
+            <h2 class="handwritten">Delhi Declaration 2026 on Local Climate Action</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>Adopted at the ARISE Cities Forum in New Delhi. Aims to strengthen the role of cities and local governments in global climate governance, particularly in developing economies.</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚠️ Prelims Trap Alert</h4>
+                <p>The theme is "Bharat to Antalya: Commit, Implement, and Deliver," indicating the declaration will be carried forward to <mark>COP 31 in Turkey</mark>.</p>
+            </div>
+            <div class="modal-section">
+                <h4>✍️ Mains Analytical Hook</h4>
+                <p>Emphasizes a <mark>circular economy</mark> and zero-waste initiatives while demanding that climate finance must bypass bureaucratic bottlenecks to directly reach local community governments.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 8 -->
+    <div class="modal-overlay" id="modal-8">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-8')">&times;</button>
+            <h2 class="handwritten">Flex Fuel Rules (E85 / E100)</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>The Ministry of Road Transport and Highways updated the Central Motor Vehicle Rules to include provisions for high-ethanol blends (<mark>E85 and E100</mark>).</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚠️ Prelims Trap Alert</h4>
+                <p>A vehicle certified for E10 or E20 is <mark>NOT</mark> automatically compatible with E85. There is no mandatory switch; E85 must only be used in certified Flex-Fuel engines.</p>
+            </div>
+            <div class="modal-section">
+                <h4>✍️ Mains Analytical Hook</h4>
+                <p>Flex-fuel vehicles automatically adjust engine operations based on the ethanol-petrol mixture, drastically lowering dependence on imported crude oil and reducing greenhouse emissions.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 9 -->
+    <div class="modal-overlay" id="modal-9">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-9')">&times;</button>
+            <h2 class="handwritten">GSLV F18 & NVS-03 Mission</h2>
+            <div class="modal-section">
+                <h4>Background Context</h4>
+                <p>ISRO launched the NVS-03 navigation satellite using the <mark>GSLV F18</mark> rocket from Satish Dhawan Space Centre to a Geosynchronous Transfer Orbit.</p>
+            </div>
+            <div class="modal-section">
+                <h4>⚠️ Prelims Trap Alert</h4>
+                <p>NavIC provides two services: Standard Positioning Service (open to civilians) and <mark>Restricted Service</mark> (encrypted, strictly for authorized strategic users only).</p>
+            </div>
+            <div class="modal-section">
+                <h4>🗺️ Statutory Anchors</h4>
+                <p>The NVS-03 carries a highly critical <mark>indigenously developed atomic clock</mark>. The GSLV utilizes a domestic cryogenic upper stage (liquid hydrogen/oxygen), reducing foreign reliance.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
