@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPSC ASO Sketchnote - June 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 30px;
+        }
+        h1, h2, h3, .tag {
+            font-family: 'Kalam', cursive;
+        }
+        .header-title {
+            text-align: center;
+            font-size: 3.5rem;
+            color: #ffeb3b;
+            margin-bottom: 5px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+        }
+        .source-doc {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #00a8ff;
+            margin-bottom: 30px;
+            font-family: monospace;
+        }
+        .quick-revision {
+            background: rgba(255,255,255,0.05);
+            border: 2px dashed #f0f0f0;
+            border-radius: 15px;
+            padding: 20px 30px;
+            margin: 0 auto 50px auto;
+            max-width: 1100px;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+        }
+        .qr-header-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .quick-revision h2 {
+            color: #4cd137;
+            margin: 0;
+            font-size: 2.2rem;
+            border-bottom: 2px solid #4cd137;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .qr-item {
+            font-size: 1.15rem;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #ffeb3b;
+        }
+        .highlight {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        .canvas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #2a2a2a;
+            border: 2px solid #555;
+            border-radius: 12px;
+            padding: 25px 20px 20px 20px;
+            position: relative;
+            box-shadow: 6px 6px 15px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: rotate(-1deg) scale(1.02);
+        }
+        .tag {
+            position: absolute;
+            top: -18px;
+            left: 15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            transform: rotate(-3deg);
+            color: #1a1a1a;
+        }
+        .tag-tech { background: #9c88ff; }
+        .tag-infra { background: #00a8ff; }
+        .tag-govt { background: #e1b12c; }
+        .tag-env { background: #4cd137; }
+        .tag-culture { background: #e84118; }
+        .tag-econ { background: #ffeb3b; }
+        
+        .card h3 {
+            margin-top: 10px;
+            color: #fff;
+            border-bottom: 2px dashed #777;
+            padding-bottom: 10px;
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+        .card ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        .card li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="header-title">OPSC ASO Sketchnote: June 2026</h1>
+    <div class="source-doc">Source: odisha june.pdf</div>
+
+    <!-- ULTRA-SHORT REVISION SHEET -->
+    <div class="quick-revision">
+        <div class="qr-header-container">
+            <h2>⚡ Quick Revision Grid</h2>
+        </div>
+        <div class="qr-grid">
+            <div class="qr-item">💻 <strong>Intel & 3DGS:</strong> <span class="highlight">$3.3B</span> facility, Bhubaneswar-Khurda[cite: 1]</div>
+            <div class="qr-item">⚓ <strong>LPPI 2024-25:</strong> <span class="highlight">Paradip Port #1</span> (Dry Bulk)[cite: 1]</div>
+            <div class="qr-item">🛣️ <strong>Coastal Highway:</strong> <span class="highlight">163.18 km</span>, Rameshwar to Paradeep (₹8,300.79 cr)[cite: 2]</div>
+            <div class="qr-item">🌍 <strong>BRICS DRR:</strong> Puri hosts <span class="highlight">11 countries</span>[cite: 3]</div>
+            <div class="qr-item">🌸 <strong>Raja Festival:</strong> 3-day fest, honors <span class="highlight">Mother Earth</span>[cite: 3]</div>
+            <div class="qr-item">🐊 <strong>AI Crocodile Alert:</strong> <span class="highlight">Kusunpur</span>, Kendrapara (CSIR)[cite: 4]</div>
+            <div class="qr-item">🕉️ <strong>Trademarks:</strong> <span class="highlight">Nilachakra</span>, Ananda Bajara, Patitapabana[cite: 4]</div>
+            <div class="qr-item">🏭 <strong>Coal-to-Ammonium:</strong> Lakhanpur, Jharsuguda <span class="highlight">(₹25,016 cr)</span>[cite: 5]</div>
+            <div class="qr-item">🥚 <strong>Egg Powder Export:</strong> Balangir to <span class="highlight">Austria</span> (22.6 MT)[cite: 5]</div>
+            <div class="qr-item">🤝 <strong>Go East:</strong> IPICOL initiative targeting WB, BH, JH, CG[cite: 5]</div>
+        </div>
+    </div>
+
+    <!-- HTML SKETCHNOTE CANVAS -->
+    <div class="canvas">
+        
+        <!-- Topic 1 -->
+        <div class="card">
+            <div class="tag tag-tech">Technology</div>
+            <h3>Odisha Partners with Intel & 3DGS</h3>
+            <ul>
+                <li>MoU signed by <span class="highlight">Odisha Govt, Intel Corporation, and US-based 3D Glass Solutions (3DGS)</span> for a semiconductor substrate manufacturing facility[cite: 1].</li>
+                <li>Estimated Investment: <span class="highlight">$3.3 billion</span>, making it one of India's largest high-tech investments[cite: 1].</li>
+                <li>Location: <span class="highlight">Bhubaneswar-Khurda region</span>[cite: 1].</li>
+                <li>Focus: Manufactures advanced packaging <span class="highlight">glass-core substrates</span> and high-density interconnect substrates[cite: 1].</li>
+                <li>Alignment: Supports the <span class="highlight">India Semiconductor Mission</span> for domestic ecosystem development[cite: 1].</li>
+                <li>Implementation Timeline: Phased over <span class="highlight">5 to 6 years</span>[cite: 1].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 2 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>Paradip Port Tops LPPI 2024-25</h3>
+            <ul>
+                <li><span class="highlight">Paradip Port</span> ranked 1st among major ports in the <span class="highlight">dry bulk cargo category</span> under the Logistics Port Performance Index (LPPI) 2024-25[cite: 1].</li>
+                <li>Liquid Bulk: <span class="highlight">Sikka Port and Terminals</span> (Gujarat) ranked 1st[cite: 1].</li>
+                <li>Container Cargo: <span class="highlight">Mundra Port</span> (1st), followed by <span class="highlight">JNPA</span> (2nd)[cite: 1].</li>
+                <li>Index launched by the <span class="highlight">Ministry of Ports, Shipping and Waterways</span>[cite: 1].</li>
+                <li>Digital Reforms launched simultaneously: <span class="highlight">e-Navik</span> (seafarer grievance redressal), <span class="highlight">e-Samudra</span> (ship registration)[cite: 1].</li>
+                <li>Additional modules include the Medical Practitioner Module and <span class="highlight">Ship Recycling Credit Note Module</span> (redeemable under ₹70,000-crore scheme)[cite: 1, 2].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 3 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>Cabinet Approves Coastal Highway Project</h3>
+            <ul>
+                <li>CCEA (chaired by PM Modi) approved a new coastal highway from <span class="highlight">Rameshwar to Paradeep</span>[cite: 2].</li>
+                <li>Development Model: <span class="highlight">Hybrid Annuity Model (HAM)</span>[cite: 2].</li>
+                <li>Project Length & Cost: <span class="highlight">163.180 km</span> in two packages at a capital cost of <span class="highlight">₹8,300.79 crore</span>[cite: 2].</li>
+                <li>Districts Covered: <span class="highlight">Khurda, Puri, Kendrapada, and Jagatsinghpur</span>[cite: 2].</li>
+                <li>Need: Bypasses poor geometry and heavy traffic on existing Puri-Satapada & Puri-Konark stretches[cite: 2].</li>
+                <li>Integration: Aligns with the <span class="highlight">PM GatiShakti National Master Plan</span> (launched Oct 13, 2021; ₹100 lakh crore initiative)[cite: 2, 3].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 4 -->
+        <div class="card">
+            <div class="tag tag-govt">Government</div>
+            <h3>BRICS Disaster Risk Reduction Meeting</h3>
+            <ul>
+                <li>The first in-person technical meeting of the <span class="highlight">BRICS DRR Working Group</span> under India's Presidency commenced in <span class="highlight">Puri</span>[cite: 3].</li>
+                <li>Odisha was chosen to host due to its global expertise in <span class="highlight">cyclone management and community-based early warning</span>[cite: 3].</li>
+                <li>Participants: Delegates from <span class="highlight">11 BRICS member and partner countries</span>[cite: 3].</li>
+                <li>Focus Areas: Sustainable financing, resilient infrastructure, and integration of traditional knowledge[cite: 3].</li>
+                <li>BRICS Trivia: "BRIC" coined by Jim O'Neill (2001); 1st Summit in Russia (2009); Expanded in 2024 (Egypt, Ethiopia, Iran, Saudi Arabia, UAE) and 2025 (Indonesia)[cite: 3].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 5 -->
+        <div class="card">
+            <div class="tag tag-culture">Culture</div>
+            <h3>Raja Festival Begins Across Odisha</h3>
+            <ul>
+                <li>A 3-day traditional festival marking <span class="highlight">Raja Sankranti</span>[cite: 3].</li>
+                <li>Significance: Celebrates <span class="highlight">womanhood, Mother Earth,</span> and the onset of the monsoon season[cite: 3].</li>
+                <li>Belief: Mother Earth undergoes her yearly menstrual cycle and is given rest[cite: 3].</li>
+                <li>Respect for Nature: <span class="highlight">Agricultural activities remain suspended</span> during this period[cite: 3].</li>
+                <li>Key Attractions: Traditional swings and delicacies like <span class="highlight">Poda Pitha, Arisa Pitha, Manda, Kakera, and Raja Paan</span>[cite: 3, 4].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 6 -->
+        <div class="card">
+            <div class="tag tag-env">Environment</div>
+            <h3>AI-Based Crocodile Warning System</h3>
+            <ul>
+                <li>Location: <span class="highlight">Kusunpur village</span> in Kendrapara district[cite: 4].</li>
+                <li>Initiative: Model village selected under the <span class="highlight">CSIR Smart Village programme</span> (Lab to Land approach)[cite: 4].</li>
+                <li>Technology: An AI-enabled wildlife detection system installed at key entry points for real-time alerts[cite: 4].</li>
+                <li>Objective: Reduce human-crocodile conflicts near the <span class="highlight">Bhitarkanika ecosystem</span>[cite: 4].</li>
+                <li>CSIR Facts: Established in <span class="highlight">September 1942</span>, HQ New Delhi; PM acts as Ex-officio President[cite: 4].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 7 -->
+        <div class="card">
+            <div class="tag tag-culture">Culture</div>
+            <h3>Nilachakra Logo Secures Trademark</h3>
+            <ul>
+                <li>The Shree Jagannath Temple Administration obtained official <span class="highlight">logomark registration for the Nilachakra</span> under the Trade Marks Act[cite: 4].</li>
+                <li>Wordmarks Granted: <span class="highlight">"Ananda Bajara" and "Patitapabana"</span>[cite: 4].</li>
+                <li>Scale: Applications filed for <span class="highlight">29 names, terms, and symbols</span> associated with the Jagannath tradition[cite: 4].</li>
+                <li>Key Terms Defined: <span class="highlight">Jagannath Dham</span> (pilgrimage centre), <span class="highlight">Mahaprasad</span> (sacred food), <span class="highlight">Patitapaban</span> (Lord's form visible from Lion's Gate)[cite: 4, 5].</li>
+                <li>Objective: Protect heritage symbols from unauthorized commercial misuse[cite: 4].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 8 -->
+        <div class="card">
+            <div class="tag tag-tech">Technology</div>
+            <h3>Coal-to-Ammonium Nitrate Project</h3>
+            <ul>
+                <li>PM Modi laid the foundation for India's <span class="highlight">first commercial-scale</span> Coal-to-Ammonium Nitrate Project in June 2026[cite: 5].</li>
+                <li>Location: <span class="highlight">Lakhanpur, Jharsuguda district</span>[cite: 5].</li>
+                <li>Project Cost: <span class="highlight">₹25,016 crore</span>[cite: 5].</li>
+                <li>Implementing Agency: <span class="highlight">BCGCL</span> (a joint venture of BHEL and Coal India Limited) using indigenous coal gasification tech[cite: 5].</li>
+                <li>Land: ~350 acres possessed by Mahanadi Coalfields Limited (MCL)[cite: 5].</li>
+                <li>Support: Ministry of Coal provided <span class="highlight">₹1,350 crore</span> assistance[cite: 5].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 9 -->
+        <div class="card">
+            <div class="tag tag-econ">Economy</div>
+            <h3>Dried Whole Egg Powder Export to Austria</h3>
+            <ul>
+                <li>First-ever commercial export of dried whole egg powder from Odisha to <span class="highlight">Austria</span>[cite: 5].</li>
+                <li>Facilitator: <span class="highlight">APEDA</span> (Agricultural and Processed Food Products Export Development Authority)[cite: 5].</li>
+                <li>Exporter: <span class="highlight">OVO Farm Pvt. Ltd., Balangir</span>[cite: 5].</li>
+                <li>Consignment Size: <span class="highlight">22.6 metric tonnes</span>[cite: 5].</li>
+                <li>Facility Specs: Certified under <span class="highlight">FSSC 22000 Version 6, HALAL, and KOSHER</span>[cite: 5].</li>
+                <li>APEDA Facts: Statutory body established in Dec 1985 under the Ministry of Commerce and Industry[cite: 5].</li>
+            </ul>
+        </div>
+
+        <!-- Topic 10 -->
+        <div class="card">
+            <div class="tag tag-govt">Government</div>
+            <h3>Odisha Launched 'Go East' Initiative</h3>
+            <ul>
+                <li>Launched by CM Mohan Charan Majhi during the CII Eastern Regional Council Meeting in Bhubaneswar[cite: 5].</li>
+                <li>Stands for: <span class="highlight">Government of Odisha Eastern Investment Accelerator and Special Task Force</span>[cite: 5].</li>
+                <li>Implementation: A dedicated <span class="highlight">Go-East Cell</span> established within IPICOL[cite: 5].</li>
+                <li>Tracking: A separate <span class="highlight">Go-Swift module</span> enables real-time monitoring of approvals[cite: 5].</li>
+                <li>Target Regions: Priority handling and dedicated help desk for investors from <span class="highlight">West Bengal, Bihar, Jharkhand, and Chhattisgarh</span>[cite: 5].</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>
