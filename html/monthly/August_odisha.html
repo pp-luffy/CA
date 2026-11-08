@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPSC ASO Sketchnote - Odisha August 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Caveat', cursive;
+            margin: 0;
+            padding: 40px 20px;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+        
+        .main-title {
+            font-family: 'Permanent Marker', cursive;
+            text-align: center;
+            color: #f0f0f0;
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            border-bottom: 4px dashed #666;
+            padding-bottom: 20px;
+        }
+        
+        .main-title span {
+            color: #ffeb3b;
+        }
+
+        /* Revision Sheet */
+        .revision-sheet {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border: 3px dashed #e1b12c;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .revision-sheet h2 {
+            grid-column: 1 / -1;
+            font-family: 'Permanent Marker', cursive;
+            color: #ffeb3b;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .rev-item {
+            font-size: 1.15rem;
+            background: rgba(0,0,0,0.4);
+            padding: 12px;
+            border-left: 5px solid #00a8ff;
+            border-radius: 4px;
+        }
+        .rev-item strong {
+            color: #ffeb3b;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Sketchnote Grid Canvas */
+        .canvas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Polaroid Cards */
+        .card {
+            background: #252525;
+            padding: 25px 20px 20px 20px;
+            border: 2px solid #555;
+            border-radius: 8px;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.7);
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.02) rotate(-1deg);
+            z-index: 10;
+            border-color: #ffeb3b;
+            border-style: dashed;
+        }
+        
+        .card h3 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            color: #fff;
+            line-height: 1.3;
+        }
+        
+        .card ul {
+            padding-left: 25px;
+            margin: 0;
+            list-style-type: none;
+        }
+        .card ul li {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .card ul li::before {
+            content: "➔";
+            position: absolute;
+            left: -25px;
+            color: #00a8ff;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        /* Tags */
+        .tag {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            padding: 6px 16px;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1rem;
+            color: #1a1a1a;
+            transform: rotate(4deg);
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.6);
+            border: 2px solid #1a1a1a;
+            border-radius: 3px;
+        }
+        .tag.env { background-color: #4cd137; } /* Environment/Green */
+        .tag.infra { background-color: #00a8ff; } /* Infra/Blue */
+        .tag.govt { background-color: #e1b12c; } /* Govt/Yellow */
+        .tag.tech { background-color: #9c88ff; } /* Tech/Purple */
+        .tag.culture { background-color: #e84118; } /* Culture/Orange */
+
+    </style>
+</head>
+<body>
+
+    <h1 class="main-title">Odisha Current Affairs <span>August 2026</span> Sketchnote</h1>
+
+    <!-- Ultra-Short Quick Revision Grid -->
+    <div class="revision-sheet">
+        <h2>⚡ Ultra-Short Quick Revision ⚡</h2>
+        <div class="rev-item"><strong>Bonded Labour SOP:</strong> Released in Odia; DM/SDM escort mandatory.</div>
+        <div class="rev-item"><strong>Catch the Rain:</strong> Ministry of Jal Shakti; groundwater recharge.</div>
+        <div class="rev-item"><strong>Jagadguru Kripalu Univ:</strong> Inaugurated by President Droupadi Murmu (Cuttack).</div>
+        <div class="rev-item"><strong>13th BRICS Ed. Meet:</strong> 5-7 Aug 2026, Bhubaneswar (ECCE, TVET focus).</div>
+        <div class="rev-item"><strong>UNESCO Tag:</strong> Sought for Puri Jagannath Rath Yatra.</div>
+        <div class="rev-item"><strong>PM JANMAN:</strong> 3.12 Lakh beneficiaries; Odisha has 13 PVTGs.</div>
+        <div class="rev-item"><strong>11 GW RE:</strong> Target set by Odisha for 2030 (Purvodaya vision).</div>
+        <div class="rev-item"><strong>Bhubaneswari OCP:</strong> 26.477 MTPA coal; 100% blast-free Surface Miner.</div>
+        <div class="rev-item"><strong>Bargarh Cement Works:</strong> ₹26.81 Crore settlement via conciliation.</div>
+        <div class="rev-item"><strong>Minority Women:</strong> Nai Roshni & PM VIKAS (Socio-economic & skill dev).</div>
+        <div class="rev-item"><strong>Rare Earth Corridor:</strong> Budget '26-27; OMBRIC & Deep Sea Mission setup.</div>
+        <div class="rev-item"><strong>Hockey Jr National:</strong> Odisha beat MP 2-1 (Captain: Deepak Pradhan).</div>
+        <div class="rev-item"><strong>Interim DGP:</strong> Vinaytosh Mishra assumes charge (retires Nov 2026).</div>
+        <div class="rev-item"><strong>Sangeet Natak Akademi '25:</strong> Shubhada Varadkar (Odissi exponent).</div>
+        <div class="rev-item"><strong>47th Sarala Puraskar:</strong> Dr. Ashutosh Parida ('Bishwas De Pruthwi' - ₹7L).</div>
+        <div class="rev-item"><strong>Satkosia TR Probe:</strong> 5-member panel for village relocation issues.</div>
+        <div class="rev-item"><strong>Mission Zero:</strong> Bhubaneswar workshop to end sanitation fatalities (NAMASTE/GARIMA).</div>
+        <div class="rev-item"><strong>Paradip Port:</strong> ₹427.80 Crore projects; 1-millionth tree planted.</div>
+        <div class="rev-item"><strong>Bhubaneswar Airport T3:</strong> AAI seeks ₹1,200 Crore PIB approval.</div>
+        <div class="rev-item"><strong>Kapileshwar Temple:</strong> ₹24.91 Crore for Gangua canal bridge & road; ASI maintenance.</div>
+        <div class="rev-item"><strong>Videsh Siksha Bruti:</strong> Up to ₹25 Lakh/yr for SC/ST overseas PG/Ph.D.</div>
+        <div class="rev-item"><strong>CTTC Bhubaneswar:</strong> 8,000+ engineering students trained (SIP 2026).</div>
+        <div class="rev-item"><strong>Northern Range DIG:</strong> Charan Singh Meena; Sambalpur Commissionerate pending.</div>
+    </div>
+
+    <!-- Sketchnote Cards Canvas -->
+    <div class="canvas">
+        
+        <!-- Topic 1 -->
+        <div class="card">
+            <div class="tag govt">Govt</div>
+            <h3>1. Odisha Issues SOP for Rescue and Rehabilitation of Bonded Labourers</h3>
+            <ul>
+                <li><span class="highlight">Legal Action:</span> Stronger investigation & prosecution for strict punishment of traffickers/middlemen; aligns with Central Govt SOP.</li>
+                <li><span class="highlight">Repatriation:</span> Will not be delayed due to pending investigation or trials.</li>
+                <li><span class="highlight">Escort Provision:</span> DM/SDM ensures representative & police officer accompany rescued worker.</li>
+                <li><span class="highlight">Implementation:</span> SOP released in <span class="highlight">Odia</span> for better departmental coordination.</li>
+                <li><span class="highlight">Occasion:</span> UN World Day Against Trafficking in Persons & Golden Jubilee of Bonded Labour System (Abolition) Act, 1976.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 2 -->
+        <div class="card">
+            <div class="tag env">Environment</div>
+            <h3>2. Catch the Rain in Odisha: From Awareness to Groundwater Recharge</h3>
+            <ul>
+                <li><span class="highlight">Objective:</span> Conserve rainwater by collecting & storing <span class="highlight">"where it falls, when it falls."</span></li>
+                <li><span class="highlight">Implementation:</span> Recharge structures, renovating traditional water bodies, rooftop harvesting, watershed development.</li>
+                <li><span class="highlight">Community:</span> Involves PRIs, ULBs, educational institutions, and locals.</li>
+                <li><span class="highlight">Nodal Agency:</span> Led by <span class="highlight">Ministry of Jal Shakti</span> (National Water Mission) with State support.</li>
+                <li><span class="highlight">Significance:</span> Mitigates groundwater depletion & enhances climate resilience.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 3 -->
+        <div class="card">
+            <div class="tag culture">Culture & Ed</div>
+            <h3>3. President Droupadi Murmu Inaugurates Jagadguru Kripalu University</h3>
+            <ul>
+                <li><span class="highlight">Inauguration:</span> 3 August 2026 at <span class="highlight">Cuttack</span>, Odisha.</li>
+                <li><span class="highlight">Focus:</span> Nurture integrity, discipline, sensitivity, innovation, and national interest.</li>
+                <li><span class="highlight">Viksit Bharat 2047:</span> Crucial role of higher education.</li>
+                <li><span class="highlight">Research:</span> Promotes research, skill development, cultural/spiritual growth.</li>
+                <li><span class="highlight">Odisha's Legacy:</span> Highlighted Cuttack as birthplace/workplace of Madhusudan Das, Gauri Shankar Ray, Netaji, Biju Patnaik, Gopabandhu Das, Harekrushna Mahtab.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 4 -->
+        <div class="card">
+            <div class="tag govt">Govt</div>
+            <h3>4. Odisha to Host 13th BRICS Education Ministers' Meeting</h3>
+            <ul>
+                <li><span class="highlight">Event:</span> 5-7 August 2026 in <span class="highlight">Bhubaneswar</span> under India's BRICS Chairship (Union Ed Minister Pralhad Joshi).</li>
+                <li><span class="highlight">Theme:</span> "Building for Resilience, Innovation, Cooperation and Sustainability."</li>
+                <li><span class="highlight">Priority Areas:</span> ECCE, TVET, MRQ (Mutual Recognition of Qualifications), startups.</li>
+                <li><span class="highlight">Meetings:</span> 3rd BRICS Senior Officials' Meeting also held.</li>
+                <li><span class="highlight">Model BRICS:</span> Youth engagement initiative for multilateral diplomacy.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 5 -->
+        <div class="card">
+            <div class="tag culture">Culture</div>
+            <h3>5. Odisha Seeks UNESCO Intangible Cultural Heritage Tag for Puri Rath Yatra</h3>
+            <ul>
+                <li><span class="highlight">Proposal:</span> CM Mohan Charan Majhi forwarded Shree Jagannath Temple Administration (SJTA) proposal to Union Ministry of Culture & Tourism.</li>
+                <li><span class="highlight">Global Importance:</span> Centuries-old living cultural tradition; tag would enhance global preservation.</li>
+                <li><span class="highlight">Cultural Significance:</span> Embodies cultural diversity, inclusivity, spirituality, craftsmanship, music, dance, and community participation.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 6 -->
+        <div class="card">
+            <div class="tag govt">Govt</div>
+            <h3>6. Odisha's PM JANMAN Initiative Benefits Over 3.12 Lakh PVTGs</h3>
+            <ul>
+                <li><span class="highlight">Implementation:</span> Saturation coverage of basic infrastructure in PVTG habitations.</li>
+                <li><span class="highlight">Beneficiaries:</span> Over <span class="highlight">3.12 lakh</span> covered across the State.</li>
+                <li><span class="highlight">Target Communities:</span> Odisha has <span class="highlight">13 PVTGs</span>, one of the highest in Indian states.</li>
+                <li><span class="highlight">Focus Areas:</span> Pucca houses, safe drinking water, roads, electricity, healthcare, mobile connectivity, livelihoods.</li>
+                <li><span class="highlight">Approach:</span> Convergence of Central/State schemes for socio-economic improvement.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 7 -->
+        <div class="card">
+            <div class="tag env">Environment</div>
+            <h3>7. Odisha Targets 11 GW Renewable Energy Capacity by 2030</h3>
+            <ul>
+                <li><span class="highlight">Target:</span> <span class="highlight">11 GW</span> by 2030, unveiled by Deputy CM Kanak Vardhan Singh Deo at 'E3 Energize Empower East 2026' (IEEMA).</li>
+                <li><span class="highlight">Investment:</span> Leveraging ₹10 lakh crore pipeline.</li>
+                <li><span class="highlight">Vision:</span> Aligns with PM's <span class="highlight">'Purvodaya'</span> vision; focuses on smart grids, AI asset management.</li>
+                <li><span class="highlight">Advantage:</span> Major ports/logistics for eastern/northeastern/export markets.</li>
+                <li><span class="highlight">Motto:</span> "Manufacture in Odisha, Innovate in Odisha and Grow with Odisha."</li>
+            </ul>
+        </div>
+
+        <!-- Topic 8 -->
+        <div class="card">
+            <div class="tag infra">Infra & Tech</div>
+            <h3>8. Bhubaneswari OCP Sets Benchmark for Sustainable Coal Mining</h3>
+            <ul>
+                <li><span class="highlight">Location/Scale:</span> Talcher Coalfield; Peak capacity <span class="highlight">30 MTPA</span>.</li>
+                <li><span class="highlight">Production:</span> FY 25-26 produced <span class="highlight">26.477 MT</span> (105.98% of target); 370.4 MT since inception. FY 26-27 target enhanced to 28 MT.</li>
+                <li><span class="highlight">Tech Adoption:</span> <span class="highlight">100% blast-free</span> Surface Miner tech; CIL's first Automatic Truck Loading System (ATLS); 25 MTPA FMC SILO; >85% dispatched via rail.</li>
+                <li><span class="highlight">Environment:</span> 5-hectare Sal nursery, dust suppression, air quality monitoring.</li>
+                <li><span class="highlight">Record:</span> Zero-fatality for 5 consecutive years; PBT of ₹1,792.60 crore (FY 25-26).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 9 -->
+        <div class="card">
+            <div class="tag govt">Govt</div>
+            <h3>9. Conciliation Resolves Bargarh Cement Works Dispute</h3>
+            <ul>
+                <li><span class="highlight">Settlement:</span> July 2026 between ACC Limited & Hira Cement Shramika Sangha, Bardol.</li>
+                <li><span class="highlight">Dispute Origin:</span> Closure notice on 19 June 2026.</li>
+                <li><span class="highlight">Conciliator:</span> Chiranjeev Saikia, Dy Chief Labour Commissioner (Central), Bhubaneswar.</li>
+                <li><span class="highlight">Financials:</span> Secures a minimum financial package of <span class="highlight">₹26.81 crore</span> for welfare & social security.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 10 -->
+        <div class="card">
+            <div class="tag govt">Govt</div>
+            <h3>10. Ministry of Minority Affairs Capacity Building for Minority Women</h3>
+            <ul>
+                <li><span class="highlight">Nai Roshni:</span> Erstwhile scheme for leadership, rights awareness, and socio-economic empowerment of minority women.</li>
+                <li><span class="highlight">PM VIKAS:</span> Integrated umbrella scheme for 6 notified minority communities.</li>
+                <li><span class="highlight">Components:</span> Skill dev, entrepreneurship, education support, infrastructure.</li>
+                <li><span class="highlight">Eligibility:</span> Women from minority communities in Odisha are eligible under PM VIKAS guidelines.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 11 -->
+        <div class="card">
+            <div class="tag tech">Tech</div>
+            <h3>11. Odisha's Rare Earth Corridor to Drive Science-Led Growth</h3>
+            <ul>
+                <li><span class="highlight">Rare Earth Corridor:</span> Union Budget 2026-27 announced for Odisha, Kerala, AP, TN.</li>
+                <li><span class="highlight">OMBRIC:</span> Odisha Marine Biotechnology Research & Innovation Corridor (IIT-BBS, Berhampur Univ, FMU, NIT-R, IISER, ILS).</li>
+                <li><span class="highlight">Bio-E3 Framework:</span> Biotech for Economy, Environment & Employment.</li>
+                <li><span class="highlight">Space & Ocean:</span> Proposed Space Research Centre (PPP with ISRO); Deep Ocean Mission; <span class="highlight">Odisha Deep Sea Fishing Mission (2026-2036)</span>.</li>
+                <li><span class="highlight">Awareness:</span> Proposed Science City; Swachh Sagar, Surakshit Sagar campaign.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 12 -->
+        <div class="card">
+            <div class="tag culture">Sports</div>
+            <h3>12. Odisha Wins 16th Hockey India Junior Men National Championship 2026</h3>
+            <ul>
+                <li><span class="highlight">Tournament:</span> Division 'A' held in <span class="highlight">Coimbatore</span>.</li>
+                <li><span class="highlight">Champion:</span> Odisha defeated Madhya Pradesh <span class="highlight">2-1</span>.</li>
+                <li><span class="highlight">Winning Goal:</span> Scored by Captain <span class="highlight">Deepak Pradhan</span>.</li>
+                <li><span class="highlight">Third Place:</span> Punjab defeated Jharkhand 6-3 (Patras Hassa scored a hat-trick for Jharkhand).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 13 -->
+        <div class="card">
+            <div class="tag govt">Govt</div>
+            <h3>13. Vinaytosh Mishra Assumes Additional Charge as Interim DGP of Odisha</h3>
+            <ul>
+                <li><span class="highlight">New Interim DGP:</span> Vinaytosh Mishra (CID-CB DG) assumed charge as Head of Police Force (HoPF).</li>
+                <li><span class="highlight">Predecessor:</span> YB Khurania (Retired).</li>
+                <li><span class="highlight">Priorities:</span> Women's safety, organised crime, drugs-free Odisha, cyber offences; ODRAF coordination.</li>
+                <li><span class="highlight">Service:</span> 1993-batch officer retiring <span class="highlight">Nov 30, 2026</span> (Did not meet 6-month residual service criteria for regular DGP).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 14 -->
+        <div class="card">
+            <div class="tag culture">Culture</div>
+            <h3>14. Odissi Exponent Shubhada Varadkar Conferred Sangeet Natak Akademi Award</h3>
+            <ul>
+                <li><span class="highlight">Awardee:</span> Shubhada Varadkar (Odissi dancer, author); First cousin of Leo Varadkar (former Ireland PM).</li>
+                <li><span class="highlight">Award:</span> Sangeet Natak Akademi Award (Akademi Puraskar) for <span class="highlight">2025</span>.</li>
+                <li><span class="highlight">Tradition:</span> Kelucharan Mohapatra school of Odissi.</li>
+                <li><span class="highlight">Prize:</span> <span class="highlight">₹1 lakh</span>, Tamrapatra, Angavastram (Conferred 13 Aug 2026 in New Delhi).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 15 -->
+        <div class="card">
+            <div class="tag culture">Culture</div>
+            <h3>15. Dr. Ashutosh Parida Wins 47th Sarala Puraskar</h3>
+            <ul>
+                <li><span class="highlight">Winner:</span> Dr. Ashutosh Parida (former CSIR-IMMT scientist, poet).</li>
+                <li><span class="highlight">Work:</span> Poetry collection <span class="highlight">'Bishwas De Pruthwi'</span> (2024).</li>
+                <li><span class="highlight">Prize:</span> Citation & <span class="highlight">₹7 lakh</span> cash (Awarded by IMPACT/IMFA).</li>
+                <li><span class="highlight">Ila-Bansidhar Panda Kala Samman:</span> Durga Charan Ranbir (Odissi) & Damodar Behera (art educator) - ₹2.5 lakh & copper plaque each.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 16 -->
+        <div class="card">
+            <div class="tag env">Environment</div>
+            <h3>16. Odisha Constitutes Panel to Probe Village Relocation in Satkosia Tiger Reserve</h3>
+            <ul>
+                <li><span class="highlight">Panel:</span> 5-member committee headed by ACS Revenue & Disaster Mgmt following OHRC directions. Includes former NTCA Member Secy Anup Nayak.</li>
+                <li><span class="highlight">Probe:</span> Examine village-wise relocation process (except Raiguda village).</li>
+                <li><span class="highlight">Legal Checks:</span> Wildlife Protection Act 1972, Forest Rights Act 2006, NTCA guidelines.</li>
+                <li><span class="highlight">OHRC Findings:</span> Forest rights unsettled, Gram Sabha procedures ignored. No relocation from buffer/fringe until report is submitted.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 17 -->
+        <div class="card">
+            <div class="tag infra">Infra & Health</div>
+            <h3>17. National Workshop on "Mission Zero" to End Fatalities in Sanitation Work</h3>
+            <ul>
+                <li><span class="highlight">Event:</span> Organised by Ministry of Social Justice & Empowerment on 22 August 2026, <span class="highlight">Bhubaneswar</span>.</li>
+                <li><span class="highlight">Mission Zero:</span> Achieve zero fatalities in sanitation work.</li>
+                <li><span class="highlight">Approach:</span> Whole-of-Government approach (emphasised by Secy Sudhansh Pant) to replace manual practices with mechanisation.</li>
+                <li><span class="highlight">Schemes:</span> <span class="highlight">NAMASTE</span> (mechanised ecosystem) and <span class="highlight">GARIMA</span> (safety, dignity, livelihood).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 18 -->
+        <div class="card">
+            <div class="tag infra">Infra</div>
+            <h3>18. Sarbananda Sonowal Inaugurates ₹427.80 Crore Projects at Paradip Port</h3>
+            <ul>
+                <li><span class="highlight">7 Major Projects:</span> Total ₹427.80 crore at Paradip Port Authority (PPA).</li>
+                <li><span class="highlight">Dredging:</span> ₹352 crore for Capesize vessels in inner harbour.</li>
+                <li><span class="highlight">Atharbanki Bridge:</span> ₹24.89 crore 500m 3-lane bridge.</li>
+                <li><span class="highlight">Vessel Traffic Mgmt:</span> ₹15.50 crore radar, AI, CCTV (20 NM range). Piped Natural Gas: ₹20 crore in Madhuban.</li>
+                <li><span class="highlight">Green Drive:</span> Planted one-millionth tree. Three major mechanisation berth projects included.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 19 -->
+        <div class="card">
+            <div class="tag infra">Infra</div>
+            <h3>19. AAI Seeks Approval for ₹1,200-Crore New Terminal at Bhubaneswar Airport</h3>
+            <ul>
+                <li><span class="highlight">Proposal:</span> AAI submitted proposal to Public Investment Board (PIB) for Terminal 3 (T3).</li>
+                <li><span class="highlight">Airport:</span> Biju Patnaik International Airport (BPIA), Bhubaneswar.</li>
+                <li><span class="highlight">Cost:</span> Approx <span class="highlight">₹1,200 crore</span>.</li>
+                <li><span class="highlight">Objective:</span> Expand infrastructure for growing air-traffic demand & strengthen Bhubaneswar as an eastern India aviation hub.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 20 -->
+        <div class="card">
+            <div class="tag infra">Infra & Culture</div>
+            <h3>20. Odisha Sanctions ₹24.91 Crore for Kapileshwar Temple</h3>
+            <ul>
+                <li><span class="highlight">Sanction:</span> <span class="highlight">₹24.91 crore</span> by Odisha Govt.</li>
+                <li><span class="highlight">Project:</span> Bridge over Gangua Canal & 2-km road for direct connectivity to ancient Shaivite shrine (Bhubaneswar).</li>
+                <li><span class="highlight">ASI Role:</span> Maintenance and conservation officially handed over to the Archaeological Survey of India (ASI, est 1861).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 21 -->
+        <div class="card">
+            <div class="tag govt">Govt</div>
+            <h3>21. Odisha Launches Videsh Siksha Bruti Scheme for SC and ST Students</h3>
+            <ul>
+                <li><span class="highlight">Scheme:</span> Videsh Siksha Bruti Scheme for meritorious SC & ST students.</li>
+                <li><span class="highlight">Purpose:</span> Pursue postgraduate and doctoral studies abroad.</li>
+                <li><span class="highlight">Assistance:</span> Up to <span class="highlight">₹25 lakh</span> per year.</li>
+                <li><span class="highlight">Commencement:</span> Starts from 2025-26 academic session to boost social inclusion and human capital development.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 22 -->
+        <div class="card">
+            <div class="tag tech">Tech</div>
+            <h3>22. CTTC Bhubaneswar Trains Over 8,000 Engineering Students</h3>
+            <ul>
+                <li><span class="highlight">Institution:</span> Central Tool Room and Training Centre (CTTC), Bhubaneswar.</li>
+                <li><span class="highlight">Programme:</span> Summer Internship Programme 2026.</li>
+                <li><span class="highlight">Scale:</span> Trained more than <span class="highlight">8,000</span> engineering students.</li>
+                <li><span class="highlight">Focus:</span> Industry-oriented training, hands-on practical skills to improve employability in manufacturing & engineering sectors.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 23 -->
+        <div class="card">
+            <div class="tag govt">Govt</div>
+            <h3>23. Charan Singh Meena Takes Charge as DIG of Odisha Police</h3>
+            <ul>
+                <li><span class="highlight">New DIG:</span> Charan Singh Meena takes over Northern Range (replacing IG Himansu Lal).</li>
+                <li><span class="highlight">System Debate:</span> Sambalpur currently relies on district admin; 2023 violence highlighted limitations.</li>
+                <li><span class="highlight">Commissionerate Police System:</span> Proposal for Sambalpur, Rourkela, Berhampur approved by Centre in Jan 2020 but is <span class="highlight">yet to become operational</span>.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
