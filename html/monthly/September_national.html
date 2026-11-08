@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketchnote Visual Board - OPSC ASO Sept 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --text-light: #f0f0f0;
+            --hl-yellow: #ffeb3b;
+            --hl-green: #4cd137;
+            --hl-cyan: #00e5ff;
+            --tag-env: #4cd137;
+            --tag-infra: #00a8ff;
+            --tag-govt: #e1b12c;
+            --tag-tech: #9c88ff;
+            --tag-culture: #e84118;
+            --tag-sports: #ff4757;
+            --tag-global: #ff6b81;
+            --card-bg: #2b2b2b;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Caveat', cursive;
+            margin: 0;
+            padding: 20px;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Permanent Marker', cursive;
+            text-align: center;
+            color: var(--hl-yellow);
+            margin-top: 10px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 5px; }
+        
+        .hl { color: var(--hl-yellow); font-weight: bold; }
+        .hl-g { color: var(--hl-green); font-weight: bold; }
+        .hl-c { color: var(--hl-cyan); font-weight: bold; }
+
+        /* Revision Sheet */
+        .revision-sheet {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed #555;
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin: 0 auto 40px auto;
+            max-width: 1400px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .revision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        .rev-item {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 12px;
+            border-left: 4px solid var(--hl-yellow);
+            border-radius: 4px;
+        }
+
+        /* Main Canvas Grid */
+        .board-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px dashed #666;
+            border-radius: 8px;
+            padding: 20px 20px 15px 20px;
+            position: relative;
+            box-shadow: 6px 6px 15px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: rotate(-1deg) scale(1.02) translateY(-5px);
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.8);
+            border-color: var(--hl-cyan);
+            z-index: 10;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            text-align: left;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            line-height: 1.2;
+            border-bottom: 2px solid #444;
+            padding-bottom: 8px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            margin: 0;
+            list-style-type: disc;
+        }
+        .card li { margin-bottom: 6px; }
+
+        /* Tags */
+        .tag {
+            position: absolute;
+            top: -12px;
+            right: -10px;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: 'Permanent Marker', cursive;
+            color: #111;
+            font-size: 0.9rem;
+            transform: rotate(4deg);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .tag-govt { background: var(--tag-govt); }
+        .tag-tech { background: var(--tag-tech); }
+        .tag-infra { background: var(--tag-infra); }
+        .tag-env { background: var(--tag-env); }
+        .tag-culture { background: var(--tag-culture); }
+        .tag-sports { background: var(--tag-sports); }
+        .tag-global { background: var(--tag-global); }
+    </style>
+</head>
+<body>
+
+    <h1>📝 OPSC ASO: 52 Topics Extraction 📝</h1>
+    <h2>September 2026 Consolidation</h2>
+
+    <!-- ULTRA-SHORT REVISION SHEET -->
+    <div class="revision-sheet">
+        <h3 style="color: var(--hl-cyan); margin: 0 0 15px 0;">⚡ ULTRA-SHORT REVISION GRID (Core Facts)</h3>
+        <div class="revision-grid">
+            <div class="rev-item"><span class="hl">Rangeen Machhli:</span> Lakshadweep (Agatti), ₹62Cr</div>
+            <div class="rev-item"><span class="hl">Roger Federer:</span> Hall of Fame '26, 20 Slams</div>
+            <div class="rev-item"><span class="hl">Hockey WC:</span> Germany back-to-back, 4th title</div>
+            <div class="rev-item"><span class="hl">Ozone Water:</span> Dehra (HP), ₹46Cr</div>
+            <div class="rev-item"><span class="hl">Sports Genomics:</span> Gujarat (1st in India)</div>
+            <div class="rev-item"><span class="hl">Lionel Messi:</span> Retires 2026, 39 yrs, 8 Ballon d'Or</div>
+            <div class="rev-item"><span class="hl">Mizoram Song:</span> 'Ro Min Rel Sak Ang Che'</div>
+            <div class="rev-item"><span class="hl">UPI Uzbekistan:</span> HUMO partnership</div>
+            <div class="rev-item"><span class="hl">V. Sooryavanshi:</span> Youngest Duleep 50 (15y 157d)</div>
+            <div class="rev-item"><span class="hl">Tripura Rice:</span> 18MT to Austria/Netherlands (NPOP)</div>
+            <div class="rev-item"><span class="hl">NHAI Green Awards:</span> NH-16, NH-163, NH-44</div>
+            <div class="rev-item"><span class="hl">Veligonda Project:</span> AP (Krishna river), ₹7983Cr</div>
+            <div class="rev-item"><span class="hl">Women CT 2027:</span> India hosts (replaced Sri Lanka)</div>
+            <div class="rev-item"><span class="hl">SCO Capital:</span> Lahore (Tourism & Culture 2026-27)</div>
+            <div class="rev-item"><span class="hl">Gollala Gudi:</span> Kakatiya temple, Nat. Importance</div>
+            <div class="rev-item"><span class="hl">Delhi Univ:</span> India's 1st Carbon Garden</div>
+            <div class="rev-item"><span class="hl">Miss World 2026:</span> Joheirry Mola (Dominican Rep)</div>
+            <div class="rev-item"><span class="hl">72nd Film Awards:</span> Gujarat (Ekta Nagar)</div>
+            <div class="rev-item"><span class="hl">UNGA Child Marriage:</span> 27 Nov (India co-sponsor)</div>
+            <div class="rev-item"><span class="hl">Kishor Makwana:</span> Dr APJ Abdul Kalam Award (NCSC)</div>
+            <div class="rev-item"><span class="hl">Pickleball WC:</span> India 4th (41 medals), Vietnam</div>
+            <div class="rev-item"><span class="hl">Jr Hockey Asia:</span> India 6th title (beat S. Korea)</div>
+            <div class="rev-item"><span class="hl">BRICS Summit:</span> 18th in New Delhi</div>
+            <div class="rev-item"><span class="hl">Colombo Conclave:</span> Visakhapatnam (6 members)</div>
+            <div class="rev-item"><span class="hl">Women Asia Cup:</span> India 8th title (beat Sri Lanka)</div>
+            <div class="rev-item"><span class="hl">Duleep Trophy:</span> East Zone wins (after 13 yrs)</div>
+            <div class="rev-item"><span class="hl">Southern Rly:</span> 100% Electrification (5068 RKM)</div>
+            <div class="rev-item"><span class="hl">Kishau Project:</span> 6 States on Tons River</div>
+            <div class="rev-item"><span class="hl">World Ozone Day:</span> 16 Sept (Kigali Amendment focus)</div>
+            <div class="rev-item"><span class="hl">US Open 2026:</span> Zverev beats Shelton</div>
+            <div class="rev-item"><span class="hl">BIMSTEC Trad Med:</span> Goa (AIIA)</div>
+            <div class="rev-item"><span class="hl">Dadasaheb Phalke:</span> Anant Nag (2024 awardee)</div>
+            <div class="rev-item"><span class="hl">NHAI OneTag:</span> FASTag portability (Rajmargyatra app)</div>
+            <div class="rev-item"><span class="hl">Gender Gap Index:</span> India 131st, Iceland 1st</div>
+            <div class="rev-item"><span class="hl">Saroja Vaidyanathan:</span> Vasundhara Doraswamy</div>
+            <div class="rev-item"><span class="hl">NITI EV Index:</span> Delhi tops (84 pts)</div>
+            <div class="rev-item"><span class="hl">Abhishek Sharma:</span> 30-ball T20I Century (Record)</div>
+            <div class="rev-item"><span class="hl">Formula 1:</span> Task force by Mansukh Mandaviya</div>
+            <div class="rev-item"><span class="hl">20th Asian Games:</span> Aichi-Nagoya, Japan</div>
+            <div class="rev-item"><span class="hl">AI-FunZone:</span> Sikkim (EkStep Foundation)</div>
+            <div class="rev-item"><span class="hl">Ayurveda Day:</span> 23 Sep (Nagpur, 11th edition)</div>
+            <div class="rev-item"><span class="hl">Asian Games Gold:</span> Ind Women Cricket (beat SL)</div>
+            <div class="rev-item"><span class="hl">SafeStay App:</span> AP Police (AI Drone Portal too)</div>
+            <div class="rev-item"><span class="hl">Pi Mari-i (ZT Lalrithangi):</span> FAO 100 Women Heroes</div>
+            <div class="rev-item"><span class="hl">DURGA Scheme:</span> Delhi (Pink EVs for Women/Trans)</div>
+            <div class="rev-item"><span class="hl">Asian Games Sep 26:</span> Kabaddi Gold, Marathon Silver</div>
+            <div class="rev-item"><span class="hl">World Tourism Day:</span> 27 Sep (AI Redesign Tourism)</div>
+            <div class="rev-item"><span class="hl">LNG Train:</span> 1st in India (Sabarmati, Gujarat)</div>
+            <div class="rev-item"><span class="hl">4 Mega Ports:</span> Kandla, JNPA, Paradip, Mundra</div>
+            <div class="rev-item"><span class="hl">WEF TTDI 2026:</span> India 31st (up 8/9 places)</div>
+            <div class="rev-item"><span class="hl">SASTRA-Ramanujan:</span> Sarah Peluse (Stanford)</div>
+            <div class="rev-item"><span class="hl">WorldSkills Shanghai:</span> India 10th (6 Silver)</div>
+        </div>
+    </div>
+
+    <!-- MAIN SKETCHNOTE CANVAS -->
+    <div class="board-container">
+
+        <!-- 1 -->
+        <div class="card">
+            <div class="tag tag-govt">Govt Initiative</div>
+            <h3>1. Mission Rangeen Machhli 2031</h3>
+            <ul>
+                <li>Launched in <span class="hl">Agatti, Lakshadweep</span> by VP C.P. Radhakrishnan.</li>
+                <li>Focuses on <span class="hl-c">ornamental fisheries</span> development.</li>
+                <li><span class="hl">₹62 crore</span> approved under PMMSY.</li>
+                <li>Potential: >1 lakh tonnes (<span class="hl">94k tuna</span>).</li>
+                <li>India's seafood exports crossed <span class="hl">₹73,000 crore</span> (FY).</li>
+                <li>Aims to bolster Blue Economy for Viksit Bharat 2047.</li>
+            </ul>
+        </div>
+
+        <!-- 2 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>2. Roger Federer - Hall of Fame</h3>
+            <ul>
+                <li>Inducted into Intl Tennis Hall of Fame Class of <span class="hl">2026</span> (Newport, RI).</li>
+                <li>Won <span class="hl">20 Grand Slams</span>, 103 ATP titles.</li>
+                <li><span class="hl">310 weeks</span> at World No. 1 (237 consecutive - Record).</li>
+                <li>Retired in 2022. 2008 Olympic doubles gold.</li>
+                <li>Inducted alongside <span class="hl-c">Mary Carillo</span> (Contributor).</li>
+            </ul>
+        </div>
+
+        <!-- 3 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>3. Germany Wins FIH Hockey WC</h3>
+            <ul>
+                <li>Defeated Spain <span class="hl">1-0</span> in Belfius Arena, Belgium.</li>
+                <li>First men's team to win <span class="hl-c">back-to-back titles twice</span>.</li>
+                <li><span class="hl">4th Title</span> (2002, 2006, 2023, 2026) equalling Pakistan.</li>
+                <li>Michel Struthoff scored sole goal (44').</li>
+                <li><span class="hl">Christopher Rühr</span> (PoM). Argentina 3rd, India 8th.</li>
+            </ul>
+        </div>
+
+        <!-- 4 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>4. HP Ozone Drinking Water</h3>
+            <ul>
+                <li>India's first state ozone-based drinking water project.</li>
+                <li>Located in <span class="hl">Dehra, Kangra district</span>.</li>
+                <li>Announced by CM Sukhvinder Singh Sukhu.</li>
+                <li>Cost: <span class="hl">₹46 crore</span>.</li>
+                <li>Uses <span class="hl-c">Ozone (O3)</span> for disinfection and better taste.</li>
+            </ul>
+        </div>
+
+        <!-- 5 -->
+        <div class="card">
+            <div class="tag tag-tech">Science/Tech</div>
+            <h3>5. Gujarat Sports Genomics</h3>
+            <ul>
+                <li><span class="hl">1st in India</span>, driven by GBRC.</li>
+                <li>Target: <span class="hl">2,000 athlete samples/yr</span> (10k in 5 yrs).</li>
+                <li>Tennis 1st, then archery/fencing/judo/shooting (Vijayi Bharat).</li>
+                <li>Uses <span class="hl-c">Whole-Genome Sequencing</span> for endurance traits.</li>
+                <li>Creates <span class="hl">G-AGD</span> database for profiling.</li>
+            </ul>
+        </div>
+
+        <!-- 6 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>6. Lionel Messi Retires</h3>
+            <ul>
+                <li>Retired from Int. Football at age <span class="hl">39</span> (31 Aug 2026).</li>
+                <li>After losing 2026 World Cup final <span class="hl-c">1-0 to Spain</span>.</li>
+                <li><span class="hl">21-year career</span> (207 apps, 125 goals - record).</li>
+                <li>Titles: Copa '21 & '24, WC '22.</li>
+                <li>Record <span class="hl">8-time Ballon d'Or</span> winner. Plays for Inter Miami.</li>
+            </ul>
+        </div>
+
+        <!-- 7 -->
+        <div class="card">
+            <div class="tag tag-culture">Culture</div>
+            <h3>7. Mizoram Official State Song</h3>
+            <ul>
+                <li>Assembly adopted <span class="hl">'Ro Min Rel Sak Ang Che'</span>.</li>
+                <li>Moved by CM Lalduhoma.</li>
+                <li>Composed by <span class="hl-c">Rokunga (1947)</span>.</li>
+                <li>Means: 'Be Thou our Counsellor'.</li>
+                <li>Regarded as anthem during MNF insurgency period.</li>
+            </ul>
+        </div>
+
+        <!-- 8 -->
+        <div class="card">
+            <div class="tag tag-tech">FinTech</div>
+            <h3>8. UPI in Uzbekistan (HUMO)</h3>
+            <ul>
+                <li>NIPL agreement with <span class="hl">NIPC (HUMO)</span>.</li>
+                <li>Signed during PM Modi's visit (30 Aug 2026).</li>
+                <li>Indians can scan <span class="hl-c">UZQR</span> via UPI apps (P2M).</li>
+                <li>Reduces cash/card dependence.</li>
+                <li>UPI previously accepted in <span class="hl">10 countries</span>.</li>
+            </ul>
+        </div>
+
+        <!-- 9 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>9. Vaibhav Sooryavanshi Record</h3>
+            <ul>
+                <li><span class="hl">Youngest Duleep Trophy</span> half-centurion.</li>
+                <li>Age: <span class="hl">15 years and 157 days</span>.</li>
+                <li>Scored <span class="hl-c">92 off 81 balls</span> (East Zone vs Central Zone).</li>
+                <li>Broke 57-year-old record held by Laxman Singh (1969).</li>
+            </ul>
+        </div>
+
+        <!-- 10 -->
+        <div class="card">
+            <div class="tag tag-infra">Agri/Trade</div>
+            <h3>10. Tripura Ethnic Rice Export</h3>
+            <ul>
+                <li><span class="hl">18 MT</span> NPOP-certified ethnic rice to Austria & Netherlands.</li>
+                <li>Facilitated by <span class="hl">APEDA</span> & TSOFDA.</li>
+                <li>Varieties: <span class="hl-c">Kali Khasa, Harinarayan, Biron, Maimi Hanga</span>.</li>
+                <li>Expected <span class="hl">40% higher price</span> realization.</li>
+            </ul>
+        </div>
+
+        <!-- 11 -->
+        <div class="card">
+            <div class="tag tag-env">Environment</div>
+            <h3>11. NHAI Green Highways Awards</h3>
+            <ul>
+                <li>Promotes sustainable landscaping.</li>
+                <li>Avenue Plantation: <span class="hl">NH-16 Chilakaluripet</span> bypass (AP).</li>
+                <li>Median Plantation: <span class="hl">NH-163 Hyd-Yadgiri</span>.</li>
+                <li>Land Parcel: <span class="hl-c">NH-44 Jamtha Clover Leaf</span> (Oxygen Bird Park, Nagpur).</li>
+                <li>Mandated under Green Highways Policy 2015.</li>
+            </ul>
+        </div>
+
+        <!-- 12 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>12. AP Veligonda Project</h3>
+            <ul>
+                <li>Inaugurated by CM N. Chandrababu Naidu.</li>
+                <li>Diverts Krishna River from <span class="hl">Srisailam to Nallamala Sagar</span>.</li>
+                <li>Phase 1 cost: <span class="hl-c">₹7,983 crore</span>. (Stores 10.70 TMC).</li>
+                <li>Twin tunnels (18.8 km). Markapuram in 1 lakh cr global horticulture hub.</li>
+                <li>Phase 2 target: <span class="hl">2028</span>.</li>
+            </ul>
+        </div>
+
+        <!-- 13 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>13. ICC Women's CT 2027</h3>
+            <ul>
+                <li><span class="hl">India</span> replaces Sri Lanka as host.</li>
+                <li>Dates: <span class="hl">14-28 Feb 2027</span>.</li>
+                <li>Venues: <span class="hl-c">Mumbai & Vadodara</span>.</li>
+                <li>6 Teams (Aus, Eng, Ind, NZ, SA, SL).</li>
+                <li>India previously hosted & won Women's ODI WC 2025.</li>
+            </ul>
+        </div>
+
+        <!-- 14 -->
+        <div class="card">
+            <div class="tag tag-global">Global</div>
+            <h3>14. SCO Capital: Lahore</h3>
+            <ul>
+                <li>Lahore designated SCO <span class="hl">Tourism & Cultural Capital</span> (2026-27).</li>
+                <li>Announced in <span class="hl-c">Bishkek</span>. Coincides with Pak Chairmanship.</li>
+                <li>Past: Varanasi, Almaty, Qingdao, Cholpon-Ata.</li>
+                <li>Pak Theme: Turning Vision into Action...</li>
+            </ul>
+        </div>
+
+        <!-- 15 -->
+        <div class="card">
+            <div class="tag tag-culture">Culture</div>
+            <h3>15. Gollala Gudi Monument</h3>
+            <ul>
+                <li><span class="hl">National Importance</span> by ASI (Palampet, Telangana).</li>
+                <li><span class="hl-c">Kakatiya-era</span> Trikutalaya temple.</li>
+                <li>Near UNESCO Ramappa Temple.</li>
+                <li>Features hamsas (swans), jali work, Vishnu/Ganesha images.</li>
+            </ul>
+        </div>
+
+        <!-- 16 -->
+        <div class="card">
+            <div class="tag tag-env">Environment</div>
+            <h3>16. Delhi Univ Carbon Garden</h3>
+            <ul>
+                <li>India's <span class="hl">First Carbon Garden</span> inaugurated at Dept of Botany.</li>
+                <li>2,000 sq ft, <span class="hl-c">50 species</span>.</li>
+                <li>Mini-biodiversity park (plants + microbes).</li>
+                <li>Aims at carbon sequestration & pollution breakdown.</li>
+            </ul>
+        </div>
+
+        <!-- 17 -->
+        <div class="card">
+            <div class="tag tag-culture">Culture</div>
+            <h3>17. Miss World 2026</h3>
+            <ul>
+                <li><span class="hl">Joheirry Mola</span> (Dominican Republic) crowned.</li>
+                <li>73rd edition in <span class="hl-c">Nha Trang, Vietnam</span>.</li>
+                <li>Runner-ups: Spain & Malaysia.</li>
+                <li>Initiative: "Voices of Tomorrow".</li>
+                <li>India's Nikita Porwal reached Top 40. Next: <span class="hl">Tanzania 2027</span>.</li>
+            </ul>
+        </div>
+
+        <!-- 18 -->
+        <div class="card">
+            <div class="tag tag-culture">Culture</div>
+            <h3>18. 72nd National Film Awards</h3>
+            <ul>
+                <li><span class="hl">First time outside Delhi</span> (held at Ekta Nagar/Kevadia, Gujarat).</li>
+                <li>President Droupadi Murmu conferred.</li>
+                <li>Best Film: <span class="hl-c">Article 370</span>.</li>
+                <li>Best Actress: Yami Gautam. Best Actor: Mammootty & Kartik Aaryan.</li>
+                <li>Administered by <span class="hl">NFDC</span>.</li>
+            </ul>
+        </div>
+
+        <!-- 19 -->
+        <div class="card">
+            <div class="tag tag-global">Global</div>
+            <h3>19. UNGA Child Marriage Res</h3>
+            <ul>
+                <li>India co-sponsored resolution.</li>
+                <li>Declares <span class="hl">27 November</span> as Int. Day for Elimination of Child, Early, Forced Marriage.</li>
+                <li>Highlights <span class="hl-c">Prohibition of Child Marriage Act, 2006</span> (India: F<18, M<21).</li>
+            </ul>
+        </div>
+
+        <!-- 20 -->
+        <div class="card">
+            <div class="tag tag-govt">Govt/Awards</div>
+            <h3>20. Kishor Makwana Award</h3>
+            <ul>
+                <li>Chairman of <span class="hl">NCSC</span> conferred Dr. APJ Abdul Kalam Jan Seva Award 2026.</li>
+                <li>Presented at <span class="hl-c">16th Sansad Ratna Awards</span>.</li>
+                <li>Recognizes SC rights protection (Article 338).</li>
+            </ul>
+        </div>
+
+        <!-- 21 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>21. Pickleball World Cup</h3>
+            <ul>
+                <li>India finished <span class="hl">4th</span> (Da Nang, Vietnam).</li>
+                <li><span class="hl-c">41 Medals</span> (7G, 17S, 17B). Jumped from 7th.</li>
+                <li>Kids team won Silver (Veer Shah best captain).</li>
+                <li>Purvansh Patel (Gold U-18), Bhushan Akut (3 Gold 60+).</li>
+            </ul>
+        </div>
+
+        <!-- 22 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>22. Jr Hockey Asia Cup 2026</h3>
+            <ul>
+                <li>India won record <span class="hl">6th title</span> (Moqi, China).</li>
+                <li>Beat <span class="hl-c">South Korea 4-1</span>.</li>
+                <li>Goals: Ajeet Yadav, Anmol Ekka, Prabhdeep, Ashu Maurya.</li>
+                <li>Hockey India cash: ₹3L players, ₹1.5L staff.</li>
+            </ul>
+        </div>
+
+        <!-- 23 -->
+        <div class="card">
+            <div class="tag tag-global">Global</div>
+            <h3>23. BRICS New Delhi Dec 2026</h3>
+            <ul>
+                <li><span class="hl">18th Summit</span> held at Bharat Mandapam, New Delhi.</li>
+                <li>Marks <span class="hl-c">20th anniversary</span> of BRICS.</li>
+                <li>Theme: Building for Resilience, Innovation, Cooperation, Sustainability.</li>
+                <li>Focus: Global South, multilateralism, tech.</li>
+            </ul>
+        </div>
+
+        <!-- 24 -->
+        <div class="card">
+            <div class="tag tag-global">Global/Security</div>
+            <h3>24. Colombo Security Conclave</h3>
+            <ul>
+                <li>Table Top Exercise at <span class="hl">ENC, Visakhapatnam</span>.</li>
+                <li>Theme: Response to Illicit Maritime Activities in IOR.</li>
+                <li>Aligned with <span class="hl-c">MAHASAGAR</span> vision.</li>
+                <li>6 Members: India, BD, SL, Maldives, Mauritius, Seychelles.</li>
+            </ul>
+        </div>
+
+        <!-- 25 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>25. Women's Asia Cup Cricket</h3>
+            <ul>
+                <li>India won record <span class="hl">8th title</span> in Dubai.</li>
+                <li>Beat Sri Lanka by <span class="hl-c">72 runs</span> (183/5 vs 111).</li>
+                <li><span class="hl">Shafali Verma</span> PoM & PoS (fastest fifty in 24 balls).</li>
+                <li>Team led by Harmanpreet Kaur; went unbeaten.</li>
+            </ul>
+        </div>
+
+        <!-- 26 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>26. East Zone Wins Duleep</h3>
+            <ul>
+                <li>Won Duleep Trophy 2026, ending a <span class="hl">13-year wait</span>.</li>
+                <li>Posted massive <span class="hl-c">708 runs</span> in first innings.</li>
+                <li>Demonstrates regional talent strength in eastern India.</li>
+            </ul>
+        </div>
+
+        <!-- 27 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>27. Southern Railway 100%</h3>
+            <ul>
+                <li>Achieved 100% electrification of <span class="hl">5,068 RKM</span> network.</li>
+                <li>Final section: <span class="hl-c">Pattukkottai-Karaikudi (71 RKM)</span>.</li>
+                <li>SR intro'd electric traction in May 1931 (Madras 2nd after Bombay).</li>
+            </ul>
+        </div>
+
+        <!-- 28 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>28. Kishau Multipurpose Proj</h3>
+            <ul>
+                <li>Signed by 6 states: <span class="hl">UP, UK, HP, Raj, Del, Har</span>.</li>
+                <li>232.6m dam on <span class="hl-c">Tons River</span> (UK/HP border).</li>
+                <li>90% Centre, 10% States.</li>
+                <li>1,562 MCM storage, 97k hectares irrigation, 1,476 MU power. <span class="hl">Delhi</span> major beneficiary.</li>
+            </ul>
+        </div>
+
+        <!-- 29 -->
+        <div class="card">
+            <div class="tag tag-env">Environment</div>
+            <h3>29. World Ozone Day 2026</h3>
+            <ul>
+                <li>Observed on <span class="hl">16 September</span>.</li>
+                <li>Theme: <span class="hl-c">"Global action for a cooler planet"</span>.</li>
+                <li>Commemorates 1987 Montreal Protocol.</li>
+                <li>Highlights <span class="hl">Kigali Amendment</span> (phasing down HFCs).</li>
+                <li>Ozone hole discovered 1985 by British Antarctic Survey.</li>
+            </ul>
+        </div>
+
+        <!-- 30 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>30. Zverev Wins US Open</h3>
+            <ul>
+                <li>Alexander Zverev (Germany) beat <span class="hl">Ben Shelton</span> (USA).</li>
+                <li><span class="hl-c">2nd Grand Slam</span> in 2026 (won Roland Garros).</li>
+                <li>4th man in Open Era to win first 2 majors in same season.</li>
+                <li>Tour-leading 53 wins in 2026.</li>
+            </ul>
+        </div>
+
+        <!-- 31 -->
+        <div class="card">
+            <div class="tag tag-tech">Health/Tech</div>
+            <h3>31. BIMSTEC Trad Med Conf</h3>
+            <ul>
+                <li>3rd Conference in <span class="hl">Goa</span> (AIIA nodal institute).</li>
+                <li>Covers Genetic Resources, IPR, Prior Informed Consent (PIC).</li>
+                <li>Highlighted <span class="hl-c">Traditional Knowledge Digital Library (TKDL)</span>.</li>
+                <li>India proposed BIMSTEC CoE in Trad Med (2025).</li>
+            </ul>
+        </div>
+
+        <!-- 32 -->
+        <div class="card">
+            <div class="tag tag-culture">Culture</div>
+            <h3>32. Dadasaheb Phalke 2024</h3>
+            <ul>
+                <li>Veteran actor <span class="hl">Anant Nag</span> awarded for 2024.</li>
+                <li>Conferred at 72nd National Film Awards (Kevadia).</li>
+                <li>300+ films (Kannada debut: Sankalpa, Hindi: Ankur, Malgudi Days).</li>
+                <li>Award comprises <span class="hl-c">Swarna Kamal, ₹15 lakh</span>.</li>
+            </ul>
+        </div>
+
+        <!-- 33 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>33. 'OneTag' FASTag Service</h3>
+            <ul>
+                <li>Hosted on NHAI's <span class="hl">Rajmargyatra app</span>.</li>
+                <li>Allows <span class="hl-c">portability</span> of issuer bank without changing physical tag.</li>
+                <li>Requires 6-digit MVC. 6-month cooling period.</li>
+                <li>Joint initiative of IHMCL & NPCI (FASTag >98% penetration).</li>
+            </ul>
+        </div>
+
+        <!-- 34 -->
+        <div class="card">
+            <div class="tag tag-global">Global</div>
+            <h3>34. Global Gender Gap 2026</h3>
+            <ul>
+                <li>WEF report: India ranked <span class="hl">131st</span> (64.5% gap closed).</li>
+                <li><span class="hl-c">Iceland 1st</span> (93%), Finland 2nd, Norway 3rd.</li>
+                <li>4 metrics: Econ, Edu, Health, Pol. Empowerment.</li>
+                <li>India Edu Attainment: <span class="hl">96.6%</span>. Full parity is 120 yrs away.</li>
+            </ul>
+        </div>
+
+        <!-- 35 -->
+        <div class="card">
+            <div class="tag tag-culture">Culture</div>
+            <h3>35. Vasundhara Doraswamy</h3>
+            <ul>
+                <li>Receives Padmabhushan Guru Dr <span class="hl">Saroja Vaidyanathan</span> Award 2026.</li>
+                <li>Presented by Nataraj Music & Dance Academy (NMDA), Vizag.</li>
+                <li>Integrates <span class="hl-c">Ashtanga Vinyasa Yoga & Bharatanatyam</span>.</li>
+                <li>Winner of Sangeet Natak Akademi Award.</li>
+            </ul>
+        </div>
+
+        <!-- 36 -->
+        <div class="card">
+            <div class="tag tag-infra">Infra/EV</div>
+            <h3>36. India EV Mobility Index</h3>
+            <ul>
+                <li>NITI Aayog's IEMI 2025: <span class="hl">Delhi tops (84 pts)</span>.</li>
+                <li>Followed by Mah (78), Kar (73), Chd (71).</li>
+                <li>Delhi led Transport Electrification.</li>
+                <li><span class="hl-c">Karnataka</span> led charging infrastructure readiness.</li>
+            </ul>
+        </div>
+
+        <!-- 37 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>37. Abhishek Sharma Record</h3>
+            <ul>
+                <li>Scored <span class="hl">30-ball century</span> (108 off 34) vs Afghanistan.</li>
+                <li>Fastest T20I century by Indian (broke Rohit's 35-ball rec).</li>
+                <li><span class="hl-c">3rd fastest overall</span> in men's T20I.</li>
+                <li>First to score two T20I tons in <40 balls.</li>
+            </ul>
+        </div>
+
+        <!-- 38 -->
+        <div class="card">
+            <div class="tag tag-govt">Govt/Sports</div>
+            <h3>38. Formula 1 Revival Task Force</h3>
+            <ul>
+                <li>Announced by Minister <span class="hl">Mansukh Mandaviya</span>.</li>
+                <li>Headed by <span class="hl-c">Yugal Kishore Joshi</span> (NITI Aayog).</li>
+                <li>Aim: Host F1 race in <span class="hl">2028</span>.</li>
+                <li>Last held 2013 (Buddh Int. Circuit). Assesses taxes & PPP models.</li>
+            </ul>
+        </div>
+
+        <!-- 39 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>39. 20th Asian Games Opens</h3>
+            <ul>
+                <li><span class="hl">Aichi-Nagoya, Japan</span> (opened 19 Sep 2026).</li>
+                <li>Emperor Naruhito declared open.</li>
+                <li>Theme: <span class="hl-c">"Harmonic Heart Beat"</span> (IMAGINE ONE ASIA).</li>
+                <li>Flag-bearers: Manu Bhaker & Pawan Sehrawat.</li>
+                <li><span class="hl">Teqball</span> debuted. (Hangzhou 2023 India: 106 medals).</li>
+            </ul>
+        </div>
+
+        <!-- 40 -->
+        <div class="card">
+            <div class="tag tag-tech">Tech/Edu</div>
+            <h3>40. Sikkim AI-FunZone</h3>
+            <ul>
+                <li>AI learning in <span class="hl">71 govt schools</span> (Gangtok district).</li>
+                <li>Partner: <span class="hl-c">EkStep Foundation</span>.</li>
+                <li>For Classes 3 to 5 (English, Nepali, Math).</li>
+                <li>60-minute daily session. Dashboard for teachers; no rankings.</li>
+            </ul>
+        </div>
+
+        <!-- 41 -->
+        <div class="card">
+            <div class="tag tag-culture">Health</div>
+            <h3>41. Ayurveda Day 2026</h3>
+            <ul>
+                <li>Observed on <span class="hl">23 September 2026</span> (11th ed).</li>
+                <li>Theme: <span class="hl-c">"Ayurveda for a Healthier Tomorrow"</span>.</li>
+                <li>Held in <span class="hl">Nagpur, Mah</span>.</li>
+                <li>Launch: RIS Ayush Services Report, Vision 2030, STGs on skin.</li>
+            </ul>
+        </div>
+
+        <!-- 42 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>42. Ind Women Cricket Gold</h3>
+            <ul>
+                <li>India's <span class="hl">first gold</span> at 2026 Asian Games.</li>
+                <li>Defeated Sri Lanka by <span class="hl-c">147 runs</span> (216/3 vs 69).</li>
+                <li><span class="hl">Smriti Mandhana</span>: 1st woman to 11k int. runs (79 off 45).</li>
+                <li>Shafali Verma top scorer (188). Sree Charani top wickets (8).</li>
+            </ul>
+        </div>
+
+        <!-- 43 -->
+        <div class="card">
+            <div class="tag tag-tech">Tech/Police</div>
+            <h3>43. Drone Portal & SafeStay App</h3>
+            <ul>
+                <li>Launched by AP Police DGP <span class="hl">Harish Kumar Gupta</span>.</li>
+                <li><span class="hl-c">CDMP</span>: Centralised AI drone monitoring (RBAC access).</li>
+                <li><span class="hl">SafeStay</span>: Real-time hotel/PG guest data for police.</li>
+                <li>Enhances public safety & tech-driven policing.</li>
+            </ul>
+        </div>
+
+        <!-- 44 -->
+        <div class="card">
+            <div class="tag tag-govt">Agri/Awards</div>
+            <h3>44. ZT Lalrithangi (Pi Mari-i)</h3>
+            <ul>
+                <li>Mizoram farmer among FAO <span class="hl">100 Women Heroes</span> in Agrifood.</li>
+                <li>To receive award in <span class="hl-c">Rome</span> (Int. Year of Women Farmers 2026).</li>
+                <li>Grows <span class="hl">strawberries</span> in Lawngtlai (10k plants).</li>
+                <li>Makes strawberry wine; 1 of 2 Indian women selected.</li>
+            </ul>
+        </div>
+
+        <!-- 45 -->
+        <div class="card">
+            <div class="tag tag-govt">Govt Initiative</div>
+            <h3>45. Delhi DURGA Scheme</h3>
+            <ul>
+                <li>Approved by Delhi CM <span class="hl">Rekha Gupta</span>.</li>
+                <li>Provides employment via <span class="hl-c">Pink Electric Autos</span>.</li>
+                <li>1,300 autos total: 1,170 for <span class="hl">women</span>, 130 for <span class="hl">transgender</span> persons.</li>
+                <li>Max 90 (women)/10 (trans) per revenue district.</li>
+            </ul>
+        </div>
+
+        <!-- 46 -->
+        <div class="card">
+            <div class="tag tag-sports">Sports</div>
+            <h3>46. India at Asian Games (26 Sep)</h3>
+            <ul>
+                <li>Kabaddi: <span class="hl">Gold for both Men & Women</span> (beat Iran).</li>
+                <li>Marathon: Sawan Barwal wins <span class="hl-c">Silver (2:11:37 NR)</span> - 1st in 44 yrs.</li>
+                <li>Shooting: Silver in Women's 50m rifle 3P.</li>
+                <li>Squash: Bronze in Mixed.</li>
+                <li>Archery: Dhiraj Bommadevara hits Asian rec 698.</li>
+            </ul>
+        </div>
+
+        <!-- 47 -->
+        <div class="card">
+            <div class="tag tag-tech">Global/Tourism</div>
+            <h3>47. World Tourism Day 2026</h3>
+            <ul>
+                <li><span class="hl">27 September</span>. Theme: <span class="hl-c">"Digital Agenda and AI to Redesign Tourism"</span>.</li>
+                <li>GDP contribution: 5.22% (2023-24). 8.46 cr jobs.</li>
+                <li>Launch of <span class="hl">National Digital Tourism Stack</span> & Dekho Apna Desh 2.0.</li>
+                <li>Uses NIDHI+ and Incredible India portals.</li>
+            </ul>
+        </div>
+
+        <!-- 48 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>48. India's First LNG Train</h3>
+            <ul>
+                <li>Flagged off by Amit Shah at <span class="hl">Sabarmati Station, Guj</span>.</li>
+                <li>Dual-fuel: Diesel + <span class="hl-c">LNG (replaces ~40% diesel)</span>.</li>
+                <li>Kavach safety intro on Sabarmati-Kalol (₹48cr).</li>
+                <li>Reduces CO2/NOx emissions.</li>
+            </ul>
+        </div>
+
+        <!-- 49 -->
+        <div class="card">
+            <div class="tag tag-infra">Infrastructure</div>
+            <h3>49. Four Mega Ports Notified</h3>
+            <ul>
+                <li>Notified under <span class="hl">Indian Ports Act, 2025 (Sec 73)</span>.</li>
+                <li><span class="hl-c">Deendayal (Kandla), JNPA, Paradip, Mundra</span>.</li>
+                <li>Mundra is the only non-major port among them.</li>
+                <li>Aims at high-capacity global competitiveness.</li>
+            </ul>
+        </div>
+
+        <!-- 50 -->
+        <div class="card">
+            <div class="tag tag-global">Global</div>
+            <h3>50. WEF Travel & Tourism Index</h3>
+            <ul>
+                <li>TTDI 2026: <span class="hl">Japan ranks 1st</span>.</li>
+                <li>India ranked <span class="hl-c">31st</span> (improved by 8/9 places from 39th).</li>
+                <li>India praised for UNESCO heritage and cost competitiveness.</li>
+                <li>Asia-Pacific saw 3.6% growth.</li>
+            </ul>
+        </div>
+
+        <!-- 51 -->
+        <div class="card">
+            <div class="tag tag-tech">Awards</div>
+            <h3>51. SASTRA-Ramanujan Award</h3>
+            <ul>
+                <li><span class="hl">Sarah Peluse</span> (Stanford) selected for 2026.</li>
+                <li>Conferred <span class="hl-c">22 December</span> (Kumbakonam).</li>
+                <li>PhD student of Kannan Soundararajan (2005 winner).</li>
+                <li>Prize: <span class="hl">$10,000</span> for Analytic Number Theory, etc.</li>
+            </ul>
+        </div>
+
+        <!-- 52 -->
+        <div class="card">
+            <div class="tag tag-global">Skills</div>
+            <h3>52. WorldSkills Shanghai 2026</h3>
+            <ul>
+                <li>India finished <span class="hl">10th</span> (up from 13th in 2024).</li>
+                <li>Won <span class="hl-c">6 Silver, 20 Medals of Excellence</span>.</li>
+                <li>Best of Nation: <span class="hl">Smriti Nambiar</span> (Bakery).</li>
+                <li>Coordinated by NSDC. Debuted in 11 new skills (Drones, AI, etc.).</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
