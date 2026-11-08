@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPSC ASO Sketchnote - August 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Permanent+Marker&display=swap');
+
+  :root {
+    --bg: #1a1a1a;
+    --text: #f0f0f0;
+    --hl: #ffeb3b;
+    --card-bg: #2a2a2a;
+    --green: #4cd137;
+    --blue: #00a8ff;
+    --yellow: #e1b12c;
+    --purple: #9c88ff;
+    --orange: #e84118;
+    --red: #ff4757;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Caveat', cursive;
+    margin: 0;
+    padding: 30px;
+    font-size: 1.3rem;
+  }
+
+  h1 {
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+    font-size: 3.5rem;
+    color: #fff;
+    text-shadow: 3px 3px 0px #000;
+    margin-bottom: 20px;
+  }
+
+  .revision-sheet {
+    background: #222;
+    border: 3px dashed var(--yellow);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 50px;
+    box-shadow: 8px 8px 15px rgba(0,0,0,0.5);
+  }
+
+  .revision-sheet h2 {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--hl);
+    text-align: center;
+    margin-top: 0;
+    font-size: 2rem;
+  }
+
+  .rev-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    font-size: 1.1rem;
+  }
+
+  .rev-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 6px;
+    border-left: 4px solid var(--purple);
+  }
+
+  .canvas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
+
+  .card {
+    background-color: var(--card-bg);
+    border: 2px solid #666;
+    border-radius: 10px;
+    padding: 20px 20px 10px 20px;
+    position: relative;
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.7);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: rotate(-1deg) scale(1.03) !important;
+    box-shadow: 12px 12px 0px rgba(0,0,0,0.9);
+    z-index: 10;
+  }
+
+  .card h3 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #fff;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+  }
+
+  .tag {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    padding: 5px 12px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1rem;
+    border-radius: 4px;
+    color: #111;
+    transform: rotate(5deg);
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.5);
+  }
+
+  .tag-govt { background: var(--yellow); }
+  .tag-infra { background: var(--blue); }
+  .tag-tech { background: var(--purple); color: #fff; }
+  .tag-env { background: var(--green); }
+  .tag-culture { background: var(--orange); color: #fff; }
+  .tag-sports { background: var(--red); color: #fff; }
+  .tag-intl { background: #ff9f43; }
+
+  .hl {
+    color: var(--hl);
+    font-weight: 700;
+  }
+
+  ul {
+    padding-left: 25px;
+    margin: 0;
+  }
+
+  li {
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+</style>
+</head>
+<body>
+
+  <h1>📝 OPSC ASO: August 2026 Sketchnote</h1>
+
+  <!-- ULTRA-SHORT REVISION SHEET -->
+  <div class="revision-sheet">
+    <h2>⚡ Quick Revision Sheet ⚡</h2>
+    <div class="rev-grid">
+      <div class="rev-item"><strong>Hurun Unicorn:</strong> India <span class="hl">4th (61)</span>, US top. Zerodha ($9B) highest.</div>
+      <div class="rev-item"><strong>BRO BRAHMANK:</strong> <span class="hl">16th Raising Day</span> (Arunachal Pradesh).</div>
+      <div class="rev-item"><strong>Volleyball Cup:</strong> India Historic <span class="hl">Bronze</span>.</div>
+      <div class="rev-item"><strong>Aarogya Setu 2.0:</strong> Now <span class="hl">PHR gateway</span> under ABDM.</div>
+      <div class="rev-item"><strong>Mongla Port:</strong> <span class="hl">China</span> to develop (replaced India plan).</div>
+      <div class="rev-item"><strong>NIIF Fund:</strong> Addl <span class="hl">₹30,000 Cr</span>. Total Govt commitment <span class="hl">₹60,000 Cr</span>.</div>
+      <div class="rev-item"><strong>Omega Block:</strong> Atmospheric pattern causing Europe <span class="hl">heatwave</span>.</div>
+      <div class="rev-item"><strong>GAGAN Landing:</strong> 1st satellite jet landing (<span class="hl">IndiGo, Udaipur</span>).</div>
+      <div class="rev-item"><strong>UN SDG Index 2026:</strong> India ranks <span class="hl">94th</span>. Finland tops.</div>
+      <div class="rev-item"><strong>Anemia Mukt Bharat:</strong> Launched <span class="hl">7x7x7 strategy</span> & T4 Approach.</div>
+      <div class="rev-item"><strong>Ishan Kishan:</strong> Tops ICC Men's <span class="hl">T20I</span> Batting Rankings.</div>
+      <div class="rev-item"><strong>India-Japan Summit:</strong> 2027 named <span class="hl">Year of Shared Horizons</span>.</div>
+      <div class="rev-item"><strong>Undavalli Heliport:</strong> 1st Private <span class="hl">PinS Procedure</span> for Copters.</div>
+      <div class="rev-item"><strong>Digi Rover (UP):</strong> <span class="hl">GNSS-based</span> Land Survey Campaign.</div>
+      <div class="rev-item"><strong>ICMR-MINDS:</strong> <span class="hl">Gold</span> at National e-Governance Awards.</div>
+      <div class="rev-item"><strong>Himachal GI Tags:</strong> <span class="hl">8 new</span> products (Total 17 now).</div>
+      <div class="rev-item"><strong>Gujarat Police:</strong> 28-day <span class="hl">Op Surakshit Cyberspace</span>.</div>
+      <div class="rev-item"><strong>Vaibhav Sooryavanshi:</strong> Youngest Indian Int'l cricketer (<span class="hl">15 yrs 99 days</span>).</div>
+      <div class="rev-item"><strong>Wimbledon 2026:</strong> <span class="hl">Jannik Sinner</span> (Italy) wins Men's Singles.</div>
+      <div class="rev-item"><strong>72nd Nat Film Awards:</strong> Best Feature: <span class="hl">Article 370</span>.</div>
+      <div class="rev-item"><strong>NITI Investment Index:</strong> <span class="hl">Gujarat</span> tops Large States.</div>
+      <div class="rev-item"><strong>FIFA WC 2026:</strong> <span class="hl">Spain</span> wins. Golden Boot: Mbappé (10).</div>
+      <div class="rev-item"><strong>PV Sindhu:</strong> 1st Indian to win <span class="hl">Japan Open</span> title.</div>
+      <div class="rev-item"><strong>Himadri Chemicals:</strong> 1st <span class="hl">Carbon Nanotube Plant</span> in Bengal.</div>
+      <div class="rev-item"><strong>HEX20 (Kerala):</strong> 6 Space Satellite Missions lined up.</div>
+      <div class="rev-item"><strong>Asian U23 Athletics:</strong> India <span class="hl">4th</span> (16 medals, 3 Gold).</div>
+      <div class="rev-item"><strong>Puga Valley (Ladakh):</strong> India's 1st <span class="hl">Geothermal Wells</span>.</div>
+      <div class="rev-item"><strong>eVTOL:</strong> 1st Air Taxi prototype by <span class="hl">The ePlane Company</span> (IIT Madras).</div>
+      <div class="rev-item"><strong>Qdenga:</strong> 1st <span class="hl">Dengue Vaccine</span> approved in India.</div>
+      <div class="rev-item"><strong>BHASHINI Rajyam:</strong> Launched in <span class="hl">Goa</span> (Konkani AI).</div>
+      <div class="rev-item"><strong>Ajit Doval:</strong> <span class="hl">Lokmanya Tilak</span> National Award 2026.</div>
+      <div class="rev-item"><strong>NITI Aayog CEO:</strong> <span class="hl">Anurag Jain</span> appointed.</div>
+      <div class="rev-item"><strong>Mirabai Chanu:</strong> 3rd consecutive <span class="hl">CWG Gold</span> (Glasgow 2026, 48kg).</div>
+      <div class="rev-item"><strong>Justin Greaves:</strong> 1st to bowl <span class="hl">5 consecutive wicket maidens</span> in Tests.</div>
+      <div class="rev-item"><strong>EPI 2026:</strong> India ranked <span class="hl">176th</span> / 177 globally.</div>
+      <div class="rev-item"><strong>Delhi Lakshmi Yojana:</strong> <span class="hl">₹2,500/month</span> financial aid for women.</div>
+    </div>
+  </div>
+
+  <!-- VISUAL CANVAS BOARD -->
+  <div class="canvas">
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-infra">Economy</div>
+      <h3>1. Hurun Global Unicorn Index 2026</h3>
+      <ul>
+        <li>India ranks <span class="hl">4th</span> with <span class="hl">61</span> unicorn startups.</li>
+        <li>Bengaluru: India's capital (<span class="hl">25</span>), Mumbai (<span class="hl">13</span>).</li>
+        <li>Top 3 Countries: <span class="hl">US (806)</span>, China (381), UK (70).</li>
+        <li>Top Global Unicorn: <span class="hl">Anthropic ($965B)</span>, OpenAI 2nd ($852B).</li>
+        <li>Top Indian: <span class="hl">Zerodha ($9B)</span>, Zepto ($7B), Razorpay ($6B).</li>
+        <li><span class="hl">6</span> Indian unicorns went public this year.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-infra">Infra</div>
+      <h3>2. BRO's Project BRAHMANK</h3>
+      <ul>
+        <li>Celebrated <span class="hl">16th Raising Day</span> (29 June 2026) at Ranaghat, AP.</li>
+        <li>Raised originally on <span class="hl">29 June 2011</span>.</li>
+        <li>Maintains roads across Siang & Shi-Yomi (AP), and Dhemaji (Assam).</li>
+        <li>Built <span class="hl">100m Siyom Nallah</span> & <span class="hl">165m Simang Nallah</span> bridges.</li>
+        <li>BRO established: <span class="hl">7 May 1960</span>, wholly under MoD since 2015.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>3. AVC Men's Volleyball Cup 2026</h3>
+      <ul>
+        <li>India won historic <span class="hl">Bronze</span> medal (1st ever).</li>
+        <li>Defeated <span class="hl">Bahrain 3-1</span> in playoff.</li>
+        <li>Captain: <span class="hl">Jerome Vinith Charles</span>; Coach: Dragan Mihailović (Serbia).</li>
+        <li>Host Nation: <span class="hl">India (Gandhinagar, Gujarat)</span> for the first time.</li>
+        <li>World Ranking jump: No. 60 to <span class="hl">No. 42</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-tech">Tech</div>
+      <h3>4. Aarogya Setu 2.0</h3>
+      <ul>
+        <li>Launched by Health Minister <span class="hl">J.P. Nadda</span>.</li>
+        <li>Revamped as a <span class="hl">Personal Health Record (PHR)</span> under ABDM.</li>
+        <li>Handed over from MeitY to <span class="hl">National Health Authority (NHA)</span>.</li>
+        <li>Provides ABHA creation, Scan & Register, e-RaktKosh search.</li>
+        <li>Uses <span class="hl">AI</span> to digitise medical records.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-intl">Int'l</div>
+      <h3>5. Mongla Port Economic Zone</h3>
+      <ul>
+        <li><span class="hl">China</span> (CCECC) to develop the zone in Bangladesh.</li>
+        <li>Replaced earlier plan earmarked for an <span class="hl">Indian</span> economic zone under Yunus admin.</li>
+        <li>Mongla is Bangladesh's <span class="hl">2nd busiest</span> seaport (188km from Kolkata).</li>
+        <li>China also backs the <span class="hl">Teesta River</span> project near Indian border.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>6. 2nd National Seafood Skill Olympiad</h3>
+      <ul>
+        <li>Organised by <span class="hl">MPEDA</span> (July 2026) at Seafood Expo Bharat (SEB) 2026.</li>
+        <li>Promotes workforce development & marine exports value addition.</li>
+        <li>Regionals held in <span class="hl">Mumbai</span> & <span class="hl">Vijayawada</span>. Top 10 to finale.</li>
+        <li>FY25-26 Exports: Record <span class="hl">USD 8.45 billion</span>.</li>
+        <li>2030 target: Increase value-added seafood share to <span class="hl">25%</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-infra">Economy</div>
+      <h3>7. ₹30,000 Cr for NIIF</h3>
+      <ul>
+        <li>Cabinet approved additional <span class="hl">₹30,000 crore</span> for NIIF.</li>
+        <li>Total Govt commitment now <span class="hl">₹60,000 crore</span>.</li>
+        <li>Priority Sectors: Transport, energy, digital, e-mobility (NIIF Fund II).</li>
+        <li>NIIF est: <span class="hl">Feb 2015</span>. Govt holds <span class="hl">49%</span> stake.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-env">Environment</div>
+      <h3>8. Omega Block & EU Heatwave</h3>
+      <ul>
+        <li>Europe heatwave exceeds <span class="hl">42°C</span> in France.</li>
+        <li>Caused by an <span class="hl">Omega Block (Ω)</span>: jet stream bends and traps stationary hot air.</li>
+        <li>Creates a <span class="hl">High-Pressure System / Heat Dome</span>.</li>
+        <li>Climate change makes them <span class="hl">2-4°C hotter</span> due to Arctic warming weakening the jet stream.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-tech">Tech</div>
+      <h3>9. GAGAN Jet Landing</h3>
+      <ul>
+        <li>1st satellite-guided jet landing in India.</li>
+        <li>Performed by an <span class="hl">IndiGo Airbus A320</span> at <span class="hl">Udaipur Airport</span>.</li>
+        <li>GAGAN: GPS Aided GEO Augmented Navigation (SBAS by ISRO + AAI).</li>
+        <li>Certified by <span class="hl">DGCA</span> in 2015.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-tech">Govt Tech</div>
+      <h3>10. AI Rural Internal Audit Portal</h3>
+      <ul>
+        <li>Launched by <span class="hl">Shivraj Singh Chouhan</span> at Rashtriya Gramin Vikas Sammelan (New Delhi).</li>
+        <li>1st unified digital platform for internal audits.</li>
+        <li>Developed by <span class="hl">CCA & NIC</span>.</li>
+        <li>Pilot was in <span class="hl">Chandauli (UP)</span> on April 1, 2025.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-env">Global</div>
+      <h3>11. UN SDG Index 2026</h3>
+      <ul>
+        <li>India highest ever rank: <span class="hl">94th out of 167</span> (Score 68.3). Improved from 99th (2025).</li>
+        <li>Top 3: <span class="hl">Finland, Sweden, Denmark</span>. Bottom: Chad, CAR, S. Sudan.</li>
+        <li>India ranks behind Bhutan, Maldives, Nepal, Sri Lanka.</li>
+        <li>Major Challenge: <span class="hl">SDG 2 (Zero Hunger)</span>.</li>
+        <li>Only <span class="hl">33.3%</span> of Indian targets on track for 2030.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>12. CBDT Chairman Reappointment</h3>
+      <ul>
+        <li><span class="hl">Ravi Agrawal</span> tenure extended by 6 months.</li>
+        <li>Effective <span class="hl">1 July 2026 to 31 Dec 2026</span>.</li>
+        <li>1988-batch IRS officer.</li>
+        <li>CBDT is a Statutory Body under <span class="hl">Central Board of Revenue Act, 1963</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-health">Health</div>
+      <h3>13. Anemia Mukt Bharat Abhiyaan</h3>
+      <ul>
+        <li>Guidelines released at 16th <span class="hl">CCHFW</span> by J.P. Nadda.</li>
+        <li>Upgraded to a <span class="hl">7x7x7 Strategy</span> (added Low Birth Weight babies, 'Eating Right', Digital tracking).</li>
+        <li>Shifted to <span class="hl">T4 Approach</span>: Test, Treat, Talk, & Track.</li>
+        <li>Portals Integrated: <span class="hl">JANANI, RBSK, U-WIN</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-tech">Tech/Tourism</div>
+      <h3>14. Tourism MoU with Google</h3>
+      <ul>
+        <li>Ministry of Tourism + <span class="hl">Google India</span> for digital promotion & AI.</li>
+        <li>Focus on trend analysis, traveler behaviour, data-driven insights.</li>
+        <li>Non-commercial, non-binding with no financial implications.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>15. Ishan Kishan No.1 T20I Batter</h3>
+      <ul>
+        <li>Replaced <span class="hl">Abhishek Sharma</span> at the top.</li>
+        <li>4th Indian batter at No.1 (Kohli, Suryakumar, Abhishek).</li>
+        <li>Scored 317 runs at ~200 strike rate.</li>
+        <li>Other Ranks: <span class="hl">Bumrah</span> (Test Bowler #1), <span class="hl">Travis Head</span> (Test Batter #1), <span class="hl">Jadeja</span> (Test All-rounder #1).</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-intl">Int'l</div>
+      <h3>16. 16th India-Japan Summit</h3>
+      <ul>
+        <li>PM Modi & PM <span class="hl">Sanae Takaichi</span> signed 16 agreements.</li>
+        <li>2027: <span class="hl">Year of Shared Horizons</span> (75th anniv).</li>
+        <li><span class="hl">1,000 CBG plants</span> via dairy co-ops (MoC Biogas).</li>
+        <li><span class="hl">SarvamAI & Preferred Networks</span> MoU for AI stack.</li>
+        <li><span class="hl">Next Gen Mobility Partnership</span> launched.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-infra">Infra</div>
+      <h3>17. First PinS Helicopter Approach</h3>
+      <ul>
+        <li>Approved at <span class="hl">Undavalli Heliport</span>.</li>
+        <li><span class="hl">PinS (Point-in-Space)</span> allows safe landings without conventional landing infrastructure.</li>
+        <li>Developed by <span class="hl">AAI</span>, approved by <span class="hl">DGCA</span>.</li>
+        <li>Uses <span class="hl">PBN</span> and satellite navigation.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-tech">Govt Tech</div>
+      <h3>18. UP Digi Rover Campaign</h3>
+      <ul>
+        <li>Launched by CM Yogi Adityanath from <span class="hl">Saharanpur</span>.</li>
+        <li>Uses <span class="hl">GNSS</span> technology for accurate land surveys.</li>
+        <li>Runs until <span class="hl">15 August 2026</span> across all tehsils.</li>
+        <li>Aim: Reduce land disputes and clear pending cases.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-culture">Culture</div>
+      <h3>19. 'Swar Prerna Veethika'</h3>
+      <ul>
+        <li>Akashvani's 90th-anniversary photo gallery of legendary musicians.</li>
+        <li>Inaugurated by <span class="hl">Hariprasad Chaurasia</span> at Rang Bhavan, Delhi.</li>
+        <li>Features 20 luminaries (M.S. Subbulakshmi, Bismillah Khan, Lata, etc.).</li>
+        <li>AIR founded <span class="hl">1936</span>; motto: <em>Bahujanahitaya Bahujanasukhaya</em>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-tech">Health Tech</div>
+      <h3>20. ICMR-MINDS Wins Gold</h3>
+      <ul>
+        <li><span class="hl">Gold Award</span> at 2026 National Awards for e-Governance (Jaipur).</li>
+        <li>Uses AI-enabled <span class="hl">Clinical Decision Support System (CDSS)</span> for mental healthcare.</li>
+        <li>Implemented in 7 states to reduce dependence on specialists.</li>
+        <li>ICMR est. <span class="hl">1911 as IRFA</span>, renamed 1949.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-infra">Tech</div>
+      <h3>21. CG Semi OSAT Facility</h3>
+      <ul>
+        <li>Inaugurated by PM Modi in <span class="hl">Sanand, Gujarat</span>.</li>
+        <li>Focus: Semiconductor chip assembly, packaging, testing.</li>
+        <li>Capacity: <span class="hl">20 crore</span> to <span class="hl">500 crore</span> units annually.</li>
+        <li>Part of <span class="hl">Semicon India</span> (₹76K Cr outlay).</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-culture">Culture</div>
+      <h3>22. Eight HP Products Get GI Tags</h3>
+      <ul>
+        <li>Total HP GI tags now <span class="hl">17</span>.</li>
+        <li>New: Spiti's <span class="hl">Seabuckthorn</span>, Salooni Safed Makka, Chamba Metal Art, Sirmauri Loiya, Kinnauri Topi/Apple/Jewellery, Sepu Vadi.</li>
+        <li>Registered via <span class="hl">HIMCOSTE</span>.</li>
+        <li>Pending: Bhot Jau, Chamba Chukh.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-tech">Govt Tech</div>
+      <h3>23. 'Operation Surakshit Cyberspace'</h3>
+      <ul>
+        <li><span class="hl">Gujarat Police</span> 28-day campaign (1-28 July 2026).</li>
+        <li>Focus: Online safety for <span class="hl">women & children</span>.</li>
+        <li>Mandatory preliminary action within <span class="hl">24 hours</span>.</li>
+        <li>Slogan targets awareness, investigation, action, and public participation.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>24. Vaibhav Sooryavanshi Debut</h3>
+      <ul>
+        <li>Youngest Indian international cricketer at <span class="hl">15 yrs 99 days</span>.</li>
+        <li>T20I debut vs England in <span class="hl">Manchester</span>.</li>
+        <li>Surpassed <span class="hl">Sachin Tendulkar</span> (16 yrs 205 days).</li>
+        <li>Won IPL Orange Cap, MVP, Super Striker (SR 237.30).</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>25. Mission Kayakalp (Delhi)</h3>
+      <ul>
+        <li>Launched to <span class="hl">upgrade government schools</span> infrastructure.</li>
+        <li>Includes RO plants, modern science labs, CWSN facilities.</li>
+        <li>Implemented via CSR, Education Dept, local communities.</li>
+        <li>Ongoing across North, South, West, NE, and Outer North Delhi.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-intl">Int'l</div>
+      <h3>26. PM Modi's Indonesia Honour</h3>
+      <ul>
+        <li>Conferred <span class="hl">Bintang Adipurna</span> by Pres. Prabowo Subianto.</li>
+        <li>2nd Indian PM (after Nehru in 1995) to receive it.</li>
+        <li>Agreed to open <span class="hl">IIM Bangalore</span> campus in Jakarta.</li>
+        <li>MoUs in defense, critical minerals, tech.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>27. Wimbledon 2026</h3>
+      <ul>
+        <li><span class="hl">Jannik Sinner (Italy)</span> defended Men's Singles title.</li>
+        <li>Defeated <span class="hl">Alexander Zverev (Germany)</span>.</li>
+        <li>Sinner's 5th Grand Slam.</li>
+        <li>Zverev moves to World No. 2.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>28. ICC Hall of Fame 2026</h3>
+      <ul>
+        <li>Inductees: <span class="hl">Sourav Ganguly, Anjum Chopra, Kevin Pietersen</span>.</li>
+        <li>Ceremony in <span class="hl">Edinburgh, Scotland</span>.</li>
+        <li>Total members now <span class="hl">125</span>.</li>
+        <li>Eligibility: 5 years after final int'l appearance.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-culture">Culture</div>
+      <h3>29. 72nd National Film Awards</h3>
+      <ul>
+        <li>Best Feature Film: <span class="hl">Article 370</span>.</li>
+        <li>Best Actress: <span class="hl">Yami Gautam</span> (Article 370).</li>
+        <li>Best Actor: <span class="hl">Mammootty</span> & <span class="hl">Kartik Aaryan</span>.</li>
+        <li>Best Popular Film: <span class="hl">Kalki 2898 AD</span>.</li>
+        <li>Best Direction: <span class="hl">Rajkumar Periasamy</span> (Amaran).</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-infra">Economy</div>
+      <h3>30. Investment Friendliness Index</h3>
+      <ul>
+        <li>NITI Aayog's 1st ever IFI 2026.</li>
+        <li><span class="hl">Gujarat</span> tops Large States (56.6/100).</li>
+        <li>2nd: Maharashtra, 3rd: Tamil Nadu.</li>
+        <li>Bottom: Bihar, Jharkhand, WB.</li>
+        <li>84 indicators, highest weight (25%) on <span class="hl">Infrastructure</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>31. FIFA World Cup 2026</h3>
+      <ul>
+        <li><span class="hl">Spain</span> defeats Argentina 1-0 in Extra Time (NY/NJ Stadium).</li>
+        <li>Goal: <span class="hl">Ferran Torres</span> (106th min).</li>
+        <li>Golden Ball: <span class="hl">Rodri (Spain)</span>; Boot: <span class="hl">Mbappé (10 goals)</span>.</li>
+        <li>Spain holds both Men's & Women's titles.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-tech">Tech / Edu</div>
+      <h3>32. AI Vertical University Campus</h3>
+      <ul>
+        <li>1st in India: <span class="hl">VELS Thiruvanmiyur</span> Campus (Chennai).</li>
+        <li>Inaugurated by <span class="hl">Sridhar Vembu</span> (Zoho).</li>
+        <li>MoU with Aspin Holding for UAE Flying School.</li>
+        <li>CoE with Intel, TCS iON, Microsoft, Oracle.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>33. PV Sindhu Wins Japan Open</h3>
+      <ul>
+        <li>1st Indian to win Japan Open title.</li>
+        <li>Defeated <span class="hl">Akane Yamaguchi</span> (21-17, 21-17).</li>
+        <li>Biggest title since 2019 BWF World Champs.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-tech">Industry</div>
+      <h3>34. Carbon Nanotube (CNT) Plant</h3>
+      <ul>
+        <li><span class="hl">Himadri Speciality Chemical</span> (Bengal) building 1st in India.</li>
+        <li>Capacity: <span class="hl">200 MTPA</span>. Invest: <span class="hl">₹70 Cr</span>.</li>
+        <li>Commissions <span class="hl">Q4 FY27</span>.</li>
+        <li>Crucial for localising high-end EV batteries & reducing imports.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-tech">Space</div>
+      <h3>35. HEX20 Satellite Missions</h3>
+      <ul>
+        <li>Technopark-based space startup (Kerala) lines up <span class="hl">6 missions</span>.</li>
+        <li>Includes MAYA-V1, DINK-N1, NILA III.</li>
+        <li>Follows <span class="hl">KOYO</span> launch via SpaceX Falcon 9.</li>
+        <li>Asteroid Impactor Probe for Emirates asteroid mission.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>36. Asian U23 Athletics</h3>
+      <ul>
+        <li>Inaugural event in <span class="hl">Ordos, China</span>.</li>
+        <li>India <span class="hl">4th</span> with 16 medals (3 Gold, 4 Silver, 9 Bronze).</li>
+        <li>Gold: <span class="hl">Anand Singh</span> (Javelin 80.57m), Mixed 4x400m, Women's 4x400m.</li>
+        <li><span class="hl">China</span> topped table (23 Gold).</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-env">Energy</div>
+      <h3>37. Geothermal Wells in Ladakh</h3>
+      <ul>
+        <li>India's 1st commissioned at <span class="hl">Puga Valley</span> (14,000+ ft).</li>
+        <li>By <span class="hl">ONGC Energy Centre</span> + Ladakh Admin.</li>
+        <li>2 wells drilled to <span class="hl">1,000m depth</span> (Temp ~200°C).</li>
+        <li>Target: 1 MW pilot baseload power plant.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-tech">Tech</div>
+      <h3>38. First eVTOL Air Taxi</h3>
+      <ul>
+        <li>Unveiled by <span class="hl">The ePlane Company</span> (IIT Madras startup).</li>
+        <li>Electric Vertical Take-Off & Landing for Advanced Air Mobility (AAM).</li>
+        <li>Commercial ops targeted for <span class="hl">2028</span>.</li>
+        <li>No runway required, electric propulsion.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>39. NABARD 'Gramodyam'</h3>
+      <ul>
+        <li>Aims to create <span class="hl">4,000 rural entrepreneurs</span> in 3 years.</li>
+        <li>Partnership with <span class="hl">NSDC</span> & IID.</li>
+        <li>Digital-first hybrid model; e-KYC verification.</li>
+        <li>Assists in bankable DPRs and RRB credit link.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>40. NCM Chairman</h3>
+      <ul>
+        <li><span class="hl">Harjit Singh Grewal</span> assumes charge (vacant since Apr 2025).</li>
+        <li>Vice-Chairperson: S. Munawari Begum.</li>
+        <li>Monitors 6 religious minorities under <span class="hl">NCM Act 1992</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-health">Health</div>
+      <h3>41. Qdenga Dengue Vaccine</h3>
+      <ul>
+        <li>Approved by <span class="hl">CDSCO</span> (1st Dengue vaccine in India).</li>
+        <li>Live-attenuated tetravalent by <span class="hl">Takeda (Germany)</span>.</li>
+        <li>For ages <span class="hl">4 to 60</span>, two doses (3 months apart).</li>
+        <li>No pre-vaccination screening required.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-tech">Govt Tech</div>
+      <h3>42. 'BHASHINI Rajyam' in Goa</h3>
+      <ul>
+        <li>AI-powered governance focusing on <span class="hl">Konkani</span>.</li>
+        <li>Provides real-time voice-interactive bots for citizens.</li>
+        <li><span class="hl">'Bhasadaan'</span> drive: crowdsourcing datasets.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>43. Lokmanya Tilak Award 2026</h3>
+      <ul>
+        <li>NSA <span class="hl">Ajit Doval</span> selected.</li>
+        <li>Presented in Pune on Tilak's 106th death anniversary.</li>
+        <li>Prize: <span class="hl">₹1 Lakh</span>.</li>
+        <li>Recognized for Op Black Thunder, Doklam, Balakot.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-culture">Culture</div>
+      <h3>44. 'Gems of India' Challenge</h3>
+      <ul>
+        <li>Launched by <span class="hl">Ministry of I&B</span> on <span class="hl">MyWAVES</span> platform.</li>
+        <li>Promotes Orange Economy & digital creators (1-3 min videos).</li>
+        <li>Partners: Prasar Bharati, YouTube, Meta.</li>
+        <li>National award: <span class="hl">₹5 lakh</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-intl">Int'l</div>
+      <h3>45. Gandhi Bust in N. Macedonia</h3>
+      <ul>
+        <li>Unveiled by President <span class="hl">Droupadi Murmu</span> & Pres. Gordana Siljanovska-Davkova.</li>
+        <li>At Museum of City of <span class="hl">Skopje</span> (birthplace of Mother Teresa).</li>
+        <li>India doubled <span class="hl">ITEC slots</span> for North Macedonia.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-defense">Defense</div>
+      <h3>46. 'Samudra Pradakshina'</h3>
+      <ul>
+        <li>1st <span class="hl">Tri-Service All-Women</span> circumnavigation expedition.</li>
+        <li>Flagged in by Rajnath Singh at <span class="hl">Mumbai</span>.</li>
+        <li>9 officers sailed <span class="hl">314 days</span> on <span class="hl">IASV Triveni</span> (25,500 nm).</li>
+        <li>Crossed Equator twice, rounded the 3 Great Capes.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>47. NITI Aayog CEO</h3>
+      <ul>
+        <li><span class="hl">Anurag Jain</span> (1989-batch IAS, MP cadre) appointed.</li>
+        <li>Tenure: 2 years.</li>
+        <li>NITI Aayog est. <span class="hl">1 Jan 2015</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-intl">Int'l / Health</div>
+      <h3>48. 16th BRICS Health Ministers</h3>
+      <ul>
+        <li>Held in <span class="hl">Chandigarh</span> (India Chairship 2026).</li>
+        <li>BRICS CoE on Mental Wellness at <span class="hl">NIMHANS</span>.</li>
+        <li>Launched BRICS Mission for Healthy Lifestyle (2026-29).</li>
+        <li>Endorsed TCIM Expert Working Group.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-intl">Int'l</div>
+      <h3>49. France Bans Social Media <15</h3>
+      <ul>
+        <li><span class="hl">1st EU Nation</span> to ban for children under 15.</li>
+        <li>New accounts barred from Sept 2026; existing banned Jan 2027.</li>
+        <li>Affects TikTok, Insta, WhatsApp, X.</li>
+        <li>Companies must implement age-verification.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-tech">Tech / Edu</div>
+      <h3>50. UNNATI AI 2.0</h3>
+      <ul>
+        <li>Launched by <span class="hl">Microsoft India & FITT, IIT Delhi</span>.</li>
+        <li>CSR initiative for AI startups, healthcare, agriculture.</li>
+        <li>First Edition generated <span class="hl">₹1,690 Cr</span> valuation portfolio.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>51. Exam Reforms Task Force</h3>
+      <ul>
+        <li>Headed by <span class="hl">Nandan Nilekani</span> (Infosys/Aadhaar).</li>
+        <li>Overhauling <span class="hl">NTA</span> post NEET-UG controversy.</li>
+        <li>Members: S. Somanath, Tapan Deka, V. Kamakoti.</li>
+        <li>Focus: CBT transition & AI surveillance safeguards.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>52. Mirabai Chanu Golden Treble</h3>
+      <ul>
+        <li>1st Gold at <span class="hl">Glasgow 2026 CWG</span> (48kg weightlifting).</li>
+        <li>3rd consecutive CWG Gold (2018, 2022, 2026).</li>
+        <li>Record lifts: Snatch (85kg), C&J (105kg). Total <span class="hl">190kg</span>.</li>
+        <li>Bypassed final attempt to prevent injury.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>53. Anahat Singh Squash Title</h3>
+      <ul>
+        <li>1st Indian to win <span class="hl">Girls' Singles</span> at World Junior Squash 2026 (Canada).</li>
+        <li>Defeated Ruqayya Salem (Egypt) <span class="hl">3-0</span>.</li>
+        <li>Ended Egypt's 16-year winning streak in this event.</li>
+        <li>Ranked World No. 20 (PSA).</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-env">Environment</div>
+      <h3>54. Spain Wildfires Emergency</h3>
+      <ul>
+        <li>National Emergency over fires in <span class="hl">Madrid, Ávila, Toledo</span>.</li>
+        <li>Avila blaze is largest in Spain's history (<span class="hl">77,000 hectares</span>).</li>
+        <li>Military Emergency Unit (UME) deployed.</li>
+        <li>Linked to intense heatwave (<span class="hl">39°C+</span>) and drought.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-infra">Tourism</div>
+      <h3>55. Air India & Tourism MoU</h3>
+      <ul>
+        <li>Promote <span class="hl">'Incredible India'</span> and <span class="hl">'Chalo India'</span> global diaspora campaign.</li>
+        <li>Air India flight network for targeted marketing.</li>
+        <li>FAM trips for influencers & global roadshows.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-1deg);">
+      <div class="tag tag-env">Environment</div>
+      <h3>56. International Tiger Day 2026</h3>
+      <ul>
+        <li>Observed: <span class="hl">29 July</span>.</li>
+        <li>Theme: Securing Future with <span class="hl">Indigenous Peoples & Local Communities</span>.</li>
+        <li>Est: 2010 St. Petersburg Summit (TX2 goal).</li>
+        <li>India launched <span class="hl">Project Tiger in 1973</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(1deg);">
+      <div class="tag tag-sports">Sports</div>
+      <h3>57. Justin Greaves Test Record</h3>
+      <ul>
+        <li>1st to bowl <span class="hl">5 consecutive wicket maidens</span> in Test cricket.</li>
+        <li>West Indies all-rounder vs Pakistan in Trinidad.</li>
+        <li>Surpassed Stuart Broad's record of 4 (2016).</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(-2deg);">
+      <div class="tag tag-env">Environment</div>
+      <h3>58. EPI 2026</h3>
+      <ul>
+        <li>India ranks <span class="hl">176th / 177</span> (Score: 22.46) in Environmental Performance Index.</li>
+        <li><span class="hl">Estonia</span> is top performer.</li>
+        <li>India poorest in Air Quality & Biodiversity (174th).</li>
+        <li>MoEFCC disputes the methodology.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="transform: rotate(2deg);">
+      <div class="tag tag-govt">Govt</div>
+      <h3>59. Delhi Lakshmi Yojana</h3>
+      <ul>
+        <li>Approved by Delhi Cabinet: <span class="hl">₹2,500/month</span> for eligible women.</li>
+        <li>Age 21-60; Family income < <span class="hl">₹2.5 lakh</span>; 10 yr resident.</li>
+        <li>Disbursement: Direct RD/FD, or split with <span class="hl">CBDC wallet</span> (₹1000).</li>
+        <li>CBDC locked from liquor/gaming usage.</li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+</html>
