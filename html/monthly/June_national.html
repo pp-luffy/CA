@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPSC ASO June 2026 Sketchnote</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+  
+  :root {
+    --bg-dark: #1a1a1a;
+    --text-light: #f0f0f0;
+    --sports: #ff4d4d;
+    --govt: #e1b12c;
+    --econ: #00bcd4;
+    --tech: #9c88ff;
+    --env: #4cd137;
+    --intl: #00a8ff;
+    --culture: #e84118;
+    --hl-yellow: #ffeb3b;
+    --hl-green: #00e676;
+    --hl-cyan: #18ffff;
+  }
+  
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Patrick Hand', cursive;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.4;
+  }
+  
+  h1, h2, h3 {
+    font-family: 'Kalam', cursive;
+    text-align: center;
+    color: var(--text-light);
+  }
+  
+  .header-title {
+    font-size: 3rem;
+    text-shadow: 3px 3px 0 #000;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+  
+  /* Quick Revision Section */
+  .quick-revision {
+    background: #2d2d2d;
+    border: 3px dashed var(--hl-yellow);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 0 auto 40px auto;
+    max-width: 1200px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+  }
+  
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .q-item {
+    background: #1a1a1a;
+    padding: 10px;
+    border-left: 5px solid var(--hl-cyan);
+    font-size: 1.1rem;
+    border-radius: 4px;
+  }
+  
+  .highlight {
+    color: var(--hl-yellow);
+    font-weight: bold;
+  }
+  .hl-cyan { color: var(--hl-cyan); font-weight: bold; }
+  .hl-green { color: var(--hl-green); font-weight: bold; }
+  
+  /* Sketchnote Canvas Layout */
+  .canvas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* Polaroid Cards */
+  .card {
+    background: #2a2a2a;
+    border: 2px solid #555;
+    border-radius: 8px;
+    padding: 25px 20px 20px 20px;
+    position: relative;
+    box-shadow: 6px 6px 12px rgba(0,0,0,0.8);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.02) rotate(-1deg);
+    box-shadow: 8px 8px 20px rgba(0,0,0,0.9);
+    z-index: 10;
+  }
+  
+  .tag {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    padding: 5px 15px;
+    font-family: 'Kalam', cursive;
+    font-weight: bold;
+    color: #fff;
+    transform: rotate(-5deg);
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  
+  .card h3 {
+    margin-top: 10px;
+    font-size: 1.6rem;
+    border-bottom: 2px dotted #777;
+    padding-bottom: 5px;
+  }
+  
+  ul {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+  
+  li {
+    margin-bottom: 8px;
+    font-size: 1.15rem;
+  }
+  
+  /* Category Colors */
+  .c-sports { border-color: var(--sports); }
+  .c-sports .tag { background: var(--sports); }
+  
+  .c-govt { border-color: var(--govt); }
+  .c-govt .tag { background: var(--govt); color: #000; }
+  
+  .c-econ { border-color: var(--econ); }
+  .c-econ .tag { background: var(--econ); color: #000;}
+  
+  .c-tech { border-color: var(--tech); }
+  .c-tech .tag { background: var(--tech); }
+  
+  .c-env { border-color: var(--env); }
+  .c-env .tag { background: var(--env); color: #000; }
+  
+  .c-intl { border-color: var(--intl); }
+  .c-intl .tag { background: var(--intl); }
+  
+  .c-culture { border-color: var(--culture); }
+  .c-culture .tag { background: var(--culture); }
+
+</style>
+</head>
+<body>
+
+<h1 class="header-title">OPSC ASO June 2026: The Sketchnote Board</h1>
+
+<!-- ULTRA-SHORT REVISION SHEET -->
+<div class="quick-revision">
+  <h2>⚡ Rapid-Fire Revision Core</h2>
+  <div class="quick-grid">
+    <div class="q-item">🏏 <b>IPL '26:</b> <span class="highlight">RCB</span> beats GT. POTM: <span class="hl-cyan">Virat Kohli</span>. Orange: Vaibhav S. Purple: Kagiso R.</div>
+    <div class="q-item">📊 <b>NFHS-6:</b> TFR: <span class="highlight">2.0</span>, CPR: <span class="hl-green">69.1%</span>, ANC: 95.9%</div>
+    <div class="q-item">⚖️ <b>SC Judges:</b> Rises to <span class="highlight">37</span> (Max 38). 5 new appts including Venkita Mohana (2nd woman from Bar).</div>
+    <div class="q-item">🌊 <b>Blue Bond:</b> 1st by <span class="highlight">Sagarmala Finance Corp</span> ($105.08M).</div>
+    <div class="q-item">📈 <b>WPI Base Year:</b> Revised to <span class="highlight">2022-23</span> (from 11-12). PPI introduced.</div>
+    <div class="q-item">🦆 <b>100th Ramsar Site:</b> <span class="highlight">Surha Tal</span> (UP). India ranks 3rd globally.</div>
+    <div class="q-item">⚽ <b>SAFF Women's:</b> <span class="highlight">India</span> won 6th time. Beat Bangladesh.</div>
+    <div class="q-item">🌍 <b>Global Peace Index 2026:</b> India ranked <span class="highlight">127th</span>. (1st: Iceland, Bhutan: 16th).</div>
+    <div class="q-item">🦄 <b>130th Unicorn:</b> <span class="highlight">Sarvam AI</span> ($1.5B val).</div>
+    <div class="q-item">🤝 <b>NDB 10th Member:</b> <span class="hl-cyan">Uzbekistan</span> (1st from Central Asia).</div>
+    <div class="q-item">🧑‍💼 <b>FATF Vice-President:</b> <span class="highlight">India</span> (Vivek Aggarwal, Jul 2026-27).</div>
+    <div class="q-item">🚀 <b>Elon Musk:</b> 1st Trillionaire (<span class="hl-green">$1.1T</span>) via SpaceX IPO.</div>
+    <div class="q-item">📱 <b>UAE Social Media:</b> Banned for kids under <span class="highlight">15 yrs</span>.</div>
+    <div class="q-item">🐅 <b>IBCA 27th Member:</b> <span class="highlight">Bangladesh</span>.</div>
+    <div class="q-item">🩺 <b>Operation Amistad:</b> India to <span class="hl-cyan">Venezuela</span> (Earthquake relief).</div>
+    <div class="q-item">📊 <b>Statistics Day:</b> 29 June. Theme: Unlocking Admin Data.</div>
+  </div>
+</div>
+
+<!-- SKETCHNOTE CANVAS -->
+<div class="canvas">
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>Royal Challengers Bengaluru Win IPL 2026</h3>
+    <ul>
+      <li><span class="highlight">Champions:</span> RCB defended title, beat <span class="hl-cyan">Gujarat Titans</span>.</li>
+      <li><span class="highlight">Venue:</span> Narendra Modi Stadium, Ahmedabad.</li>
+      <li><span class="highlight">POTM (Final):</span> Virat Kohli.</li>
+      <li><span class="hl-yellow">Orange Cap (Most Runs/MVP/Emerging):</span> Vaibhav Sooryavanshi (<span class="highlight">776 runs</span>, RR).</li>
+      <li><span class="hl-cyan">Purple Cap:</span> Kagiso Rabada (<span class="highlight">29 wkts</span>, GT).</li>
+      <li><span class="hl-green">Fair Play:</span> Punjab Kings. <span class="highlight">Pitch:</span> CAB & HPCA.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt & Health</div>
+    <h3>National Family Health Survey (NFHS)-6</h3>
+    <ul>
+      <li>Conducted <span class="highlight">2023-24</span> by MoHFW with IIPS Mumbai. 6.79 lakh households.</li>
+      <li><span class="highlight">TFR:</span> <span class="hl-green">2.0</span>. <span class="highlight">CPR:</span> 66.7% to <span class="hl-green">69.1%</span>.</li>
+      <li>ANC coverage rose to <span class="hl-cyan">95.9%</span>. Inst. deliveries to <span class="highlight">90.6%</span>.</li>
+      <li>Full vax (12-23 months): 83.8% to <span class="hl-green">87.1%</span>.</li>
+      <li>Stunting declined to <span class="highlight">29.3%</span>, Wasting to <span class="hl-cyan">5.2%</span>.</li>
+      <li>Women using internet rose to <span class="highlight">64.3%</span>, bank a/c to <span class="highlight">89.0%</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy</div>
+    <h3>Japan Bans Indian Mango Imports</h3>
+    <ul>
+      <li>Banned for <span class="highlight">2026 season</span> due to treatment facility irregularities.</li>
+      <li>Affects <span class="hl-cyan">Alphonso, Kesar, Langra, Banganapalli</span>.</li>
+      <li>Previous ban in <span class="highlight">1986</span> (fruit-fly), lifted in <span class="hl-green">2006</span>.</li>
+      <li>India uses <span class="highlight">Vapour Heat Treatment (VHT)</span> for Japanese standards.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy</div>
+    <h3>India-Vietnam Digital Transactions</h3>
+    <ul>
+      <li>Expand <span class="highlight">QR code-based</span> cross-border payments.</li>
+      <li>MoU signed by <span class="hl-cyan">RBI</span> and <span class="hl-cyan">State Bank of Vietnam</span>.</li>
+      <li>Facilitates seamless payments for tourists, biz, investors.</li>
+    </ul>
+  </div>
+
+  <div class="card c-env">
+    <div class="tag">Environment</div>
+    <h3>World No Tobacco Day 2026</h3>
+    <ul>
+      <li>Observed: <span class="highlight">31 May</span> (WHO, since 1987).</li>
+      <li><span class="hl-cyan">Theme:</span> "Unmasking the Appeal: Countering Nicotine and Tobacco Addiction".</li>
+      <li>Targets synthetic nicotine and addictive products to protect youth.</li>
+    </ul>
+  </div>
+
+  <div class="card c-culture">
+    <div class="tag">Law & Justice</div>
+    <h3>Centre Appoints 5 New SC Judges</h3>
+    <ul>
+      <li>SC working strength rises to <span class="highlight">37</span> (Sanctioned is <span class="hl-cyan">38</span>).</li>
+      <li><span class="hl-green">Appointed:</span> Sheel Nagu, Shree Chandrashekhar, Sanjeev Sachdeva, Arun Palli, <span class="highlight">Venkita Subramani Mohana</span>.</li>
+      <li>Follows Supreme Court (Number of Judges) Amendment Ordinance, 2026.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt/State</div>
+    <h3>Kerala's 'Project Zero'</h3>
+    <ul>
+      <li><span class="highlight">Anti-corruption initiative</span> launched by Home Minister Ramesh Chennithala.</li>
+      <li><span class="hl-cyan">Motto:</span> "Together, let us build a corruption-free Kerala".</li>
+      <li>Zero-tolerance policy implemented via <span class="highlight">Vigilance and Anti-Corruption Bureau (VACB)</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Tech & Space</div>
+    <h3>Red Balloon Aerospace Stratospheric Balloon</h3>
+    <ul>
+      <li>Launched India's 1st stratospheric super pressure balloon (<span class="highlight">Mission SANA</span>).</li>
+      <li>Vijayawada-based company. India joins US, France, Japan, China.</li>
+      <li><span class="hl-cyan">VISTA platform</span> reached <span class="highlight">25 km altitude</span>.</li>
+      <li>Provides Non-Terrestrial Networks (NTN) & disaster management.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Govt Tech</div>
+    <h3>'Samadhan Didi' AI Chatbot</h3>
+    <ul>
+      <li>AI-enabled voice chatbot launched by Union Min. Jitendra Singh.</li>
+      <li>Under <span class="highlight">CPGRAMS</span> (Centralised Public Grievance Redress System).</li>
+      <li>Dev by DARPG & <span class="hl-cyan">Bhashini</span>.</li>
+      <li>Uses AI & NLP for voice-based grievance logging in local dialects.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy</div>
+    <h3>India's First Blue Bond</h3>
+    <ul>
+      <li>Launched by <span class="highlight">Sagarmala Finance Corporation (SFC)</span>.</li>
+      <li>Fund mobilization: <span class="hl-green">$105.08 million</span> (with $52.54M greenshoe option).</li>
+      <li>Finances maritime, coastal, ocean infrastructure projects.</li>
+      <li>SFC established in <span class="highlight">2016</span>, got NBFC license in June 2025.</li>
+    </ul>
+  </div>
+
+  <div class="card c-culture">
+    <div class="tag">Law & Justice</div>
+    <h3>Right to Trauma Care (Art 21)</h3>
+    <ul>
+      <li>SC recognized timely trauma/emergency care as fundamental <span class="highlight">Right to Life (Art 21)</span>.</li>
+      <li>Case: <span class="hl-cyan">SaveLIFE Foundation vs Union of India</span>.</li>
+      <li>Integrate 100, 101, 102, 108, 1033, 1091 into single national emergency number <span class="highlight">112</span> within 3 months.</li>
+      <li>Ambulances must follow National Ambulance Code & have GPS.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt/Health</div>
+    <h3>ESIC Patient Feedback System</h3>
+    <ul>
+      <li>Nationwide <span class="highlight">Online Patient Feedback System</span> across ESIC hospitals.</li>
+      <li>Ministry of Labour and Employment.</li>
+      <li>ESIC est. <span class="highlight">1952</span> (Act of 1948).</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy</div>
+    <h3>WPI Base Year Revised to 2022-23</h3>
+    <ul>
+      <li>Govt shifted WPI base year from 2011-12 to <span class="highlight">2022-23</span>.</li>
+      <li>Introduced <span class="hl-cyan">Producer Price Indices (PPIs)</span> (Output, Input, Service).</li>
+      <li>Commodities increased from 697 to <span class="highlight">957</span>.</li>
+      <li>Solar, wind, nuclear added to Electricity. Crude shifted to Fuel & Power. Weights based on GVO.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Defence</div>
+    <h3>RudraM-II Missile Flight-Tested</h3>
+    <ul>
+      <li><span class="highlight">Air-to-Surface Missile</span> tested by DRDO & IAF.</li>
+      <li>Indigenously developed by <span class="hl-cyan">Research Centre Imarat (RCI)</span>, Hyderabad.</li>
+      <li>Monitored by ITR, Chandipur.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>Divyanshi Bhowmick: WTT Feeder Title</h3>
+    <ul>
+      <li><span class="highlight">15-year-old</span> became youngest Indian woman to win WTT Feeder Singles Title in <span class="hl-cyan">Prishtina, Kosovo</span>.</li>
+      <li>Defeated Yeh Yi-Tian. Won Women's Doubles gold with Syndrela Das.</li>
+      <li>Ranked World No. <span class="highlight">211</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy</div>
+    <h3>Meesho & BSE 'Project Shikhar'</h3>
+    <ul>
+      <li>Helps MSMEs and digital sellers list on the <span class="highlight">BSE SME platform</span>.</li>
+      <li>BSE founded in <span class="highlight">1875</span> (oldest in India).</li>
+    </ul>
+  </div>
+
+  <div class="card c-env">
+    <div class="tag">Environment</div>
+    <h3>World Environment Day 2026</h3>
+    <ul>
+      <li><span class="highlight">5 June</span>. By UNEP.</li>
+      <li><span class="hl-cyan">Theme:</span> "Inspired by Nature. For Climate. For Our Future".</li>
+      <li><span class="highlight">Host:</span> Baku, Republic of Azerbaijan.</li>
+      <li>Campaign: <span class="hl-green">#NowForClimate</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-env">
+    <div class="tag">Environment</div>
+    <h3>India's 100th Ramsar Site</h3>
+    <ul>
+      <li><span class="highlight">Jai Prakash Narayan Bird Sanctuary (Surha Tal)</span> in Ballia, UP.</li>
+      <li>Natural perennial oxbow lake. World's 2,595th site.</li>
+      <li>India ranks <span class="highlight">3rd globally</span> (after UK 176, Mexico 144).</li>
+      <li>Species: Wallago attu, Bagarius bagarius, vulnerable fishing cat.</li>
+    </ul>
+  </div>
+
+  <div class="card c-env">
+    <div class="tag">Environment</div>
+    <h3>Indian Trio Wins 'The Earth Prize 2026'</h3>
+    <ul>
+      <li>Vivaan Chhawchharia, Ariana Agarwal, Avyana Mehta won for <span class="highlight">"Plas-Stick"</span>.</li>
+      <li>Tamarind-based magnetic powder that removes microplastics from water.</li>
+      <li>First Indian project to win. Earth Prize based in Geneva. Prize pool <span class="hl-green">$100,000</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy/Intl</div>
+    <h3>Cambodia Accepts UPI Payments</h3>
+    <ul>
+      <li>Cambodia is the <span class="highlight">9th country</span> to accept UPI for Indian travellers.</li>
+      <li>Partnership: NIPL and <span class="hl-cyan">ACLEDA Bank Plc</span>.</li>
+      <li>Over 4.5M merchants covered. Other 8: SGP, UAE, FRA, MUS, NPL, BTN, QAT, LKA.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt Awards</div>
+    <h3>Panchayat Advancement Index (PAI)</h3>
+    <ul>
+      <li>Won <span class="highlight">Gold Award</span> at National e-Governance Awards 2026 (Category VII).</li>
+      <li>India's 1st data-driven GP framework. 150 indicators, 230 data points.</li>
+      <li>Theme 2026: "Viksit Bharat 2047: AI-Enabled, Data-Driven...". Event in Jaipur.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>Lionel Messi: Princess of Asturias Award</h3>
+    <ul>
+      <li>First footballer to win this Spanish honour.</li>
+      <li>Ceremony in Oviedo, Spain. Prize includes Joan Miró sculpture & <span class="hl-green">€50,000</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>R. Praggnanandhaa Wins Norway Chess</h3>
+    <ul>
+      <li>First Indian to win the prestigious classical title.</li>
+      <li>Defeated Germany's <span class="hl-cyan">Vincent Keymer</span> in final round.</li>
+      <li>Beat Carlsen & Gukesh. CM Stalin awarded <span class="hl-green">₹50 lakh</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Defence</div>
+    <h3>Air Marshal Ashutosh Dixit</h3>
+    <ul>
+      <li>Appointed <span class="highlight">Vice Chief of Air Staff (VCAS)</span>.</li>
+      <li>Succeeds Air Marshal Narmdeshwar Tiwari.</li>
+      <li>3,300+ hrs flying, graduate of ASTE Bengaluru.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Space/Lit</div>
+    <h3>Shubhanshu Shukla's Memoir</h3>
+    <ul>
+      <li>Title: <span class="highlight">"The Second Orbit: Belief of a Man... Dreams of 1.4 Billion Hearts"</span>.</li>
+      <li>First Indian to enter ISS (Axiom Mission 4). First Indian to cross Kármán Line in 41 yrs.</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Intl Relations</div>
+    <h3>Shri Vipul: Envoy to Saudi Arabia</h3>
+    <ul>
+      <li>Appointed as India's next Ambassador to <span class="highlight">Saudi Arabia</span>.</li>
+      <li>Presently serving as Ambassador to <span class="hl-cyan">Qatar</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-culture">
+    <div class="tag">Law & Justice</div>
+    <h3>Justice Venkita Mohana</h3>
+    <ul>
+      <li><span class="highlight">2nd woman</span> directly elevated from Bar to Supreme Court (after Indu Malhotra in 2018).</li>
+      <li><span class="hl-cyan">12th woman judge</span> in SC history. Retires June 2031.</li>
+      <li>Designated Senior Advocate in 2015.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>Alexander Zverev Wins French Open</h3>
+    <ul>
+      <li>German star won maiden Grand Slam. Defeated Italy's <span class="hl-cyan">Flavio Cobolli</span> in 5 sets.</li>
+      <li>First German man since Boris Becker (1996) to win a GS singles title.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>SAFF Women's Championship 2026</h3>
+    <ul>
+      <li><span class="highlight">India won 6th title</span> (Record). Defeated Bangladesh.</li>
+      <li>Venue: <span class="hl-cyan">Madgaon, Goa</span>.</li>
+      <li>Highest Scorer: Aveka Singh (4). MVP: Sanfida Nongrum. Best GK: Panthoi Chanu Elangbam.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>Srishti Kiran: World No. 1 Under-13</h3>
+    <ul>
+      <li>13-year-old from <span class="highlight">Bengaluru</span>.</li>
+      <li>Won 5 consecutive ITF junior titles. Highest ranking <span class="hl-cyan">No. 357</span> in ITF Junior.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>World Yogasana Championship 2026</h3>
+    <ul>
+      <li>Held in <span class="highlight">Ahmedabad, Gujarat</span> (First Edition).</li>
+      <li>India topped with <span class="hl-cyan">114 medals</span> (102 Gold, 9 Silver, 3 Bronze).</li>
+      <li>2nd: Japan. Nepal secured 52 medals. Mascot: <span class="highlight">"Veer the Lion"</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Space</div>
+    <h3>Artemis III Crew Unveiled</h3>
+    <ul>
+      <li><span class="highlight">Launch:</span> June 2026 (Target 2027), aboard SLS rocket. Earth-orbit test, won't land on Moon.</li>
+      <li><span class="hl-cyan">Crew:</span> Randy Bresnik (Cmdr), Luca Parmitano (Pilot), Frank Rubio, Andre Douglas.</li>
+      <li>Backup: Bob Heintz. Testing SpaceX/Blue Origin landers.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt/Polity</div>
+    <h3>PM Modi Longest-Serving Elected PM</h3>
+    <ul>
+      <li>Surpassed Jawaharlal Nehru's uninterrupted <span class="highlight">4,398 days</span>.</li>
+      <li>Cumulative tenure exceeds <span class="hl-cyan">4,399 days</span> (2014, 2019, 2024 wins).</li>
+      <li>70% approval rating on Morning Consult tracker.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Tech/Wildlife</div>
+    <h3>Kerala's HAWK System</h3>
+    <ul>
+      <li>1st state with judiciary-integrated wildlife offence system via e-court API.</li>
+      <li><span class="highlight">HAWK:</span> Hostile Activity Watch Kernel (dev by Forest Dept & WTI).</li>
+      <li>Adopted by Karnataka (2022), TN & Odisha (2025).</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Intl Relations</div>
+    <h3>52nd G7 Summit</h3>
+    <ul>
+      <li>PM Modi attending in <span class="highlight">Evian, France</span> (June 2026).</li>
+      <li>PM's 7th consecutive participation. India's 13th.</li>
+      <li>Joint inauguration of <span class="hl-cyan">Bharat Innovates</span> with Macron.</li>
+      <li>Also marking 1st ever Indian PM visit to <span class="highlight">Slovakia</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-env">
+    <div class="tag">Art/Env</div>
+    <h3>Sudarsan Pattnaik: Sand Master Cup</h3>
+    <ul>
+      <li>1st Indian to win <span class="highlight">Russia Grand Sand Master Cup 2026</span> (Kaliningrad).</li>
+      <li>Artwork focused on climate change (3m high contrasting Earth faces).</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Defence</div>
+    <h3>Lt Gen Dhiraj Seth: Next COAS</h3>
+    <ul>
+      <li>Takes over as Chief of Army Staff on <span class="highlight">30 June 2026</span>.</li>
+      <li>Succeeds Gen Upendra Dwivedi.</li>
+      <li>Commissioned Dec 1986. Commanded 21 Corps (Sudarshan Chakra).</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Intl Reports</div>
+    <h3>Global Peace Index 2026</h3>
+    <ul>
+      <li>Released by Institute for Economics and Peace (IEP).</li>
+      <li>India dropped to <span class="highlight">127th</span> (from 115th).</li>
+      <li><span class="hl-cyan">Top:</span> Iceland. <span class="hl-cyan">Bottom:</span> Russia.</li>
+      <li><span class="hl-green">South Asia:</span> Bhutan (16th), Sri Lanka (67th). Poland moved up 23 spots.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy/Labour</div>
+    <h3>ILO Global Treaty for Gig Workers</h3>
+    <ul>
+      <li>Adopted <span class="highlight">Decent Work in the Platform Economy Convention</span> in Geneva.</li>
+      <li>1st treaty for digital labour platform workers (wages, health, social security).</li>
+      <li>Voted 406 for, 8 against. Estimated 435M gig workers globally.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Tech/Biz</div>
+    <h3>Elon Musk: World's 1st Trillionaire</h3>
+    <ul>
+      <li>Net worth hit <span class="highlight">$1.1 trillion</span> after SpaceX IPO on Nasdaq.</li>
+      <li>SpaceX IPO raised ~$75B, market cap crossed <span class="hl-green">$2 trillion</span>.</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Intl Relations</div>
+    <h3>PM Modi in Slovakia</h3>
+    <ul>
+      <li>Conferred highest state honour: <span class="highlight">Order of the White Double Cross (1st Class)</span> by Pres. Peter Pellegrini.</li>
+      <li>33rd international honour. Signed MoUs on labour migration & defence.</li>
+      <li>Set up ICCR Chair in AI at Technical University of Košice.</li>
+    </ul>
+  </div>
+
+  <div class="card c-env">
+    <div class="tag">Environment</div>
+    <h3>Desertification & Drought Day</h3>
+    <ul>
+      <li>Observed <span class="highlight">17 June</span>. Host: Kenya.</li>
+      <li><span class="hl-cyan">Theme:</span> "Rangelands: Recognize. Respect. Restore."</li>
+      <li>2026 designated Intl Year of Rangelands and Pastoralists.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>Smriti Mandhana in TIME100 Sports</h3>
+    <ul>
+      <li>Only Indian athlete in TIME's 2026 inaugural list.</li>
+      <li>Categorized as a <span class="highlight">"Titan"</span> alongside Messi, LeBron, Alcaraz.</li>
+      <li>Captained RCB to WPL titles in 2024 & 2026.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy/Tech</div>
+    <h3>Sarvam AI: India's 130th Unicorn</h3>
+    <ul>
+      <li>Bengaluru startup raised <span class="hl-green">$234M</span> Series B led by HCLTech ($150M for 10.46%).</li>
+      <li>Valuation: <span class="highlight">$1.5 billion</span>.</li>
+      <li>Developing India's sovereign LLM.</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Intl Econ</div>
+    <h3>Uzbekistan Joins NDB</h3>
+    <ul>
+      <li>Became the <span class="highlight">10th member</span> of the New Development Bank.</li>
+      <li>1st member from Central Asia. President Shavkat Mirziyoyev signed the law.</li>
+      <li>NDB est. 2015 by BRICS in Shanghai.</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Culture/Intl</div>
+    <h3>UNESCO Joint Nomination: Xuanzang</h3>
+    <ul>
+      <li>India & China proposing <span class="highlight">"The Great Tang Records on the Western Regions"</span>.</li>
+      <li>Hiuen Tsang (Xuanzang) visited India during Harsha Vardhana's reign.</li>
+      <li>Other joint bids: Panchatantra (Iran), Satyagraha (South Africa).</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy/Tech</div>
+    <h3>RBI Launches Reelathon 2026</h3>
+    <ul>
+      <li>Nationwide short-video competition for cyber security & fraud prevention.</li>
+      <li>Launched in <span class="highlight">Thiruvananthapuram</span>. Targets investment scams, digital arrests, fake loans.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt Appts</div>
+    <h3>NSC Chairperson & Members</h3>
+    <ul>
+      <li><span class="highlight">Dr. Saibal Chattopadhyay</span> appt Chairperson of National Statistical Commission (est 2005).</li>
+      <li><span class="hl-cyan">Members:</span> Prof. Shubhabrata Das, Satyendra Bahadur Singh, Dr. Madhavan Mukund.</li>
+    </ul>
+  </div>
+
+  <div class="card c-culture">
+    <div class="tag">Culture/Health</div>
+    <h3>12th Intl Day of Yoga 2026</h3>
+    <ul>
+      <li><span class="highlight">21 June</span>. PM Modi led at <span class="hl-cyan">Red Road, Kolkata</span>.</li>
+      <li><span class="hl-cyan">Theme:</span> "Yoga for Healthy Ageing".</li>
+      <li>Pres. Murmu participated in Jabalpur. Started in 2015 via UN res.</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Intl Relations</div>
+    <h3>India: FATF Vice-Presidency</h3>
+    <ul>
+      <li>Holds VP role for first time (July 2026 - June 2027).</li>
+      <li><span class="highlight">Vivek Aggarwal</span> elected Vice-President.</li>
+      <li>FATF est 1989. India joined in 2010. Target: AML/CTF, digital assets.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy/Env</div>
+    <h3>Energy Transition Index (ETI) 2026</h3>
+    <ul>
+      <li>By World Economic Forum. India ranked <span class="highlight">70th</span> (Score up 1.9%).</li>
+      <li>Renewable jobs in India grew 25% (1.3M jobs).</li>
+      <li><span class="hl-cyan">Top 3:</span> Sweden, Finland, Denmark. Singapore jumped 10 places.</li>
+    </ul>
+  </div>
+
+  <div class="card c-sports">
+    <div class="tag">Sports</div>
+    <h3>International Olympic Day 2026</h3>
+    <ul>
+      <li><span class="highlight">23 June</span>. Commemorates IOC founding (1894).</li>
+      <li><span class="hl-cyan">Theme:</span> "You Can Do This! Let's Move".</li>
+      <li>Collab with WHO to overcome self-doubt in physical activity.</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Intl Policy</div>
+    <h3>UAE Bans Social Media for Under 15s</h3>
+    <ul>
+      <li>1st Arab nation to enforce minimum age for social media.</li>
+      <li>Under 15s banned. 15-16s need enhanced filters & parental controls.</li>
+      <li>Global context: Australia ban from Dec 2025; Britain planning under 16 ban.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Law/Civic</div>
+    <h3>SC: Right to Walk as Fundamental</h3>
+    <ul>
+      <li>Pedestrian right on demarcated footpaths is a fundamental right under <span class="highlight">Art 19(1)(d) & 21</span>.</li>
+      <li>Prioritized over motorised vehicles. Granted ₹11.44L compensation for child victim.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Edu/Tech</div>
+    <h3>QS World Future Skills Index 2027</h3>
+    <ul>
+      <li>India ranked <span class="highlight">13th globally</span> (Score 89.4). Top in lower-middle-income & South Asia.</li>
+      <li>Ranked 1st in <span class="hl-cyan">Economic Capacity</span>, 5th in Future of Work.</li>
+      <li>$90B in AI investments by Feb 2026. Top overall: USA, Aus, UK.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt/Civic</div>
+    <h3>Passport Not Proof of Citizenship</h3>
+    <ul>
+      <li>Clarified by MEA on Passport Seva Diwas. Primarily a travel document.</li>
+      <li>Documents like Aadhaar Card, Voter ID, PAN, Ration Card are also <span class="hl-cyan">not conclusive proof</span>.</li>
+      <li>Citizenship Act 1955 dictates acquisition.</li>
+    </ul>
+  </div>
+
+  <div class="card c-env">
+    <div class="tag">Environment</div>
+    <h3>Bangladesh Joins IBCA</h3>
+    <ul>
+      <li>Became <span class="highlight">27th member</span> of International Big Cat Alliance.</li>
+      <li>IBCA launched by India in 2023 for 7 big cats (Tiger, Lion, Leopard, Snow Leopard, Cheetah, Jaguar, Puma).</li>
+    </ul>
+  </div>
+
+  <div class="card c-intl">
+    <div class="tag">Intl Relations</div>
+    <h3>Operation Amistad (Venezuela)</h3>
+    <ul>
+      <li>India sent disaster relief to Venezuela after 7.2 & 7.5 earthquakes (235 dead).</li>
+      <li><span class="highlight">"Amistad" = Friendship</span>.</li>
+      <li>Sent 60 Para Field Hospital & two <span class="hl-cyan">BHISHM Cubes</span> via C-17 Globemasters.</li>
+    </ul>
+  </div>
+
+  <div class="card c-econ">
+    <div class="tag">Economy</div>
+    <h3>Skydo: Canadian Payment Licence</h3>
+    <ul>
+      <li>1st Indian cross-border platform to get foreign regulatory approval.</li>
+      <li>Secured MSB licence from <span class="highlight">FINTRAC Canada</span>.</li>
+      <li>Targets India-Canada bilateral trade (CAD 13.6B, aiming CAD 70B by 2030).</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Defence/Intel</div>
+    <h3>Mahesh Dixit: New IB Director</h3>
+    <ul>
+      <li>1993-batch IPS officer appointed <span class="highlight">Director of Intelligence Bureau</span>.</li>
+      <li>Succeeds Tapan Kumar Deka for 2-yr term. IB founded 1887.</li>
+    </ul>
+  </div>
+
+  <div class="card c-env">
+    <div class="tag">Environment</div>
+    <h3>PM Modi: Seychelles Honour</h3>
+    <ul>
+      <li>Conferred <span class="highlight">"The Guardian of the Blue Horizon"</span> by Pres Wavel Ramkalawan/Dr. Patrick Herminie.</li>
+      <li>Recognises contribution to Blue Economy, SIDS, climate action.</li>
+      <li>50th anniv of ties; MoU signed for UPI in Seychelles.</li>
+    </ul>
+  </div>
+
+  <div class="card c-tech">
+    <div class="tag">Tech/Energy</div>
+    <h3>World's 1st Nuclear-Heat Hydrogen Plant</h3>
+    <ul>
+      <li>DAE inaugurated at <span class="highlight">IGCAR, Kalpakkam</span>.</li>
+      <li>Uses <span class="hl-cyan">Copper-Chlorine (Cu-Cl) Thermochemical Cycle</span> powered by Fast Breeder Test Reactor (FBTR).</li>
+      <li>Tech developed by BARC.</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt/Health</div>
+    <h3>PM Family Care Tracker</h3>
+    <ul>
+      <li>Pilot project launched by Amit Shah in <span class="highlight">Gandhinagar, Gujarat</span>.</li>
+      <li>Links birth/death data for a Unique ID for children.</li>
+      <li>Integrates healthcare monitoring & Direct Benefit Transfer (DBT).</li>
+    </ul>
+  </div>
+
+  <div class="card c-govt">
+    <div class="tag">Govt Info</div>
+    <h3>20th National Statistics Day</h3>
+    <ul>
+      <li><span class="highlight">29 June</span>. Birth anniv of Prof. P.C. Mahalanobis.</li>
+      <li><span class="hl-cyan">Theme:</span> "Unlocking the Potential of Administrative Data".</li>
+      <li>Sukhatme Award 2026: Dr. Arup Bose. Released MoSPI Vision Doc 2026-31.</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
