@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odisha Current Affairs - Exhaustive Sketchnote</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Permanent+Marker&display=swap');
+
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Caveat', cursive, 'Comic Sans MS', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 3px dashed #ffb347;
+            border-radius: 15px;
+            background: #2a2a2a;
+            box-shadow: 4px 4px 0px #ffb347;
+        }
+
+        .header h1 {
+            font-family: 'Permanent Marker', cursive;
+            color: #ffb347;
+            font-size: 3em;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        
+        .header p {
+            font-size: 1.5em;
+            color: #aaa;
+            margin-top: 10px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        .card {
+            background: #222;
+            border: 2px solid #fff;
+            border-radius: 10px 25px 10px 25px;
+            padding: 20px;
+            position: relative;
+            transition: transform 0.2s ease;
+            box-shadow: 5px 5px 0px rgba(255,255,255,0.2);
+        }
+
+        .card:hover {
+            transform: scale(1.01) rotate(-0.5deg);
+        }
+
+        .card h2 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.5em;
+            margin-top: 0;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 1.25em;
+        }
+
+        .card ul li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+            line-height: 1.4;
+        }
+
+        .card ul li::before {
+            content: '👉';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.9em;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #ffb347;
+            color: #000;
+            font-size: 0.85em;
+            font-family: 'Permanent Marker', cursive;
+            padding: 4px 10px;
+            border-radius: 5px;
+            position: absolute;
+            top: -15px;
+            right: 15px;
+            transform: rotate(5deg);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        /* Color Variations */
+        .c-env { border-color: #4cd137; box-shadow: 5px 5px 0px #4cd137; }
+        .c-env h2 { color: #4cd137; }
+        .c-env .tag { background: #4cd137; color: #000;}
+        
+        .c-infra { border-color: #00a8ff; box-shadow: 5px 5px 0px #00a8ff; }
+        .c-infra h2 { color: #00a8ff; }
+        .c-infra .tag { background: #00a8ff; color: #000;}
+        
+        .c-gov { border-color: #e1b12c; box-shadow: 5px 5px 0px #e1b12c; }
+        .c-gov h2 { color: #e1b12c; }
+        .c-gov .tag { background: #e1b12c; color: #000;}
+        
+        .c-tech { border-color: #9c88ff; box-shadow: 5px 5px 0px #9c88ff; }
+        .c-tech h2 { color: #9c88ff; }
+        .c-tech .tag { background: #9c88ff; color: #000;}
+        
+        .c-culture { border-color: #e84118; box-shadow: 5px 5px 0px #e84118; }
+        .c-culture h2 { color: #e84118; }
+        .c-culture .tag { background: #e84118; color: #fff;}
+        
+        .c-biz { border-color: #fbc531; box-shadow: 5px 5px 0px #fbc531; }
+        .c-biz h2 { color: #fbc531; }
+        .c-biz .tag { background: #fbc531; color: #000;}
+
+        .highlight { color: #ffeb3b; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Odisha Current Affairs: The Exhaustive File</h1>
+        <p>September 2026 — Zero Omissions Sketchnote Board 📌</p>
+    </div>
+
+    <div class="container">
+        
+        <!-- Topic 1 -->
+        <div class="card c-env">
+            <span class="tag">Environment</span>
+            <h2>1. Maithilee Bhue's Conservation</h2>
+            <ul>
+                <li>40-year-old tribal woman from <span class="highlight">Dhodrokusum</span> village (Debrigarh Wildlife Sanctuary, Bargarh).</li>
+                <li>First tribal woman from village to join eco-tourism (2023).</li>
+                <li>Funded 2 children's education & ailing mother-in-law's healthcare.</li>
+                <li>Transformed Dhodrokusum into a <span class="highlight">'Green Village'</span>; inspired women in 20 fringe villages.</li>
+                <li>Sanctuary near Hirakud Dam (Mahanadi River). Flora: Sal, Asana, Bija. Fauna: Leopard, sloth bear, chousingha, dhole.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 2 -->
+        <div class="card c-infra">
+            <span class="tag">Infra</span>
+            <h2>2. Rameshwar-Paradeep Corridor</h2>
+            <ul>
+                <li>NHAI received 17 bids for 160.18 km coastal corridor (₹8,300.79 cr, HAM mode).</li>
+                <li><span class="highlight">Pkg-I:</span> Rameshwar-Konark (79.4km, 4-lane access-controlled, 10 bids).</li>
+                <li><span class="highlight">Pkg-II:</span> Konark-Paradeep (80.7km, 2-lane, 7 bids).</li>
+                <li>100km/h design speed; cuts travel time by 2.5 hours.</li>
+                <li>Connects Paradeep, Astarang, and Subarnarekha ports.</li>
+                <li>Covers Khurda, Puri, Kendrapada, Jagatsinghpur; alternative to NH-16 & NH-316.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 3 -->
+        <div class="card c-env">
+            <span class="tag">Climate</span>
+            <h2>3. Odisha's ARISE Plan</h2>
+            <ul>
+                <li><span class="highlight">ARISE:</span> Adaptive Resilience Investment in Coastal Systems on Economics.</li>
+                <li>Assessing 573-km coastline jointly with ADB and OSDMA.</li>
+                <li>Promotes Blue Economy, coastal protection, and sediment management.</li>
+                <li><span class="highlight">ADB info:</span> Est. 1966, Manila HQ, 69 members. Already working with Kerala, TN, and Karnataka (Phase 1 completed).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 4 -->
+        <div class="card c-gov">
+            <span class="tag">Govt</span>
+            <h2>4. PESA Act Implementation</h2>
+            <ul>
+                <li>Cabinet approved Panchayats (Extension to Scheduled Areas) Act, 1996 framework.</li>
+                <li>Extends Part IX of Constitution to Scheduled Areas (Fifth Schedule).</li>
+                <li>Benefits 9 tribal-dominated districts, 117 blocks, and 2,022 Gram Panchayats.</li>
+                <li>Empowers <span class="highlight">22.8% of Odisha's population</span> (tribal communities) via Gram Sabhas.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 5 -->
+        <div class="card c-gov">
+            <span class="tag">Urban</span>
+            <h2>5. ₹883 Cr Urban Dev Package</h2>
+            <ul>
+                <li>Announced on Local Self-Government Day.</li>
+                <li>₹323 cr for 593 projects under <span class="highlight">Mukhya Mantri Shahari Vikash Yojana</span> (62 ULBs).</li>
+                <li>MoUs: Odisha Urban Academy with Sri Sri Univ, ISB, NIUA. CRUT with Sri Sri Univ.</li>
+                <li>Digital: OSWAN in 115 ULBs, PMAY-BANDHU, Odisha Yatri SOS App.</li>
+                <li>28 new NACs (₹20cr each), 7 new municipalities; Puri gets Corporation status.</li>
+                <li>Target: 40% urbanisation by 2036, 60% by 2047.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 6 -->
+        <div class="card c-env">
+            <span class="tag">Civic</span>
+            <h2>6. Pet Crematorium Facility</h2>
+            <ul>
+                <li>BMC inaugurated first LPG-based facility at <span class="highlight">Palasuni</span>, Bhubaneswar.</li>
+                <li>Cost: ₹1.19 cr (₹77.11L civil, ₹42.31L machinery).</li>
+                <li>30 KLD treatment plant at Gadakana transit station.</li>
+                <li>25 TPD green-waste processing in Ward 5 (biomass briquettes) + 5 KLD sewage plant.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 7 -->
+        <div class="card c-tech">
+            <span class="tag">Tech</span>
+            <h2>7. Digital Property Deed Reg.</h2>
+            <ul>
+                <li>Proposed amendments to Registration Act, 1908 (8 existing amended, 9 new inserted).</li>
+                <li>End-to-end digital/paperless; maximum <span class="highlight">four-page limit</span>.</li>
+                <li>Linked with Unique Property Identification Number (UPIN).</li>
+                <li>Aadhaar is optional; e-signatures and e-seals get full legal validity.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 8 -->
+        <div class="card c-infra">
+            <span class="tag">Infra</span>
+            <h2>8. Paradip Port Capesize Vessel</h2>
+            <ul>
+                <li>First-ever Capesize berthed: <span class="highlight">MV Mineral Kwangyang</span> (292m length) at Western Dock 1.</li>
+                <li>16.5-metre draft; carried 152,702 MT coking coal from Hay Point, Australia.</li>
+                <li>Port commissioned in 1966; managed under Major Port Trusts Act, 1963.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 9 -->
+        <div class="card c-culture">
+            <span class="tag">Sports</span>
+            <h2>9. Youngest FIDE Chess Player</h2>
+            <ul>
+                <li>4-year-old <span class="highlight">Elena Mishra</span> gets official FIDE rating (1432 in Blitz, Sept 2026).</li>
+                <li>Earned at Odisha State Blitz FIDE Rating Open Chess Championship 2026 (Bhubaneswar).</li>
+                <li>Only female born in 2022 or later with an official FIDE rating.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 10 -->
+        <div class="card c-gov">
+            <span class="tag">Education</span>
+            <h2>10. Single Education Board</h2>
+            <ul>
+                <li>Odisha drafting law to merge BSE (Class 10) & CHSE (Class 12).</li>
+                <li>Based on CBSE model; existing exam pattern remains unchanged.</li>
+                <li>State to spend ₹10 crore on education initiatives.</li>
+                <li>Includes free coaching for <span class="highlight">IIT and NEET</span> exams.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 11 -->
+        <div class="card c-culture">
+            <span class="tag">Heritage</span>
+            <h2>11. Jagannath Temple Land Rules</h2>
+            <ul>
+                <li>Cabinet approved 2026 Rules for transparency; fully online portal.</li>
+                <li>Valuation based on <span class="highlight">BMV or ALSS</span> (whichever is higher).</li>
+                <li>Concession for 'Bijesthali' of mathas (30 years continuous possession).</li>
+                <li>Collector & SJMBSC district sub-committee; SJTMC issues NOCs.</li>
+                <li>Integration with Bhulekh/Bhunaksha; appeals to Principal Secy Law Dept.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 12 -->
+        <div class="card c-biz">
+            <span class="tag">Business</span>
+            <h2>12. CM Majhi's UAE Visit (2.1L Cr)</h2>
+            <ul>
+                <li>14 projects explored with IHC and Adani Group in Abu Dhabi.</li>
+                <li>Est. investment: <span class="highlight">₹2,10,500 crore</span>; Employment: 8.68 lakh jobs.</li>
+                <li>Integrated Aluminium Project: Rayagada (alumina) & Sundargarh (smelter).</li>
+                <li>Rare Earth Corridor & Critical Minerals Park planned.</li>
+                <li>MoC signed with IBPG; boosting exports of turmeric, ginger, seafood.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 13 -->
+        <div class="card c-gov">
+            <span class="tag">Govt</span>
+            <h2>13. Odisha Jan Vishwas Bill 2026</h2>
+            <ul>
+                <li>Phase 2 of regulatory reform; amends 62 provisions across 16 Acts (11 depts).</li>
+                <li><span class="highlight">Schedule I:</span> 35 amends (11 Acts) to decriminalise minor offences (fines instead of jail).</li>
+                <li><span class="highlight">Schedule II:</span> 27 amends (5 Acts) to rationalise 9 approvals.</li>
+                <li>Introduces intimation-based registration/NOCs; extends licence validities.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 14 -->
+        <div class="card c-tech">
+            <span class="tag">Tech</span>
+            <h2>14. TCS OSWAS 3.0 Project</h2>
+            <ul>
+                <li>TCS wins <span class="highlight">₹122.6 crore</span> contract for Odisha State Workflow Automation System.</li>
+                <li>Powered by TCS DigiBOLT (microservices, AI, mobile-first, Odia support).</li>
+                <li>Currently supports 4,600 offices, 50,000 users. OSWAS 1.0 (2009), 2.0 (2018).</li>
+                <li>Also covers IFMS, Mission Shakti solutions, and OJWAS (High Court).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 15 -->
+        <div class="card c-culture">
+            <span class="tag">Awards</span>
+            <h2>15. Kalinga Ratna Award</h2>
+            <ul>
+                <li>Former CJI <span class="highlight">Justice Dipak Misra</span> conferred award by Sarala Sahitya Sansad (Cuttack).</li>
+                <li>Award comprises a silver idol of Goddess Saraswati and a citation.</li>
+                <li>Sarala Samman conferred on litterateur Dr Ramachandra Behera.</li>
+                <li>Attended by Law Minister Prithviraj Harichandan.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 16 -->
+        <div class="card c-biz">
+            <span class="tag">Business</span>
+            <h2>16. MoUs for 24 Projects (UAE)</h2>
+            <ul>
+                <li>Industries Minister Sampad Chandra Swain secured MoUs during UAE visit.</li>
+                <li>Total expected investment: <span class="highlight">₹2,43,062 crore</span>.</li>
+                <li>Covers sectors like IT and healthcare.</li>
+                <li>Minister noted ₹3,20,000 crore worth projects were grounded earlier.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 17 -->
+        <div class="card c-biz">
+            <span class="tag">Business</span>
+            <h2>17. Adani-IRH Aluminium Project</h2>
+            <ul>
+                <li>₹1.08 lakh cr ($11.5B) investment; 50:50 JV between Adani & IRH (IHC Group).</li>
+                <li>7,000 acres handed over in 70 days (4,000 Sundargarh, 3,000 Rayagada).</li>
+                <li>4 MMTPA refinery (Rayagada), 2 MMTPA smelter (Sundargarh), 1 MMTPA downstream park.</li>
+                <li>4,000 MW captive power (includes 400 MW green).</li>
+                <li>Largest FDI in Odisha mining. Phase 1: ₹66k cr, Phase 2: ₹42k cr.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 18 -->
+        <div class="card c-tech">
+            <span class="tag">Science</span>
+            <h2>18. CHAYANKAN Project MoU</h2>
+            <ul>
+                <li>NIT Rourkela tripartite MoU with NRSC-ISRO and Tea Board India.</li>
+                <li><span class="highlight">Goal:</span> AI-based geospatial data analytics for tea plantation monitoring.</li>
+                <li>Signed at RRSC-East Kolkata; 3-year project started April 2026.</li>
+                <li>ISRO info: Est Aug 15 1969, replaced INCOSPAR (est 1962 by Dr Vikram Sarabhai).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 19 -->
+        <div class="card c-culture">
+            <span class="tag">Tourism</span>
+            <h2>19. 7th Tourism Conclave 2026</h2>
+            <ul>
+                <li>Organised by HRAO in Bhubaneswar on <span class="highlight">October 23, 2026</span>.</li>
+                <li>Inauguration: Deputy CM Pravati Parida. Valedictory: Gov Hari Babu Kambhampati.</li>
+                <li>Focus: Private investment in infra, air connectivity, MICE, and spiritual/eco tourism.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 20 -->
+        <div class="card c-culture">
+            <span class="tag">Culture</span>
+            <h2>20. Nuakhai Celebrated</h2>
+            <ul>
+                <li>Major agrarian festival of Western Odisha celebrated on <span class="highlight">Sept 15, 2026</span>.</li>
+                <li>Nabanna (first harvest) offered to Goddess Samaleswari (Sambalpur).</li>
+                <li>Offerings made to 115 other deities in temple premises.</li>
+                <li>Tradition of Nuakhai Juhar-Bhet (seeking blessings from elders).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 21 -->
+        <div class="card c-tech">
+            <span class="tag">Tech</span>
+            <h2>21. SiCSem Semiconductor Facility</h2>
+            <ul>
+                <li>Falta SEZ UAC approved facility at IDCO Infovalley-II (Jatni, Khurda, 21.8 acres).</li>
+                <li>Investment: <span class="highlight">₹3,006.25 crore</span> for Silicon Carbide (SiC) diodes/MOSFETs.</li>
+                <li>Under India Semiconductor Mission (₹700 cr ceiling). State OTFAG support: ₹350 cr.</li>
+                <li>UK tech collaboration with Clas-SiC Wafer Fab Ltd.</li>
+                <li>2nd project after 3DGS (HIPSPL).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 22 -->
+        <div class="card c-tech">
+            <span class="tag">Science</span>
+            <h2>22. 51st Doppler Weather Radar</h2>
+            <ul>
+                <li>Inaugurated at Sambalpur by MoS Dr. Jitendra Singh (Sept 17, 2026).</li>
+                <li>India's DWR network grew from 14 (2014) to 51 (2026). Target: ~81.</li>
+                <li>Odisha has 3: Sambalpur, Gopalpur, Paradip. Planned: Balasore, Puri, Bhubaneswar.</li>
+                <li>Part of <span class="highlight">Mission Mausam</span> (IMD, NCMRWF, IITM).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 23 -->
+        <div class="card c-infra">
+            <span class="tag">Logistics</span>
+            <h2>23. ECoR Crosses 100 MT Freight</h2>
+            <ul>
+                <li>East Coast Railway first zone to hit 100 MT in FY 2026-27.</li>
+                <li>Achieved 17 days earlier than FY 2025-26.</li>
+                <li><span class="highlight">Stats:</span> 9.8% rise in release tonnage, 3.9% rise in loading, 3.2% rise in earnings.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 24 -->
+        <div class="card c-tech">
+            <span class="tag">Education</span>
+            <h2>24. IIT BBS & IIT (ISM) Dhanbad MoU</h2>
+            <ul>
+                <li>Signed Sept 16, 2026 for 5 years.</li>
+                <li>Joint research in <span class="highlight">semiconductor technology</span> and basic sciences.</li>
+                <li>Reciprocal PhD supervision, faculty/student exchange, shared large-scale facilities.</li>
+                <li>Joint ownership of intellectual property generated.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 25 -->
+        <div class="card c-infra">
+            <span class="tag">Logistics</span>
+            <h2>25. ECoR 180-Wagon Triplet Train</h2>
+            <ul>
+                <li>Pilot run of 3 empty freight rakes from Paradip to Talcher (198-km corridor).</li>
+                <li>Completed in 7 hours and 45 minutes.</li>
+                <li>Hauled by <span class="highlight">6 locomotives</span> using Distributed Power Wireless Control & SATEL modems.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 26 -->
+        <div class="card c-env">
+            <span class="tag">Rescue</span>
+            <h2>26. Five Baby Orangutans Rescued</h2>
+            <ul>
+                <li>STF rescued them from Bhograi forest area in Balasore.</li>
+                <li>Investigating international wildlife trafficking links.</li>
+                <li>Coordinating with Assam (2 rescued in 2022), Mizoram (2023), Maharashtra (2024).</li>
+            </ul>
+        </div>
+
+        <!-- Topic 27 -->
+        <div class="card c-env">
+            <span class="tag">Weather</span>
+            <h2>27. Cyclone 'Arnab' System</h2>
+            <ul>
+                <li>Deep depression crossed AP-Odisha coast (Visakhapatnam-Gopalpur near Kalingapatnam) on Sept 23-24 night.</li>
+                <li>Name <span class="highlight">'Arnab'</span> (contributed by Bangladesh, means ocean) unused as it didn't reach Cyclonic Storm intensity.</li>
+                <li>Brought 55-65 kmph winds (gusts 75 kmph) and heavy rainfall.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 28 -->
+        <div class="card c-biz">
+            <span class="tag">Energy</span>
+            <h2>28. ONGC Gas Discovery (Mahanadi)</h2>
+            <ul>
+                <li>Natural gas found in deepwater well MN-DW18-1-H-D (MDW-28), 43 km off Konark.</li>
+                <li>Drilled by ship Platinum Explorer under <span class="highlight">Samudra Manthan</span> initiative (₹84,084 cr outlay till 2030-31).</li>
+                <li>Follows earlier Utkal & Konark discoveries. Potential cluster development under PNG Rules 2025.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 29 -->
+        <div class="card c-gov">
+            <span class="tag">Legal</span>
+            <h2>29. SC Upholds Sales Tax Surcharge</h2>
+            <ul>
+                <li><span class="highlight">7-judge Constitution Bench</span> upheld Odisha's amended Sales Tax law.</li>
+                <li>Affirms state's power to levy a surcharge (based on 1990 amendment).</li>
+                <li>Defended by Odisha's Advocate General Pitambar Acharya. Resolves 30-year dispute.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 30 -->
+        <div class="card c-culture">
+            <span class="tag">Culture</span>
+            <h2>30. PM Mementos e-Auction 2026</h2>
+            <ul>
+                <li>8th edition features 62 Odisha mementos; live until Oct 2, 2026.</li>
+                <li>Highlights Lord Jagannath, Puri Rath Yatra Pattachitra, Tarakasi (Cuttack silver filigree).</li>
+                <li>Sambalpuri Ikat (Maa Samaleswari icon), Panchu Dola Melana, Chilika Lake festivals.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 31 -->
+        <div class="card c-gov">
+            <span class="tag">Govt</span>
+            <h2>31. Indian Stamp (Odisha Amend) Bill</h2>
+            <ul>
+                <li>Introduces uniform <span class="highlight">5% stamp duty</span> on apartment units (replacing 3% up to 5L, 4% 5-15L, 5% above 15L).</li>
+                <li>Nominal ₹50,000 duty for transferring common areas to associations (reg fee capped at 20,000).</li>
+                <li>90% exemption already available for EWS under affordable housing.</li>
+            </ul>
+        </div>
+
+        <!-- Topic 32 -->
+        <div class="card c-infra">
+            <span class="tag">Infra</span>
+            <h2>32. Paradip Port 'Mega Port' Status</h2>
+            <ul>
+                <li>Designated under the <span class="highlight">Indian Ports Act, 2025</span>.</li>
+                <li>One of 4 Mega Ports (Paradip, Deendayal, JNPA, and Mundra).</li>
+                <li>Mundra is the only non-major port among the four.</li>
+                <li>Recognises massive cargo capacity (coal, iron ore, crude) and strategic location.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
