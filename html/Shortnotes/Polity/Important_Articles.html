@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Constitution: Key Articles Sketchnote</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2a2a2a;
+            --accent-green: #4cd137;
+            --accent-blue: #00a8ff;
+            --accent-yellow: #e1b12c;
+            --accent-purple: #9c88ff;
+            --accent-orange: #e84118;
+            --highlight: #ffeb3b;
+        }
+
+        body {
+            font-family: 'Patrick Hand', cursive;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 30px 15px;
+            font-size: 1.15rem;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            margin: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            color: var(--highlight);
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.7);
+            transform: rotate(-2deg);
+        }
+        
+        .header p {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            transform: rotate(1deg);
+        }
+
+        /* Revision Sheet */
+        .revision-sheet {
+            background-color: #222;
+            border: 3px dashed var(--accent-yellow);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.5);
+            transform: rotate(0.5deg);
+        }
+
+        .revision-sheet h2 {
+            color: var(--accent-yellow);
+            font-size: 2rem;
+            border-bottom: 2px solid var(--accent-yellow);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .revision-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .rev-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 15px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-purple);
+            font-size: 1.1rem;
+        }
+
+        /* Masonry Grid */
+        .board-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #555;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: rotate(-1.5deg) scale(1.02);
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.8);
+            z-index: 10;
+        }
+
+        /* Card Variations */
+        .card-part-1 { border-color: var(--accent-green); }
+        .card-part-3 { border-color: var(--accent-orange); grid-row: span 2; }
+        .card-part-4 { border-color: var(--accent-blue); }
+        .card-part-5 { border-color: var(--accent-yellow); grid-row: span 2; }
+        .card-part-6 { border-color: var(--accent-purple); }
+        .card-part-8 { border-color: var(--accent-green); }
+        .card-part-14 { border-color: var(--accent-orange); }
+        .card-part-18 { border-color: var(--accent-blue); }
+
+        .category-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .card-part-1 .category-title { color: var(--accent-green); }
+        .card-part-3 .category-title { color: var(--accent-orange); }
+        .card-part-4 .category-title { color: var(--accent-blue); }
+        .card-part-5 .category-title { color: var(--accent-yellow); }
+        .card-part-6 .category-title { color: var(--accent-purple); }
+        .card-part-8 .category-title { color: var(--accent-green); }
+        .card-part-14 .category-title { color: var(--accent-orange); }
+        .card-part-18 .category-title { color: var(--accent-blue); }
+
+        .article-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .article-list li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .article-list li::before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        .art-num {
+            color: var(--highlight);
+            font-weight: bold;
+            font-family: 'Kalam', cursive;
+            font-size: 1.25rem;
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .pin {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🇮🇳 Indian Constitution Master-Board</h1>
+        <p>Line-by-Line Article Breakdown</p>
+    </div>
+
+    <!-- Ultra-Short Revision Sheet -->
+    <div class="revision-sheet">
+        <h2>⚡ Super-Quick Glance (The Heavyweights)</h2>
+        <div class="revision-grid">
+            <div class="rev-item"><span class="art-num">Art 14-18</span> Equality</div>
+            <div class="rev-item"><span class="art-num">Art 19</span> 6 Freedoms</div>
+            <div class="rev-item"><span class="art-num">Art 21</span> Life & Liberty</div>
+            <div class="rev-item"><span class="art-num">Art 32</span> Supreme Court Writs</div>
+            <div class="rev-item"><span class="art-num">Art 44</span> Uniform Civil Code</div>
+            <div class="rev-item"><span class="art-num">Art 51A</span> Fundamental Duties</div>
+            <div class="rev-item"><span class="art-num">Art 72</span> Prez Pardon</div>
+            <div class="rev-item"><span class="art-num">Art 110</span> Money Bill</div>
+            <div class="rev-item"><span class="art-num">Art 112</span> Budget (AFS)</div>
+            <div class="rev-item"><span class="art-num">Art 123/213</span> Ordinances</div>
+            <div class="rev-item"><span class="art-num">Art 352/356/360</span> Emergencies</div>
+            <div class="rev-item"><span class="art-num">Art 368</span> Constitution Amendment</div>
+        </div>
+    </div>
+
+    <!-- Masonry Board -->
+    <div class="board-container">
+
+        <!-- Part I -->
+        <div class="category-card card-part-1" style="transform: rotate(1deg);">
+            <div class="pin"></div>
+            <h3 class="category-title">Part I: Union & Territory</h3>
+            <ul class="article-list">
+                <li><span class="art-num">Art 1:</span> Name & territory ("India, that is Bharat").</li>
+                <li><span class="art-num">Art 3:</span> Formation of new states & alteration of boundaries/names.</li>
+            </ul>
+        </div>
+
+        <!-- Part III -->
+        <div class="category-card card-part-3" style="transform: rotate(-1deg);">
+            <div class="pin"></div>
+            <h3 class="category-title">Part III: Fundamental Rights</h3>
+            <ul class="article-list">
+                <li><span class="art-num">Art 14:</span> Equality before the law.</li>
+                <li><span class="art-num">Art 15:</span> Prohibition of discrimination (religion, race, caste, sex, birth place).</li>
+                <li><span class="art-num">Art 16:</span> Equality of opportunity in public employment.</li>
+                <li><span class="art-num">Art 17:</span> Abolition of Untouchability.</li>
+                <li><span class="art-num">Art 19:</span> 6 Freedoms (Speech, assembly, association, movement, residence, profession).</li>
+                <li><span class="art-num">Art 21:</span> Protection of life & personal liberty.</li>
+                <li><span class="art-num">Art 21A:</span> Right to Education (6-14 yrs).</li>
+                <li><span class="art-num">Art 22:</span> Protection against arrest & preventive detention.</li>
+                <li><span class="art-num">Art 23:</span> Prohibition of human trafficking & forced labor.</li>
+                <li><span class="art-num">Art 24:</span> Prohibition of child labor in factories.</li>
+                <li><span class="art-num">Art 25:</span> Freedom of conscience & practice of religion.</li>
+                <li><span class="art-num">Art 29 & 30:</span> Protection of minorities (Cultural, educational rights, minority institutions).</li>
+                <li><span class="art-num">Art 32:</span> Right to Constitutional Remedies (SC Writs).</li>
+            </ul>
+        </div>
+
+        <!-- Part IV & IVA -->
+        <div class="category-card card-part-4" style="transform: rotate(1.5deg);">
+            <div class="pin"></div>
+            <h3 class="category-title">Part IV & IVA: DPSP & Duties</h3>
+            <ul class="article-list">
+                <li><span class="art-num">Art 39A:</span> Equal justice & free legal aid.</li>
+                <li><span class="art-num">Art 40:</span> Organization of Village Panchayats.</li>
+                <li><span class="art-num">Art 44:</span> Uniform Civil Code.</li>
+                <li><span class="art-num">Art 45:</span> Early childhood care & education (< 6 yrs).</li>
+                <li><span class="art-num">Art 48A:</span> Protection of environment, forests, wildlife.</li>
+                <li><span class="art-num">Art 50:</span> Separation of judiciary from executive.</li>
+                <li><span class="art-num">Art 51:</span> Promote international peace & security.</li>
+                <li><span class="art-num">Art 51A:</span> Fundamental Duties (11 duties).</li>
+            </ul>
+        </div>
+
+        <!-- Part V -->
+        <div class="category-card card-part-5" style="transform: rotate(-0.5deg);">
+            <div class="pin"></div>
+            <h3 class="category-title">Part V: Union Executive & Parl</h3>
+            <ul class="article-list">
+                <li><span class="art-num">Art 52:</span> President of India.</li>
+                <li><span class="art-num">Art 61:</span> Procedure for President's impeachment.</li>
+                <li><span class="art-num">Art 63:</span> Vice-President of India.</li>
+                <li><span class="art-num">Art 72:</span> Pardoning powers of President.</li>
+                <li><span class="art-num">Art 74:</span> Council of Ministers to advise President.</li>
+                <li><span class="art-num">Art 76:</span> Attorney General of India.</li>
+                <li><span class="art-num">Art 108:</span> Joint sitting of both Houses.</li>
+                <li><span class="art-num">Art 110:</span> Definition of "Money Bills".</li>
+                <li><span class="art-num">Art 112:</span> Annual Financial Statement (Budget).</li>
+                <li><span class="art-num">Art 123:</span> Prez power to promulgate Ordinances.</li>
+                <li><span class="art-num">Art 124:</span> Establishment of Supreme Court.</li>
+                <li><span class="art-num">Art 143:</span> Prez power to consult Supreme Court.</li>
+                <li><span class="art-num">Art 148:</span> CAG of India.</li>
+            </ul>
+        </div>
+
+        <!-- Part VI -->
+        <div class="category-card card-part-6" style="transform: rotate(1deg);">
+            <div class="pin"></div>
+            <h3 class="category-title">Part VI: State Exec & HC</h3>
+            <ul class="article-list">
+                <li><span class="art-num">Art 153:</span> Governors of States.</li>
+                <li><span class="art-num">Art 161:</span> Pardoning powers of Governor.</li>
+                <li><span class="art-num">Art 165:</span> Advocate General for State.</li>
+                <li><span class="art-num">Art 213:</span> Gov's power to promulgate Ordinances.</li>
+                <li><span class="art-num">Art 214:</span> High Courts for States.</li>
+                <li><span class="art-num">Art 226:</span> Power of High Courts to issue Writs.</li>
+            </ul>
+        </div>
+
+        <!-- Parts VIII, XI, XII -->
+        <div class="category-card card-part-8" style="transform: rotate(-1.5deg);">
+            <div class="pin"></div>
+            <h3 class="category-title">UTs, Center-State, Finance</h3>
+            <ul class="article-list">
+                <li><span class="art-num">Art 239AA:</span> Special provisions for Delhi (NCT).</li>
+                <li><span class="art-num">Art 249:</span> Parl's power to legislate State List in national interest.</li>
+                <li><span class="art-num">Art 262:</span> Inter-state river water disputes.</li>
+                <li><span class="art-num">Art 263:</span> Inter-State Council.</li>
+                <li><span class="art-num">Art 279A:</span> GST Council.</li>
+                <li><span class="art-num">Art 280:</span> Finance Commission.</li>
+                <li><span class="art-num">Art 300A:</span> Right to Property (Legal right).</li>
+            </ul>
+        </div>
+
+        <!-- Parts XIV, XV, XVI -->
+        <div class="category-card card-part-14" style="transform: rotate(0.5deg);">
+            <div class="pin"></div>
+            <h3 class="category-title">Services, Elections & SC/ST</h3>
+            <ul class="article-list">
+                <li><span class="art-num">Art 312:</span> Creation of All-India Services.</li>
+                <li><span class="art-num">Art 315:</span> Public Service Commissions (UPSC/SPSC).</li>
+                <li><span class="art-num">Art 324:</span> Election Commission of India.</li>
+                <li><span class="art-num">Art 330 & 332:</span> Reservation for SC/ST in Lok Sabha & State Assemblies.</li>
+                <li><span class="art-num">Art 338:</span> NC for Scheduled Castes (SCs).</li>
+                <li><span class="art-num">Art 338A:</span> NC for Scheduled Tribes (STs).</li>
+                <li><span class="art-num">Art 338B:</span> NC for Backward Classes (NCBC).</li>
+            </ul>
+        </div>
+
+        <!-- Parts XVIII, XX, XXI -->
+        <div class="category-card card-part-18" style="transform: rotate(-1deg);">
+            <div class="pin"></div>
+            <h3 class="category-title">Emergency, Temp, & Amend</h3>
+            <ul class="article-list">
+                <li><span class="art-num">Art 352:</span> National Emergency (War, aggression, armed rebellion).</li>
+                <li><span class="art-num">Art 356:</span> State Emergency (President's Rule).</li>
+                <li><span class="art-num">Art 360:</span> Financial Emergency.</li>
+                <li><span class="art-num">Art 370:</span> Temp provisions for J&K (largely abrogated '19).</li>
+                <li><span class="art-num">Art 368:</span> Power of Parliament to amend the Constitution.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
