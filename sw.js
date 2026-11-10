@@ -41,18 +41,23 @@ self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
 
     // Specifically handle the GitHub API requests (don't permanently cache the file lists)
-    if (event.request.url.includes('api.github.com/repos/')) {
-        event.respondWith(
-            fetch(event.request)
-                .then(response => {
-                    const clonedRes = response.clone();
-                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, clonedRes));
-                    return response;
-                })
-                .catch(() => caches.match(event.request))
-        );
-        return;
-    }
+    // Specifically handle GitHub API requests with a robust fallback for 403/offline errors
+if (event.request.url.includes('api.github.com/repos/')) {
+    event.respondWith(
+        fetch(event.request)
+            .then(response => {
+                // If GitHub returns 403 (Rate Limit) or any error, fall back to cache
+                if (!response.ok) {
+                    return caches.match(event.request).then(cached => cached || response);
+                }
+                const clonedRes = response.clone();
+                caches.open(CACHE_NAME).then(cache => cache.put(event.request, clonedRes));
+                return response;
+            })
+            .catch(() => caches.match(event.request))
+    );
+    return;
+}
 
     // Default Stale-While-Revalidate for all other files (like html/weekly/*)
     event.respondWith(
