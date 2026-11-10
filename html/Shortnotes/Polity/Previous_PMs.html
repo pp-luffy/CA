@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime Ministers of India - Visual Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+    body {
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+        font-family: 'Patrick Hand', cursive;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+        font-size: 1.1rem;
+    }
+    h1, h2, h3 {
+        font-family: 'Kalam', cursive;
+        margin: 0 0 10px 0;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px dashed #444;
+    }
+    .header h1 {
+        font-size: 3rem;
+        color: #f0f0f0;
+        letter-spacing: 2px;
+    }
+    .revision-sheet {
+        background: #252525;
+        padding: 15px 25px;
+        border-radius: 8px;
+        margin-bottom: 40px;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 2px 2px 8px rgba(0,0,0,0.5);
+        border: 1px dashed #555;
+    }
+    .revision-sheet h2 {
+        color: #ffeb3b;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .revision-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        font-size: 0.95rem;
+    }
+    .rev-item {
+        border-left: 4px solid #e1b12c;
+        padding-left: 10px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 0 5px 5px 0;
+        padding: 5px 10px;
+    }
+    .board {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        padding: 10px;
+    }
+    .card {
+        background: #222;
+        border: 2px solid #444;
+        padding: 20px;
+        border-radius: 6px;
+        position: relative;
+        box-shadow: 4px 4px 12px rgba(0,0,0,0.6);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .card:hover {
+        transform: rotate(-1deg) scale(1.02);
+        border-color: #888;
+        box-shadow: 8px 8px 20px rgba(0,0,0,0.8);
+    }
+    .card h3 {
+        font-size: 1.6rem;
+        border-bottom: 1px solid #444;
+        padding-bottom: 5px;
+        margin-top: 10px;
+    }
+    .tag {
+        position: absolute;
+        top: -12px;
+        right: -10px;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-family: 'Kalam', cursive;
+        font-weight: bold;
+        color: #111;
+        font-size: 1rem;
+        transform: rotate(4deg);
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+    .govt { background-color: #e1b12c; }    /* Yellow */
+    .infra { background-color: #00a8ff; }   /* Blue */
+    .tech { background-color: #9c88ff; }    /* Purple */
+    .culture { background-color: #e84118; } /* Orange */
+    .env { background-color: #4cd137; }     /* Green */
+    
+    .hl {
+        color: #ffeb3b;
+        font-weight: bold;
+    }
+    ul {
+        padding-left: 20px;
+        margin-top: 5px;
+        list-style-type: square;
+    }
+    li { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🇮🇳 Prime Ministers of India</h1>
+    <p>Complete Timeline & Notable Works Sketchnote</p>
+</div>
+
+<div class="revision-sheet">
+    <h2>⚡ Quick Revision Sheet</h2>
+    <div class="revision-grid">
+        <div class="rev-item"><strong>1. Nehru:</strong> First/Longest (17y), 5-Yr Plans, NAM, IITs</div>
+        <div class="rev-item"><strong>2. Nanda:</strong> 1st Acting PM (2x 13 days)</div>
+        <div class="rev-item"><strong>3. Shastri:</strong> 1965 War, "Jai Jawan, Jai Kisan", Home/Railways</div>
+        <div class="rev-item"><strong>4. Indira:</strong> 1st Female, Bank Nationalization, 1971 War, 1975-77 Emergency</div>
+        <div class="rev-item"><strong>5. Desai:</strong> 1st Non-Cong, Reversed Emergency, Bombay CM & Fin Min</div>
+        <div class="rev-item"><strong>6. Charan Singh:</strong> Never faced Parliament, Farmers' Champ, UP CM & Fin Min</div>
+        <div class="rev-item"><strong>7. Rajiv:</strong> Youngest (40), IT/Telecom, Anti-defection, Voting age 18</div>
+        <div class="rev-item"><strong>8. VP Singh:</strong> Mandal Commission (OBCs), UP CM & Fin Min</div>
+        <div class="rev-item"><strong>9. Chandra Shekhar:</strong> Minority SJP, Early 1991 BOP crisis</div>
+        <div class="rev-item"><strong>10. Narasimha Rao:</strong> 1st from South, 1991 Liberalization, Ended License Raj, AP CM</div>
+        <div class="rev-item"><strong>11. Vajpayee:</strong> 1st Non-Cong Full Term, 1998 Pokhran-II, Golden Quadrilateral</div>
+        <div class="rev-item"><strong>12. Deve Gowda:</strong> United Front, Karnataka CM</div>
+        <div class="rev-item"><strong>13. IK Gujral:</strong> Gujral Doctrine (5-point framework)</div>
+        <div class="rev-item"><strong>14. Manmohan:</strong> 1st Sikh (2 terms), Indo-US Nuke Deal, RTI, MGNREGA, RBI Gov & Fin Min</div>
+        <div class="rev-item"><strong>15. Modi:</strong> 1st born post-independence, 3rd term, GST, Swachh Bharat, Make in India, Gujarat CM</div>
+    </div>
+</div>
+
+<div class="board">
+
+    <!-- 1. Jawaharlal Nehru -->
+    <div class="card">
+        <div class="tag govt">Govt</div>
+        <h3>1. Jawaharlal Nehru (1947–1964)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">India’s first and longest-serving</span> Prime Minister (<span class="hl">nearly 17 years</span>).</li>
+            <li><strong>Notable Works:</strong> Established the <span class="hl">Planning Commission (Five-Year Plans)</span>, championed the <span class="hl">Non-Aligned Movement</span> in foreign policy, and founded premier institutions like the <span class="hl">IITs</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 2. Gulzarilal Nanda -->
+    <div class="card">
+        <div class="tag govt">Govt</div>
+        <h3>2. Gulzarilal Nanda (Acting: 1964 & 1966)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">India's first Acting</span> Prime Minister.</li>
+            <li><strong>History:</strong> Took charge briefly for <span class="hl">13 days each</span> following the sudden deaths of Jawaharlal Nehru and Lal Bahadur Shastri to ensure a smooth transition.</li>
+        </ul>
+    </div>
+
+    <!-- 3. Lal Bahadur Shastri -->
+    <div class="card">
+        <div class="tag culture">Culture</div>
+        <h3>3. Lal Bahadur Shastri (1964–1966)</h3>
+        <ul>
+            <li><strong>Notable Works:</strong> Led the country during the <span class="hl">1965 India-Pakistan War</span> and coined the iconic morale-boosting slogan <span class="hl">"Jai Jawan, Jai Kisan"</span>.</li>
+            <li><strong>Previous Roles:</strong> Served as <span class="hl">Minister of Home Affairs</span> and <span class="hl">Minister of Railways</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 4. Indira Gandhi -->
+    <div class="card">
+        <div class="tag govt">Govt</div>
+        <h3>4. Indira Gandhi (1966–1977, 1980–1984)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">First and only female</span> Prime Minister of India.</li>
+            <li><strong>Notable Works/History:</strong> <span class="hl">Nationalized major banks</span>, led India to victory in the <span class="hl">1971 war</span> (which resulted in the creation of Bangladesh), and controversially imposed the <span class="hl">1975–1977 State of Emergency</span>.</li>
+            <li><strong>End of Term:</strong> <span class="hl">Assassinated by her bodyguards</span> while in office in 1984.</li>
+        </ul>
+    </div>
+
+    <!-- 5. Morarji Desai -->
+    <div class="card">
+        <div class="tag culture">Policy</div>
+        <h3>5. Morarji Desai (1977–1979)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">First non-Congress</span> Prime Minister (Janata Party).</li>
+            <li><strong>Notable Works:</strong> Worked to reverse <span class="hl">Emergency-era constitutional changes</span> and normalized relations with Pakistan.</li>
+            <li><strong>Previous Roles:</strong> <span class="hl">Chief Minister of Bombay State</span> and <span class="hl">Union Finance Minister</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 6. Charan Singh -->
+    <div class="card">
+        <div class="tag env">Agri/Env</div>
+        <h3>6. Charan Singh (1979–1980)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> The <span class="hl">only Prime Minister who never faced Parliament</span>, as his government collapsed before a floor test.</li>
+            <li><strong>Notable Works:</strong> Widely regarded as a <span class="hl">champion for farmers</span> and rural rights.</li>
+            <li><strong>Previous Roles:</strong> <span class="hl">Chief Minister of Uttar Pradesh</span> and <span class="hl">Union Finance Minister</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 7. Rajiv Gandhi -->
+    <div class="card">
+        <div class="tag tech">Tech</div>
+        <h3>7. Rajiv Gandhi (1984–1989)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">Youngest Prime Minister</span>, taking office at age 40.</li>
+            <li><strong>Notable Works:</strong> Pioneered India's <span class="hl">IT and telecom revolution</span>, introduced the <span class="hl">anti-defection law</span>, and <span class="hl">lowered the voting age to 18</span>.</li>
+            <li><strong>End of Term:</strong> <span class="hl">Assassinated by a suicide bomber in 1991</span> while campaigning.</li>
+        </ul>
+    </div>
+
+    <!-- 8. V.P. Singh -->
+    <div class="card">
+        <div class="tag govt">Govt</div>
+        <h3>8. V.P. Singh (1989–1990)</h3>
+        <ul>
+            <li><strong>Notable Works:</strong> Implemented the landmark <span class="hl">Mandal Commission report</span>, which introduced <span class="hl">job reservations for Other Backward Classes (OBCs)</span>.</li>
+            <li><strong>Previous Roles:</strong> <span class="hl">Chief Minister of Uttar Pradesh</span> and <span class="hl">Union Finance Minister</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 9. Chandra Shekhar -->
+    <div class="card">
+        <div class="tag culture">Economy</div>
+        <h3>9. Chandra Shekhar (1990–1991)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> Headed a minority <span class="hl">Samajwadi Janata Party</span> government backed by Congress.</li>
+            <li><strong>History:</strong> Navigated the early stages of India's severe <span class="hl">1991 balance-of-payments economic crisis</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 10. P.V. Narasimha Rao -->
+    <div class="card">
+        <div class="tag infra">Economy</div>
+        <h3>10. P.V. Narasimha Rao (1991–1996)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">First Prime Minister from South India</span>.</li>
+            <li><strong>Notable Works:</strong> The <span class="hl">primary architect of the historic 1991 economic liberalization</span>, which dismantled the <span class="hl">License Raj</span> and opened the Indian economy to global trade.</li>
+            <li><strong>Previous Roles:</strong> <span class="hl">Chief Minister of Andhra Pradesh</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 11. Atal Bihari Vajpayee -->
+    <div class="card">
+        <div class="tag infra">Infra/Tech</div>
+        <h3>11. Atal Bihari Vajpayee (1996, 1998–2004)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">First non-Congress</span> Prime Minister to complete a <span class="hl">full five-year term</span>. His initial 1996 stint lasted <span class="hl">only 13 days</span>.</li>
+            <li><strong>Notable Works:</strong> Conducted the <span class="hl">1998 Pokhran-II nuclear tests</span>, launched the <span class="hl">Golden Quadrilateral</span> highway project, and championed <span class="hl">universal primary education</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 12. H.D. Deve Gowda -->
+    <div class="card">
+        <div class="tag govt">Govt</div>
+        <h3>12. H.D. Deve Gowda (1996–1997)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> Headed the <span class="hl">United Front</span>, a diverse coalition government.</li>
+            <li><strong>Previous Roles:</strong> <span class="hl">Chief Minister of Karnataka</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 13. I.K. Gujral -->
+    <div class="card">
+        <div class="tag culture">Foreign</div>
+        <h3>13. I.K. Gujral (1997–1998)</h3>
+        <ul>
+            <li><strong>Notable Works:</strong> Formulated the <span class="hl">"Gujral Doctrine,"</span> a milestone <span class="hl">five-point framework</span> for maintaining peaceful, non-reciprocal, and cooperative foreign relations with India's immediate neighbors.</li>
+        </ul>
+    </div>
+
+    <!-- 14. Dr. Manmohan Singh -->
+    <div class="card">
+        <div class="tag govt">Govt</div>
+        <h3>14. Dr. Manmohan Singh (2004–2014)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">First Sikh Prime Minister</span>, serving <span class="hl">two full terms</span>.</li>
+            <li><strong>Notable Works:</strong> Championed the <span class="hl">Indo-US civil nuclear agreement</span>, the <span class="hl">Right to Information (RTI) Act</span>, and the <span class="hl">MGNREGA</span> rural employment guarantee scheme.</li>
+            <li><strong>Previous Roles:</strong> <span class="hl">Union Finance Minister</span> (driving force behind the 1991 reforms) and <span class="hl">Governor of the Reserve Bank of India</span>.</li>
+        </ul>
+    </div>
+
+    <!-- 15. Narendra Modi -->
+    <div class="card">
+        <div class="tag infra">Infra/Govt</div>
+        <h3>15. Narendra Modi (2014–Present)</h3>
+        <ul>
+            <li><strong>Tenure:</strong> <span class="hl">First Prime Minister born after India's independence</span>, currently serving his <span class="hl">third consecutive term</span>.</li>
+            <li><strong>Notable Works:</strong> Rolled out the <span class="hl">Goods and Services Tax (GST)</span>, <span class="hl">Swachh Bharat Abhiyan (Clean India Mission)</span>, <span class="hl">Make in India</span>, and the <span class="hl">Digital India</span> infrastructure.</li>
+            <li><strong>Previous Roles:</strong> <span class="hl">Chief Minister of Gujarat</span>.</li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
