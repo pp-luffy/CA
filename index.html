@@ -66,7 +66,7 @@
         .streak-badge { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.25); }
         .toolbar-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .view-switch-bar { display: none; justify-content: center; margin-bottom: 20px; }
-        .switch-container { background: var(--card-bg-white); padding: 4px; border-radius: 16px; border: 1px solid var(--border-color); display: inline-flex; gap: 6px; box-shadow: var(--shadow-subtle); }
+        .switch-container { background: var(--card-bg-white); padding: 4px; border-radius: 16px; border: 1px solid var(--border-color); display: inline-flex; gap: 6px; box-shadow: var(--shadow-subtle); flex-wrap: wrap; justify-content: center; }
         .switch-btn { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; padding: 8px 18px; border-radius: 12px; cursor: pointer; border: none; background: transparent; color: var(--text-muted); transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px; }
         .switch-btn.active { background: var(--primary-blue); color: white; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25); }
         .switch-btn:hover:not(.active) { color: var(--primary-blue); background: rgba(37, 99, 235, 0.05); }
@@ -122,7 +122,7 @@
 
         mark { background-color: rgba(234, 179, 8, 0.4); padding: 2px 4px; border-radius: 4px; font-weight: bold; color: #fef08a; }
 
-        #monthly-page, #reader-page { display: none; width: 100%; }
+        #monthly-page, #reader-page, #shortnotes-page { display: none; width: 100%; }
         @media (max-width: 768px) {
             body { padding: 12px 8px; }
             .top-toolbar { flex-direction: column; align-items: stretch; }
@@ -155,6 +155,7 @@
         <div class="switch-container">
             <button class="switch-btn active" id="switch-weekly-btn">📂 Weekly Reports</button>
             <button class="switch-btn" id="switch-monthly-btn">📅 Monthly Reports</button>
+            <button class="switch-btn" id="switch-shortnotes-btn">📝 Shortnotes</button>
         </div>
     </div>
 
@@ -169,10 +170,16 @@
             <input type="text" class="search-input" id="global-search-input" placeholder="🔍 Search keywords across sketchnotes...">
         </div>
         <div class="filters-row">
-            <div class="filter-group">
+            <div class="filter-group" id="month-filter-group">
                 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">MONTH:</span>
                 <select id="month-dropdown" class="filter-dropdown"><option value="ALL">All Months</option></select>
             </div>
+            <!-- Added Subject Filter for Shortnotes -->
+            <div class="filter-group" id="subject-filter-group" style="display: none;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">SUBJECT:</span>
+                <select id="subject-dropdown" class="filter-dropdown"><option value="ALL">All Subjects</option></select>
+            </div>
+            
             <div class="filter-group" id="tag-filters-container">
                 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FILTER:</span>
                 <button class="filter-pill active" data-tag="ALL">All</button>
@@ -183,6 +190,7 @@
 
     <div class="list-container" id="weeks-list"></div>
     <div id="monthly-page"><div class="list-container" id="monthly-results"></div></div>
+    <div id="shortnotes-page"><div class="list-container" id="shortnotes-results"></div></div>
 
     <div id="reader-page">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: var(--card-bg-white); padding: 14px 20px; border-radius: 16px; border: 1px solid var(--border-color);">
@@ -204,17 +212,22 @@
             <input type="password" id="gh-token" class="search-input" placeholder="ghp_xxxxxxxxxxxxxxxxx" style="padding: 8px 12px;">
         </div>
 
-        <div style="display: flex; gap: 10px;">
-            <div style="flex: 1;">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 120px;">
                 <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FOLDER</label>
                 <select id="upload-folder" class="search-input" style="padding: 8px 12px;">
                     <option value="html/weekly">Weekly</option>
                     <option value="html/monthly">Monthly</option>
+                    <option value="html/Shortnotes">Shortnotes</option>
                 </select>
             </div>
-            <div style="flex: 2;">
+            <div style="flex: 1; min-width: 120px; display: none;" id="upload-subject-container">
+                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">SUBJECT</label>
+                <input type="text" id="upload-subject" class="search-input" placeholder="e.g. Polity" style="padding: 8px 12px;">
+            </div>
+            <div style="flex: 2; min-width: 200px;">
                 <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FILENAME</label>
-                <input type="text" id="upload-filename" class="search-input" placeholder="Enter filename (e.g. 19102026-25102026.html)" style="padding: 8px 12px;">
+                <input type="text" id="upload-filename" class="search-input" placeholder="e.g. Previous_PMs.html" style="padding: 8px 12px;">
             </div>
         </div>
 
@@ -234,8 +247,8 @@
 
 <script>
     const CONFIG = { 
-        githubOwner: "pp-luffy", // Replace with your exact GitHub username
-        githubRepo: "CA" // Replace with your exact repository name
+        githubOwner: "pp-luffy", 
+        githubRepo: "CA" 
     }; 
     
     const themeBtn = document.getElementById('theme-btn');
@@ -243,24 +256,35 @@
     const masterExportBtn = document.getElementById('master-export-btn');
     const randomCardBtn = document.getElementById('random-card-btn');
     const viewSwitchBar = document.getElementById('view-switch-bar');
+    
     const switchWeeklyBtn = document.getElementById('switch-weekly-btn');
     const switchMonthlyBtn = document.getElementById('switch-monthly-btn');
+    const switchShortnotesBtn = document.getElementById('switch-shortnotes-btn');
+    
     const monthlyPage = document.getElementById('monthly-page');
     const readerPage = document.getElementById('reader-page');
     const weeksList = document.getElementById('weeks-list');
+    const shortnotesPage = document.getElementById('shortnotes-page');
+    
     const controlHub = document.getElementById('control-hub');
     const loadingBox = document.getElementById('loading-box');
     const loadingSubtext = document.getElementById('loading-subtext');
     const monthlyResults = document.getElementById('monthly-results');
+    const shortnotesResults = document.getElementById('shortnotes-results');
+    
     const monthDropdown = document.getElementById('month-dropdown');
+    const subjectDropdown = document.getElementById('subject-dropdown');
+    const monthFilterGroup = document.getElementById('month-filter-group');
+    const subjectFilterGroup = document.getElementById('subject-filter-group');
     const globalSearchInput = document.getElementById('global-search-input');
     const streakCounter = document.getElementById('streak-counter');
     const backToHubBtn = document.getElementById('back-to-hub-btn');
     const readerTitle = document.getElementById('reader-title');
     const readerCardsContainer = document.getElementById('reader-cards-container');
 
-    let allFilesData = [], allMonthlyFilesData = [], allExtractedCards = [], allMonthlyCards = [];
-    let currentFilterMonth = 'ALL', currentFilterTag = 'ALL', searchQuery = '', currentActiveTab = 'weekly';
+    let allFilesData = [], allMonthlyFilesData = [], allShortnotesFilesData = [];
+    let allExtractedCards = [], allMonthlyCards = [], allShortnotesCards = [];
+    let currentFilterMonth = 'ALL', currentFilterSubject = 'ALL', currentFilterTag = 'ALL', searchQuery = '', currentActiveTab = 'weekly';
     let bookmarkedCards = JSON.parse(localStorage.getItem('upsc_bookmarks') || '{}');
 
     // Theme Management
@@ -327,10 +351,11 @@
     }
 
     refreshBtn.addEventListener('click', () => {
-        weeksList.style.display = 'none'; monthlyPage.style.display = 'none';
+        weeksList.style.display = 'none'; monthlyPage.style.display = 'none'; shortnotesPage.style.display = 'none';
         controlHub.style.display = 'none'; readerPage.style.display = 'none';
         loadingBox.style.display = 'block'; loadingSubtext.innerText = 'Refreshing sketchnotes...';
-        allFilesData = []; allMonthlyFilesData = []; allExtractedCards = []; allMonthlyCards = [];
+        allFilesData = []; allMonthlyFilesData = []; allShortnotesFilesData = [];
+        allExtractedCards = []; allMonthlyCards = []; allShortnotesCards = [];
         initializeApp();
     });
 
@@ -354,16 +379,18 @@
     function getMonthName(monthNum) { const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; return months[parseInt(monthNum, 10) - 1] || monthNum; }
     function getMonthFullName(monthNum) { const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; return months[parseInt(monthNum, 10) - 1] || monthNum; }
 
-    async function getFileList(folder) {
+    function getGithubRepoDetails() {
         let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
-        
-        // Auto-detect owner and repo if hosted on GitHub Pages
         if (window.location.hostname.includes('github.io')) {
             owner = window.location.hostname.split('.')[0];
             const pathParts = window.location.pathname.split('/').filter(p => p);
             if (pathParts.length > 0) repo = pathParts[0];
         }
+        return { owner, repo };
+    }
 
+    async function getFileList(folder) {
+        const { owner, repo } = getGithubRepoDetails();
         try {
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
             const res = await fetch(apiUrl);
@@ -376,20 +403,51 @@
         }
     }
 
+    async function getNestedShortnotesList() {
+        const { owner, repo } = getGithubRepoDetails();
+        let shortnoteFiles = [];
+        try {
+            // First fetch the subjects (folders inside html/Shortnotes)
+            const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes`;
+            const dirRes = await fetch(dirUrl);
+            if (!dirRes.ok) return [];
+            const dirData = await dirRes.json();
+            const subjects = dirData.filter(item => item.type === 'dir').map(dir => dir.name);
+
+            // Fetch HTML files inside each subject folder
+            for (const subject of subjects) {
+                try {
+                    const filesRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes/${subject}`);
+                    if (filesRes.ok) {
+                        const filesData = await filesRes.json();
+                        const hFiles = filesData.filter(f => f.name.endsWith('.html')).map(f => ({ subject, filename: f.name }));
+                        shortnoteFiles.push(...hFiles);
+                    }
+                } catch(e) { console.error(`Failed to fetch inside ${subject}`, e); }
+            }
+            return shortnoteFiles;
+        } catch (err) {
+            console.error('Failed to load shortnotes directory structure', err);
+            return [];
+        }
+    }
+
     async function initializeApp() {
         try {
             loadingSubtext.innerText = 'Requesting file lists from GitHub API...';
             const weeklyFiles = await getFileList('html/weekly');
             const monthlyFiles = await getFileList('html/monthly');
+            const shortnotesFilesList = await getNestedShortnotesList();
 
-            if (weeklyFiles.length === 0 && monthlyFiles.length === 0) {
-                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Make sure your repository has 'html/weekly' and 'html/monthly' folders, and that the GitHub API is accessible.</p>`;
+            if (weeklyFiles.length === 0 && monthlyFiles.length === 0 && shortnotesFilesList.length === 0) {
+                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Make sure your repository has 'html/weekly', 'html/monthly', and 'html/Shortnotes' folders.</p>`;
                 return;
             }
 
-            loadingSubtext.innerText = `Found ${weeklyFiles.length} weekly and ${monthlyFiles.length} monthly files. Parsing cards...`;
-            const filesList = [], cardsList = [], monthlyList = [], monthlyCardsList = [];
+            loadingSubtext.innerText = `Found ${weeklyFiles.length} weekly, ${monthlyFiles.length} monthly, and ${shortnotesFilesList.length} shortnote files. Parsing cards...`;
+            const filesList = [], cardsList = [], monthlyList = [], monthlyCardsList = [], snList = [], snCardsList = [];
 
+            // Process Weekly
             for (const filename of weeklyFiles) {
                 try {
                     const res = await fetch(`html/weekly/${filename}`); 
@@ -416,7 +474,7 @@
                     const cardObjects = [];
                     
                     domCards.forEach((cardEl, idx) => {
-                        const cardId = `${filename}_${idx}`;
+                        const cardId = `weekly_${filename}_${idx}`;
                         const cObj = { id: cardId, filename: filename, formattedRange: formattedRange, startDate: startDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
                         cardsList.push(cObj); 
                         cardObjects.push(cObj);
@@ -426,6 +484,7 @@
                 } catch (e) { console.error('Failed to load weekly file:', filename, e); }
             }
 
+            // Process Monthly
             for (const filename of monthlyFiles) {
                 try {
                     const res = await fetch(`html/monthly/${filename}`); 
@@ -448,18 +507,41 @@
                 } catch (e) { console.error('Failed to load monthly file:', filename, e); }
             }
 
+            // Process Shortnotes
+            for (const sn of shortnotesFilesList) {
+                try {
+                    const res = await fetch(`html/Shortnotes/${sn.subject}/${sn.filename}`); 
+                    if (!res.ok) continue;
+                    const htmlText = await res.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    const domCards = doc.querySelectorAll('.sketch-card, .card');
+                    
+                    let displayTitle = sn.filename.replace('.html', '').replace(/_/g, ' ');
+                    
+                    const cardObjects = [];
+                    domCards.forEach((cardEl, idx) => {
+                        const cardId = `sn_${sn.subject}_${sn.filename}_${idx}`;
+                        const cObj = { id: cardId, subject: sn.subject, filename: sn.filename, displayTitle: displayTitle, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
+                        snCardsList.push(cObj); cardObjects.push(cObj);
+                    });
+                    snList.push({ subject: sn.subject, filename: sn.filename, displayTitle: displayTitle, topicCount: domCards.length, cards: cardObjects });
+                } catch (e) { console.error('Failed to load shortnote file:', sn.filename, e); }
+            }
+
             filesList.sort((a, b) => b.startDate - a.startDate);
-            allFilesData = filesList; allMonthlyFilesData = monthlyList; allExtractedCards = cardsList; allMonthlyCards = monthlyCardsList;
+            allFilesData = filesList; allMonthlyFilesData = monthlyList; allShortnotesFilesData = snList;
+            allExtractedCards = cardsList; allMonthlyCards = monthlyCardsList; allShortnotesCards = snCardsList;
             
             buildMonthDropdown(filesList, monthlyList);
+            buildSubjectDropdown(snList);
             applyFiltersAndRender();
 
             loadingBox.style.display = 'none';
             masterExportBtn.style.display = 'inline-flex'; randomCardBtn.style.display = 'inline-flex';
             viewSwitchBar.style.display = 'flex'; controlHub.style.display = 'flex';
             
-            if (currentActiveTab === 'weekly') weeksList.style.display = 'flex';
-            else monthlyPage.style.display = 'block';
+            triggerTabSwitch(currentActiveTab);
 
         } catch (err) { 
             loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading Files</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; 
@@ -475,9 +557,39 @@
         monthDropdown.innerHTML = optionsHTML;
     }
 
+    function buildSubjectDropdown(snFiles) {
+        const subjectSet = new Set();
+        snFiles.forEach(s => { subjectSet.add(s.subject); });
+        let optionsHTML = `<option value="ALL">All Subjects</option>`;
+        Array.from(subjectSet).forEach(s => { optionsHTML += `<option value="${s}">${s}</option>`; });
+        subjectDropdown.innerHTML = optionsHTML;
+    }
+
     monthDropdown.addEventListener('change', (e) => { currentFilterMonth = e.target.value; applyFiltersAndRender(); });
-    switchWeeklyBtn.addEventListener('click', () => { currentActiveTab = 'weekly'; switchWeeklyBtn.classList.add('active'); switchMonthlyBtn.classList.remove('active'); monthlyPage.style.display = 'none'; weeksList.style.display = 'flex'; applyFiltersAndRender(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-    switchMonthlyBtn.addEventListener('click', () => { currentActiveTab = 'monthly'; switchMonthlyBtn.classList.add('active'); switchWeeklyBtn.classList.remove('active'); weeksList.style.display = 'none'; monthlyPage.style.display = 'block'; applyFiltersAndRender(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    subjectDropdown.addEventListener('change', (e) => { currentFilterSubject = e.target.value; applyFiltersAndRender(); });
+
+    function triggerTabSwitch(tabName) {
+        currentActiveTab = tabName;
+        switchWeeklyBtn.classList.remove('active'); switchMonthlyBtn.classList.remove('active'); switchShortnotesBtn.classList.remove('active');
+        weeksList.style.display = 'none'; monthlyPage.style.display = 'none'; shortnotesPage.style.display = 'none';
+        
+        if (tabName === 'weekly') {
+            switchWeeklyBtn.classList.add('active'); weeksList.style.display = 'flex';
+            monthFilterGroup.style.display = 'flex'; subjectFilterGroup.style.display = 'none';
+        } else if (tabName === 'monthly') {
+            switchMonthlyBtn.classList.add('active'); monthlyPage.style.display = 'block';
+            monthFilterGroup.style.display = 'flex'; subjectFilterGroup.style.display = 'none';
+        } else if (tabName === 'shortnotes') {
+            switchShortnotesBtn.classList.add('active'); shortnotesPage.style.display = 'block';
+            monthFilterGroup.style.display = 'none'; subjectFilterGroup.style.display = 'flex';
+        }
+        applyFiltersAndRender();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    switchWeeklyBtn.addEventListener('click', () => triggerTabSwitch('weekly'));
+    switchMonthlyBtn.addEventListener('click', () => triggerTabSwitch('monthly'));
+    switchShortnotesBtn.addEventListener('click', () => triggerTabSwitch('shortnotes'));
     
     document.querySelectorAll('#tag-filters-container .filter-pill').forEach(pill => {
         pill.addEventListener('click', (e) => {
@@ -524,28 +636,37 @@
             injectCardFeatures(cardEl, c.id, c.formattedRange || c.displayTitle);
             readerCardsContainer.appendChild(cardEl);
         });
-        controlHub.style.display = 'none'; weeksList.style.display = 'none'; monthlyPage.style.display = 'none'; viewSwitchBar.style.display = 'none'; readerPage.style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' });
+        controlHub.style.display = 'none'; weeksList.style.display = 'none'; monthlyPage.style.display = 'none'; shortnotesPage.style.display = 'none'; viewSwitchBar.style.display = 'none'; readerPage.style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     backToHubBtn.addEventListener('click', () => {
         window.speechSynthesis.cancel();
         readerPage.style.display = 'none'; controlHub.style.display = 'flex'; viewSwitchBar.style.display = 'flex';
-        if (currentActiveTab === 'weekly') weeksList.style.display = 'flex'; else monthlyPage.style.display = 'block';
+        if (currentActiveTab === 'weekly') weeksList.style.display = 'flex'; 
+        else if (currentActiveTab === 'monthly') monthlyPage.style.display = 'block';
+        else shortnotesPage.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     function applyFiltersAndRender() {
         const isWeekly = currentActiveTab === 'weekly';
-        const container = isWeekly ? weeksList : monthlyResults;
+        const isMonthly = currentActiveTab === 'monthly';
+        const isShortnotes = currentActiveTab === 'shortnotes';
+        
+        const container = isWeekly ? weeksList : (isMonthly ? monthlyResults : shortnotesResults);
         container.innerHTML = '';
         
-        let filteredFiles = isWeekly ? allFilesData : allMonthlyFilesData;
+        let filteredFiles = isWeekly ? allFilesData : (isMonthly ? allMonthlyFilesData : allShortnotesFilesData);
 
-        if (currentFilterMonth !== 'ALL') {
+        if (!isShortnotes && currentFilterMonth !== 'ALL') {
             filteredFiles = filteredFiles.filter(f => isWeekly ? (f.startMonthYear === currentFilterMonth || f.endMonthYear === currentFilterMonth) : (f.monthYearStr === currentFilterMonth) );
         }
+        
+        if (isShortnotes && currentFilterSubject !== 'ALL') {
+            filteredFiles = filteredFiles.filter(f => f.subject === currentFilterSubject);
+        }
 
-        if (filteredFiles.length === 0) { container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted); background: var(--card-bg-white); border-radius: 14px; border: 1px solid var(--border-color);">No files found for this month.</div>`; return; }
+        if (filteredFiles.length === 0) { container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted); background: var(--card-bg-white); border-radius: 14px; border: 1px solid var(--border-color);">No files found for this filter.</div>`; return; }
 
         let totalRendered = 0; const isSearchMode = searchQuery !== ''; 
 
@@ -568,9 +689,21 @@
                 });
             } else {
                 const editionBox = document.createElement('div'); editionBox.className = 'edition-box';
-                const titleText = isWeekly ? `Week: ${fileItem.formattedRange}` : `Monthly Sketchnotes: ${fileItem.displayTitle}`;
-                const subText = isWeekly ? `📄 html/weekly/${fileItem.filename}` : `📁 html/monthly/${fileItem.filename}`;
-                const fileUrl = isWeekly ? `html/weekly/${fileItem.filename}` : `html/monthly/${fileItem.filename}`;
+                let titleText = '', subText = '', fileUrl = '';
+                
+                if (isWeekly) {
+                    titleText = `Week: ${fileItem.formattedRange}`;
+                    subText = `📄 html/weekly/${fileItem.filename}`;
+                    fileUrl = `html/weekly/${fileItem.filename}`;
+                } else if (isMonthly) {
+                    titleText = `Monthly Sketchnotes: ${fileItem.displayTitle}`;
+                    subText = `📁 html/monthly/${fileItem.filename}`;
+                    fileUrl = `html/monthly/${fileItem.filename}`;
+                } else {
+                    titleText = `[${fileItem.subject}] ${fileItem.displayTitle}`;
+                    subText = `📁 html/Shortnotes/${fileItem.subject}/${fileItem.filename}`;
+                    fileUrl = `html/Shortnotes/${fileItem.subject}/${fileItem.filename}`;
+                }
                 
                 editionBox.innerHTML = `
                     <div style="flex: 1;">
@@ -613,13 +746,14 @@
             <div style="margin-bottom: 14px;">
                 <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">SOURCE:</label>
                 <select id="export-source" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
-                    <option value="all">Weekly & Monthly</option>
+                    <option value="all">Weekly, Monthly & Shortnotes</option>
                     <option value="weekly">Weekly Only</option>
                     <option value="monthly">Monthly Only</option>
+                    <option value="shortnotes">Shortnotes Only</option>
                 </select>
             </div>
             <div style="margin-bottom: 14px;">
-                <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">MONTH:</label>
+                <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">MONTH (Weekly/Monthly):</label>
                 <select id="export-month" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
                     ${monthOptions}
                 </select>
@@ -651,36 +785,37 @@
             let pool = [];
             if (sourceType === 'all' || sourceType === 'weekly') pool = pool.concat(allExtractedCards);
             if (sourceType === 'all' || sourceType === 'monthly') pool = pool.concat(allMonthlyCards);
+            if (sourceType === 'all' || sourceType === 'shortnotes') pool = pool.concat(allShortnotesCards);
 
-            if (targetMonth !== 'ALL') {
-                pool = pool.filter(c => c.startMonthYear === targetMonth || c.endMonthYear === targetMonth || c.monthYearStr === targetMonth);
+            if (targetMonth !== 'ALL' && sourceType !== 'shortnotes') {
+                pool = pool.filter(c => c.startMonthYear === targetMonth || c.endMonthYear === targetMonth || c.monthYearStr === targetMonth || c.id.startsWith('sn_'));
             }
 
             if (targetTag === 'Starred') pool = pool.filter(c => bookmarkedCards[c.id]);
 
             if (pool.length === 0) { alert('No cards match selection.'); return; }
 
-            let exportText = `UPSC SKETCHNOTE EXPORT (${sourceType.toUpperCase()} - ${targetMonth})\n==================================================\n\n`;
+            let exportText = `UPSC SKETCHNOTE EXPORT (${sourceType.toUpperCase()})\n==================================================\n\n`;
             pool.forEach((item, idx) => {
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = item.cardHTML;
                 const title = tempDiv.querySelector('.handwritten') ? tempDiv.querySelector('.handwritten').innerText : 'Topic';
                 const bullets = Array.from(tempDiv.querySelectorAll('li')).map(li => `- ${li.innerText}`).join('\n');
 
-                exportText += `[${idx + 1}] ${title}\nSource: ${item.formattedRange || item.displayTitle}\n${bullets}\n`;
+                exportText += `[${idx + 1}] ${title}\nSource: ${item.formattedRange || item.displayTitle || item.subject}\n${bullets}\n`;
                 exportText += `--------------------------------------------------\n\n`;
             });
 
             const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url; a.download = `UPSC_Sketchnote_Export_${targetMonth}_${Date.now()}.txt`;
+            a.href = url; a.download = `UPSC_Sketchnote_Export_${Date.now()}.txt`;
             document.body.appendChild(a); a.click(); document.body.removeChild(a); document.body.removeChild(modalOverlay);
         };
     });
 
     randomCardBtn.addEventListener('click', () => {
-        const pool = currentActiveTab === 'weekly' ? allExtractedCards : allMonthlyCards;
+        const pool = currentActiveTab === 'weekly' ? allExtractedCards : (currentActiveTab === 'monthly' ? allMonthlyCards : allShortnotesCards);
         if (pool.length === 0) return;
         const randomCard = pool[Math.floor(Math.random() * pool.length)];
         
@@ -711,17 +846,38 @@
     const submitUploadBtn = document.getElementById('submit-upload-btn');
     const uploadStatus = document.getElementById('upload-status');
     const ghTokenInput = document.getElementById('gh-token');
+    const uploadFolderSelect = document.getElementById('upload-folder');
+    const uploadSubjectContainer = document.getElementById('upload-subject-container');
 
     ghTokenInput.value = localStorage.getItem('upsc_gh_token') || '';
 
     uploadBtn.addEventListener('click', () => { uploadModal.style.display = 'flex'; uploadStatus.style.display = 'none'; });
     closeUploadBtn.addEventListener('click', () => { uploadModal.style.display = 'none'; });
 
+    // Show subject input only if Shortnotes is selected
+    uploadFolderSelect.addEventListener('change', (e) => {
+        if (e.target.value === 'html/Shortnotes') {
+            uploadSubjectContainer.style.display = 'block';
+        } else {
+            uploadSubjectContainer.style.display = 'none';
+        }
+    });
+
     submitUploadBtn.addEventListener('click', async () => {
         const token = ghTokenInput.value.trim();
-        const folder = document.getElementById('upload-folder').value;
+        let folder = uploadFolderSelect.value;
         let filename = document.getElementById('upload-filename').value.trim();
         const content = document.getElementById('upload-content').value;
+
+        if (folder === 'html/Shortnotes') {
+            const subject = document.getElementById('upload-subject').value.trim();
+            if (!subject) {
+                uploadStatus.style.display = 'block'; uploadStatus.style.color = '#ef4444';
+                uploadStatus.innerText = '⚠️ Subject is required for Shortnotes.'; return;
+            }
+            // Append subject to folder path (e.g. html/Shortnotes/Polity)[cite: 1]
+            folder = `${folder}/${subject}`;
+        }
 
         if (!token || !filename || !content) {
             uploadStatus.style.display = 'block'; uploadStatus.style.color = '#ef4444';
@@ -739,11 +895,7 @@
             const utf8Bytes = new TextEncoder().encode(content);
             const base64Content = btoa(String.fromCharCode(...utf8Bytes));
 
-            let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
-            if (window.location.hostname.includes('github.io')) {
-                owner = window.location.hostname.split('.')[0];
-                repo = window.location.pathname.split('/')[1] || repo;
-            }
+            const { owner, repo } = getGithubRepoDetails();
 
             const path = `${folder}/${filename}`;
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
