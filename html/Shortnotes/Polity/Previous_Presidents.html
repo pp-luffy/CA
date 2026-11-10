@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presidents of India: Visual Board</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2a2a2a;
+            --accent-green: #4cd137;
+            --accent-blue: #00a8ff;
+            --accent-yellow: #e1b12c;
+            --accent-purple: #9c88ff;
+            --accent-orange: #e84118;
+            --highlight: #ffeb3b;
+        }
+
+        body {
+            font-family: 'Patrick Hand', cursive;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            margin: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: var(--accent-yellow);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+            transform: rotate(-1deg);
+        }
+
+        /* Revision Sheet */
+        .revision-sheet {
+            background-color: #222;
+            border: 3px dashed var(--accent-blue);
+            border-radius: 12px;
+            padding: 20px 30px;
+            max-width: 900px;
+            margin: 0 auto 50px auto;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.4);
+            transform: rotate(0.5deg);
+        }
+
+        .revision-sheet h2 {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .revision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .rev-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-yellow);
+        }
+
+        /* Timeline Layout */
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            height: 100%;
+            width: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+
+        .timeline-card {
+            position: relative;
+            background: var(--card-bg);
+            margin-bottom: 30px;
+            margin-left: 70px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #444;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: rotate(-1deg) scale(1.02) translateY(-2px);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
+            border-color: var(--accent-purple);
+            z-index: 10;
+        }
+
+        /* Timeline Connector Node */
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: -48px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-green);
+            border: 4px solid var(--bg-color);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        /* Connector Line */
+        .timeline-card::after {
+            content: '';
+            position: absolute;
+            top: 31px;
+            left: -30px;
+            width: 30px;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: var(--accent-yellow);
+            color: #000;
+            font-family: 'Kalam', cursive;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            transform: rotate(-2deg);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            color: var(--accent-purple);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: var(--highlight);
+            font-weight: bold;
+        }
+
+        /* Tags */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 4px;
+            transform: skew(-5deg);
+        }
+
+        .tag.firsts { background: var(--accent-green); }
+        .tag.alert { background: var(--accent-orange); color: #fff; }
+        .tag.gov { background: var(--accent-blue); }
+        .tag.tech { background: var(--accent-purple); color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🇮🇳 Presidents of India Timeline</h1>
+    </div>
+
+    <!-- Ultra-Short Revision Sheet -->
+    <div class="revision-sheet">
+        <h2>⚡ Quick Revision Cheat-Sheet</h2>
+        <div class="revision-grid">
+            <div class="rev-item"><span class="highlight">Dr. Rajendra Prasad:</span> 1st Prez, Only one to serve 2 full terms.</div>
+            <div class="rev-item"><span class="highlight">Dr. Zakir Husain:</span> 1st Muslim Prez, 1st to die in office.</div>
+            <div class="rev-item"><span class="highlight">V.V. Giri:</span> Only person to be both Acting & Elected Prez.</div>
+            <div class="rev-item"><span class="highlight">Justice M. Hidayatullah:</span> Chief Justice who stepped in as Acting Prez.</div>
+            <div class="rev-item"><span class="highlight">Fakhruddin Ali Ahmed:</span> Emergency (1975), 2nd to die in office.</div>
+            <div class="rev-item"><span class="highlight">Neelam Sanjiva Reddy:</span> Elected unopposed.</div>
+            <div class="rev-item"><span class="highlight">Giani Zail Singh:</span> 1st Sikh Prez.</div>
+            <div class="rev-item"><span class="highlight">K. R. Narayanan:</span> 1st Dalit Prez.</div>
+            <div class="rev-item"><span class="highlight">Dr. A. P. J. Abdul Kalam:</span> "Missile Man", "People's President".</div>
+            <div class="rev-item"><span class="highlight">Pratibha Patil:</span> 1st Woman Prez.</div>
+            <div class="rev-item"><span class="highlight">Droupadi Murmu:</span> 1st Tribal Woman, Youngest Prez.</div>
+        </div>
+    </div>
+
+    <!-- Dynamic Timeline Board -->
+    <div class="timeline-container">
+        
+        <div class="timeline-card">
+            <div class="time-badge">1950 - 1962</div>
+            <h3 class="card-title">Dr. Rajendra Prasad</h3>
+            <div class="card-content">
+                The <span class="highlight">first President</span> of independent India and the <span class="highlight">only one to serve two full terms</span>. He played a central role in the Constituent Assembly and the freedom struggle.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">First President</span>
+                <span class="tag gov">2 Full Terms</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1962 - 1967</div>
+            <h3 class="card-title">Dr. Sarvepalli Radhakrishnan</h3>
+            <div class="card-content">
+                A renowned scholar and philosopher. He was the <span class="highlight">first Vice President</span> to later be elected to the presidency.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">1st VP to President</span>
+                <span class="tag gov">Scholar/Philosopher</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1967 - 1969</div>
+            <h3 class="card-title">Dr. Zakir Husain</h3>
+            <div class="card-content">
+                The <span class="highlight">first Muslim President</span> of India and a noted educationist. He was the <span class="highlight">first President to pass away while in office</span>.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">First Muslim</span>
+                <span class="tag alert">Died in Office</span>
+            </div>
+        </div>
+
+        <div class="timeline-card" style="border-color: var(--accent-orange);">
+            <div class="time-badge">May 1969 - Aug 1969</div>
+            <h3 class="card-title">Acting: V.V. Giri & Justice M. Hidayatullah</h3>
+            <div class="card-content">
+                After Dr. Husain's death, Vice President V.V. Giri served as Acting President but resigned shortly after to contest the upcoming election. <span class="highlight">Justice Mohammad Hidayatullah</span>, the sitting <span class="highlight">Chief Justice of India</span>, then stepped in as Acting President for just over a month until the elections concluded.
+            </div>
+            <div class="tag-container">
+                <span class="tag alert">Acting President</span>
+                <span class="tag gov">Chief Justice</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1969 - 1974</div>
+            <h3 class="card-title">Varahagiri Venkata Giri (V.V. Giri)</h3>
+            <div class="card-content">
+                The <span class="highlight">only person in Indian history</span> to have served as both an Acting President and a fully elected President.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">Acting + Elected</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1974 - 1977</div>
+            <h3 class="card-title">Fakhruddin Ali Ahmed</h3>
+            <div class="card-content">
+                His tenure was marked by the imposition of the <span class="highlight">Emergency in 1975</span>. He was the <span class="highlight">second Indian President to die</span> during his term in office.
+            </div>
+            <div class="tag-container">
+                <span class="tag alert">1975 Emergency</span>
+                <span class="tag alert">Died in Office</span>
+            </div>
+        </div>
+
+        <div class="timeline-card" style="border-color: var(--accent-orange);">
+            <div class="time-badge">Feb 1977 - Jul 1977</div>
+            <h3 class="card-title">Acting: Basappa Danappa Jatti</h3>
+            <div class="card-content">
+                Following Ahmed's sudden death, B.D. Jatti, the Vice President and former <span class="highlight">Chief Minister of Mysore</span>, served as Acting President.
+            </div>
+            <div class="tag-container">
+                <span class="tag alert">Acting President</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1977 - 1982</div>
+            <h3 class="card-title">Neelam Sanjiva Reddy</h3>
+            <div class="card-content">
+                He holds the distinction of being <span class="highlight">elected unopposed</span>. At 64, he was the <span class="highlight">youngest President</span> at the time.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">Unopposed</span>
+                <span class="tag gov">Youngest (at the time)</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1982 - 1987</div>
+            <h3 class="card-title">Giani Zail Singh</h3>
+            <div class="card-content">
+                The <span class="highlight">first Sikh President</span> of India. Before his presidency, he had served as the Chief Minister of Punjab and the Union Home Minister.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">First Sikh</span>
+                <span class="tag gov">Former Home Minister</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1987 - 1992</div>
+            <h3 class="card-title">Ramaswamy Venkataraman</h3>
+            <div class="card-content">
+                A lawyer and freedom fighter who was <span class="highlight">jailed during the independence movement in 1942</span>. He held key ministerial positions before his presidency.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Freedom Fighter</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1992 - 1997</div>
+            <h3 class="card-title">Dr. Shankar Dayal Sharma</h3>
+            <div class="card-content">
+                An academician and lawyer from Madhya Pradesh who previously served as Vice President. His tenure focused strongly on <span class="highlight">constitutional values and the rule of law</span>.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Academician</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1997 - 2002</div>
+            <h3 class="card-title">K. R. Narayanan</h3>
+            <div class="card-content">
+                The <span class="highlight">first Dalit President</span> of India. Before taking office, he was a distinguished career diplomat who advocated for social justice.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">First Dalit</span>
+                <span class="tag gov">Career Diplomat</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2002 - 2007</div>
+            <h3 class="card-title">Dr. A. P. J. Abdul Kalam</h3>
+            <div class="card-content">
+                Popularly known as the <span class="highlight">"Missile Man of India"</span> and the <span class="highlight">"People's President"</span>. He was a pioneering aerospace scientist who led crucial developments at ISRO and DRDO.
+            </div>
+            <div class="tag-container">
+                <span class="tag tech">Missile Man</span>
+                <span class="tag tech">ISRO / DRDO</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2007 - 2012</div>
+            <h3 class="card-title">Pratibha Devisingh Patil</h3>
+            <div class="card-content">
+                The <span class="highlight">first woman</span> to hold the office of the President of India.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">First Woman</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2012 - 2017</div>
+            <h3 class="card-title">Pranab Mukherjee</h3>
+            <div class="card-content">
+                A veteran political leader who managed several heavyweight portfolios including <span class="highlight">Finance, Defence, and External Affairs</span> before his elevation to the presidency.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Veteran Politician</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2017 - 2022</div>
+            <h3 class="card-title">Ram Nath Kovind</h3>
+            <div class="card-content">
+                The <span class="highlight">second Dalit leader</span> to become President. He previously served as the Governor of Bihar.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Former Governor</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2022 - Present</div>
+            <h3 class="card-title">Droupadi Murmu</h3>
+            <div class="card-content">
+                The current President. She is the <span class="highlight">first tribal woman</span> to hold the highest constitutional office, and she also became the <span class="highlight">youngest person</span> to assume the presidency.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">First Tribal Woman</span>
+                <span class="tag firsts">Youngest President</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
