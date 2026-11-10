@@ -389,12 +389,16 @@
         return { owner, repo };
     }
 
+    function getAuthHeaders() {
+        const token = localStorage.getItem('upsc_gh_token');
+        return token ? { 'Authorization': `token ${token}` } : {};
+    }
+
     async function getFileList(folder) {
         const { owner, repo } = getGithubRepoDetails();
         try {
-            // Cache-buster applied
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?v=${Date.now()}`;
-            const res = await fetch(apiUrl);
+            const res = await fetch(apiUrl, { headers: getAuthHeaders() });
             if (!res.ok) throw new Error(`API fetch failed with status: ${res.status}`);
             const data = await res.json();
             return data.filter(f => f.name.endsWith('.html')).map(f => f.name);
@@ -408,16 +412,15 @@
         const { owner, repo } = getGithubRepoDetails();
         let shortnoteFiles = [];
         try {
-            // Cache-buster applied
             const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes?v=${Date.now()}`;
-            const dirRes = await fetch(dirUrl);
+            const dirRes = await fetch(dirUrl, { headers: getAuthHeaders() });
             if (!dirRes.ok) return [];
             const dirData = await dirRes.json();
             const subjects = dirData.filter(item => item.type === 'dir').map(dir => dir.name);
 
             for (const subject of subjects) {
                 try {
-                    const filesRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes/${subject}?v=${Date.now()}`);
+                    const filesRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes/${subject}?v=${Date.now()}`, { headers: getAuthHeaders() });
                     if (filesRes.ok) {
                         const filesData = await filesRes.json();
                         const hFiles = filesData.filter(f => f.name.endsWith('.html')).map(f => ({ subject, filename: f.name }));
@@ -675,11 +678,12 @@
             let matchedCards = fileItem.cards;
             
             if (currentFilterTag === 'Starred') matchedCards = matchedCards.filter(c => bookmarkedCards[c.id]);
-
             if (isSearchMode) matchedCards = matchedCards.filter(c => c.cardText.includes(searchQuery));
-            if (matchedCards.length === 0) return;
+            
+            // Allow empty files to show up, unless user is actively searching or filtering by saved
+            if (matchedCards.length === 0 && (isSearchMode || currentFilterTag === 'Starred')) return;
 
-            if (isSearchMode) {
+            if (isSearchMode && matchedCards.length > 0) {
                 matchedCards.forEach(c => {
                     const wrapper = document.createElement('div'); wrapper.innerHTML = c.cardHTML;
                     const cardEl = wrapper.firstElementChild;
@@ -717,8 +721,10 @@
                 `;
 
                 editionBox.onclick = (e) => {
-                    if (e.target.closest('.open-reader-btn')) openFullReaderPage(titleText, matchedCards);
-                    else window.open(fileUrl, '_blank');
+                    if (e.target.closest('.open-reader-btn')) {
+                        if (matchedCards.length > 0) openFullReaderPage(titleText, matchedCards);
+                        else alert("This file has no sketchnotes yet!");
+                    } else window.open(fileUrl, '_blank');
                 };
 
                 container.appendChild(editionBox); totalRendered++;
