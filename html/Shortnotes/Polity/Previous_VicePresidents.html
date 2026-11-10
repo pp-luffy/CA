@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vice Presidents of India: Visual Board</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2a2a2a;
+            --accent-green: #4cd137;
+            --accent-blue: #00a8ff;
+            --accent-yellow: #e1b12c;
+            --accent-purple: #9c88ff;
+            --accent-orange: #e84118;
+            --highlight: #ffeb3b;
+        }
+
+        body {
+            font-family: 'Patrick Hand', cursive;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            margin: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: var(--accent-blue);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+            transform: rotate(-1deg);
+        }
+
+        /* Revision Sheet */
+        .revision-sheet {
+            background-color: #222;
+            border: 3px dashed var(--accent-purple);
+            border-radius: 12px;
+            padding: 20px 30px;
+            max-width: 900px;
+            margin: 0 auto 50px auto;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.4);
+            transform: rotate(0.5deg);
+        }
+
+        .revision-sheet h2 {
+            color: var(--accent-purple);
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-purple);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .revision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .rev-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        /* Timeline Layout */
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            height: 100%;
+            width: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+
+        .timeline-card {
+            position: relative;
+            background: var(--card-bg);
+            margin-bottom: 30px;
+            margin-left: 70px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #444;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: rotate(-1deg) scale(1.02) translateY(-2px);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
+            border-color: var(--accent-yellow);
+            z-index: 10;
+        }
+
+        /* Timeline Connector Node */
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: -48px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-orange);
+            border: 4px solid var(--bg-color);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        /* Connector Line */
+        .timeline-card::after {
+            content: '';
+            position: absolute;
+            top: 31px;
+            left: -30px;
+            width: 30px;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: var(--accent-blue);
+            color: #fff;
+            font-family: 'Kalam', cursive;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            transform: rotate(-2deg);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            color: var(--accent-yellow);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: var(--highlight);
+            font-weight: bold;
+        }
+
+        /* Tags */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 4px;
+            transform: skew(-5deg);
+        }
+
+        .tag.firsts { background: var(--accent-green); }
+        .tag.alert { background: var(--accent-orange); color: #fff; }
+        .tag.gov { background: var(--accent-purple); color: #fff; }
+        .tag.tech { background: var(--accent-blue); color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🇮🇳 Vice Presidents of India Timeline</h1>
+    </div>
+
+    <!-- Ultra-Short Revision Sheet -->
+    <div class="revision-sheet">
+        <h2>⚡ Quick Revision Cheat-Sheet</h2>
+        <div class="revision-grid">
+            <div class="rev-item"><span class="highlight">Dr. S. Radhakrishnan:</span> 1st VP, 2 full terms.</div>
+            <div class="rev-item"><span class="highlight">Dr. Zakir Husain:</span> Co-founder Jamia Millia.</div>
+            <div class="rev-item"><span class="highlight">V.V. Giri:</span> Resigned VP to win Prez election.</div>
+            <div class="rev-item"><span class="highlight">G.S. Pathak:</span> 1st VP who didn't become Prez.</div>
+            <div class="rev-item"><span class="highlight">B.D. Jatti:</span> Acting Prez for 5 months (1977).</div>
+            <div class="rev-item"><span class="highlight">Justice M. Hidayatullah:</span> CJI, Acting Prez, & VP.</div>
+            <div class="rev-item"><span class="highlight">R. Venkataraman:</span> VP for 3 yrs, became 8th Prez.</div>
+            <div class="rev-item"><span class="highlight">Dr. S.D. Sharma:</span> Ex-CM of Bhopal.</div>
+            <div class="rev-item"><span class="highlight">K.R. Narayanan:</span> Former Diplomat/Ambassador.</div>
+            <div class="rev-item"><span class="highlight">Krishan Kant:</span> 1st & only VP to die in office.</div>
+            <div class="rev-item"><span class="highlight">B.S. Shekhawat:</span> 3-time CM of Rajasthan.</div>
+            <div class="rev-item"><span class="highlight">M.H. Ansari:</span> 2nd VP to serve 2 consecutive full terms.</div>
+            <div class="rev-item"><span class="highlight">M. Venkaiah Naidu:</span> Ex-I&B & Urban Dev Minister.</div>
+            <div class="rev-item"><span class="highlight">Jagdeep Dhankhar:</span> Current VP, Ex-WB Governor.</div>
+        </div>
+    </div>
+
+    <!-- Dynamic Timeline Board -->
+    <div class="timeline-container">
+        
+        <div class="timeline-card">
+            <div class="time-badge">1952 - 1962</div>
+            <h3 class="card-title">Dr. Sarvepalli Radhakrishnan</h3>
+            <div class="card-content">
+                The <span class="highlight">first Vice President</span> of India. He is one of only two Vice Presidents to serve <span class="highlight">two full terms</span>. He subsequently became the second President of India.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">First VP</span>
+                <span class="tag gov">2 Full Terms</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1962 - 1967</div>
+            <h3 class="card-title">Dr. Zakir Husain</h3>
+            <div class="card-content">
+                A prominent educationist and <span class="highlight">co-founder of Jamia Millia Islamia</span>. He went on to become the third President of India.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Educationist</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1967 - 1969</div>
+            <h3 class="card-title">Varahagiri Venkata Giri (V.V. Giri)</h3>
+            <div class="card-content">
+                His term was cut short when he assumed the role of Acting President following Dr. Zakir Husain's death. He subsequently <span class="highlight">resigned from the vice presidency</span> to contest and win the presidential election.
+            </div>
+            <div class="tag-container">
+                <span class="tag alert">Resigned</span>
+                <span class="tag gov">Acting President</span>
+            </div>
+        </div>
+
+        <div class="timeline-card" style="border-color: var(--accent-orange);">
+            <div class="time-badge">1969 - 1974</div>
+            <h3 class="card-title">Gopal Swarup Pathak</h3>
+            <div class="card-content">
+                A former judge of the Allahabad High Court. He was the <span class="highlight">first Vice President who did not subsequently become the President</span> of India.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">1st Not to become Prez</span>
+                <span class="tag gov">Former Judge</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1974 - 1979</div>
+            <h3 class="card-title">Basappa Danappa Jatti</h3>
+            <div class="card-content">
+                Former Chief Minister of Mysore. During his tenure as Vice President, he also served as the <span class="highlight">Acting President for five months in 1977</span> after the sudden demise of President Fakhruddin Ali Ahmed.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Ex-CM Mysore</span>
+                <span class="tag alert">Acting President</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1979 - 1984</div>
+            <h3 class="card-title">Justice Mohammad Hidayatullah</h3>
+            <div class="card-content">
+                Holds the <span class="highlight">unique distinction</span> of being the only person to have served as the <span class="highlight">Chief Justice of India, the Acting President of India, and the Vice President</span> of India.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">Only CJI + Acting Prez + VP</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1984 - 1987</div>
+            <h3 class="card-title">Ramaswamy Venkataraman</h3>
+            <div class="card-content">
+                Served as Vice President for <span class="highlight">three years</span> before being elected as the eighth President of India in 1987.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Became 8th Prez</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1987 - 1992</div>
+            <h3 class="card-title">Dr. Shankar Dayal Sharma</h3>
+            <div class="card-content">
+                Before becoming Vice President, he served as the <span class="highlight">Chief Minister of Bhopal</span> and held Cabinet positions. He went on to become the ninth President of India.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Ex-CM Bhopal</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1992 - 1997</div>
+            <h3 class="card-title">K. R. Narayanan</h3>
+            <div class="card-content">
+                A former <span class="highlight">diplomat</span> who served as an ambassador to several countries. He later became the tenth President of India.
+            </div>
+            <div class="tag-container">
+                <span class="tag tech">Ambassador/Diplomat</span>
+            </div>
+        </div>
+
+        <div class="timeline-card" style="border-color: var(--accent-orange);">
+            <div class="time-badge">1997 - 2002</div>
+            <h3 class="card-title">Krishan Kant</h3>
+            <div class="card-content">
+                He is the <span class="highlight">first and only Vice President of India to die while in office</span>. Prior to this role, he was the Governor of Andhra Pradesh.
+            </div>
+            <div class="tag-container">
+                <span class="tag alert">Died in Office</span>
+                <span class="tag gov">Ex-Governor AP</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2002 - 2007</div>
+            <h3 class="card-title">Bhairon Singh Shekhawat</h3>
+            <div class="card-content">
+                A veteran political leader who served as the <span class="highlight">Chief Minister of Rajasthan three times</span> before being elected as the Vice President.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">3-time CM Rajasthan</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2007 - 2017</div>
+            <h3 class="card-title">Mohammad Hamid Ansari</h3>
+            <div class="card-content">
+                A former diplomat and the <span class="highlight">second Vice President</span> (after Dr. S. Radhakrishnan) to serve <span class="highlight">two consecutive full terms</span> in office.
+            </div>
+            <div class="tag-container">
+                <span class="tag firsts">2 Consecutive Terms</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2017 - 2022</div>
+            <h3 class="card-title">M. Venkaiah Naidu</h3>
+            <div class="card-content">
+                A prominent parliamentarian who held several key cabinet portfolios, including <span class="highlight">Information and Broadcasting as well as Urban Development</span>, before assuming the vice presidency.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Key Cabinet Portfolios</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2022 - Present</div>
+            <h3 class="card-title">Jagdeep Dhankhar</h3>
+            <div class="card-content">
+                The current Vice President of India. Before taking office, he served as the <span class="highlight">Governor of West Bengal</span> and is a <span class="highlight">senior advocate</span> by profession.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Ex-WB Governor</span>
+                <span class="tag tech">Senior Advocate</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
