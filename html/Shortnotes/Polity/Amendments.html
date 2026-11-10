@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Constitutional Amendments of India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2a2a2a;
+            --accent-green: #4cd137;
+            --accent-blue: #00a8ff;
+            --accent-yellow: #e1b12c;
+            --accent-purple: #9c88ff;
+            --accent-orange: #e84118;
+            --highlight: #ffeb3b;
+        }
+
+        body {
+            font-family: 'Patrick Hand', cursive;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            margin: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: var(--accent-orange);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+            transform: rotate(-1deg);
+        }
+
+        /* Revision Sheet */
+        .revision-sheet {
+            background-color: #222;
+            border: 3px dashed var(--accent-green);
+            border-radius: 12px;
+            padding: 20px 30px;
+            max-width: 900px;
+            margin: 0 auto 50px auto;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.4);
+            transform: rotate(0.5deg);
+        }
+
+        .revision-sheet h2 {
+            color: var(--accent-green);
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-green);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .revision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .rev-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        /* Timeline Layout */
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            height: 100%;
+            width: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+
+        .timeline-card {
+            position: relative;
+            background: var(--card-bg);
+            margin-bottom: 30px;
+            margin-left: 70px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #444;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: rotate(-1deg) scale(1.02) translateY(-2px);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
+            border-color: var(--accent-blue);
+            z-index: 10;
+        }
+
+        /* Timeline Connector Node */
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: -48px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-yellow);
+            border: 4px solid var(--bg-color);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        /* Connector Line */
+        .timeline-card::after {
+            content: '';
+            position: absolute;
+            top: 31px;
+            left: -30px;
+            width: 30px;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: #fff;
+            font-family: 'Kalam', cursive;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            transform: rotate(-2deg);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+        }
+        
+        .gov-badge {
+            display: inline-block;
+            background: #444;
+            color: #ddd;
+            font-size: 0.9rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            color: var(--accent-blue);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: var(--highlight);
+            font-weight: bold;
+        }
+
+        /* Tags */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 4px;
+            transform: skew(-5deg);
+        }
+
+        .tag.struct { background: var(--accent-green); }
+        .tag.alert { background: var(--accent-orange); color: #fff; }
+        .tag.gov { background: var(--accent-purple); color: #fff; }
+        .tag.rights { background: var(--accent-blue); color: #fff; }
+        .tag.eco { background: var(--accent-yellow); color: #000; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📜 Key Constitutional Amendments</h1>
+    </div>
+
+    <!-- Ultra-Short Revision Sheet -->
+    <div class="revision-sheet">
+        <h2>⚡ Quick Revision Cheat-Sheet</h2>
+        <div class="revision-grid">
+            <div class="rev-item"><span class="highlight">1st (1951):</span> 9th Schedule (Land Reforms).</div>
+            <div class="rev-item"><span class="highlight">7th (1956):</span> State Reorg (14 States, 6 UTs).</div>
+            <div class="rev-item"><span class="highlight">24th (1971):</span> Parl can amend FRs.</div>
+            <div class="rev-item"><span class="highlight">26th (1971):</span> Abolished Privy Purses.</div>
+            <div class="rev-item"><span class="highlight">36th (1975):</span> Sikkim = 22nd State.</div>
+            <div class="rev-item"><span class="highlight">42nd (1976):</span> "Mini-Constitution" (Soc, Sec, Int), Fund. Duties.</div>
+            <div class="rev-item"><span class="highlight">44th (1978):</span> Removed Right to Property from FRs.</div>
+            <div class="rev-item"><span class="highlight">52nd (1985):</span> Anti-Defection (10th Schedule).</div>
+            <div class="rev-item"><span class="highlight">61st (1989):</span> Voting age 21 → 18.</div>
+            <div class="rev-item"><span class="highlight">69th (1991):</span> Delhi = NCT.</div>
+            <div class="rev-item"><span class="highlight">73rd & 74th (1992):</span> Panchayats (11th Sch) & Municipalities (12th Sch).</div>
+            <div class="rev-item"><span class="highlight">86th (2002):</span> Right to Education (Art 21A).</div>
+            <div class="rev-item"><span class="highlight">89th (2003):</span> NC for SCs & STs separated.</div>
+            <div class="rev-item"><span class="highlight">91st (2003):</span> CoM size capped at 15%.</div>
+            <div class="rev-item"><span class="highlight">92nd (2003):</span> Bodo, Dogri, Maithili, Santhali added.</div>
+            <div class="rev-item"><span class="highlight">97th (2011):</span> Co-operative Societies.</div>
+            <div class="rev-item"><span class="highlight">99th (2014):</span> NJAC (Later struck down).</div>
+            <div class="rev-item"><span class="highlight">100th (2015):</span> India-B'desh Land Boundary Agreement.</div>
+            <div class="rev-item"><span class="highlight">101st (2016):</span> GST.</div>
+            <div class="rev-item"><span class="highlight">102nd (2018):</span> NCBC gets constitutional status.</div>
+            <div class="rev-item"><span class="highlight">103rd (2019):</span> 10% EWS Quota.</div>
+            <div class="rev-item"><span class="highlight">104th (2020):</span> SC/ST quota extended, Anglo-Indian seats abolished.</div>
+            <div class="rev-item"><span class="highlight">105th (2021):</span> States can identify own OBCs.</div>
+            <div class="rev-item"><span class="highlight">106th (2023):</span> 33% Women's Reservation.</div>
+        </div>
+    </div>
+
+    <!-- Dynamic Timeline Board -->
+    <div class="timeline-container">
+        
+        <div class="timeline-card">
+            <div class="time-badge">1951</div><div class="gov-badge">J. Nehru (INC)</div>
+            <h3 class="card-title">1st Amendment</h3>
+            <div class="card-content">
+                Added the <span class="highlight">9th Schedule</span> to protect land reform laws from judicial review. Introduced reasonable restrictions on Freedom of Speech and Expression. Empowered the state to make special provisions for socially and educationally backward classes.
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">9th Schedule</span>
+                <span class="tag rights">Speech Restrictions</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1956</div><div class="gov-badge">J. Nehru (INC)</div>
+            <h3 class="card-title">7th Amendment</h3>
+            <div class="card-content">
+                Implemented the States Reorganisation Commission's recommendations. Abolished the classification of states and reorganized India into <span class="highlight">14 States and 6 Union Territories</span> on linguistic lines.
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">State Reorganization</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1971</div><div class="gov-badge">Indira Gandhi (INC)</div>
+            <h3 class="card-title">24th Amendment</h3>
+            <div class="card-content">
+                Affirmed the Parliament's power to amend any part of the Constitution, including <span class="highlight">Fundamental Rights</span>. Made it mandatory for the President to give assent to Constitutional Amendment Bills.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Amend Fundamental Rights</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1971</div><div class="gov-badge">Indira Gandhi (INC)</div>
+            <h3 class="card-title">26th Amendment</h3>
+            <div class="card-content">
+                Abolished the <span class="highlight">privy purses</span> and privileges of the former rulers of princely states.
+            </div>
+            <div class="tag-container">
+                <span class="tag eco">End of Privy Purses</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1975</div><div class="gov-badge">Indira Gandhi (INC)</div>
+            <h3 class="card-title">36th Amendment</h3>
+            <div class="card-content">
+                Made <span class="highlight">Sikkim</span> a full-fledged State of the Indian Union (the 22nd state).
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">Sikkim added</span>
+            </div>
+        </div>
+
+        <div class="timeline-card" style="border-color: var(--accent-orange);">
+            <div class="time-badge">1976</div><div class="gov-badge">Indira Gandhi (INC)</div>
+            <h3 class="card-title">42nd Amendment (Mini-Constitution)</h3>
+            <div class="card-content">
+                Enacted during the Emergency. Added <span class="highlight">"Socialist, Secular, and Integrity"</span> to the Preamble. Added <span class="highlight">Fundamental Duties (Article 51A)</span>. Made the President bound by Cabinet advice. Shifted five subjects (including Education) to the Concurrent List.
+            </div>
+            <div class="tag-container">
+                <span class="tag alert">Emergency Era</span>
+                <span class="tag struct">Mini-Constitution</span>
+                <span class="tag rights">Fundamental Duties</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1978</div><div class="gov-badge">Morarji Desai (Janata)</div>
+            <h3 class="card-title">44th Amendment</h3>
+            <div class="card-content">
+                Reversed many excesses of the 42nd Amendment. <span class="highlight">Removed the Right to Property</span> from Fundamental Rights (made it a legal right). Replaced "internal disturbance" with <span class="highlight">"armed rebellion"</span> for National Emergency. Allowed the President to return Cabinet advice once.
+            </div>
+            <div class="tag-container">
+                <span class="tag rights">Prop Right Removed</span>
+                <span class="tag alert">Armed Rebellion</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1985</div><div class="gov-badge">Rajiv Gandhi (INC)</div>
+            <h3 class="card-title">52nd Amendment</h3>
+            <div class="card-content">
+                Introduced the <span class="highlight">Anti-Defection Law</span> by adding the <span class="highlight">10th Schedule</span> to disqualify MPs and MLAs for defection.
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">Anti-Defection (10th Sch)</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1989</div><div class="gov-badge">Rajiv Gandhi (INC)</div>
+            <h3 class="card-title">61st Amendment</h3>
+            <div class="card-content">
+                Reduced the <span class="highlight">voting age</span> for Lok Sabha and Legislative Assembly elections from <span class="highlight">21 years to 18 years</span>.
+            </div>
+            <div class="tag-container">
+                <span class="tag rights">Voting Age 18</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1991</div><div class="gov-badge">P.V. Narasimha Rao (INC)</div>
+            <h3 class="card-title">69th Amendment</h3>
+            <div class="card-content">
+                Granted special status to Delhi, designating it as the <span class="highlight">National Capital Territory (NCT)</span>, and provided it with a legislative assembly and a council of ministers.
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">Delhi = NCT</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1992</div><div class="gov-badge">P.V. Narasimha Rao (INC)</div>
+            <h3 class="card-title">73rd & 74th Amendments</h3>
+            <div class="card-content">
+                73rd: Granted constitutional status to <span class="highlight">Panchayati Raj Institutions</span> (Part IX, 11th Sch). <br>
+                74th: Granted constitutional status to <span class="highlight">Municipalities</span> (Part IXA, 12th Sch).
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">Panchayats (11th)</span>
+                <span class="tag struct">Municipalities (12th)</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2002</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
+            <h3 class="card-title">86th Amendment</h3>
+            <div class="card-content">
+                Made the <span class="highlight">Right to Education a Fundamental Right (Article 21A)</span> for children aged 6-14 years. Added a related Fundamental Duty.
+            </div>
+            <div class="tag-container">
+                <span class="tag rights">Right to Education</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2003</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
+            <h3 class="card-title">89th Amendment</h3>
+            <div class="card-content">
+                Bifurcated the National Commission for SCs and STs into two separate bodies: <span class="highlight">NC for SCs and NC for STs</span>.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">NC SC/ST Bifurcated</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2003</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
+            <h3 class="card-title">91st Amendment</h3>
+            <div class="card-content">
+                Limited the <span class="highlight">size of the Council of Ministers</span> at the Center and States to a maximum of <span class="highlight">15%</span> of the total strength of the lower house. Strengthened the Anti-Defection Law.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">15% CoM Cap</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2003</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
+            <h3 class="card-title">92nd Amendment</h3>
+            <div class="card-content">
+                Added four new languages—<span class="highlight">Bodo, Dogri, Maithili, and Santhali</span>—to the 8th Schedule.
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">4 Languages Added</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2011</div><div class="gov-badge">Manmohan Singh (UPA)</div>
+            <h3 class="card-title">97th Amendment</h3>
+            <div class="card-content">
+                Granted constitutional status and protection to <span class="highlight">Co-operative Societies</span>.
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">Co-operatives</span>
+            </div>
+        </div>
+
+        <div class="timeline-card" style="border-color: var(--accent-orange);">
+            <div class="time-badge">2014</div><div class="gov-badge">Narendra Modi (NDA)</div>
+            <h3 class="card-title">99th Amendment</h3>
+            <div class="card-content">
+                Established the <span class="highlight">National Judicial Appointments Commission (NJAC)</span> to replace the collegium system (Later struck down by the Supreme Court in 2015).
+            </div>
+            <div class="tag-container">
+                <span class="tag alert">Struck Down</span>
+                <span class="tag gov">NJAC</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2015</div><div class="gov-badge">Narendra Modi (NDA)</div>
+            <h3 class="card-title">100th Amendment</h3>
+            <div class="card-content">
+                Operationalized the <span class="highlight">Land Boundary Agreement (LBA)</span> between India and Bangladesh for the exchange of enclaves.
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">LBA with Bangladesh</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2016</div><div class="gov-badge">Narendra Modi (NDA)</div>
+            <h3 class="card-title">101st Amendment</h3>
+            <div class="card-content">
+                Introduced the <span class="highlight">Goods and Services Tax (GST)</span> and established the GST Council.
+            </div>
+            <div class="tag-container">
+                <span class="tag eco">GST Introduced</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2018</div><div class="gov-badge">Narendra Modi (NDA)</div>
+            <h3 class="card-title">102nd Amendment</h3>
+            <div class="card-content">
+                Conferred constitutional status on the <span class="highlight">National Commission for Backward Classes (NCBC)</span>.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">NCBC Status</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2019</div><div class="gov-badge">Narendra Modi (NDA)</div>
+            <h3 class="card-title">103rd Amendment</h3>
+            <div class="card-content">
+                Introduced a <span class="highlight">10% reservation for Economically Weaker Sections (EWS)</span> in government jobs and education.
+            </div>
+            <div class="tag-container">
+                <span class="tag rights">10% EWS Quota</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2020</div><div class="gov-badge">Narendra Modi (NDA)</div>
+            <h3 class="card-title">104th Amendment</h3>
+            <div class="card-content">
+                Extended the reservation of seats for SCs and STs in the Lok Sabha and State Assemblies to 2030. <span class="highlight">Abolished reserved seats for the Anglo-Indian community.</span>
+            </div>
+            <div class="tag-container">
+                <span class="tag rights">SC/ST Quota Extended</span>
+                <span class="tag alert">Anglo-Indian Seats Removed</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2021</div><div class="gov-badge">Narendra Modi (NDA)</div>
+            <h3 class="card-title">105th Amendment</h3>
+            <div class="card-content">
+                Restored the power of State governments to independently <span class="highlight">identify and maintain their own lists of Socially and Educationally Backward Classes (SEBCs) / OBCs</span>.
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">State OBC Lists Restored</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2023</div><div class="gov-badge">Narendra Modi (NDA)</div>
+            <h3 class="card-title">106th Amendment</h3>
+            <div class="card-content">
+                Passed as the Nari Shakti Vandan Adhiniyam. Mandates a <span class="highlight">33% reservation for women</span> in the Lok Sabha, State Legislative Assemblies, and the NCT of Delhi Assembly.
+            </div>
+            <div class="tag-container">
+                <span class="tag rights">33% Women's Quota</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
