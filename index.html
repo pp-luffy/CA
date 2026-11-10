@@ -174,7 +174,7 @@
                 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">MONTH:</span>
                 <select id="month-dropdown" class="filter-dropdown"><option value="ALL">All Months</option></select>
             </div>
-            <!-- Added Subject Filter for Shortnotes -->
+            
             <div class="filter-group" id="subject-filter-group" style="display: none;">
                 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">SUBJECT:</span>
                 <select id="subject-dropdown" class="filter-dropdown"><option value="ALL">All Subjects</option></select>
@@ -392,7 +392,8 @@
     async function getFileList(folder) {
         const { owner, repo } = getGithubRepoDetails();
         try {
-            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
+            // Cache-buster applied
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?v=${Date.now()}`;
             const res = await fetch(apiUrl);
             if (!res.ok) throw new Error(`API fetch failed with status: ${res.status}`);
             const data = await res.json();
@@ -407,17 +408,16 @@
         const { owner, repo } = getGithubRepoDetails();
         let shortnoteFiles = [];
         try {
-            // First fetch the subjects (folders inside html/Shortnotes)
-            const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes`;
+            // Cache-buster applied
+            const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes?v=${Date.now()}`;
             const dirRes = await fetch(dirUrl);
             if (!dirRes.ok) return [];
             const dirData = await dirRes.json();
             const subjects = dirData.filter(item => item.type === 'dir').map(dir => dir.name);
 
-            // Fetch HTML files inside each subject folder
             for (const subject of subjects) {
                 try {
-                    const filesRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes/${subject}`);
+                    const filesRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes/${subject}?v=${Date.now()}`);
                     if (filesRes.ok) {
                         const filesData = await filesRes.json();
                         const hFiles = filesData.filter(f => f.name.endsWith('.html')).map(f => ({ subject, filename: f.name }));
@@ -446,11 +446,12 @@
 
             loadingSubtext.innerText = `Found ${weeklyFiles.length} weekly, ${monthlyFiles.length} monthly, and ${shortnotesFilesList.length} shortnote files. Parsing cards...`;
             const filesList = [], cardsList = [], monthlyList = [], monthlyCardsList = [], snList = [], snCardsList = [];
+            const timeBuster = `?v=${Date.now()}`;
 
             // Process Weekly
             for (const filename of weeklyFiles) {
                 try {
-                    const res = await fetch(`html/weekly/${filename}`); 
+                    const res = await fetch(`html/weekly/${filename}${timeBuster}`); 
                     if (!res.ok) continue;
                     const htmlText = await res.text();
                     
@@ -487,7 +488,7 @@
             // Process Monthly
             for (const filename of monthlyFiles) {
                 try {
-                    const res = await fetch(`html/monthly/${filename}`); 
+                    const res = await fetch(`html/monthly/${filename}${timeBuster}`); 
                     if (!res.ok) continue;
                     const htmlText = await res.text();
                     const parser = new DOMParser();
@@ -510,7 +511,7 @@
             // Process Shortnotes
             for (const sn of shortnotesFilesList) {
                 try {
-                    const res = await fetch(`html/Shortnotes/${sn.subject}/${sn.filename}`); 
+                    const res = await fetch(`html/Shortnotes/${sn.subject}/${sn.filename}${timeBuster}`); 
                     if (!res.ok) continue;
                     const htmlText = await res.text();
                     const parser = new DOMParser();
@@ -854,7 +855,6 @@
     uploadBtn.addEventListener('click', () => { uploadModal.style.display = 'flex'; uploadStatus.style.display = 'none'; });
     closeUploadBtn.addEventListener('click', () => { uploadModal.style.display = 'none'; });
 
-    // Show subject input only if Shortnotes is selected
     uploadFolderSelect.addEventListener('change', (e) => {
         if (e.target.value === 'html/Shortnotes') {
             uploadSubjectContainer.style.display = 'block';
@@ -875,7 +875,6 @@
                 uploadStatus.style.display = 'block'; uploadStatus.style.color = '#ef4444';
                 uploadStatus.innerText = '⚠️ Subject is required for Shortnotes.'; return;
             }
-            // Append subject to folder path (e.g. html/Shortnotes/Polity)[cite: 1]
             folder = `${folder}/${subject}`;
         }
 
@@ -896,7 +895,6 @@
             const base64Content = btoa(String.fromCharCode(...utf8Bytes));
 
             const { owner, repo } = getGithubRepoDetails();
-
             const path = `${folder}/${filename}`;
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
