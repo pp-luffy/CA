@@ -395,42 +395,28 @@
     }
 
     async function getFileList(folder) {
-        const { owner, repo } = getGithubRepoDetails();
         try {
-            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?v=${Date.now()}`;
-            const res = await fetch(apiUrl, { headers: getAuthHeaders() });
-            if (!res.ok) throw new Error(`API fetch failed with status: ${res.status}`);
-            const data = await res.json();
-            return data.filter(f => f.name.endsWith('.html')).map(f => f.name);
+            const res = await fetch(`manifest.json?v=${Date.now()}`);
+            if (!res.ok) return [];
+            const manifest = await res.json();
+            
+            if (folder === 'html/weekly') return manifest.weekly || [];
+            if (folder === 'html/monthly') return manifest.monthly || [];
+            return [];
         } catch (err) { 
-            console.error(`API list fallback failed for ${folder}`, err);
+            console.error(`Failed to load manifest for ${folder}`, err);
             return []; 
         }
     }
 
     async function getNestedShortnotesList() {
-        const { owner, repo } = getGithubRepoDetails();
-        let shortnoteFiles = [];
         try {
-            const dirUrl = `https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes?v=${Date.now()}`;
-            const dirRes = await fetch(dirUrl, { headers: getAuthHeaders() });
-            if (!dirRes.ok) return [];
-            const dirData = await dirRes.json();
-            const subjects = dirData.filter(item => item.type === 'dir').map(dir => dir.name);
-
-            for (const subject of subjects) {
-                try {
-                    const filesRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/html/Shortnotes/${subject}?v=${Date.now()}`, { headers: getAuthHeaders() });
-                    if (filesRes.ok) {
-                        const filesData = await filesRes.json();
-                        const hFiles = filesData.filter(f => f.name.endsWith('.html')).map(f => ({ subject, filename: f.name }));
-                        shortnoteFiles.push(...hFiles);
-                    }
-                } catch(e) { console.error(`Failed to fetch inside ${subject}`, e); }
-            }
-            return shortnoteFiles;
+            const res = await fetch(`manifest.json?v=${Date.now()}`);
+            if (!res.ok) return [];
+            const manifest = await res.json();
+            return manifest.shortnotes || [];
         } catch (err) {
-            console.error('Failed to load shortnotes directory structure', err);
+            console.error('Failed to load shortnotes from manifest', err);
             return [];
         }
     }
