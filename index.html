@@ -421,16 +421,20 @@
         }
     }
 
+    let repoVersion = ''; // Store it globally
+
     async function initializeApp() {
         try {
-            loadingSubtext.innerText = 'Loading manifest index...';
+            loadingSubtext.innerText = 'Checking for updates...';
             
-            // 1. Fetch manifest instantly
-            const res = await fetch(`manifest.json?v=${Date.now()}`);
+            // 1. Always fetch the manifest fresh from the network
+            const res = await fetch(`manifest.json?nocache=${Date.now()}`);
             if (!res.ok) throw new Error('Manifest not found');
             const manifest = await res.json();
+            
+            // 2. Save the repo version timestamp
+            repoVersion = manifest.timestamp || Date.now();
 
-            // 2. Build the basic file list instantly (NO HTML FETCHING YET)
             const filesList = (manifest.weekly || []).map(f => {
                 const match = f.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
                 let startMonthYear = "Unknown", endMonthYear = "Unknown", formattedRange = f.replace('.html', '');
@@ -458,9 +462,8 @@
             
             buildMonthDropdown(filesList, monthlyList);
             buildSubjectDropdown(snList);
-            applyFiltersAndRender(); // UI renders INSTANTLY
+            applyFiltersAndRender(); 
 
-            // 3. Hide loading screen immediately
             loadingBox.style.display = 'none';
             masterExportBtn.style.display = 'inline-flex';
             randomCardBtn.style.display = 'inline-flex';
@@ -468,12 +471,46 @@
             controlHub.style.display = 'flex';
             triggerTabSwitch(currentActiveTab);
 
-            // 4. Start lazy-loading HTML files in the background
+            // 3. Hydrate files using the versioned timestamp
             backgroundHydrateFiles();
 
         } catch (err) { 
-            loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading Manifest</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; 
+            loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; 
         }
+    }
+
+    async function backgroundHydrateFiles() {
+        // Use the manifest timestamp instead of Date.now()
+        const versionQuery = `?v=${repoVersion}`;
+        
+        async function hydrate(fileObj, folderPath, listRef, type) {
+            try {
+                // The Service Worker will cache this specific version string.
+                // If repoVersion hasn't changed, this loads instantly from cache.
+                const res = await fetch(`${folderPath}/${fileObj.filename}${versionQuery}`);
+                if (!res.ok) return;
+                const htmlText = await res.text();
+                const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+                const domCards = doc.querySelectorAll('.sketch-card, .card');
+                
+                domCards.forEach((cardEl, idx) => {
+                    const cardId = `${type}_${fileObj.filename}_${idx}`;
+                    const cObj = { 
+                        id: cardId, filename: fileObj.filename, 
+                        cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase(),
+                        formattedRange: fileObj.formattedRange, displayTitle: fileObj.displayTitle, subject: fileObj.subject
+                    };
+                    fileObj.cards.push(cObj);
+                    listRef.push(cObj);
+                });
+                fileObj.loaded = true;
+                applyFiltersAndRender();
+            } catch(e) { console.error("Hydration failed for", fileObj.filename); }
+        }
+
+        for (let f of allFilesData) await hydrate(f, 'html/weekly', allExtractedCards, 'weekly');
+        for (let m of allMonthlyFilesData) await hydrate(m, 'html/monthly', allMonthlyCards, 'monthly');
+        for (let sn of allShortnotesFilesData) await hydrate(sn, `html/Shortnotes/${sn.subject}`, allShortnotesCards, 'sn');
     }
 
     // This runs silently in the background, populating cards for Search/Export
