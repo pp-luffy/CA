@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Constitution Schedules - Visual Board</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Patrick+Hand&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Patrick Hand', cursive;
+            padding: 20px;
+            line-height: 1.4;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+
+        h1 {
+            color: #ffeb3b;
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #00a8ff;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* Ultra-Short Revision Sheet */
+        .revision-sheet {
+            background-color: #222;
+            border: 2px solid #e1b12c;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 auto 40px auto;
+            max-width: 900px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        .revision-sheet h2 {
+            color: #e1b12c;
+            margin-bottom: 15px;
+            font-size: 2rem;
+            border-bottom: 2px dashed #555;
+            padding-bottom: 10px;
+        }
+
+        .revision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            text-align: center;
+        }
+
+        .rev-item {
+            background: #111;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #ffeb3b;
+        }
+        
+        .rev-letter {
+            font-family: 'Kalam', cursive;
+            font-size: 1.8rem;
+            color: #ffeb3b;
+            display: block;
+        }
+
+        .rev-keyword {
+            font-size: 1.1rem;
+            color: #f0f0f0;
+        }
+
+        /* Dynamic Masonry/Scatter Grid for Detailed Cards */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Polaroid Card Style */
+        .card {
+            background-color: #262626;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 6px 6px 15px rgba(0,0,0,0.7);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05) !important;
+            z-index: 10;
+        }
+
+        /* Alternating Tilts for handwritten feel */
+        .card:nth-child(odd) { transform: rotate(-2deg); }
+        .card:nth-child(even) { transform: rotate(1.5deg); }
+        .card:nth-child(3n) { transform: rotate(-1deg); }
+        .card:nth-child(4n) { transform: rotate(2deg); }
+
+        /* Color Accents (Borders & Tags) */
+        .card.territory { border-top: 5px solid #00a8ff; } /* Blue */
+        .card.govt { border-top: 5px solid #e1b12c; } /* Yellow */
+        .card.tribal { border-top: 5px solid #4cd137; } /* Green */
+        .card.federal { border-top: 5px solid #9c88ff; } /* Purple */
+        .card.reform { border-top: 5px solid #e84118; } /* Orange */
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #666;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            color: #fff;
+        }
+
+        .schedule-badge {
+            background: #444;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-family: 'Kalam', cursive;
+            color: #fff;
+        }
+
+        .highlight {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .neon-green { color: #4cd137; font-weight: bold; }
+        .neon-blue { color: #00a8ff; font-weight: bold; }
+        .neon-orange { color: #e84118; font-weight: bold; }
+        .neon-purple { color: #9c88ff; font-weight: bold; }
+
+        ul {
+            list-style-type: none;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+            font-size: 1.15rem;
+        }
+
+        ul li::before {
+            content: '📌';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.9rem;
+        }
+
+        .trap-box {
+            background: rgba(232, 65, 24, 0.15);
+            border: 1px dashed #e84118;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>TEARS OF OLD PM</h1>
+    <div class="subtitle">The 12 Schedules of the Indian Constitution</div>
+
+    <!-- Ultra-Short Revision Sheet -->
+    <div class="revision-sheet">
+        <h2>⚡ Quick Revision Sheet</h2>
+        <div class="revision-grid">
+            <div class="rev-item"><span class="rev-letter">T</span><span class="rev-keyword">Territories & States (Sch 1)</span></div>
+            <div class="rev-item"><span class="rev-letter">E</span><span class="rev-keyword">Emoluments (Sch 2)</span></div>
+            <div class="rev-item"><span class="rev-letter">A</span><span class="rev-keyword">Affirmations/Oaths (Sch 3)</span></div>
+            <div class="rev-item"><span class="rev-letter">R</span><span class="rev-keyword">Rajya Sabha Seats (Sch 4)</span></div>
+            <div class="rev-item"><span class="rev-letter">S</span><span class="rev-keyword">Scheduled Areas (Sch 5)</span></div>
+            <div class="rev-item"><span class="rev-letter">O</span><span class="rev-keyword">Other Tribal Areas (Sch 6)</span></div>
+            <div class="rev-item"><span class="rev-letter">F</span><span class="rev-keyword">Federal Lists (Sch 7)</span></div>
+            <div class="rev-item"><span class="rev-letter">O</span><span class="rev-keyword">Official Languages (Sch 8)</span></div>
+            <div class="rev-item"><span class="rev-letter">L</span><span class="rev-keyword">Land Reforms (Sch 9)</span></div>
+            <div class="rev-item"><span class="rev-letter">D</span><span class="rev-keyword">Defection (Sch 10)</span></div>
+            <div class="rev-item"><span class="rev-letter">P</span><span class="rev-keyword">Panchayats (Sch 11)</span></div>
+            <div class="rev-item"><span class="rev-letter">M</span><span class="rev-keyword">Municipalities (Sch 12)</span></div>
+        </div>
+    </div>
+
+    <!-- Detailed Visual Board -->
+    <div class="board">
+
+        <!-- Card 1 -->
+        <div class="card territory">
+            <div class="card-header">
+                <h3 class="card-title">T - Territories</h3>
+                <span class="schedule-badge" style="background:#00a8ff;">Sch 1</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Names of States and Union Territories and their territorial jurisdiction.</li>
+                <li><span class="neon-blue">Relevant Articles:</span> Articles 1 and 4.</li>
+            </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card govt">
+            <div class="card-header">
+                <h3 class="card-title">E - Emoluments</h3>
+                <span class="schedule-badge" style="background:#e1b12c;">Sch 2</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Salaries, allowances, privileges, and pensions.</li>
+                <li><span class="highlight">Officeholders:</span> President, Governors.</li>
+                <li>Speaker/Deputy Speaker (<span class="neon-green">Lok Sabha & State Assemblies</span>).</li>
+                <li>Chairman/Deputy Chairman (<span class="neon-blue">Rajya Sabha & State Councils</span>).</li>
+                <li>Judges of the Supreme Court & High Courts.</li>
+                <li>Comptroller and Auditor General (CAG).</li>
+            </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card govt">
+            <div class="card-header">
+                <h3 class="card-title">A - Affirmations</h3>
+                <span class="schedule-badge" style="background:#e1b12c;">Sch 3</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Oaths or affirmations formats.</li>
+                <li><span class="highlight">Covers:</span> Union/State Ministers, MP/MLA/MLC Candidates & Members, SC/HC Judges, CAG.</li>
+            </ul>
+            <div class="trap-box">
+                <span class="neon-orange">🚨 Exam Trap:</span> The President, Vice-President, and Governors do <span class="highlight">NOT</span> take their oath under Sch 3! (Their formats are under Articles 60, 69, and 159 respectively).
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card territory">
+            <div class="card-header">
+                <h3 class="card-title">R - Rajya Sabha</h3>
+                <span class="schedule-badge" style="background:#00a8ff;">Sch 4</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Allocation of seats in the Council of States (Rajya Sabha) to States and UTs.</li>
+                <li>Distributed primarily based on <span class="neon-blue">Population</span>.</li>
+                <li><span class="neon-blue">Relevant Articles:</span> Articles 4(1) and 80(2).</li>
+            </ul>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card tribal">
+            <div class="card-header">
+                <h3 class="card-title">S - Scheduled Areas</h3>
+                <span class="schedule-badge" style="background:#4cd137;">Sch 5</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Administration & control of Scheduled Areas and Scheduled Tribes.</li>
+                <li><span class="neon-green">Scope:</span> Covers central/peninsular states (Jharkhand, Chhattisgarh, Odisha, MP, etc.).</li>
+                <li><span class="highlight">Exception:</span> Excludes Assam, Meghalaya, Tripura, Mizoram.</li>
+            </ul>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card tribal">
+            <div class="card-header">
+                <h3 class="card-title">O - Other Tribal Areas</h3>
+                <span class="schedule-badge" style="background:#4cd137;">Sch 6</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Admin of tribal areas in 4 North-Eastern states.</li>
+                <li><span class="neon-green">Mnemonic: AMTM</span> (Assam, Meghalaya, Tripura, Mizoram).</li>
+                <li><span class="highlight">Key Feature:</span> Creates <span class="neon-green">Autonomous District Councils (ADCs)</span> with legislative/judicial powers over land, forest, and customs.</li>
+            </ul>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card federal">
+            <div class="card-header">
+                <h3 class="card-title">F - Federal Provisions</h3>
+                <span class="schedule-badge" style="background:#9c88ff;">Sch 7</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Division of powers via Three Lists.</li>
+                <li><span class="neon-purple">Union List:</span> 97 subjects originally (now ~100) — Defense, Banking, Foreign Affairs.</li>
+                <li><span class="neon-purple">State List:</span> 66 subjects originally (now ~61) — Police, Public Health, Agriculture.</li>
+                <li><span class="neon-purple">Concurrent List:</span> 47 originally (now ~52) — Education, Forests, Marriage (added via 42nd Amend 1976).</li>
+                <li><span class="highlight">Article:</span> Article 246.</li>
+            </ul>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card federal">
+            <div class="card-header">
+                <h3 class="card-title">O - Official Languages</h3>
+                <span class="schedule-badge" style="background:#9c88ff;">Sch 8</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Evolution:</span> 14 Originally ➔ <span class="highlight">22 Currently</span>.</li>
+                <li><span class="neon-purple">21st Amendment (1967):</span> Added Sindhi.</li>
+                <li><span class="neon-purple">71st Amendment (1992):</span> Added Konkani, Manipuri, Nepali (<span class="highlight">KMN</span>).</li>
+                <li><span class="neon-purple">92nd Amendment (2003):</span> Added Bodo, Dogri, Maithili, Santhali (<span class="highlight">BDMS</span>).</li>
+                <li><span class="highlight">Articles:</span> Articles 344(1) and 351.</li>
+            </ul>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="card reform">
+            <div class="card-header">
+                <h3 class="card-title">L - Land Reforms</h3>
+                <span class="schedule-badge" style="background:#e84118;">Sch 9</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Validation of Acts regarding land tenure & abolition of Zamindari.</li>
+                <li><span class="neon-orange">Addition:</span> 1st Constitutional Amendment Act, 1951.</li>
+                <li><span class="highlight">I.R. Coelho Case (2007):</span> Laws placed after <span class="neon-orange">April 24, 1973</span> are open to judicial review if they violate Basic Structure.</li>
+            </ul>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="card reform">
+            <div class="card-header">
+                <h3 class="card-title">D - Defection</h3>
+                <span class="schedule-badge" style="background:#e84118;">Sch 10</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Anti-Defection Law (Disqualification of MPs/MLAs).</li>
+                <li><span class="neon-orange">Addition:</span> 52nd Amendment Act, 1985.</li>
+                <li><span class="highlight">Modification:</span> 91st Amendment Act, 2003 (removed exception for "splits").</li>
+                <li><span class="highlight">Articles:</span> Articles 102(2) and 191(2).</li>
+            </ul>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="card govt">
+            <div class="card-header">
+                <h3 class="card-title">P - Panchayats</h3>
+                <span class="schedule-badge" style="background:#e1b12c;">Sch 11</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Rural Local Government powers & responsibilities.</li>
+                <li>Contains <span class="highlight">29 functional items</span>.</li>
+                <li><span class="neon-green">Addition:</span> 73rd Constitutional Amendment Act, 1992.</li>
+                <li><span class="highlight">Article:</span> Article 243-G (Part IX).</li>
+            </ul>
+        </div>
+
+        <!-- Card 12 -->
+        <div class="card govt">
+            <div class="card-header">
+                <h3 class="card-title">M - Municipalities</h3>
+                <span class="schedule-badge" style="background:#e1b12c;">Sch 12</span>
+            </div>
+            <ul>
+                <li><span class="highlight">Content:</span> Urban Local Government powers & responsibilities.</li>
+                <li>Contains <span class="highlight">18 functional items</span>.</li>
+                <li><span class="neon-green">Addition:</span> 74th Constitutional Amendment Act, 1992.</li>
+                <li><span class="highlight">Article:</span> Article 243-W (Part IX-A).</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
