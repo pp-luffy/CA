@@ -1,16 +1,43 @@
 {
-  "name": "UPSC Revision Hub",
-  "short_name": "UPSC Hub",
-  "description": "Visual study dashboards for UPSC revision",
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#0b0f19",
-  "theme_color": "#3b82f6",
-  "icons": [
+  "weekly": [
+    "05102026-11102026.html",
+    "12102026-18102026.html",
+    "19102026-25102026.html",
+    "26102026-01112026.html",
+    "28092026-04102026.html"
+  ],
+  "monthly": [
+    "082026.html",
+    "092026.html",
+    "August_national.html",
+    "August_odisha.html",
+    "July_national.html",
+    "July_odisha.html",
+    "June_national.html",
+    "June_odisha.html",
+    "September_national.html",
+    "September_odisha.html"
+  ],
+  "shortnotes": [
     {
-      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' font-size='80'>📚</text></svg>",
-      "type": "image/svg+xml",
-      "sizes": "192x192 512x512"
+      "subject": "Polity",
+      "filename": "Amendments.html"
+    },
+    {
+      "subject": "Polity",
+      "filename": "Important_Articles.html"
+    },
+    {
+      "subject": "Polity",
+      "filename": "Previous_PMs.html"
+    },
+    {
+      "subject": "Polity",
+      "filename": "Previous_Presidents.html"
+    },
+    {
+      "subject": "Polity",
+      "filename": "Previous_VicePresidents.html"
     }
   ]
 }
