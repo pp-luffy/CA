@@ -423,119 +423,95 @@
 
     async function initializeApp() {
         try {
-            loadingSubtext.innerText = 'Requesting file lists from GitHub API...';
-            const weeklyFiles = await getFileList('html/weekly');
-            const monthlyFiles = await getFileList('html/monthly');
-            const shortnotesFilesList = await getNestedShortnotesList();
+            loadingSubtext.innerText = 'Loading manifest index...';
+            
+            // 1. Fetch manifest instantly
+            const res = await fetch(`manifest.json?v=${Date.now()}`);
+            if (!res.ok) throw new Error('Manifest not found');
+            const manifest = await res.json();
 
-            if (weeklyFiles.length === 0 && monthlyFiles.length === 0 && shortnotesFilesList.length === 0) {
-                loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">⚠️ No Sketchnote Files Found</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">Make sure your repository has 'html/weekly', 'html/monthly', and 'html/Shortnotes' folders.</p>`;
-                return;
-            }
+            // 2. Build the basic file list instantly (NO HTML FETCHING YET)
+            const filesList = (manifest.weekly || []).map(f => {
+                const match = f.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
+                let startMonthYear = "Unknown", endMonthYear = "Unknown", formattedRange = f.replace('.html', '');
+                if (match) {
+                    const [_, d1, m1, y1, d2, m2, y2] = match;
+                    startMonthYear = `${getMonthFullName(m1)} ${y1}`;
+                    endMonthYear = `${getMonthFullName(m2)} ${y2}`;
+                    formattedRange = `${d1} ${getMonthName(m1)} - ${d2} ${getMonthName(m2)}, ${y2}`;
+                }
+                return { filename: f, startMonthYear, endMonthYear, formattedRange, cards: [], loaded: false };
+            });
 
-            loadingSubtext.innerText = `Found ${weeklyFiles.length} weekly, ${monthlyFiles.length} monthly, and ${shortnotesFilesList.length} shortnote files. Parsing cards...`;
-            const filesList = [], cardsList = [], monthlyList = [], monthlyCardsList = [], snList = [], snCardsList = [];
-            const timeBuster = `?v=${Date.now()}`;
+            const monthlyList = (manifest.monthly || []).map(f => {
+                const mMatch = f.match(/^(\d{2})(\d{4})\.html$/);
+                let displayTitle = f.replace('.html', ''), monthYearStr = displayTitle;
+                if (mMatch) { displayTitle = `${getMonthFullName(mMatch[1])} ${mMatch[2]}`; monthYearStr = displayTitle; }
+                return { filename: f, displayTitle, monthYearStr, cards: [], loaded: false };
+            });
 
-            // Process Weekly
-            for (const filename of weeklyFiles) {
-                try {
-                    const res = await fetch(`html/weekly/${filename}${timeBuster}`); 
-                    if (!res.ok) continue;
-                    const htmlText = await res.text();
-                    
-                    const match = filename.match(/(\d{2})(\d{2})(\d{4})-(\d{2})(\d{2})(\d{4})/);
-                    let startDate = new Date(), endDate = new Date(), startMonthYear = "October 2026", endMonthYear = "October 2026", formattedRange = filename.replace('.html', '');
+            const snList = (manifest.shortnotes || []).map(sn => {
+                return { subject: sn.subject, filename: sn.filename, displayTitle: sn.filename.replace('.html', '').replace(/_/g, ' '), cards: [], loaded: false };
+            });
 
-                    if (match) {
-                        const [_, d1, m1, y1, d2, m2, y2] = match;
-                        startDate = new Date(`${y1}-${m1}-${d1}`);
-                        endDate = new Date(`${y2}-${m2}-${d2}`);
-                        startMonthYear = `${getMonthFullName(m1)} ${y1}`;
-                        endMonthYear = `${getMonthFullName(m2)} ${y2}`;
-                        formattedRange = `${d1} ${getMonthName(m1)} - ${d2} ${getMonthName(m2)}, ${y2}`;
-                    }
-
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(htmlText, 'text/html');
-                    const cleanText = (doc.body ? doc.body.innerText || doc.body.textContent : htmlText).toLowerCase();
-                    
-                    const domCards = doc.querySelectorAll('.sketch-card, .card');
-                    const cardObjects = [];
-                    
-                    domCards.forEach((cardEl, idx) => {
-                        const cardId = `weekly_${filename}_${idx}`;
-                        const cObj = { id: cardId, filename: filename, formattedRange: formattedRange, startDate: startDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
-                        cardsList.push(cObj); 
-                        cardObjects.push(cObj);
-                    });
-
-                    filesList.push({ filename: filename, startDate: startDate, endDate: endDate, startMonthYear: startMonthYear, endMonthYear: endMonthYear, formattedRange: formattedRange, htmlText: htmlText, cleanText: cleanText, topicCount: domCards.length, cards: cardObjects });
-                } catch (e) { console.error('Failed to load weekly file:', filename, e); }
-            }
-
-            // Process Monthly
-            for (const filename of monthlyFiles) {
-                try {
-                    const res = await fetch(`html/monthly/${filename}${timeBuster}`); 
-                    if (!res.ok) continue;
-                    const htmlText = await res.text();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(htmlText, 'text/html');
-                    const domCards = doc.querySelectorAll('.sketch-card, .card');
-                    let displayTitle = filename.replace('.html', ''), monthYearStr = '';
-                    const mMatch = filename.match(/^(\d{2})(\d{4})\.html$/);
-                    if (mMatch) { displayTitle = `${getMonthFullName(mMatch[1])} ${mMatch[2]}`; monthYearStr = displayTitle; }
-                    
-                    const cardObjects = [];
-                    domCards.forEach((cardEl, idx) => {
-                        const cardId = `monthly_${filename}_${idx}`;
-                        const cObj = { id: cardId, filename: filename, displayTitle: displayTitle, monthYearStr: monthYearStr, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
-                        monthlyCardsList.push(cObj); cardObjects.push(cObj);
-                    });
-                    monthlyList.push({ filename: filename, displayTitle: displayTitle, monthYearStr: monthYearStr, topicCount: domCards.length, cards: cardObjects });
-                } catch (e) { console.error('Failed to load monthly file:', filename, e); }
-            }
-
-            // Process Shortnotes
-            for (const sn of shortnotesFilesList) {
-                try {
-                    const res = await fetch(`html/Shortnotes/${sn.subject}/${sn.filename}${timeBuster}`); 
-                    if (!res.ok) continue;
-                    const htmlText = await res.text();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(htmlText, 'text/html');
-                    const domCards = doc.querySelectorAll('.sketch-card, .card');
-                    
-                    let displayTitle = sn.filename.replace('.html', '').replace(/_/g, ' ');
-                    
-                    const cardObjects = [];
-                    domCards.forEach((cardEl, idx) => {
-                        const cardId = `sn_${sn.subject}_${sn.filename}_${idx}`;
-                        const cObj = { id: cardId, subject: sn.subject, filename: sn.filename, displayTitle: displayTitle, cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase() };
-                        snCardsList.push(cObj); cardObjects.push(cObj);
-                    });
-                    snList.push({ subject: sn.subject, filename: sn.filename, displayTitle: displayTitle, topicCount: domCards.length, cards: cardObjects });
-                } catch (e) { console.error('Failed to load shortnote file:', sn.filename, e); }
-            }
-
-            filesList.sort((a, b) => b.startDate - a.startDate);
             allFilesData = filesList; allMonthlyFilesData = monthlyList; allShortnotesFilesData = snList;
-            allExtractedCards = cardsList; allMonthlyCards = monthlyCardsList; allShortnotesCards = snCardsList;
             
             buildMonthDropdown(filesList, monthlyList);
             buildSubjectDropdown(snList);
-            applyFiltersAndRender();
+            applyFiltersAndRender(); // UI renders INSTANTLY
 
+            // 3. Hide loading screen immediately
             loadingBox.style.display = 'none';
-            masterExportBtn.style.display = 'inline-flex'; randomCardBtn.style.display = 'inline-flex';
-            viewSwitchBar.style.display = 'flex'; controlHub.style.display = 'flex';
-            
+            masterExportBtn.style.display = 'inline-flex';
+            randomCardBtn.style.display = 'inline-flex';
+            viewSwitchBar.style.display = 'flex';
+            controlHub.style.display = 'flex';
             triggerTabSwitch(currentActiveTab);
 
+            // 4. Start lazy-loading HTML files in the background
+            backgroundHydrateFiles();
+
         } catch (err) { 
-            loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading Files</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; 
+            loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading Manifest</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; 
         }
+    }
+
+    // This runs silently in the background, populating cards for Search/Export
+    async function backgroundHydrateFiles() {
+        const timeBuster = `?v=${Date.now()}`;
+        
+        // Helper to fetch and parse a single file
+        async function hydrate(fileObj, folderPath, listRef, type) {
+            try {
+                const res = await fetch(`${folderPath}/${fileObj.filename}${timeBuster}`);
+                if (!res.ok) return;
+                const htmlText = await res.text();
+                const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+                const domCards = doc.querySelectorAll('.sketch-card, .card');
+                
+                domCards.forEach((cardEl, idx) => {
+                    const cardId = `${type}_${fileObj.filename}_${idx}`;
+                    const cObj = { 
+                        id: cardId, filename: fileObj.filename, 
+                        cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase(),
+                        formattedRange: fileObj.formattedRange, displayTitle: fileObj.displayTitle, subject: fileObj.subject
+                    };
+                    fileObj.cards.push(cObj);
+                    listRef.push(cObj);
+                });
+                fileObj.loaded = true;
+                
+                // Re-render only if the user is looking at this tab so the "📌 X Sketchnotes" count updates
+                applyFiltersAndRender();
+            } catch(e) { console.error("Hydration failed for", fileObj.filename); }
+        }
+
+        // Process Weekly one by one
+        for (let f of allFilesData) await hydrate(f, 'html/weekly', allExtractedCards, 'weekly');
+        // Process Monthly one by one
+        for (let m of allMonthlyFilesData) await hydrate(m, 'html/monthly', allMonthlyCards, 'monthly');
+        // Process Shortnotes one by one
+        for (let sn of allShortnotesFilesData) await hydrate(sn, `html/Shortnotes/${sn.subject}`, allShortnotesCards, 'sn');
     }
 
     function buildMonthDropdown(files, monthlyFiles) {
