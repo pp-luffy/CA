@@ -32,6 +32,7 @@ jobs:
           }
 
           const manifest = {
+              timestamp: Date.now(), // Adds the exact build time
               weekly: getHtmlFiles("html/weekly"),
               monthly: getHtmlFiles("html/monthly"),
               shortnotes: []
