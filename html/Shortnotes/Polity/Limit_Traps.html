@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polity Sketchnote Visual Board - Part III (Numbers & Timelines)</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: 'Patrick Hand', cursive;
+    margin: 0;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  h1, h2, h3, .title {
+    font-family: 'Kalam', cursive;
+  }
+  .header-title {
+    text-align: center;
+    color: #ffeb3b;
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 6px #000;
+  }
+  
+  /* Quick Revision Section */
+  .quick-revision {
+    background: #222;
+    border: 2px dashed #ffeb3b;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  }
+  .quick-revision h2 {
+    color: #ffeb3b;
+    margin-top: 0;
+    text-align: center;
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .quick-item {
+    background: #2a2a2a;
+    padding: 12px;
+    border-left: 5px solid #ffeb3b;
+    border-radius: 6px;
+    font-size: 1.2rem;
+  }
+
+  /* Masonry Grid */
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 30px;
+    align-items: start;
+  }
+  
+  /* Polaroid Cards */
+  .card {
+    background: #252525;
+    border: 1px solid #333;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 6px 6px 18px rgba(0,0,0,0.7);
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: rotate(-1deg) scale(1.02);
+  }
+  .card-title {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 18px;
+    border-bottom: 2px dashed #555;
+    padding-bottom: 8px;
+  }
+  
+  /* Tags & Category Colors */
+  .tag {
+    position: absolute;
+    top: 20px;
+    right: -30px;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    font-size: 1rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    z-index: 1;
+  }
+  
+  .bg-blue { background-color: #00a8ff; }
+  .bg-orange { background-color: #ff9f43; }
+  .bg-pink { background-color: #ff6b81; }
+  .bg-green { background-color: #1dd1a1; }
+  .bg-purple { background-color: #9c88ff; }
+  .bg-yellow { background-color: #feca57; }
+  
+  .color-blue { color: #00a8ff; }
+  .color-orange { color: #ff9f43; }
+  .color-pink { color: #ff6b81; }
+  .color-green { color: #1dd1a1; }
+  .color-purple { color: #9c88ff; }
+  .color-yellow { color: #feca57; }
+  
+  .highlight { color: #ffeb3b; font-weight: bold; }
+
+  /* Tables in Cards */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 1.15rem;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px dotted #666;
+    vertical-align: top;
+  }
+  th {
+    font-family: 'Kalam', cursive;
+    font-size: 1.3rem;
+  }
+  
+  /* Lists */
+  ul, ol {
+    margin: 12px 0;
+    padding-left: 25px;
+    font-size: 1.2rem;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  
+  /* Special Highlight text */
+  .hl-red { color: #ff4757; font-weight: bold; }
+  .hl-blue { color: #1e90ff; font-weight: bold; }
+  .hl-green { color: #2ed573; font-weight: bold; }
+  .hl-purple { color: #9c88ff; font-weight: bold; }
+  .hl-yellow { color: #feca57; font-weight: bold; }
+  
+  /* Wide Card for wide tables */
+  .card-wide {
+    grid-column: 1 / -1;
+  }
+</style>
+</head>
+<body>
+
+  <h1 class="header-title">⏳ POLITY DATA VAULT: NUMBERS, LIMITS & AGES 📊</h1>
+
+  <!-- ULTRA-SHORT REVISION SHEET -->
+  <div class="quick-revision">
+    <h2>⚡ THE NUMBER-CRUNCHER VAULT ⚡</h2>
+    <div class="quick-grid">
+      <div class="quick-item"><span class="highlight">Ages:</span> 21 (Panchayat), 25 (LS/PM/CM), 30 (RS), 35 (Pres/Gov)</div>
+      <div class="quick-item"><span class="highlight">Retirement:</span> 62 (HC/SPSC), 65 (SC/UPSC/CAG/EC), 70 (Lokpal/NHRC)</div>
+      <div class="quick-item"><span class="highlight">Quorum:</span> 1/10th of total membership.</div>
+      <div class="quick-item"><span class="highlight">Cabinet Size:</span> Max 15% (Union & State). State Min = 12.</div>
+      <div class="quick-item"><span class="highlight">Emergency Auth:</span> Nat (1 Month) | State/Fin (2 Months).</div>
+      <div class="quick-item"><span class="highlight">Ordinance Life:</span> Max 6 Months + 6 Weeks.</div>
+      <div class="quick-item"><span class="highlight">Security Deposit:</span> Forfeited if votes < 1/6th.</div>
+      <div class="quick-item"><span class="highlight">Pres/VP Election:</span> Pres (50/50), VP (20/20 proposers/seconders).</div>
+      <div class="quick-item"><span class="highlight">SC/ST Seats:</span> Valid till Jan 25, 2030 (80 yrs).</div>
+      <div class="quick-item"><span class="highlight">GST Council:</span> 50% Quorum. 75% Majority to pass (C=1/3, S=2/3).</div>
+      <div class="quick-item"><span class="highlight">Detention:</span> Normal Arrest = 24hrs, Preventive = 3 Months.</div>
+      <div class="quick-item"><span class="highlight">Joint Sitting Trigger:</span> RS delays Ordinary Bill > 6 Months.</div>
+    </div>
+  </div>
+
+  <!-- DYNAMIC MASONRY GRID -->
+  <div class="masonry-grid">
+  
+    <!-- The Age Matrix -->
+    <div class="card" style="border-left: 5px solid #00a8ff;">
+      <div class="tag bg-blue">Age</div>
+      <h3 class="card-title color-blue">🎂 Minimum Age & Retirement</h3>
+      <h4 class="hl-green">Minimum Qualification</h4>
+      <ul>
+        <li><span class="highlight">21 Years:</span> Panchayat, Municipality</li>
+        <li><span class="highlight">25 Years:</span> Lok Sabha, MLA, PM, CM</li>
+        <li><span class="highlight">30 Years:</span> Rajya Sabha, MLC</li>
+        <li><span class="highlight">35 Years:</span> President, VP, Governor</li>
+      </ul>
+      <h4 class="hl-red">Retirement / Max Age</h4>
+      <ul>
+        <li><span class="highlight">62 Years:</span> HC Judges, SPSC (Chair/Members)</li>
+        <li><span class="highlight">65 Years:</span> SC Judges, UPSC, CAG, CEC, CVC</li>
+        <li><span class="highlight">70 Years:</span> Lokpal, NHRC/SHRC (Chair/Members)</li>
+      </ul>
+    </div>
+
+    <!-- Days and Time Limits -->
+    <div class="card" style="border-left: 5px solid #ff9f43;">
+      <div class="tag bg-orange">Days</div>
+      <h3 class="card-title color-orange">📅 Days & Time Limits</h3>
+      
+      <h4 class="hl-yellow">Dual Membership (10/14/60 Rule)</h4>
+      <ul>
+        <li><span class="highlight">10 Days:</span> Elected to BOTH LS & RS (inform EC, else RS vacant).</li>
+        <li><span class="highlight">14 Days:</span> Elected to BOTH Parl & State Leg (resign State, else Parl vacant).</li>
+        <li><span class="highlight">60 Days:</span> Absent from all meetings (seat vacant).</li>
+      </ul>
+      
+      <h4 class="hl-blue">Notices & Delays</h4>
+      <ul>
+        <li><span class="highlight">14 Days Notice:</span> Impeach Pres / Remove VP, Speaker, Dy Speaker.</li>
+        <li><span class="highlight">2 Months Notice:</span> Civil suit vs Pres/Gov for personal acts.</li>
+        <li><span class="highlight">14 Days Delay:</span> Money Bill (RS/Council).</li>
+        <li><span class="highlight">4 Months Delay:</span> Ordinary Bill in State Council (3m + 1m).</li>
+        <li><span class="highlight">6 Months Delay:</span> Ordinary Bill in RS = Deadlock / Joint Sitting.</li>
+      </ul>
+      
+      <h4 class="hl-red">Detention (Art 22)</h4>
+      <ul>
+        <li><span class="highlight">24 Hours:</span> Present to Magistrate (Normal arrest).</li>
+        <li><span class="highlight">3 Months:</span> Max detention without trial (Preventive).</li>
+      </ul>
+    </div>
+
+    <!-- Months and Weeks -->
+    <div class="card" style="border-left: 5px solid #ff6b81;">
+      <div class="tag bg-pink">Months</div>
+      <h3 class="card-title color-pink">📆 Months & Weeks</h3>
+      
+      <h4 class="hl-red">Emergency Rule (1 / 2)</h4>
+      <ul>
+        <li><span class="highlight">1 Month:</span> Parl approval for National Emergency (Art 352).</li>
+        <li><span class="highlight">2 Months:</span> Parl approval for Pres Rule (356) & Financial (360).</li>
+      </ul>
+      
+      <h4 class="hl-purple">The "6" Rule (Sessions/Ordinances)</h4>
+      <ul>
+        <li><span class="highlight">6 Months:</span> Max gap between sessions.</li>
+        <li><span class="highlight">6 Months:</span> Hold elections for Pres/VP/Local vacancies.</li>
+        <li><span class="highlight">6 Months:</span> Max time non-member can be Minister/PM/CM.</li>
+        <li><span class="highlight">6 Months:</span> Nominated MP window to join a party safely.</li>
+        <li><span class="highlight">6 Weeks:</span> Limit to approve Ordinance once reassembled. <br><i>(Max Ordinance life: 6m + 6w)</i></li>
+      </ul>
+    </div>
+
+    <!-- House Strengths & Majorities -->
+    <div class="card card-wide" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-purple">House</div>
+      <h3 class="card-title color-purple">🏛️ House Strengths, Quorum & Majorities</h3>
+      
+      <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        <div style="flex: 1; min-width: 250px;">
+          <h4 class="hl-blue">Maximum / Minimum Limits</h4>
+          <ul>
+            <li><b>Lok Sabha:</b> <span class="highlight">550 Max</span> (Anglo-Indian abolished).</li>
+            <li><b>Rajya Sabha:</b> <span class="highlight">250 Max</span> (238 Elec + 12 Nom).</li>
+            <li><b>State Assembly:</b> 500 Max, <span class="hl-red">60 Min</span>.</li>
+            <li><b>State Council:</b> Max = 1/3rd of Assembly. <span class="hl-red">Min = 40</span>.</li>
+            <li><span class="highlight">Quorum:</span> 1/10th of total membership.</li>
+          </ul>
+        </div>
+        
+        <div style="flex: 1; min-width: 250px;">
+          <h4 class="hl-green">Majorities & The 15% Rule</h4>
+          <ul>
+            <li><span class="highlight">Cabinet (91st Amend):</span> Max 15% of LS/Assembly. State minimum is <span class="hl-red">12</span>.</li>
+            <li><b>Simple:</b> >50% present & voting.</li>
+            <li><b>Absolute:</b> >50% of total membership.</li>
+            <li><b>Effective:</b> >50% of (Total - Vacancies).</li>
+            <li><b>Special (368):</b> 2/3rd P&V + Absolute Maj.</li>
+            <li><b>Special (61 Impeach):</b> <span class="hl-red">2/3rd of Total Membership</span>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Membership Composition -->
+    <div class="card card-wide" style="border-left: 5px solid #1dd1a1;">
+      <div class="tag bg-green">Members</div>
+      <h3 class="card-title color-green">👥 Membership Composition Matrix</h3>
+      <table>
+        <tr><th class="color-green">Body</th><th class="color-green">Composition</th><th class="color-green">Committees & Others</th><th class="color-green">Composition</th></tr>
+        <tr><td><b>Supreme Court</b></td><td><span class="highlight">34</span> (1 CJI + 33). Fixed by Parl.</td><td><b>Estimates Comm</b></td><td><span class="highlight">30</span> (All LS)</td></tr>
+        <tr><td><b>Election Comm</b></td><td><span class="highlight">3</span> (1 CEC + 2 ECs). Fixed by Pres.</td><td><b>PAC / CoPU</b></td><td><span class="highlight">22</span> (15 LS + 7 RS)</td></tr>
+        <tr><td><b>UPSC / SPSC</b></td><td>Not specified (Usually 9-11).</td><td><b>DRSCs (24)</b></td><td><span class="highlight">31</span> (21 LS + 10 RS)</td></tr>
+        <tr><td><b>Finance Comm</b></td><td><span class="highlight">5</span> (1 Chair + 4 Members).</td><td><b>Lokpal</b></td><td>Max <span class="highlight">9</span> (1 Chair + 8)</td></tr>
+        <tr><td><b>NCs (SC/ST/BC)</b></td><td><span class="highlight">5</span> (1 C + 1 VC + 3 M).</td><td><b>NHRC</b></td><td><span class="highlight">1+5+7</span> (Chair, FT, Ex-off)</td></tr>
+        <tr><td><b>Delimitation</b></td><td><span class="highlight">3 Members</span></td><td><b>CIC / SIC</b></td><td>Max <span class="highlight">11</span> (1 Chief + 10)</td></tr>
+      </table>
+    </div>
+
+    <!-- Elections, Pop & Citizenship -->
+    <div class="card" style="border-left: 5px solid #feca57;">
+      <div class="tag bg-yellow">Thresholds</div>
+      <h3 class="card-title color-yellow">🗳️ Elections, Population & Citizenship</h3>
+      
+      <h4 class="hl-purple">Elections</h4>
+      <ul>
+        <li><span class="highlight">GST Council:</span> 50% Quorum. 75% weighted maj to decide (Centre 1/3rd, States 2/3rd).</li>
+        <li><span class="highlight">Deposit Loss:</span> If votes < <span class="hl-red">1/6th</span>.</li>
+        <li><span class="highlight">President:</span> 50 Proposers + 50 Seconders (₹15k).</li>
+        <li><span class="highlight">Vice-President:</span> 20 Proposers + 20 Seconders (₹15k).</li>
+        <li><span class="highlight">SC/ST Parliament Resv:</span> valid till <span class="hl-green">Jan 25, 2030</span>.</li>
+      </ul>
+      
+      <h4 class="hl-blue">Population Limits (Local)</h4>
+      <ul>
+        <li><span class="highlight">20 Lakhs:</span> Min pop for Block Panchayat.</li>
+        <li><span class="highlight">3 Lakhs:</span> Min pop for Wards Committee.</li>
+        <li><span class="highlight">10 Lakhs:</span> Min pop for Metropolitan Area.</li>
+      </ul>
+      
+      <h4 class="hl-red">Citizenship Limits</h4>
+      <ul>
+        <li><b>Registration:</b> <span class="highlight">7 years</span> residence.</li>
+        <li><b>Naturalization:</b> <span class="highlight">12 years</span> (11 + 1).<br><i>*Reduced to <span class="hl-green">5 years</span> for CAA 2019 groups.</i></li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+</html>
