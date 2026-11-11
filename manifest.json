@@ -1,5 +1,5 @@
 {
-  "timestamp": 1794370691362,
+  "timestamp": 1794370716002,
   "weekly": [
     "05102026-11102026.html",
     "12102026-18102026.html",
@@ -27,6 +27,10 @@
     {
       "subject": "Polity",
       "filename": "Amendments.html"
+    },
+    {
+      "subject": "Polity",
+      "filename": "Bodies.html"
     },
     {
       "subject": "Polity",
