@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polity Sketchnote Visual Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    font-family: 'Patrick Hand', cursive;
+    margin: 0;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  h1, h2, h3, .title {
+    font-family: 'Kalam', cursive;
+  }
+  .header-title {
+    text-align: center;
+    color: #ffeb3b;
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 6px #000;
+  }
+  
+  /* Quick Revision Section */
+  .quick-revision {
+    background: #222;
+    border: 2px dashed #ffeb3b;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  }
+  .quick-revision h2 {
+    color: #ffeb3b;
+    margin-top: 0;
+    text-align: center;
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .quick-item {
+    background: #2a2a2a;
+    padding: 12px;
+    border-left: 5px solid #ffeb3b;
+    border-radius: 6px;
+    font-size: 1.2rem;
+  }
+
+  /* Masonry Grid */
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    align-items: start;
+  }
+  
+  /* Polaroid Cards */
+  .card {
+    background: #252525;
+    border: 1px solid #333;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 6px 6px 18px rgba(0,0,0,0.7);
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: rotate(-1deg) scale(1.02);
+  }
+  .card-title {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 18px;
+    border-bottom: 2px dashed #555;
+    padding-bottom: 8px;
+  }
+  
+  /* Tags & Category Colors */
+  .tag {
+    position: absolute;
+    top: 20px;
+    right: -30px;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    font-size: 1rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+  .bg-govt { background-color: #e1b12c; } /* Yellow */
+  .bg-law { background-color: #00a8ff; } /* Blue */
+  .bg-parliament { background-color: #9c88ff; } /* Purple */
+  .bg-judiciary { background-color: #e84118; } /* Orange */
+  .bg-funds { background-color: #4cd137; } /* Green */
+  
+  .color-govt { color: #e1b12c; }
+  .color-law { color: #00a8ff; }
+  .color-parliament { color: #9c88ff; }
+  .color-judiciary { color: #e84118; }
+  .color-funds { color: #4cd137; }
+  .highlight { color: #ffeb3b; font-weight: bold; }
+
+  /* Tables in Cards */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 1.15rem;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px dotted #666;
+    vertical-align: top;
+  }
+  th {
+    font-family: 'Kalam', cursive;
+    font-size: 1.3rem;
+  }
+  
+  /* Lists */
+  ul, ol {
+    margin: 12px 0;
+    padding-left: 25px;
+    font-size: 1.2rem;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  
+  /* Special Highlight text */
+  .hl-red { color: #e84118; font-weight: bold; }
+  .hl-blue { color: #00a8ff; font-weight: bold; }
+  .hl-green { color: #4cd137; font-weight: bold; }
+  
+  /* Wide Card for wide tables */
+  .card-wide {
+    grid-column: 1 / -1;
+  }
+</style>
+</head>
+<body>
+
+  <h1 class="header-title">🏛️ POLITY MASTER REVISION BOARD 🏛️</h1>
+
+  <!-- ULTRA-SHORT REVISION SHEET -->
+  <div class="quick-revision">
+    <h2>⚡ THE CORE MEMORY VAULT ⚡</h2>
+    <div class="quick-grid">
+      <div class="quick-item"><span class="highlight">Art 123 / 213:</span> Pres / Gov Ordinance Power</div>
+      <div class="quick-item"><span class="highlight">Art 78 / 167:</span> PM / CM duty to communicate Cabinet Decisions</div>
+      <div class="quick-item"><span class="highlight">Art 312:</span> RS power to create All-India Services</div>
+      <div class="quick-item"><span class="highlight">Art 249:</span> RS power to authorize Parl. on State List</div>
+      <div class="quick-item"><span class="highlight">Art 108:</span> Joint Sitting (Applicable for Ordinary/Fin I bills ONLY)</div>
+      <div class="quick-item"><span class="highlight">Art 110:</span> Money Bill (LS Exclusive, RS 14-day delay max)</div>
+      <div class="quick-item"><span class="highlight">Art 32 / 226:</span> SC / HC Writ Jurisdiction (HC is wider)</div>
+      <div class="quick-item"><span class="highlight">Art 143:</span> SC Advisory Jurisdiction to President</div>
+      <div class="quick-item"><span class="highlight">Art 368:</span> Const. Amendment (Special Maj, NO Joint Sitting)</div>
+      <div class="quick-item"><span class="highlight">Contingency Fund:</span> ₹30,000 Cr emergency corpus (Art 267)</div>
+      <div class="quick-item"><span class="highlight">Retirement Age:</span> SC Judge = 65 yrs | HC Judge = 62 yrs</div>
+      <div class="quick-item"><span class="highlight">Resignations:</span> Pres &rarr; VP | VP &rarr; Pres | Speaker &rarr; Dy Speaker</div>
+    </div>
+  </div>
+
+  <!-- DYNAMIC MASONRY GRID -->
+  <div class="masonry-grid">
+  
+    <!-- President vs Governor -->
+    <div class="card" style="border-left: 5px solid #e1b12c;">
+      <div class="tag bg-govt">Exec</div>
+      <h3 class="card-title color-govt">👑 Exec Powers: Pres vs. Gov</h3>
+      <table>
+        <tr><th class="color-govt">Feature</th><th class="color-govt">President (Union)</th><th class="color-govt">Governor (State)</th></tr>
+        <tr><td><b>Death Sentence</b></td><td><span class="highlight">Can pardon</span>, commute, remit, suspend</td><td>Cannot pardon (only suspend, remit, commute)</td></tr>
+        <tr><td><b>Court Martial</b></td><td><span class="highlight">Can pardon</span></td><td>No power</td></tr>
+        <tr><td><b>Ordinance</b></td><td><span class="highlight">Art 123</span> (Union/Concurrent list)</td><td><span class="highlight">Art 213</span> (State/Concurrent list. May need Pres instr.)</td></tr>
+        <tr><td><b>Discretionary</b></td><td>Situational (e.g., hung parl)</td><td>Explicit (<span class="highlight">Art 200</span>: reserve bill for Pres)</td></tr>
+      </table>
+    </div>
+
+    <!-- PM vs CM -->
+    <div class="card" style="border-left: 5px solid #e1b12c;">
+      <div class="tag bg-govt">Exec</div>
+      <h3 class="card-title color-govt">🤝 PM vs. CM</h3>
+      <table>
+        <tr><th class="color-govt">Feature</th><th class="color-govt">Prime Minister</th><th class="color-govt">Chief Minister</th></tr>
+        <tr><td><b>Const. Duty</b></td><td><span class="highlight">Art 78:</span> Comms cabinet decisions to Pres</td><td><span class="highlight">Art 167:</span> Comms cabinet decisions to Gov</td></tr>
+        <tr><td><b>Inter-State Forums</b></td><td>Chair: Inter-State Council & NITI Aayog</td><td>Vice-Chair: Zonal Councils (by rotation)</td></tr>
+        <tr><td><b>Nat. Development</b></td><td>Chair: National Integration Council</td><td>Member: National Integration Council</td></tr>
+      </table>
+    </div>
+
+    <!-- Lok Sabha vs Rajya Sabha -->
+    <div class="card" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">Parl</div>
+      <h3 class="card-title color-parliament">⚖️ LS vs. RS</h3>
+      <table>
+        <tr><th class="color-parliament">Feature</th><th class="color-parliament">Lok Sabha (Lower)</th><th class="color-parliament">Rajya Sabha (Upper)</th></tr>
+        <tr><td><b>Money Bills</b></td><td><span class="highlight">Exclusive:</span> Intro & Finalize</td><td>Cannot intro. Max delay <span class="highlight">14 days</span></td></tr>
+        <tr><td><b>Govt Survival</b></td><td>Can pass <span class="hl-red">No-Confidence</span></td><td>Cannot pass No-Confidence</td></tr>
+        <tr><td><b>Exclusive Powers</b></td><td>None</td><td><span class="highlight">Art 249:</span> Law on State List<br><span class="highlight">Art 312:</span> New All-India Svc</td></tr>
+        <tr><td><b>VP Removal</b></td><td>Simple majority to agree</td><td><span class="highlight">Must originate here</span> (Req. Effective Maj)</td></tr>
+      </table>
+    </div>
+
+    <!-- State Legislature -->
+    <div class="card" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">State</div>
+      <h3 class="card-title color-parliament">🏛️ Assembly vs. Council</h3>
+      <table>
+        <tr><th class="color-parliament">Feature</th><th class="color-parliament">Leg. Assembly</th><th class="color-parliament">Leg. Council</th></tr>
+        <tr><td><b>Creation/Abolish</b></td><td>Permanent body</td><td>Parl can create/abolish (<span class="highlight">Art 169</span>) via Assm. Res.</td></tr>
+        <tr><td><b>Ordinary Bills</b></td><td><span class="highlight">Final authority</span></td><td>Max delay <span class="highlight">4 months</span> (3m 1st time + 1m 2nd)</td></tr>
+        <tr><td><b>Joint Sitting</b></td><td><span class="hl-red">Does not exist</span></td><td>N/A (Assembly prevails)</td></tr>
+        <tr><td><b>Money Bills</b></td><td>Absolute power</td><td>Delay max <span class="highlight">14 days</span></td></tr>
+      </table>
+    </div>
+
+    <!-- Legislative Bills Comparison -->
+    <div class="card card-wide" style="border-left: 5px solid #00a8ff;">
+      <div class="tag bg-law">Bills</div>
+      <h3 class="card-title color-law">📜 Legislative Bills Master Matrix</h3>
+      <table>
+        <tr>
+          <th class="color-law">Bill Type</th>
+          <th class="color-law">Introduction</th>
+          <th class="color-law">Prior Pres. Assent</th>
+          <th class="color-law">Joint Sitting</th>
+          <th class="color-law">President's Final Action</th>
+        </tr>
+        <tr>
+          <td><b>Ordinary</b></td><td>Either House</td><td>Not required</td><td><span class="hl-green">Yes (Art 108)</span></td><td>Assent, Withhold, or Return (once)</td>
+        </tr>
+        <tr>
+          <td><b>Money (Art 110)</b></td><td><span class="highlight">Lok Sabha only</span></td><td>Mandatory</td><td><span class="hl-red">No (LS is final)</span></td><td>Assent or Withhold (<span class="hl-red">Cannot return</span>)</td>
+        </tr>
+        <tr>
+          <td><b>Financial I (Art 117-1)</b></td><td><span class="highlight">Lok Sabha only</span></td><td>Mandatory</td><td><span class="hl-green">Yes</span></td><td>Assent, Withhold, or Return</td>
+        </tr>
+        <tr>
+          <td><b>Financial II (Art 117-3)</b></td><td>Either House</td><td>Needed before consideration</td><td><span class="hl-green">Yes</span></td><td>Assent, Withhold, or Return</td>
+        </tr>
+        <tr>
+          <td><b>Constitutional (Art 368)</b></td><td>Either House</td><td>Not required</td><td><span class="hl-red">No</span></td><td><span class="highlight">Must Assent</span> (24th Amendment)</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- SC vs HC -->
+    <div class="card" style="border-left: 5px solid #e84118;">
+      <div class="tag bg-judiciary">Judiciary</div>
+      <h3 class="card-title color-judiciary">⚖️ Supreme Ct vs High Ct</h3>
+      <table>
+        <tr><th class="color-judiciary">Feature</th><th class="color-judiciary">Supreme Court (Art 124)</th><th class="color-judiciary">High Court (Art 214)</th></tr>
+        <tr><td><b>Writ Juris.</b></td><td><span class="highlight">Art 32:</span> Only Fund. Rights</td><td><span class="highlight">Art 226:</span> FRs + other legal rights (Wider scope)</td></tr>
+        <tr><td><b>Advisory</b></td><td><span class="highlight">Art 143:</span> Can advise Pres</td><td>No advisory jurisdiction</td></tr>
+        <tr><td><b>Superintendence</b></td><td>Judicial/admin via appeals</td><td><span class="highlight">Art 227:</span> Over all courts/tribunals in territory</td></tr>
+        <tr><td><b>Retirement Age</b></td><td><span class="highlight">65 years</span></td><td><span class="highlight">62 years</span></td></tr>
+      </table>
+    </div>
+
+    <!-- Parliamentary Majorities -->
+    <div class="card" style="border-left: 5px solid #00a8ff;">
+      <div class="tag bg-law">Votes</div>
+      <h3 class="card-title color-law">🗳️ Parliamentary Majorities</h3>
+      <ul>
+        <li><span class="highlight">Simple Majority:</span> >50% present & voting. <i>(Ordinary bills, Money bills, No-Confidence, President's Rule)</i>.</li>
+        <li><span class="highlight">Absolute Majority:</span> >50% of Total Membership. <i>(Form government)</i>.</li>
+        <li><span class="highlight">Effective Majority:</span> >50% of Effective Strength [Total - Vacancies]. <i>(Removal of VP in RS, Speaker, Dy Speaker)</i>.</li>
+        <li><span class="highlight">Special Maj (Art 368):</span> 2/3rd present & voting + Absolute Maj. <i>(Const. Amend, SC/HC judge removal)</i>.</li>
+        <li><span class="highlight">Special Maj (Art 61):</span> 2/3rd of TOTAL Membership. <i>(<span class="hl-red">Impeaching President ONLY</span>)</i>.</li>
+      </ul>
+    </div>
+
+    <!-- Government Funds -->
+    <div class="card" style="border-left: 5px solid #4cd137;">
+      <div class="tag bg-funds">Funds</div>
+      <h3 class="card-title color-funds">💰 Government Funds</h3>
+      <ul>
+        <li><span class="highlight">Consolidated (Art 266):</span> All revenues/loans. <span class="hl-red">Parl approval mandatory</span> to withdraw a single rupee.</li>
+        <li><span class="highlight">Public Account (Art 266):</span> PF, judicial deposits, savings. <span class="hl-green">Executive action</span> (No parl approval needed; govt acts as a banker).</li>
+        <li><span class="highlight">Contingency (Art 267):</span> <span class="highlight">₹30,000 cr</span> for emergencies. Held by Fin Sec for the Pres. Needs <span class="hl-blue">post-facto</span> parliamentary approval.</li>
+      </ul>
+    </div>
+
+    <!-- Veto Powers & Sessions -->
+    <div class="card" style="border-left: 5px solid #e1b12c;">
+      <div class="tag bg-govt">Sessions</div>
+      <h3 class="card-title color-govt">⏳ Veto Powers & Sessions</h3>
+      <ul>
+        <li><b>Adjournment:</b> Suspends sitting (<span class="hl-blue">Done by Presiding Officer</span>).</li>
+        <li><b>Prorogation:</b> Ends the session (<span class="hl-blue">Done by Pres/Gov</span>).</li>
+        <li><b>Dissolution:</b> Ends LS/Assembly life (<span class="hl-blue">Done by Pres/Gov</span>).</li>
+        <li><b>Veto Exceptions:</b> 
+          <ul>
+            <li>President has <span class="hl-red">no pocket veto</span> for Const. Amendments.</li>
+            <li>Governor <span class="hl-red">cannot pocket veto</span> a bill; must act ASAP or reserve for President (<span class="highlight">Art 200</span>).</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Oaths and Resignations -->
+    <div class="card" style="border-left: 5px solid #e84118;">
+      <div class="tag bg-judiciary">Facts</div>
+      <h3 class="card-title color-judiciary">✍️ Oaths & Resignations</h3>
+      <table>
+        <tr><th class="color-judiciary">Post</th><th class="color-judiciary">Oath Administered By</th><th class="color-judiciary">Resigns To</th></tr>
+        <tr><td><b>President</b></td><td>CJI</td><td><span class="highlight">Vice-President</span> (VP immediately informs LS Speaker)</td></tr>
+        <tr><td><b>Vice-President</b></td><td>President</td><td><span class="highlight">President</span></td></tr>
+        <tr><td><b>LS Speaker</b></td><td><span class="hl-red">NO separate oath</span> (only as MP)</td><td><span class="highlight">Deputy Speaker</span></td></tr>
+        <tr><td><b>Governor</b></td><td>CJ of High Court</td><td><span class="highlight">President</span></td></tr>
+        <tr><td><b>SC Judge</b></td><td>President</td><td><span class="highlight">President</span></td></tr>
+      </table>
+    </div>
+
+    <!-- Table of Precedence -->
+    <div class="card" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">Ranks</div>
+      <h3 class="card-title color-parliament">🎖️ Table of Precedence (Top 7)</h3>
+      <ol>
+        <li><span class="highlight">President</span></li>
+        <li><span class="highlight">Vice-President</span></li>
+        <li><span class="highlight">Prime Minister</span></li>
+        <li><span class="highlight">Governors</span> (within their respective states)</li>
+        <li><span class="highlight">Former Presidents</span> <br><i>(5A. Deputy Prime Minister)</i></li>
+        <li><span class="highlight">Chief Justice of India & Speaker of Lok Sabha</span></li>
+        <li><span class="highlight">Cabinet Ministers</span> (Union), <span class="highlight">Chief Ministers</span> (state), Vice-Chair NITI, Former PMs, LoP (RS/LS)</li>
+      </ol>
+    </div>
+
+  </div>
+
+</body>
+</html>
