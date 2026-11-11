@@ -1,5 +1,5 @@
 {
-  "timestamp": 1794370716002,
+  "timestamp": 1794370926065,
   "weekly": [
     "05102026-11102026.html",
     "12102026-18102026.html",
@@ -55,6 +55,10 @@
     {
       "subject": "Polity",
       "filename": "Previous_VicePresidents.html"
+    },
+    {
+      "subject": "Polity",
+      "filename": "Schedules.html"
     }
   ]
 }
