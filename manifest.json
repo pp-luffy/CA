@@ -1,5 +1,5 @@
 {
-  "timestamp": 1794372669561,
+  "timestamp": 1794378808535,
   "weekly": [
     "05102026-11102026.html",
     "12102026-18102026.html",
@@ -47,6 +47,10 @@
     {
       "subject": "Polity",
       "filename": "Landmark_Cases.html"
+    },
+    {
+      "subject": "Polity",
+      "filename": "Limit_Traps.html"
     },
     {
       "subject": "Polity",
