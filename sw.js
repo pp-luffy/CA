@@ -1,4 +1,4 @@
-const CACHE_NAME = 'upsc-hub-cache-v1';
+const CACHE_NAME = 'upsc-hub-cache-v2';
 
 // Files to cache immediately when the user visits the page
 const CORE_ASSETS = [
@@ -34,43 +34,24 @@ self.addEventListener('activate', event => {
     self.clients.claim();
 });
 
-// Fetch Event: Stale-While-Revalidate Strategy
-// This allows the app to load instantly from cache, while updating the cache in the background.
+// Fetch Event: Clean Stale-While-Revalidate for all static files
 self.addEventListener('fetch', event => {
     // Only intercept GET requests
     if (event.request.method !== 'GET') return;
 
-    // Specifically handle the GitHub API requests (don't permanently cache the file lists)
-    // Specifically handle GitHub API requests with a robust fallback for 403/offline errors
-if (event.request.url.includes('api.github.com/repos/')) {
-    event.respondWith(
-        fetch(event.request)
-            .then(response => {
-                // If GitHub returns 403 (Rate Limit) or any error, fall back to cache
-                if (!response.ok) {
-                    return caches.match(event.request).then(cached => cached || response);
-                }
-                const clonedRes = response.clone();
-                caches.open(CACHE_NAME).then(cache => cache.put(event.request, clonedRes));
-                return response;
-            })
-            .catch(() => caches.match(event.request))
-    );
-    return;
-}
-
-    // Default Stale-While-Revalidate for all other files (like html/weekly/*)
+    // Default Stale-While-Revalidate for all files (manifest, HTML pages, etc.)
     event.respondWith(
         caches.match(event.request).then(cachedResponse => {
             const fetchPromise = fetch(event.request).then(networkResponse => {
                 if (networkResponse && networkResponse.status === 200) {
+                    const clonedRes = networkResponse.clone();
                     caches.open(CACHE_NAME).then(cache => {
-                        cache.put(event.request, networkResponse.clone());
+                        cache.put(event.request, clonedRes);
                     });
                 }
                 return networkResponse;
             }).catch(() => {
-                // Return cached response if offline and fetch fails
+                // Fails silently if offline, relies on cachedResponse
             });
 
             // Return cached immediately if found, else wait for network
