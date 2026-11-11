@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Planning in India</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 20px 40px;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            color: #ffffff;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .section-title {
+            color: #ffeb3b;
+            font-size: 2.2rem;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            border-bottom: 3px dashed #555;
+            padding-bottom: 10px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* Ultra-Short Revision Sheet */
+        .revision-sheet {
+            background: #222;
+            border: 2px solid #e1b12c;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(225, 177, 44, 0.2);
+        }
+        .rev-item {
+            background: #333;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 5px solid #ffeb3b;
+            font-size: 1.1rem;
+        }
+        .rev-item strong { color: #ffeb3b; font-family: 'Kalam', cursive; font-size: 1.3rem; display: block; margin-bottom: 4px; }
+
+        /* Timeline Layout Architecture */
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Center vertical line */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #555;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        /* Timeline Node/Card */
+        .timeline-node {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        /* Left and Right node positioning */
+        .timeline-node.left { left: 0; }
+        .timeline-node.right { left: 50%; }
+
+        /* The circle on the timeline */
+        .timeline-node::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: #ffeb3b;
+            border: 4px solid #1a1a1a;
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-node.right::after {
+            left: -10px;
+        }
+
+        /* The actual card content inside the node */
+        .card {
+            background: #2a2a2a;
+            border: 2px dashed #666;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: rotate(-1deg) scale(1.03);
+            box-shadow: 8px 8px 25px rgba(0,0,0,0.8);
+            z-index: 10;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+            text-align: left;
+            font-size: 1.6rem;
+            color: #ffffff;
+        }
+        
+        .card h4 {
+            margin: 5px 0;
+            font-size: 1.3rem;
+            color: #ccc;
+            font-family: 'Kalam', cursive;
+        }
+
+        .card p, .card ul {
+            margin: 10px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .card ul {
+            padding-left: 20px;
+        }
+        
+        .card li {
+            margin-bottom: 5px;
+        }
+
+        .highlight {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        /* Category Tags */
+        .tag {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-family: 'Kalam', cursive;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            transform: rotate(3deg);
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+        }
+        .tag-plan { background-color: #00a8ff; } /* Blue */
+        .tag-break { background-color: #e84118; } /* Orange */
+        .tag-reform { background-color: #9c88ff; } /* Purple */
+        .tag-modern { background-color: #4cd137; } /* Green */
+        .tag-pre { background-color: #e1b12c; } /* Yellow */
+
+        /* Pin icon for cards */
+        .card::before {
+            content: '📌';
+            position: absolute;
+            top: 10px;
+            left: -15px;
+            font-size: 1.5rem;
+            transform: rotate(-20deg);
+        }
+
+        /* Responsive timeline */
+        @media screen and (max-width: 900px) {
+            .timeline-container::after { left: 31px; }
+            .timeline-node { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-node.right { left: 0%; }
+            .timeline-node.left::after, .timeline-node.right::after { left: 21px; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>UPSC / OPSC ASO: Economic Planning in India</h1>
+
+    <!-- ULTRA-SHORT REVISION SHEET -->
+    <div class="revision-sheet">
+        <div class="rev-item"><strong>1st Plan (51-56)</strong> Harrod-Domar. Agriculture & Dams (Hirakud). Successful.</div>
+        <div class="rev-item"><strong>2nd Plan (56-61)</strong> Mahalanobis. Heavy Industry (Steel plants).</div>
+        <div class="rev-item"><strong>3rd Plan (61-66)</strong> Gadgil Yojana. Failed (Wars + Drought).</div>
+        <div class="rev-item"><strong>Plan Holiday (66-69)</strong> Green Revolution started. Rupee Devalued.</div>
+        <div class="rev-item"><strong>4th Plan (69-74)</strong> 14 Banks Nationalized. Smiling Buddha (74).</div>
+        <div class="rev-item"><strong>5th Plan (74-78)</strong> Garibi Hatao. Terminated early by Janata Govt.</div>
+        <div class="rev-item"><strong>Rolling Plan (78-80)</strong> Janata Govt. Discarded by Indira Gandhi.</div>
+        <div class="rev-item"><strong>6th Plan (80-85)</strong> NABARD (82) & EXIM established.</div>
+        <div class="rev-item"><strong>7th Plan (85-90)</strong> Private sector priority. Broke 'Hindu Rate of Growth'.</div>
+        <div class="rev-item"><strong>Annual Plans (90-92)</strong> 1991 LPG Reforms (Rao-Manmohan).</div>
+        <div class="rev-item"><strong>8th Plan (92-97)</strong> HRD focus. WTO joined (95). Panchayat Acts (73rd/74th).</div>
+        <div class="rev-item"><strong>11th Plan (07-12)</strong> Highest growth (8%). RTE Act (2009).</div>
+        <div class="rev-item"><strong>NITI Aayog (2015)</strong> Think Tank. Bottom-up approach. Cooperative Federalism.</div>
+    </div>
+
+    <div class="timeline-container">
+
+        <!-- PRE-1950 -->
+        <div class="timeline-node left">
+            <div class="card">
+                <div class="tag tag-pre">Foundation</div>
+                <h3>Pre-Independence Plans</h3>
+                <ul>
+                    <li><strong>1934 Visvesvaraya Plan:</strong> 1st blueprint (Planned Economy).</li>
+                    <li><strong>1938 National Planning Comm:</strong> Set by SC Bose, chaired by Nehru.</li>
+                    <li><strong>1944 Bombay Plan:</strong> By 8 Industrialists (Tata, Birla).</li>
+                    <li><strong>1944 Gandhian Plan:</strong> S.N. Agarwal (Agri/Cottage).</li>
+                    <li><strong>1945 People's Plan:</strong> M.N. Roy (Marxist).</li>
+                    <li><strong>1950 Sarvodaya Plan:</strong> JP Narayan.</li>
+                </ul>
+                <p><span class="highlight">Planning Commission (1950):</span> Non-constitutional, advisory body.<br>
+                <span class="highlight">NDC (1952):</span> Final approval body, included CMs.</p>
+            </div>
+        </div>
+
+        <!-- 1st PLAN -->
+        <div class="timeline-node right">
+            <div class="card">
+                <div class="tag tag-plan">FYP 1</div>
+                <h3>1st Five-Year Plan</h3>
+                <h4>1951–1956</h4>
+                <p><strong>Model:</strong> <span class="highlight">Harrod-Domar</span></p>
+                <p><strong>Focus:</strong> Agriculture, price stability, power.</p>
+                <ul>
+                    <li>Massive projects: <span class="highlight">Hirakud Dam (Odisha)</span>, Bhakra Nangal.</li>
+                    <li>5 IITs & UGC established.</li>
+                    <li>Community Development Prog (1952).</li>
+                </ul>
+                <p><strong>Result:</strong> Highly successful (Achieved 3.6%).</p>
+            </div>
+        </div>
+
+        <!-- 2nd PLAN -->
+        <div class="timeline-node left">
+            <div class="card">
+                <div class="tag tag-plan">FYP 2</div>
+                <h3>2nd Five-Year Plan</h3>
+                <h4>1956–1961</h4>
+                <p><strong>Model:</strong> <span class="highlight">P.C. Mahalanobis</span></p>
+                <p><strong>Focus:</strong> Rapid Industrialization (Heavy).</p>
+                <ul>
+                    <li>Steel plants: <span class="highlight">Rourkela (Odisha - German help)</span>, Bhilai (Russian help), Durgapur (UK help).</li>
+                    <li>Atomic Energy Commission (1957).</li>
+                </ul>
+                <p><strong>Result:</strong> Moderate success (Forex crisis).</p>
+            </div>
+        </div>
+
+        <!-- 3rd PLAN -->
+        <div class="timeline-node right">
+            <div class="card">
+                <div class="tag tag-plan">FYP 3</div>
+                <h3>3rd Five-Year Plan</h3>
+                <h4>1961–1966</h4>
+                <p><strong>Model:</strong> <span class="highlight">Gadgil Yojana</span></p>
+                <p><strong>Focus:</strong> Self-reliance, Agriculture.</p>
+                <ul>
+                    <li>FCI and Agri Prices Commission established (1965).</li>
+                </ul>
+                <p><strong>Result:</strong> <span class="highlight">Massive Failure</span> due to Sino-Indian War (62), Indo-Pak War (65), & severe drought.</p>
+            </div>
+        </div>
+
+        <!-- PLAN HOLIDAY -->
+        <div class="timeline-node left">
+            <div class="card">
+                <div class="tag tag-break">Break</div>
+                <h3>Plan Holiday (3 Annual Plans)</h3>
+                <h4>1966–1969</h4>
+                <p><strong>Context:</strong> Triggered by 3rd Plan failure & lack of resources.</p>
+                <ul>
+                    <li><span class="highlight">Devaluation of Rupee (1966)</span>.</li>
+                    <li>Implementation of <span class="highlight">Green Revolution</span> (led by M.S. Swaminathan).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4th PLAN -->
+        <div class="timeline-node right">
+            <div class="card">
+                <div class="tag tag-plan">FYP 4</div>
+                <h3>4th Five-Year Plan</h3>
+                <h4>1969–1974</h4>
+                <p><strong>Model:</strong> Gadgil Formula</p>
+                <p><strong>Focus:</strong> Growth with stability.</p>
+                <ul>
+                    <li><span class="highlight">Nationalization of 14 Banks (1969)</span>.</li>
+                    <li>1971 Indo-Pak War (Bangladesh creation).</li>
+                    <li><span class="highlight">Smiling Buddha (1974):</span> 1st Nuclear test.</li>
+                </ul>
+                <p><strong>Result:</strong> Failed targets (Oil Crisis '73).</p>
+            </div>
+        </div>
+
+        <!-- 5th PLAN & ROLLING PLAN -->
+        <div class="timeline-node left">
+            <div class="card">
+                <div class="tag tag-plan">FYP 5 & Break</div>
+                <h3>5th Plan & Rolling Plan</h3>
+                <h4>1974–1978 & 1978-1980</h4>
+                <p><strong>5th Plan Focus:</strong> <span class="highlight">Garibi Hatao</span> (Poverty Eradication). Drafted by D.P. Dhar. Minimum Needs Prog.</p>
+                <p><strong>Result:</strong> Terminated early (1978) by Morarji Desai.</p>
+                <hr style="border-color:#555;">
+                <p><strong>Rolling Plan (78-80):</strong> Introduced by Janata Party. Discarded by Indira Gandhi in 1980.</p>
+            </div>
+        </div>
+
+        <!-- 6th PLAN -->
+        <div class="timeline-node right">
+            <div class="card">
+                <div class="tag tag-plan">FYP 6</div>
+                <h3>6th Five-Year Plan</h3>
+                <h4>1980–1985</h4>
+                <p><strong>Focus:</strong> Tech self-reliance, poverty.</p>
+                <ul>
+                    <li>Beginning of economic lib (End of Nehruvian socialism).</li>
+                    <li>6 more banks nationalized (1980).</li>
+                    <li><span class="highlight">NABARD established (1982)</span>.</li>
+                </ul>
+                <p><strong>Result:</strong> Successful (Achieved 5.7%).</p>
+            </div>
+        </div>
+
+        <!-- 7th PLAN & CRISIS -->
+        <div class="timeline-node left">
+            <div class="card">
+                <div class="tag tag-plan">FYP 7 & Crisis</div>
+                <h3>7th Plan & The Crisis</h3>
+                <h4>1985–1990 & 1990-1992</h4>
+                <p><strong>7th Plan:</strong> Pvt sector prioritized. Jawahar Rozgar Yojana. SEBI established (88). <span class="highlight">Broke 'Hindu Rate of Growth'</span>.</p>
+                <hr style="border-color:#555;">
+                <p><strong>Annual Plans (90-92):</strong> Delayed 8th Plan due to Forex crisis.</p>
+                <ul>
+                    <li><span class="highlight">1991 LPG Reforms:</span> Lib, Priv, Glob (Rao-Manmohan).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 8th & 9th PLAN -->
+        <div class="timeline-node right">
+            <div class="card">
+                <div class="tag tag-plan">FYP 8 & 9</div>
+                <h3>8th & 9th Plans</h3>
+                <h4>1992–1997 & 1997-2002</h4>
+                <p><strong>8th Plan (Rao-Manmohan):</strong> HRD focus. <span class="highlight">Joined WTO (1995)</span>. 73rd/74th Amendments. Highly successful.</p>
+                <hr style="border-color:#555;">
+                <p><strong>9th Plan:</strong> "Growth with Social Justice". Hit by Asian Financial Crisis (97), Pokhran-II, Kargil. Failed targets.</p>
+            </div>
+        </div>
+
+        <!-- 10th & 11th PLAN -->
+        <div class="timeline-node left">
+            <div class="card">
+                <div class="tag tag-plan">FYP 10 & 11</div>
+                <h3>10th & 11th Plans</h3>
+                <h4>2002–2007 & 2007-2012</h4>
+                <p><strong>10th Plan:</strong> Target to double per capita income in 10yrs. High growth.</p>
+                <hr style="border-color:#555;">
+                <p><strong>11th Plan (C. Rangarajan):</strong> "Faster and More Inclusive Growth".</p>
+                <ul>
+                    <li><span class="highlight">RTE Act enacted (2009)</span>.</li>
+                    <li>Achieved <span class="highlight">8% growth</span> (highest ever actual FYP rate).</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 12th PLAN -->
+        <div class="timeline-node right">
+            <div class="card">
+                <div class="tag tag-plan">FYP 12</div>
+                <h3>12th Five-Year Plan</h3>
+                <h4>2012–2017</h4>
+                <p><strong>Theme:</strong> "Faster, More Inclusive and Sustainable Growth".</p>
+                <ul>
+                    <li>8% GDP target.</li>
+                    <li>Reduce IMR to 25, MMR to 1.</li>
+                </ul>
+                <p><strong>Note:</strong> <span class="highlight">The Final Five-Year Plan</span>.</p>
+            </div>
+        </div>
+
+        <!-- NITI AAYOG -->
+        <div class="timeline-node left">
+            <div class="card">
+                <div class="tag tag-modern">Modern Era</div>
+                <h3>NITI Aayog</h3>
+                <h4>Jan 1, 2015</h4>
+                <p>National Institution for Transforming India.</p>
+                <ul>
+                    <li><strong>Role:</strong> Premier "Think Tank" of Govt.</li>
+                    <li><strong>Philosophy:</strong> <span class="highlight">Cooperative Federalism</span> (States are equal partners).</li>
+                    <li><strong>Approach:</strong> <span class="highlight">Bottom-Up</span> (village to center).</li>
+                </ul>
+                <p>Has <span class="highlight">NO power to allocate funds</span> (shifted to Finance Ministry). Governing Council includes all CMs.</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
