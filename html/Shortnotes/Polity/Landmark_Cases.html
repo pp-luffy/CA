@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landmark SC Judgments Visual Board</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-light: #f0f0f0;
+            --highlight: #ffeb3b;
+            --c-yellow: #e1b12c;
+            --c-orange: #e84118;
+            --c-blue: #00a8ff;
+            --c-purple: #9c88ff;
+            --c-green: #4cd137;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 20px;
+            font-size: 1.15rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            text-align: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #555;
+            padding-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: var(--highlight);
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Quick Revision Section */
+        .revision-sheet {
+            background: #2a2a2a;
+            border: 2px solid #444;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 40px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .revision-sheet h2 {
+            margin-top: 0;
+            color: var(--text-light);
+            text-decoration: underline;
+        }
+
+        .rev-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .rev-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-left: 4px solid var(--highlight);
+            border-radius: 5px;
+        }
+        
+        .rev-item span.hl { color: var(--highlight); font-weight: bold; }
+
+        /* Masonry Visual Board */
+        .board-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 10px;
+        }
+
+        .card {
+            background: #252525;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: scale(1.02) rotate(-1deg);
+            box-shadow: 12px 12px 20px rgba(0,0,0,0.6);
+            z-index: 10;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            border-bottom: 2px dashed rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+
+        .tag {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-family: 'Kalam', cursive;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #111;
+            transform: rotate(-10deg);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .case-block {
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 3px solid;
+        }
+
+        .case-title {
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-bottom: 5px;
+        }
+
+        /* Card Themes */
+        .theme-yellow { border-top: 5px solid var(--c-yellow); }
+        .theme-yellow h3 { color: var(--c-yellow); }
+        .theme-yellow .tag { background: var(--c-yellow); }
+        .theme-yellow .case-block { border-left-color: var(--c-yellow); }
+
+        .theme-orange { border-top: 5px solid var(--c-orange); }
+        .theme-orange h3 { color: var(--c-orange); }
+        .theme-orange .tag { background: var(--c-orange); }
+        .theme-orange .case-block { border-left-color: var(--c-orange); }
+
+        .theme-blue { border-top: 5px solid var(--c-blue); }
+        .theme-blue h3 { color: var(--c-blue); }
+        .theme-blue .tag { background: var(--c-blue); }
+        .theme-blue .case-block { border-left-color: var(--c-blue); }
+
+        .theme-purple { border-top: 5px solid var(--c-purple); }
+        .theme-purple h3 { color: var(--c-purple); }
+        .theme-purple .tag { background: var(--c-purple); }
+        .theme-purple .case-block { border-left-color: var(--c-purple); }
+
+        .theme-green { border-top: 5px solid var(--c-green); }
+        .theme-green h3 { color: var(--c-green); }
+        .theme-green .tag { background: var(--c-green); }
+        .theme-green .case-block { border-left-color: var(--c-green); }
+
+        .hi-text { color: var(--highlight); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>⚖️ Supreme Court Landmark Judgments</h1>
+        <p>Constitutional Evolution & Fundamental Rights Visual Board</p>
+    </div>
+
+    <!-- ULTRASHORT QUICK REVISION SHEET -->
+    <div class="revision-sheet">
+        <h2>⚡ 60-Second Quick Revision</h2>
+        <div class="rev-grid">
+            <div class="rev-item"><strong>Shankari Prasad (1951):</strong> <span class="hl">FRs Amendable</span></div>
+            <div class="rev-item"><strong>Golaknath (1967):</strong> <span class="hl">FRs NON-Amendable</span></div>
+            <div class="rev-item"><strong>Kesavananda (1973):</strong> <span class="hl">Basic Structure Doctrine</span></div>
+            <div class="rev-item"><strong>Minerva Mills (1980):</strong> <span class="hl">Limited Amending Power</span></div>
+            <div class="rev-item"><strong>AK Gopalan (1950):</strong> <span class="hl">Procedure Established by Law</span></div>
+            <div class="rev-item"><strong>Maneka Gandhi (1978):</strong> <span class="hl">Due Process (Art 21)</span></div>
+            <div class="rev-item"><strong>ADM Jabalpur (1976):</strong> <span class="hl">Habeas Corpus suspended</span></div>
+            <div class="rev-item"><strong>Puttaswamy (2017):</strong> <span class="hl">Right to Privacy (Art 21)</span></div>
+            <div class="rev-item"><strong>SR Bommai (1994):</strong> <span class="hl">Art 356 & Federalism</span></div>
+            <div class="rev-item"><strong>Indra Sawhney (1992):</strong> <span class="hl">27% OBC / 50% Cap</span></div>
+            <div class="rev-item"><strong>Champakam (1951):</strong> <span class="hl">1st Amend, Art 15(4)</span></div>
+            <div class="rev-item"><strong>Judges Cases (81-98):</strong> <span class="hl">Collegium System</span></div>
+            <div class="rev-item"><strong>Shah Bano (1985):</strong> <span class="hl">Sec 125 CrPC / UCC</span></div>
+            <div class="rev-item"><strong>Sarla Mudgal (1995):</strong> <span class="hl">No Islam conv. for 2nd Marriage</span></div>
+            <div class="rev-item"><strong>Lily Thomas (2013):</strong> <span class="hl">2yr+ conviction = Disqualification</span></div>
+        </div>
+    </div>
+
+    <!-- DYNAMIC SKETCHNOTE MASONRY BOARD -->
+    <div class="board-container">
+        
+        <!-- PHASE 1 -->
+        <div class="card theme-yellow">
+            <div class="tag">Phase 1</div>
+            <h3>Amendability & Basic Structure</h3>
+            
+            <div class="case-block">
+                <div class="case-title">📌 Shankari Prasad Case (1951)</div>
+                Parliament <span class="hi-text">CAN amend</span> Fundamental Rights (FRs) under <span class="hi-text">Article 368</span>. Constitutional amendments are NOT "laws" under Article 13.
+            </div>
+            
+            <div class="case-block">
+                <div class="case-title">📌 Golaknath Case (1967)</div>
+                SC <span class="hi-text">reversed stance</span>. Parliament CANNOT abridge/take away FRs. Amendments are treated as "laws" under Article 13.
+            </div>
+
+            <div class="case-block">
+                <div class="case-title">📌 Kesavananda Bharati (1973)</div>
+                Monumental judgment! Parliament can amend anything EXCEPT the <span class="hi-text">"Basic Structure"</span>. Judicial review became a non-negotiable pillar.
+            </div>
+
+            <div class="case-block">
+                <div class="case-title">📌 Minerva Mills Case (1980)</div>
+                Struck down parts of <span class="hi-text">42nd Amendment</span> giving absolute power. Established that a <span class="hi-text">limited amending power</span> is itself part of the basic structure.
+            </div>
+        </div>
+
+        <!-- PHASE 2 -->
+        <div class="card theme-orange">
+            <div class="tag">Phase 2</div>
+            <h3>Liberty & Article 21</h3>
+            
+            <div class="case-block">
+                <div class="case-title">🛡️ A.K. Gopalan Case (1950)</div>
+                Narrow interpretation. Allowed preventive detention via <span class="hi-text">"Procedure Established by Law"</span> (minimal judicial safeguards).
+            </div>
+            
+            <div class="case-block">
+                <div class="case-title">🛡️ Maneka Gandhi Case (1978)</div>
+                Overturned Gopalan! Read <span class="hi-text">"Due Process of Law"</span> into Art 21. Any law curtailing liberty must be <span class="hi-text">"just, fair, and reasonable"</span>.
+            </div>
+
+            <div class="case-block">
+                <div class="case-title">🛡️ ADM Jabalpur (1976)</div>
+                Emergency-era (Habeas Corpus Case). Majority suspended right to move courts for liberty. Famous for <span class="hi-text">Justice H.R. Khanna’s legendary dissent</span>.
+            </div>
+
+            <div class="case-block">
+                <div class="case-title">🛡️ K.S. Puttaswamy (2017)</div>
+                Unanimous ruling. <span class="hi-text">Right to Privacy</span> is inherently protected as a fundamental right under Article 21.
+            </div>
+        </div>
+
+        <!-- PHASE 4 -->
+        <div class="card theme-purple">
+            <div class="tag">Phase 4</div>
+            <h3>Social Justice & Appointments</h3>
+            
+            <div class="case-block">
+                <div class="case-title">🎓 Champakam Dorairajan (1951)</div>
+                SC struck down communal educational quotas. Prompted the <span class="hi-text">1st Constitutional Amendment Act</span> and addition of <span class="hi-text">Article 15(4)</span>.
+            </div>
+
+            <div class="case-block">
+                <div class="case-title">🎓 Indra Sawhney [Mandal] (1992)</div>
+                Upheld <span class="hi-text">27% OBC reservation</span>. Introduced the <span class="hi-text">"Creamy Layer"</span> concept. Capped total reservations at <span class="hi-text">50%</span>.
+            </div>
+
+            <div class="case-block">
+                <div class="case-title">🎓 1st, 2nd, 3rd Judges Cases (1981-98)</div>
+                Judgments that created and evolved the <span class="hi-text">Collegium System</span> for appointing Supreme Court and High Court judges.
+            </div>
+        </div>
+
+        <!-- PHASE 3 & 5 Mixed for layout balance -->
+        <div class="card theme-blue">
+            <div class="tag">Phase 3</div>
+            <h3>Centre-State & Federalism</h3>
+            
+            <div class="case-block">
+                <div class="case-title">🏛️ S.R. Bommai Case (1994)</div>
+                The ultimate judgment on <span class="hi-text">Article 356</span> (President's Rule). Federalism is a basic feature. Arbitrary state govt dismissals are unconstitutional. <span class="hi-text">Floor tests</span> MUST happen in the Assembly, not the Governor's bungalow.
+            </div>
+        </div>
+
+        <div class="card theme-green">
+            <div class="tag">Phase 5</div>
+            <h3>Secularism & Criminalization</h3>
+            
+            <div class="case-block">
+                <div class="case-title">🛑 Shah Bano Case (1985)</div>
+                Upheld maintenance rights for Muslim women under <span class="hi-text">Section 125 CrPC</span>, igniting nationwide debates on the Uniform Civil Code (UCC).
+            </div>
+
+            <div class="case-block">
+                <div class="case-title">🛑 Sarla Mudgal Case (1995)</div>
+                Hindu husband <span class="hi-text">cannot convert to Islam</span> for a second marriage without dissolving the first. SC called for urgent UCC enactment.
+            </div>
+
+            <div class="case-block">
+                <div class="case-title">🛑 Lily Thomas v. UoI (2013)</div>
+                Immediate disqualification for any MP/MLA/MLC convicted of a crime with a sentence of <span class="hi-text">2 years or more</span>. Struck down <span class="hi-text">Section 8(4) of the RPA, 1951</span>.
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
