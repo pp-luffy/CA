@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC/OPSC ASO - International Organizations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        /* Ultra-Short Revision Sheet */
+        .revision-sheet {
+            background: #222;
+            border: 2px solid #e1b12c;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            box-shadow: 0 4px 12px rgba(225, 177, 44, 0.2);
+        }
+        .rev-item {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #ffeb3b;
+            font-size: 0.95rem;
+        }
+        .rev-item strong { color: #ffeb3b; font-family: 'Kalam', cursive; font-size: 1.1rem; display: block; }
+
+        /* Masonry Grid for Polaroid Cards */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 10px;
+        }
+
+        /* Polaroid Card Styles */
+        .card {
+            background: #2a2a2a;
+            border: 2px dashed #666;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+            transform: rotate(-1deg) scale(1.02);
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.8);
+            z-index: 10;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            text-align: left;
+        }
+
+        .card p {
+            margin: 8px 0;
+            font-size: 1.05rem;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        /* Category Tags */
+        .tag {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-family: 'Kalam', cursive;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            transform: rotate(3deg);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        .tag-finance { background-color: #4cd137; } /* Green */
+        .tag-security { background-color: #e84118; } /* Orange */
+        .tag-region { background-color: #00a8ff; } /* Blue */
+        .tag-india { background-color: #e1b12c; } /* Yellow */
+        .tag-ngo { background-color: #9c88ff; } /* Purple */
+
+        /* Connectors (Abstracted for masonry, mainly styling) */
+        .card::before {
+            content: '📌';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>UPSC / OPSC ASO: International Orgs Master Board</h1>
+
+    <!-- ULTRA-SHORT REVISION SHEET -->
+    <div class="revision-sheet">
+        <div class="rev-item"><strong>NDB (BRICS Bank)</strong> 1 Country = 1 Vote. Shanghai.</div>
+        <div class="rev-item"><strong>AIIB</strong> GDP-based voting. China #1, India #2. Beijing.</div>
+        <div class="rev-item"><strong>IMF SDR</strong> $, €, £, ¥, Renminbi (Not a currency).</div>
+        <div class="rev-item"><strong>WTO AoA</strong> Green, Blue, Amber Boxes. Peace Clause.</div>
+        <div class="rev-item"><strong>FATF</strong> Grey/Black lists. Paris. Hits IMF/WB funding.</div>
+        <div class="rev-item"><strong>SCO RATS</strong> Anti-terror. Tashkent. India/Pak joined 2017.</div>
+        <div class="rev-item"><strong>MTCR & Wassenaar</strong> India IN. China OUT.</div>
+        <div class="rev-item"><strong>BIMSTEC</strong> Replaced SAARC focus. Kaladan Project.</div>
+        <div class="rev-item"><strong>ISA</strong> Gurugram. Open to ALL UN members. OSOWOG.</div>
+        <div class="rev-item"><strong>UNSC G4</strong> Ind, Jap, Ger, Bra vs. Coffee Club.</div>
+        <div class="rev-item"><strong>ASEAN</strong> India NOT a member. Act East Policy.</div>
+        <div class="rev-item"><strong>ADB</strong> US/Japan highest vote. India largest borrower.</div>
+    </div>
+
+    <!-- DYNAMIC MASONRY CANVAS -->
+    <div class="masonry-grid">
+
+        <!-- FINANCIAL & TRADE -->
+        <div class="card">
+            <div class="tag tag-finance">Finance</div>
+            <h3>NDB (BRICS Bank)</h3>
+            <p><strong>HQ:</strong> Shanghai, China</p>
+            <p><strong>Focus:</strong> <span class="highlight">1 equal vote per founding member</span>; NO veto power. Lends in local currencies. 1st Prez: K.V. Kamath.</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-finance">Finance</div>
+            <h3>AIIB</h3>
+            <p><strong>HQ:</strong> Beijing, China</p>
+            <p><strong>Focus:</strong> Voting based on GDP (<span class="highlight">China #1, India #2</span>). Trap: USA & Japan are NOT members. India is the largest beneficiary.</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-finance">Finance</div>
+            <h3>World Bank Group</h3>
+            <p><strong>HQ:</strong> Washington, D.C.</p>
+            <p><strong>Focus:</strong> India is in IBRD, IDA, IFC, MIGA but <span class="highlight">NOT ICSID</span>. IDA = "soft loan window" (zero-interest).</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-finance">Finance</div>
+            <h3>IMF</h3>
+            <p><strong>HQ:</strong> Washington, D.C.</p>
+            <p><strong>Focus:</strong> <span class="highlight">SDR is a reserve asset, not currency</span>. Basket: $, €, RMB, ¥, £. India quota: ~2.75%.</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-finance">Trade</div>
+            <h3>WTO</h3>
+            <p><strong>HQ:</strong> Geneva, Switzerland</p>
+            <p><strong>Focus:</strong> <span class="highlight">Agreement on Agriculture (AoA)</span>. Green/Blue/Amber boxes. India fights for "Peace Clause" (MSP).</p>
+        </div>
+
+        <!-- STRATEGIC & SECURITY -->
+        <div class="card">
+            <div class="tag tag-security">Security</div>
+            <h3>UN Security Council (UNSC)</h3>
+            <p><strong>HQ:</strong> New York, USA</p>
+            <p><strong>Focus:</strong> 15 members (5 perm, 10 non-perm). <span class="highlight">G4 (Ind, Jap, Ger, Bra)</span> vs. "Coffee Club" (Italy, Pak).</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-security">Security</div>
+            <h3>FATF</h3>
+            <p><strong>HQ:</strong> Paris, France</p>
+            <p><strong>Focus:</strong> Created by G7. <span class="highlight">Grey/Black Lists</span>. Grey-listing restricts IMF/WB funding.</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-security">Security</div>
+            <h3>SCO</h3>
+            <p><strong>HQ:</strong> Beijing, China</p>
+            <p><strong>Focus:</strong> Ind & Pak joined 2017. Key organ: <span class="highlight">RATS (Tashkent)</span> for anti-terror intel.</p>
+        </div>
+        
+        <div class="card">
+            <div class="tag tag-security">Defense</div>
+            <h3>NATO</h3>
+            <p><strong>HQ:</strong> Brussels, Belgium</p>
+            <p><strong>Focus:</strong> 32 members. <span class="highlight">Article 5</span>. Recent additions: Finland & Sweden.</p>
+        </div>
+
+        <!-- EXPORT CONTROL REGIMES -->
+        <div class="card">
+            <div class="tag tag-security">Export Control</div>
+            <h3>Export Regimes (Ind vs Chi)</h3>
+            <p><strong>MTCR:</strong> <span class="highlight">India IN, China OUT</span> (300km/500kg limit).</p>
+            <p><strong>Wassenaar:</strong> <span class="highlight">India IN, China OUT</span> (Conventional arms).</p>
+            <p><strong>Australia Group:</strong> <span class="highlight">India IN, China OUT</span> (Chem/Bio weapons).</p>
+            <p><strong>NSG:</strong> <span class="highlight">India OUT</span> (Blocked by China over NPT).</p>
+        </div>
+
+        <!-- REGIONAL BLOCS -->
+        <div class="card">
+            <div class="tag tag-region">Regional</div>
+            <h3>BIMSTEC</h3>
+            <p><strong>HQ:</strong> Dhaka, Bangladesh</p>
+            <p><strong>Focus:</strong> Overshadowed SAARC. Bridges "Neighborhood First" & "Act East". <span class="highlight">Kaladan Multimodal & IMT Highway</span>.</p>
+        </div>
+        
+        <div class="card">
+            <div class="tag tag-region">Regional</div>
+            <h3>SAARC</h3>
+            <p><strong>HQ:</strong> Kathmandu, Nepal</p>
+            <p><strong>Focus:</strong> Stalled due to Pak. India hosts <span class="highlight">South Asian University (SAU)</span> & Disaster Mgmt Centre.</p>
+        </div>
+        
+        <div class="card">
+            <div class="tag tag-region">Regional</div>
+            <h3>ASEAN</h3>
+            <p><strong>HQ:</strong> Jakarta, Indonesia</p>
+            <p><strong>Focus:</strong> 11 members (New: Timor-Leste). <span class="highlight">India NOT a member</span>. Core of Act East Policy.</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-region">Regional</div>
+            <h3>QUAD</h3>
+            <p><strong>Members:</strong> USA, Ind, Jap, Aus</p>
+            <p><strong>Focus:</strong> Free Indo-Pacific vs China. Military: <span class="highlight">Malabar Naval Exercise</span>.</p>
+        </div>
+        
+        <div class="card">
+            <div class="tag tag-finance">Finance</div>
+            <h3>ADB</h3>
+            <p><strong>HQ:</strong> Manila, Philippines</p>
+            <p><strong>Focus:</strong> <span class="highlight">USA & Japan largest voters</span>. India is largest borrower.</p>
+        </div>
+
+        <!-- INDIA-LED INITIATIVES -->
+        <div class="card">
+            <div class="tag tag-india">India-Led</div>
+            <h3>Intl Solar Alliance (ISA)</h3>
+            <p><strong>HQ:</strong> Gurugram, India</p>
+            <p><strong>Focus:</strong> 1st treaty-based intl body in India. <span class="highlight">Open to ALL UN members</span>. OSOWOG.</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-india">India-Led</div>
+            <h3>CDRI</h3>
+            <p><strong>HQ:</strong> New Delhi, India</p>
+            <p><strong>Focus:</strong> Disaster resilient infrastructure. Links to <span class="highlight">Sendai Framework</span>.</p>
+        </div>
+
+        <!-- UN AGENCIES & NGOS -->
+        <div class="card">
+            <div class="tag tag-ngo">UN / NGO</div>
+            <h3>UN Bodies</h3>
+            <p><strong>UNGA:</strong> NY. Equal votes, non-binding.</p>
+            <p><strong>ILO:</strong> Geneva. Only "tripartite" agency.</p>
+            <p><strong>UNESCO:</strong> Paris. World Heritage & Intangible lists.</p>
+        </div>
+
+        <div class="card">
+            <div class="tag tag-ngo">NGOs</div>
+            <h3>Watchdogs (NOT UN)</h3>
+            <p><strong>Transparency Intl:</strong> Berlin. <span class="highlight">Corruption Perceptions Index</span>.</p>
+            <p><strong>Amnesty Intl:</strong> London. Human Rights.</p>
+            <p><strong>Médecins Sans Frontières:</strong> Geneva. Medical aid.</p>
+        </div>
+
+    </div>
+</body>
+</html>
