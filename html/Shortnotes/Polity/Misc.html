@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Polity Sketchnote Visual Board</title>
+<title>Complete Polity Master Sketchnote Board</title>
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
   body {
@@ -57,7 +57,7 @@
   /* Masonry Grid */
   .masonry-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
     gap: 30px;
     align-items: start;
   }
@@ -96,18 +96,25 @@
     color: #1a1a1a;
     text-transform: uppercase;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    z-index: 1;
   }
   .bg-govt { background-color: #e1b12c; } /* Yellow */
   .bg-law { background-color: #00a8ff; } /* Blue */
   .bg-parliament { background-color: #9c88ff; } /* Purple */
   .bg-judiciary { background-color: #e84118; } /* Orange */
   .bg-funds { background-color: #4cd137; } /* Green */
+  .bg-rights { background-color: #ff6b81; } /* Pink */
+  .bg-panchayat { background-color: #1dd1a1; } /* Mint */
+  .bg-emergency { background-color: #ff9f43; } /* Orange-Yellow */
   
   .color-govt { color: #e1b12c; }
   .color-law { color: #00a8ff; }
   .color-parliament { color: #9c88ff; }
   .color-judiciary { color: #e84118; }
   .color-funds { color: #4cd137; }
+  .color-rights { color: #ff6b81; }
+  .color-panchayat { color: #1dd1a1; }
+  .color-emergency { color: #ff9f43; }
   .highlight { color: #ffeb3b; font-weight: bold; }
 
   /* Tables in Cards */
@@ -139,9 +146,10 @@
   }
   
   /* Special Highlight text */
-  .hl-red { color: #e84118; font-weight: bold; }
-  .hl-blue { color: #00a8ff; font-weight: bold; }
-  .hl-green { color: #4cd137; font-weight: bold; }
+  .hl-red { color: #ff4757; font-weight: bold; }
+  .hl-blue { color: #1e90ff; font-weight: bold; }
+  .hl-green { color: #2ed573; font-weight: bold; }
+  .hl-purple { color: #9c88ff; font-weight: bold; }
   
   /* Wide Card for wide tables */
   .card-wide {
@@ -151,28 +159,30 @@
 </head>
 <body>
 
-  <h1 class="header-title">🏛️ POLITY MASTER REVISION BOARD 🏛️</h1>
+  <h1 class="header-title">🏛️ THE ULTIMATE POLITY MASTER BOARD 🏛️</h1>
 
-  <!-- ULTRA-SHORT REVISION SHEET -->
+  <!-- ULTRA-SHORT REVISION SHEET (COMBINED) -->
   <div class="quick-revision">
     <h2>⚡ THE CORE MEMORY VAULT ⚡</h2>
     <div class="quick-grid">
       <div class="quick-item"><span class="highlight">Art 123 / 213:</span> Pres / Gov Ordinance Power</div>
-      <div class="quick-item"><span class="highlight">Art 78 / 167:</span> PM / CM duty to communicate Cabinet Decisions</div>
-      <div class="quick-item"><span class="highlight">Art 312:</span> RS power to create All-India Services</div>
-      <div class="quick-item"><span class="highlight">Art 249:</span> RS power to authorize Parl. on State List</div>
       <div class="quick-item"><span class="highlight">Art 108:</span> Joint Sitting (Applicable for Ordinary/Fin I bills ONLY)</div>
       <div class="quick-item"><span class="highlight">Art 110:</span> Money Bill (LS Exclusive, RS 14-day delay max)</div>
-      <div class="quick-item"><span class="highlight">Art 32 / 226:</span> SC / HC Writ Jurisdiction (HC is wider)</div>
-      <div class="quick-item"><span class="highlight">Art 143:</span> SC Advisory Jurisdiction to President</div>
       <div class="quick-item"><span class="highlight">Art 368:</span> Const. Amendment (Special Maj, NO Joint Sitting)</div>
-      <div class="quick-item"><span class="highlight">Contingency Fund:</span> ₹30,000 Cr emergency corpus (Art 267)</div>
-      <div class="quick-item"><span class="highlight">Retirement Age:</span> SC Judge = 65 yrs | HC Judge = 62 yrs</div>
+      <div class="quick-item"><span class="highlight">Art 312 / 249:</span> RS power for All-India Services / State List</div>
+      <div class="quick-item"><span class="highlight">Art 32 / 226:</span> SC / HC Writ Jurisdiction (HC is wider)</div>
       <div class="quick-item"><span class="highlight">Resignations:</span> Pres &rarr; VP | VP &rarr; Pres | Speaker &rarr; Dy Speaker</div>
+      <div class="quick-item"><span class="highlight">Golden Rule:</span> Ministers CANNOT join Financial or DRSC Committees.</div>
+      <div class="quick-item"><span class="highlight">Estimates Comm:</span> 30 Members (ALL from Lok Sabha, 0 RS).</div>
+      <div class="quick-item"><span class="highlight">PAC Chair:</span> Always from Opposition (convention since 1967).</div>
+      <div class="quick-item"><span class="highlight">Citizens ONLY FRs:</span> Art 15, 16, 19, 29, 30.</div>
+      <div class="quick-item"><span class="highlight">Anti-Defection:</span> Nominated disqualified if joining <span class="hl-red">AFTER 6 months</span>.</div>
+      <div class="quick-item"><span class="highlight">Martial Law (Art 34):</span> Suspends ordinary law & courts.</div>
+      <div class="quick-item"><span class="highlight">Kihoto Hollohan (1992):</span> 10th Schedule decisions subject to Judicial Review!</div>
     </div>
   </div>
 
-  <!-- DYNAMIC MASONRY GRID -->
+  <!-- DYNAMIC MASONRY GRID (ALL TOPICS COMBINED) -->
   <div class="masonry-grid">
   
     <!-- President vs Governor -->
@@ -288,11 +298,11 @@
       <h3 class="card-title color-funds">💰 Government Funds</h3>
       <ul>
         <li><span class="highlight">Consolidated (Art 266):</span> All revenues/loans. <span class="hl-red">Parl approval mandatory</span> to withdraw a single rupee.</li>
-        <li><span class="highlight">Public Account (Art 266):</span> PF, judicial deposits, savings. <span class="hl-green">Executive action</span> (No parl approval needed; govt acts as a banker).</li>
-        <li><span class="highlight">Contingency (Art 267):</span> <span class="highlight">₹30,000 cr</span> for emergencies. Held by Fin Sec for the Pres. Needs <span class="hl-blue">post-facto</span> parliamentary approval.</li>
+        <li><span class="highlight">Public Account (Art 266):</span> PF, judicial deposits, savings. <span class="hl-green">Executive action</span> (No parl approval needed).</li>
+        <li><span class="highlight">Contingency (Art 267):</span> <span class="highlight">₹30,000 cr</span> for emergencies. Held by Fin Sec for the Pres. Needs <span class="hl-blue">post-facto</span> parl approval.</li>
       </ul>
     </div>
-
+    
     <!-- Veto Powers & Sessions -->
     <div class="card" style="border-left: 5px solid #e1b12c;">
       <div class="tag bg-govt">Sessions</div>
@@ -315,11 +325,11 @@
       <div class="tag bg-judiciary">Facts</div>
       <h3 class="card-title color-judiciary">✍️ Oaths & Resignations</h3>
       <table>
-        <tr><th class="color-judiciary">Post</th><th class="color-judiciary">Oath Administered By</th><th class="color-judiciary">Resigns To</th></tr>
-        <tr><td><b>President</b></td><td>CJI</td><td><span class="highlight">Vice-President</span> (VP immediately informs LS Speaker)</td></tr>
+        <tr><th class="color-judiciary">Post</th><th class="color-judiciary">Oath By</th><th class="color-judiciary">Resigns To</th></tr>
+        <tr><td><b>President</b></td><td>CJI</td><td><span class="highlight">Vice-President</span> (VP informs LS Speaker)</td></tr>
         <tr><td><b>Vice-President</b></td><td>President</td><td><span class="highlight">President</span></td></tr>
-        <tr><td><b>LS Speaker</b></td><td><span class="hl-red">NO separate oath</span> (only as MP)</td><td><span class="highlight">Deputy Speaker</span></td></tr>
-        <tr><td><b>Governor</b></td><td>CJ of High Court</td><td><span class="highlight">President</span></td></tr>
+        <tr><td><b>LS Speaker</b></td><td><span class="hl-red">NO separate oath</span></td><td><span class="highlight">Deputy Speaker</span></td></tr>
+        <tr><td><b>Governor</b></td><td>CJ of HC</td><td><span class="highlight">President</span></td></tr>
         <tr><td><b>SC Judge</b></td><td>President</td><td><span class="highlight">President</span></td></tr>
       </table>
     </div>
@@ -334,9 +344,149 @@
         <li><span class="highlight">Prime Minister</span></li>
         <li><span class="highlight">Governors</span> (within their respective states)</li>
         <li><span class="highlight">Former Presidents</span> <br><i>(5A. Deputy Prime Minister)</i></li>
-        <li><span class="highlight">Chief Justice of India & Speaker of Lok Sabha</span></li>
-        <li><span class="highlight">Cabinet Ministers</span> (Union), <span class="highlight">Chief Ministers</span> (state), Vice-Chair NITI, Former PMs, LoP (RS/LS)</li>
+        <li><span class="highlight">CJI & Speaker of Lok Sabha</span></li>
+        <li><span class="highlight">Cabinet Ministers</span>, Chief Ministers, Vice-Chair NITI, Former PMs, LoP</li>
       </ol>
+    </div>
+
+    <!-- Financial Committees Master Matrix -->
+    <div class="card card-wide" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">Committees</div>
+      <h3 class="card-title color-parliament">💰 Financial Committees of Parliament (Annual)</h3>
+      <p style="font-size:1.2rem; border: 1px solid #ffeb3b; padding:10px; border-radius:5px; background:rgba(255,235,59,0.1);">
+        <span class="hl-red">⚠️ UNIVERSAL RULE:</span> A Minister is <b>NOT</b> eligible to be elected or nominated as a member of any Financial Committee or DRSC. Their recommendations are advisory, not binding.
+      </p>
+      <table>
+        <tr>
+          <th class="color-parliament">Committee</th>
+          <th class="color-parliament">Members & Composition</th>
+          <th class="color-parliament">Chairman</th>
+          <th class="color-parliament">Core Function & Reporting</th>
+        </tr>
+        <tr>
+          <td><b>Estimates Committee</b></td>
+          <td><span class="highlight">30 (All 30 from LS, 0 RS)</span><br><i>Largest committee</i></td>
+          <td>Apptd by Speaker.<br><span class="hl-green">Invariably Ruling Party</span></td>
+          <td>Examines budget estimates to suggest economies.<br>Report to: <b>Lok Sabha</b></td>
+        </tr>
+        <tr>
+          <td><b>Public Accounts (PAC)</b></td>
+          <td><b>22</b> (15 LS + 7 RS)</td>
+          <td>Apptd by Speaker.<br><span class="hl-red">Always Opposition</span> <i>(since 1967)</i></td>
+          <td>Examines CAG audit reports (appropriation/finance).<br>Report to: <b>LS Speaker</b></td>
+        </tr>
+        <tr>
+          <td><b>Public Undertakings (CoPU)</b></td>
+          <td><b>22</b> (15 LS + 7 RS)</td>
+          <td>Apptd by Speaker.<br><span class="hl-blue">Must strictly be from LS</span></td>
+          <td>Examines reports/CAG on PSUs.<br>Report to: <b>Parliament</b></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DRSCs and Presiding Officer Committees -->
+    <div class="card card-wide" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">Committees</div>
+      <h3 class="card-title color-parliament">🏛️ DRSCs & "Gotcha" Committees</h3>
+      
+      <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        <div style="flex: 1; min-width: 300px;">
+          <h4 class="color-parliament">Departmentally Related Standing Committees (DRSCs)</h4>
+          <ul>
+            <li><b>Total:</b> <span class="highlight">24 Committees</span> (16 under LS Speaker, 8 under RS Chairman).</li>
+            <li><b>Composition:</b> <span class="highlight">31 members each</span> (21 from LS + 10 from RS).</li>
+            <li><b>Leadership:</b> Appointed by presiding officer of the respective House.</li>
+            <li><b>Reporting:</b> Submit reports to <span class="hl-green">both Houses simultaneously</span>.</li>
+            <li><b>Task:</b> Heavy lifting—examine bills, demands for grants, annual reports.</li>
+          </ul>
+        </div>
+        <div style="flex: 1; min-width: 300px;">
+          <h4 class="color-parliament">Presiding Officer Chaired (Ex-Officio)</h4>
+          <ul>
+            <li><span class="highlight">Business Advisory:</span> Regulates timetable. (LS: 15, RS: 11)</li>
+            <li><span class="highlight">Rules Committee:</span> Procedure/conduct matters. (LS: 15, RS: 16)</li>
+            <li><span class="highlight">General Purposes:</span> Affairs not covered elsewhere. (Presiding officers, panel, party leaders)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other High Yield Committees -->
+    <div class="card card-wide" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">Committees</div>
+      <h3 class="card-title color-parliament">🎯 Other High-Yield Examination Committees</h3>
+      <table>
+        <tr><th class="color-parliament">Committee</th><th class="color-parliament">Members (LS / RS)</th><th class="color-parliament">Key Responsibility</th></tr>
+        <tr><td><b>On Petitions</b></td><td>15 LS / 10 RS</td><td>Examines petitions on bills / matters of public importance.</td></tr>
+        <tr><td><b>Privileges</b></td><td>15 LS / 10 RS</td><td>Semi-judicial. Examines breach of privilege cases.</td></tr>
+        <tr><td><b>Ethics</b></td><td>15 LS / 10 RS</td><td>Enforces MP code of conduct. <span class="hl-purple">(RS created first in 1997; LS in 2000)</span>.</td></tr>
+        <tr><td><b>Subordinate Legislation</b></td><td><span class="highlight">15 LS / 15 RS</span></td><td>Checks executive's delegated rule-making powers.</td></tr>
+        <tr><td><b>Govt Assurances</b></td><td>15 LS / 10 RS</td><td>Tracks promises/undertakings given by Ministers on the floor.</td></tr>
+        <tr><td><b>Absence of Members</b></td><td><span class="highlight">15 (Lok Sabha ONLY)</span></td><td>Considers leave apps. <span class="hl-red">RS whole house deals with it.</span></td></tr>
+      </table>
+    </div>
+
+    <!-- Fundamental Rights -->
+    <div class="card" style="border-left: 5px solid #ff6b81;">
+      <div class="tag bg-rights">Rights</div>
+      <h3 class="card-title color-rights">🛡️ Fundamental Rights: Citizens vs. Foreigners</h3>
+      <ul>
+        <li>
+          <span class="hl-red">ONLY to Indian Citizens:</span><br>
+          <span class="highlight" style="font-size: 1.5rem; display: block; margin: 10px 0; padding: 10px; background: #333; border-radius: 5px; text-align: center;">Articles 15, 16, 19, 29, 30</span>
+        </li>
+        <li>
+          <span class="hl-green">BOTH Citizens & Foreigners</span> (Except enemy aliens):<br>
+          <span style="font-size: 1.2rem; display: block; margin-top: 10px;">Articles 14, 20, 21, 21A, 22, 23, 24, 25, 26, 27, 28</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Panchayati Raj -->
+    <div class="card" style="border-left: 5px solid #1dd1a1;">
+      <div class="tag bg-panchayat">Local</div>
+      <h3 class="card-title color-panchayat">🏡 Panchayati Raj (73rd Amend)</h3>
+      <h4 class="hl-green" style="margin-bottom: 5px;">✅ Compulsory (Mandatory):</h4>
+      <ul style="margin-top:0;">
+        <li>Establishing Gram Sabha</li>
+        <li>3-tier system <span class="hl-purple">(< 20L pop can skip middle tier)</span></li>
+        <li>Direct elections at all levels</li>
+        <li><span class="highlight">Min Age: 21 years</span></li>
+        <li>Reservation: SC/ST (proportionate) & Women <span class="highlight">(Min 33% or 1/3rd)</span></li>
+        <li>Est. State Election Comm. & State Finance Comm.</li>
+      </ul>
+      <h4 class="hl-blue" style="margin-bottom: 5px;">🤷 Voluntary (Discretionary):</h4>
+      <ul style="margin-top:0;">
+        <li>Voting rights to MPs/MLAs in Panchayats</li>
+        <li>Reservation for <span class="highlight">OBCs</span></li>
+        <li>Financial powers to levy taxes, tolls, fees</li>
+      </ul>
+    </div>
+
+    <!-- Martial Law vs Emergency -->
+    <div class="card" style="border-left: 5px solid #ff9f43;">
+      <div class="tag bg-emergency">Crisis</div>
+      <h3 class="card-title color-emergency">🚨 Martial Law vs Nat. Emergency</h3>
+      <table>
+        <tr><th class="color-emergency">Feature</th><th class="color-emergency">Martial Law (Art 34)</th><th class="color-emergency">National Emergency (Art 352)</th></tr>
+        <tr><td><b>Impact</b></td><td>Only Fundamental Rights</td><td>FRs, Centre-State relations, revenues, legislative powers</td></tr>
+        <tr><td><b>Govt Status</b></td><td><span class="hl-red">Suspends ordinary law & courts</span></td><td><span class="hl-green">Ordinary govt & courts continue</span></td></tr>
+        <tr><td><b>Reason</b></td><td>Restore order/rebellion</td><td>War, External Aggression, Armed Rebellion</td></tr>
+        <tr><td><b>Area</b></td><td>Specific localized area</td><td>Entire country or any specific part</td></tr>
+      </table>
+    </div>
+
+    <!-- Anti-Defection Law -->
+    <div class="card" style="border-left: 5px solid #00a8ff;">
+      <div class="tag bg-law">10th Sch</div>
+      <h3 class="card-title color-law">⚖️ Anti-Defection Law "Gotchas"</h3>
+      <ul>
+        <li><b>The Nominated Member Trap:</b> Disqualified if they join a party <span class="highlight">AFTER 6 months</span> of taking seat. <i>(They are safe if they join within first 6 months)</i>.</li>
+        <li><b>The Independent Member Trap:</b> Disqualified if they join ANY political party <span class="hl-red">at ANY time</span> after election.</li>
+        <li><b>The Merger Exception:</b> Disqualification bypassed if <span class="highlight">2/3rd of legislative members</span> agree to merge with another party.</li>
+        <li><b>Deciding Authority:</b> The Presiding Officer (Speaker/Chairman).<br>
+        <span class="hl-purple">🔥 Kihoto Hollohan case (1992):</span> Decision is NOT immune; it is <span class="highlight">subject to Judicial Review!</span></li>
+      </ul>
     </div>
 
   </div>
