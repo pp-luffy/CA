@@ -7,10 +7,11 @@
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0b0f19">
+    <meta name="theme-color" content="#020617">
     <link rel="apple-touch-icon" href="icon-192.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Architects+Daughter&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Added Orbitron for the futuristic look -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Orbitron:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -21,8 +22,9 @@
                         slate: { 850: '#151e3f', 900: '#0f172a', 950: '#090d16' }
                     },
                     fontFamily: {
-                        sketch: ['"Caveat"', '"Patrick Hand"', 'cursive', 'sans-serif'],
-                        sans: ['"Inter"', 'sans-serif']
+                        sketch: ['"Caveat"', 'cursive', 'sans-serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                        tech: ['"Orbitron"', 'sans-serif']
                     }
                 }
             }
@@ -30,160 +32,202 @@
     </script>
     <style>
         :root {
-            --bg-color: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b;
-            --primary-blue: #2563eb; --card-bg-white: #ffffff;
-            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-            --border-color: rgba(148, 163, 184, 0.2);
+            /* Futuristic Light Theme */
+            --bg-color: #f1f5f9; 
+            --text-dark: #0f172a; 
+            --text-muted: #64748b;
+            --primary-blue: #0ea5e9; 
+            --card-bg-white: rgba(255, 255, 255, 0.8);
+            --shadow-subtle: 0 4px 15px -1px rgba(14, 165, 233, 0.1);
+            --shadow-hover: 0 10px 25px -3px rgba(14, 165, 233, 0.3);
+            --border-color: rgba(14, 165, 233, 0.3);
+            --neon-glow: rgba(14, 165, 233, 0.4);
         }
 
         [data-theme="dark"] {
-            --bg-color: #0b0f19; --text-dark: #f8fafc; --text-muted: #94a3b8;
-            --primary-blue: #3b82f6; --card-bg-white: #1e293b;
-            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-            --border-color: rgba(148, 163, 184, 0.15);
+            /* Cyberpunk / Futuristic Dark Theme */
+            --bg-color: #020617; 
+            --text-dark: #e2e8f0; 
+            --text-muted: #94a3b8;
+            --primary-blue: #00f0ff; 
+            --card-bg-white: rgba(15, 23, 42, 0.65);
+            --shadow-subtle: 0 4px 15px -1px rgba(0, 240, 255, 0.1);
+            --shadow-hover: 0 0 20px 2px rgba(0, 240, 255, 0.25);
+            --border-color: rgba(0, 240, 255, 0.25);
+            --neon-glow: rgba(0, 240, 255, 0.6);
         }
 
         * { box-sizing: border-box; }
         body {
-            margin: 0; padding: 20px 16px; background-color: var(--bg-color);
-            background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
-            background-size: 24px 24px; color: var(--text-dark);
+            margin: 0; padding: 20px 16px; 
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 30px 30px; 
+            background-position: center center;
+            color: var(--text-dark);
             font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.5;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .container { width: 100%; max-width: 1350px; margin: 0 auto; }
-        .top-toolbar {
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--card-bg-white); border: 1px solid var(--border-color);
-            border-radius: 18px; padding: 12px 20px; margin-bottom: 20px;
-            box-shadow: var(--shadow-subtle); flex-wrap: wrap; gap: 12px; backdrop-filter: blur(12px);
+        .container { width: 100%; max-width: 1350px; margin: 0 auto; position: relative; z-index: 1; }
+        
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: var(--card-bg-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-subtle);
         }
 
-        .brand-title { font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
-        .streak-badge { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.25); }
-        .toolbar-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .top-toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 20px; margin-bottom: 20px;
+            flex-wrap: wrap; gap: 12px; 
+        }
+
+        .brand-title { 
+            font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1.2rem; 
+            display: flex; align-items: center; gap: 10px; 
+            color: var(--primary-blue); text-shadow: 0 0 8px var(--neon-glow);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .streak-badge { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); font-family: 'Inter', sans-serif; text-shadow: none; }
+        .toolbar-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        
         .view-switch-bar { display: none; justify-content: center; margin-bottom: 20px; }
-        .switch-container { background: var(--card-bg-white); padding: 4px; border-radius: 16px; border: 1px solid var(--border-color); display: inline-flex; gap: 6px; box-shadow: var(--shadow-subtle); flex-wrap: wrap; justify-content: center; }
-        .switch-btn { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; padding: 8px 18px; border-radius: 12px; cursor: pointer; border: none; background: transparent; color: var(--text-muted); transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px; }
-        .switch-btn.active { background: var(--primary-blue); color: white; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25); }
-        .switch-btn:hover:not(.active) { color: var(--primary-blue); background: rgba(37, 99, 235, 0.05); }
+        .switch-container { padding: 6px; display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        .switch-btn { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: 600; padding: 10px 20px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; background: transparent; color: var(--text-muted); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 1px; }
+        .switch-btn.active { background: rgba(0, 240, 255, 0.1); color: var(--primary-blue); border-color: var(--primary-blue); box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2), 0 0 10px rgba(0, 240, 255, 0.2); }
+        .switch-btn:hover:not(.active) { color: var(--primary-blue); border-color: var(--border-color); }
 
-        .control-hub { display: none; background: var(--card-bg-white); padding: 16px 20px; border-radius: 18px; margin-bottom: 22px; border: 1px solid var(--border-color); box-shadow: var(--shadow-subtle); gap: 12px; flex-direction: column; width: 100%; }
+        .control-hub { display: none; padding: 16px 20px; margin-bottom: 22px; gap: 16px; flex-direction: column; width: 100%; }
         .search-row { display: flex; gap: 10px; align-items: center; width: 100%; }
-        .search-input { width: 100%; padding: 11px 16px; border-radius: 12px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: all 0.2s ease; }
-        .search-input:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); background: var(--card-bg-white); }
+        .search-input { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.2); color: var(--text-dark); font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: all 0.3s ease; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .search-input:focus { border-color: var(--primary-blue); box-shadow: 0 0 12px var(--neon-glow), inset 0 2px 4px rgba(0,0,0,0.2); background: rgba(0, 240, 255, 0.02); }
 
-        .filters-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 10px; border-top: 1px dashed var(--border-color); width: 100%; }
-        .filter-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-        .filter-dropdown { padding: 7px 12px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; outline: none; cursor: pointer; transition: border-color 0.2s; }
-        .filter-dropdown:focus { border-color: var(--primary-blue); }
+        .filters-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border-color); width: 100%; }
+        .filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .filter-label { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--primary-blue); text-transform: uppercase; letter-spacing: 1px; }
+        .filter-dropdown { padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.2); color: var(--text-dark); font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; outline: none; cursor: pointer; transition: all 0.3s; }
+        .filter-dropdown:focus, .filter-dropdown:hover { border-color: var(--primary-blue); box-shadow: 0 0 8px var(--neon-glow); }
 
-        .filter-pill { font-size: 0.8rem; font-weight: 600; padding: 6px 12px; border-radius: 12px; background: var(--bg-color); color: var(--text-muted); cursor: pointer; border: 1.5px solid var(--border-color); transition: all 0.2s ease; }
-        .filter-pill:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: rgba(37, 99, 235, 0.04); }
-        .filter-pill.active { background: var(--primary-blue); color: white; border-color: var(--primary-blue); box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); }
+        .filter-pill { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: 600; padding: 8px 14px; border-radius: 8px; background: rgba(0,0,0,0.2); color: var(--text-muted); cursor: pointer; border: 1px solid var(--border-color); transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }
+        .filter-pill:hover { border-color: var(--primary-blue); color: var(--primary-blue); box-shadow: 0 0 10px rgba(0, 240, 255, 0.2); }
+        .filter-pill.active { background: rgba(0, 240, 255, 0.15); color: var(--primary-blue); border-color: var(--primary-blue); box-shadow: 0 0 12px var(--neon-glow); }
 
-        .btn { font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; padding: 8px 14px; border-radius: 10px; cursor: pointer; border: 2px solid var(--primary-blue); background: var(--primary-blue); color: white; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); white-space: nowrap; }
+        .btn { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: 600; padding: 10px 16px; border-radius: 8px; cursor: pointer; border: 1px solid var(--primary-blue); background: rgba(0, 240, 255, 0.1); color: var(--primary-blue); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 8px rgba(0, 240, 255, 0.2); }
         .btn-outline { background: transparent; color: var(--text-dark); border-color: var(--border-color); box-shadow: none; }
-        .btn-outline:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: rgba(37, 99, 235, 0.04); }
-        .btn-success { background: #16a34a; border-color: #16a34a; }
-        .btn-amber { background: #d97706; border-color: #d97706; }
-        .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25); }
+        .btn-outline:hover, .btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: rgba(0, 240, 255, 0.15); box-shadow: 0 0 15px var(--neon-glow); transform: translateY(-2px); }
+        .btn-success { border-color: #10b981; color: #10b981; background: rgba(16, 185, 129, 0.1); box-shadow: 0 0 8px rgba(16, 185, 129, 0.2); }
+        .btn-success:hover { border-color: #34d399; color: #34d399; background: rgba(16, 185, 129, 0.2); box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+        .btn-amber { border-color: #f59e0b; color: #f59e0b; background: rgba(245, 158, 11, 0.1); box-shadow: 0 0 8px rgba(245, 158, 11, 0.2); }
+        .btn-amber:hover { border-color: #fbbf24; color: #fbbf24; background: rgba(245, 158, 11, 0.2); box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
 
-        .loading-section { text-align: center; background: var(--card-bg-white); border: 2px dashed var(--border-color); border-radius: 20px; padding: 60px 20px; margin-bottom: 30px; box-shadow: var(--shadow-subtle); }
-        .spinner { width: 44px; height: 44px; border: 4px solid var(--border-color); border-top: 4px solid var(--primary-blue); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+        .loading-section { text-align: center; border: 1px dashed var(--primary-blue); border-radius: 12px; padding: 60px 20px; margin-bottom: 30px; background: rgba(0, 240, 255, 0.02); }
+        .spinner { width: 44px; height: 44px; border: 3px solid rgba(0, 240, 255, 0.2); border-top: 3px solid var(--primary-blue); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; box-shadow: 0 0 15px var(--neon-glow); }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .list-container { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; width: 100%; }
 
-        .edition-box { background: var(--card-bg-white); border: 2px solid var(--border-color); border-radius: 18px; padding: 18px 22px; box-shadow: var(--shadow-subtle); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
-        .edition-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--primary-blue); }
+        .edition-box { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .edition-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary-blue); box-shadow: 0 0 10px var(--primary-blue); transform: scaleY(0); transition: transform 0.3s ease; origin: top; }
+        .edition-box:hover::before { transform: scaleY(1); }
+        .edition-box:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--primary-blue); background: rgba(0, 240, 255, 0.03); }
+
+        /* Folders specifically */
+        .futuristic-folder .folder-icon { font-size: 2rem; filter: drop-shadow(0 0 8px var(--primary-blue)); transition: transform 0.3s; }
+        .futuristic-folder:hover .folder-icon { transform: scale(1.1); }
+        .module-title { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; margin: 0 0 6px; color: var(--primary-blue); text-shadow: 0 0 5px var(--neon-glow); letter-spacing: 1px; }
 
         .sketch-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px dashed #38bdf8;
-            border-radius: 18px;
-            padding: 22px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid var(--primary-blue);
+            border-radius: 12px;
+            padding: 24px;
             position: relative;
-            box-shadow: var(--shadow-subtle);
+            box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05), 0 5px 15px rgba(0,0,0,0.3);
             margin-bottom: 16px;
             color: #f8fafc;
         }
-        .handwritten { font-family: 'Caveat', cursive; }
+        .handwritten { font-family: 'Caveat', cursive; font-size: 1.5rem; color: #38bdf8; text-shadow: 0 0 5px rgba(56, 189, 248, 0.4); }
 
-        .bookmark-btn { position: absolute; top: 16px; right: 18px; background: transparent; border: none; cursor: pointer; font-size: 1.3rem; color: #cbd5e1; transition: transform 0.2s, color 0.2s; z-index: 10; }
-        .bookmark-btn:hover { transform: scale(1.2); }
-        .bookmark-btn.bookmarked { color: #f59e0b; }
+        .bookmark-btn { position: absolute; top: 16px; right: 18px; background: transparent; border: none; cursor: pointer; font-size: 1.4rem; color: #cbd5e1; transition: all 0.3s; z-index: 10; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .bookmark-btn:hover { transform: scale(1.2); color: #fff; }
+        .bookmark-btn.bookmarked { color: #f59e0b; text-shadow: 0 0 15px #f59e0b; }
 
-        .tts-btn { position: absolute; top: 16px; right: 50px; background: transparent; border: none; cursor: pointer; font-size: 1.3rem; transition: transform 0.2s; opacity: 0.8; z-index: 10; }
-        .tts-btn:hover { transform: scale(1.2); opacity: 1; }
+        .tts-btn { position: absolute; top: 16px; right: 54px; background: transparent; border: none; cursor: pointer; font-size: 1.4rem; transition: all 0.3s; opacity: 0.7; z-index: 10; filter: drop-shadow(0 0 5px rgba(0,240,255,0.5)); }
+        .tts-btn:hover { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px var(--primary-blue)); }
 
-        mark { background-color: rgba(234, 179, 8, 0.4); padding: 2px 4px; border-radius: 4px; font-weight: bold; color: #fef08a; }
+        mark { background-color: rgba(0, 240, 255, 0.2); padding: 2px 4px; border-radius: 4px; font-weight: bold; color: var(--primary-blue); box-shadow: 0 0 5px var(--neon-glow); }
 
         #monthly-page, #reader-page, #shortnotes-page { display: none; width: 100%; }
+        
         @media (max-width: 768px) {
             body { padding: 12px 8px; }
             .top-toolbar { flex-direction: column; align-items: stretch; }
             .toolbar-actions { width: 100%; justify-content: space-between; }
-            .toolbar-actions .btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 8px; }
-            .filters-row { flex-direction: column; align-items: stretch; gap: 10px; }
+            .toolbar-actions .btn { flex: 1; justify-content: center; font-size: 0.75rem; padding: 10px 8px; }
+            .filters-row { flex-direction: column; align-items: stretch; gap: 12px; }
             .filter-group { width: 100%; justify-content: space-between; }
             .filter-dropdown { width: 100%; }
             .edition-box { flex-direction: column; align-items: flex-start; }
+            .switch-btn { flex: 1; justify-content: center; font-size: 0.75rem; padding: 10px 4px; }
         }
     </style>
 </head>
 <body data-theme="dark">
 <div class="container">
-    <div class="top-toolbar">
+    <div class="top-toolbar glass-panel">
         <div class="brand-title">
-            <span>📚</span> UPSC Hub (Sketchnote Edition)
-            <div class="streak-badge" id="streak-counter">🔥 0</div>
+            <span style="font-size: 1.4rem;">⎔</span> UPSC DATA HUB
+            <div class="streak-badge" id="streak-counter">⚡ 0</div>
         </div>
         <div class="toolbar-actions">
-            <button class="btn btn-outline" id="upload-btn">📤 Upload</button>
-            <button class="btn btn-outline" id="refresh-btn">🔄 Refresh</button>
-            <button class="btn btn-amber" id="random-card-btn" style="display: none;">🎲 Random</button>
-            <button class="btn btn-success" id="master-export-btn" style="display: none;">📥 Export</button>
-            <button class="btn btn-outline" id="theme-btn">☀️</button>
+            <button class="btn btn-outline" id="upload-btn">📤 UPLOAD</button>
+            <button class="btn btn-outline" id="refresh-btn">🔄 SYNC</button>
+            <button class="btn btn-amber" id="random-card-btn" style="display: none;">🎲 RANDOM</button>
+            <button class="btn btn-success" id="master-export-btn" style="display: none;">📥 EXPORT</button>
+            <button class="btn btn-outline" id="theme-btn" style="padding: 10px 14px;">☀️</button>
         </div>
     </div>
 
     <div class="view-switch-bar" id="view-switch-bar">
-        <div class="switch-container">
-            <button class="switch-btn active" id="switch-weekly-btn">📂 Weekly Reports</button>
-            <button class="switch-btn" id="switch-monthly-btn">📅 Monthly Reports</button>
-            <button class="switch-btn" id="switch-shortnotes-btn">📝 Shortnotes</button>
+        <div class="switch-container glass-panel">
+            <button class="switch-btn active" id="switch-weekly-btn">📂 WEEKLY LOGS</button>
+            <button class="switch-btn" id="switch-monthly-btn">📅 MONTHLY LOGS</button>
+            <button class="switch-btn" id="switch-shortnotes-btn">📝 SHORTNOTES</button>
         </div>
     </div>
 
-    <div class="loading-section" id="loading-box">
+    <div class="loading-section glass-panel" id="loading-box">
         <div class="spinner"></div>
-        <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--primary-blue); margin: 0 0 8px;">Syncing Sketchnote Archives...</h3>
-        <div id="loading-subtext" style="color: var(--text-muted); font-size: 0.95rem;">Finding files in relative folders</div>
+        <h3 style="font-family: 'Orbitron', sans-serif; font-size: 1.4rem; color: var(--primary-blue); margin: 0 0 8px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px var(--neon-glow);">Syncing Databanks...</h3>
+        <div id="loading-subtext" style="color: var(--text-muted); font-size: 0.95rem; font-family: 'Inter', sans-serif;">Initializing neural links</div>
     </div>
 
-    <div class="control-hub" id="control-hub">
+    <div class="control-hub glass-panel" id="control-hub">
         <div class="search-row">
-            <input type="text" class="search-input" id="global-search-input" placeholder="🔍 Search keywords across sketchnotes...">
+            <input type="text" class="search-input" id="global-search-input" placeholder="🔍 Query database nodes...">
         </div>
         <div class="filters-row">
             <div class="filter-group" id="month-filter-group">
-                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">MONTH:</span>
-                <select id="month-dropdown" class="filter-dropdown"><option value="ALL">All Months</option></select>
+                <span class="filter-label">CYCLE:</span>
+                <select id="month-dropdown" class="filter-dropdown"><option value="ALL">All Cycles</option></select>
             </div>
             
             <div class="filter-group" id="subject-filter-group" style="display: none;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">SUBJECT:</span>
-                <select id="subject-dropdown" class="filter-dropdown"><option value="ALL">All Subjects</option></select>
+                <span class="filter-label">NODE:</span>
+                <select id="subject-dropdown" class="filter-dropdown"><option value="ALL">All Nodes</option></select>
             </div>
             
             <div class="filter-group" id="tag-filters-container">
-                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FILTER:</span>
-                <button class="filter-pill active" data-tag="ALL">All</button>
-                <button class="filter-pill" data-tag="Starred">⭐ Saved</button>
+                <span class="filter-label">PARAM:</span>
+                <button class="filter-pill active" data-tag="ALL">Universal</button>
+                <button class="filter-pill" data-tag="Starred">⭐ Favorited</button>
             </div>
         </div>
     </div>
@@ -193,54 +237,54 @@
     <div id="shortnotes-page"><div class="list-container" id="shortnotes-results"></div></div>
 
     <div id="reader-page">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: var(--card-bg-white); padding: 14px 20px; border-radius: 16px; border: 1px solid var(--border-color);">
-            <button class="btn btn-outline" id="back-to-hub-btn">⬅️ Back</button>
-            <h3 id="reader-title" style="margin: 0; font-family: 'Architects Daughter', cursive; color: var(--primary-blue);"></h3>
-            <button class="btn" onclick="window.print()">🖨️ Print</button>
+        <div class="glass-panel" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 16px 20px;">
+            <button class="btn btn-outline" id="back-to-hub-btn">⬅️ ABORT</button>
+            <h3 id="reader-title" style="margin: 0; font-family: 'Orbitron', sans-serif; color: var(--primary-blue); text-shadow: 0 0 8px var(--neon-glow); font-size: 1.2rem; text-transform: uppercase;"></h3>
+            <button class="btn" onclick="window.print()">🖨️ PRINT</button>
         </div>
         <div class="list-container" id="reader-cards-container"></div>
     </div>
 </div>
 
 <!-- Upload Modal -->
-<div id="upload-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; padding: 16px; backdrop-filter: blur(4px); align-items: center; justify-content: center;">
-    <div style="background: var(--card-bg-white); padding: 20px; border-radius: 18px; width: 100%; max-width: 500px; box-shadow: var(--shadow-hover); max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
-        <h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin: 0; font-size: 1.4rem;">📤 Upload New File</h3>
+<div id="upload-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; padding: 16px; backdrop-filter: blur(8px); align-items: center; justify-content: center;">
+    <div class="glass-panel" style="padding: 24px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--primary-blue); box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);">
+        <h3 style="font-family: 'Orbitron', sans-serif; color: var(--primary-blue); margin: 0; font-size: 1.4rem; text-shadow: 0 0 10px var(--neon-glow); text-transform: uppercase;">📤 UPLOAD DATA</h3>
         
         <div>
-            <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">GITHUB TOKEN</label>
-            <input type="password" id="gh-token" class="search-input" placeholder="ghp_xxxxxxxxxxxxxxxxx" style="padding: 8px 12px;">
+            <label class="filter-label" style="display: block; margin-bottom: 6px;">AUTH TOKEN</label>
+            <input type="password" id="gh-token" class="search-input" placeholder="ghp_xxxxxxxxxxxxxxxxx" style="padding: 10px 14px;">
         </div>
 
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 120px;">
-                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FOLDER</label>
-                <select id="upload-folder" class="search-input" style="padding: 8px 12px;">
+                <label class="filter-label" style="display: block; margin-bottom: 6px;">DIRECTORY</label>
+                <select id="upload-folder" class="search-input" style="padding: 10px 14px;">
                     <option value="html/weekly">Weekly</option>
                     <option value="html/monthly">Monthly</option>
                     <option value="html/Shortnotes">Shortnotes</option>
                 </select>
             </div>
             <div style="flex: 1; min-width: 120px; display: none;" id="upload-subject-container">
-                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">SUBJECT</label>
-                <input type="text" id="upload-subject" class="search-input" placeholder="e.g. Polity" style="padding: 8px 12px;">
+                <label class="filter-label" style="display: block; margin-bottom: 6px;">NODE (SUBJECT)</label>
+                <input type="text" id="upload-subject" class="search-input" placeholder="e.g. Polity" style="padding: 10px 14px;">
             </div>
             <div style="flex: 2; min-width: 200px;">
-                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">FILENAME</label>
-                <input type="text" id="upload-filename" class="search-input" placeholder="e.g. Previous_PMs.html" style="padding: 8px 12px;">
+                <label class="filter-label" style="display: block; margin-bottom: 6px;">FILENAME</label>
+                <input type="text" id="upload-filename" class="search-input" placeholder="e.g. Data.html" style="padding: 10px 14px;">
             </div>
         </div>
 
         <div>
-            <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">HTML CODE</label>
-            <textarea id="upload-content" class="search-input" rows="6" placeholder="Paste your HTML cards here..." style="padding: 8px 12px; resize: vertical; font-family: monospace; font-size: 0.85rem;"></textarea>
+            <label class="filter-label" style="display: block; margin-bottom: 6px;">HTML PAYLOAD</label>
+            <textarea id="upload-content" class="search-input" rows="6" placeholder="Inject HTML logic here..." style="padding: 10px 14px; resize: vertical; font-family: monospace; font-size: 0.85rem; background: rgba(0,0,0,0.4);"></textarea>
         </div>
 
-        <div id="upload-status" style="font-size: 0.85rem; font-weight: 600; text-align: center; display: none;"></div>
+        <div id="upload-status" style="font-size: 0.9rem; font-weight: 600; text-align: center; display: none; font-family: 'Orbitron', sans-serif;"></div>
 
-        <div style="display: flex; gap: 10px; margin-top: 10px;">
-            <button id="submit-upload-btn" class="btn btn-success" style="flex: 1; justify-content: center;">Push to GitHub</button>
-            <button id="close-upload-btn" class="btn btn-outline" style="flex: 1; justify-content: center;">Cancel</button>
+        <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button id="submit-upload-btn" class="btn btn-success" style="flex: 1; justify-content: center;">TRANSMIT</button>
+            <button id="close-upload-btn" class="btn btn-outline" style="flex: 1; justify-content: center;">ABORT</button>
         </div>
     </div>
 </div>
@@ -285,6 +329,7 @@
     let allFilesData = [], allMonthlyFilesData = [], allShortnotesFilesData = [];
     let allExtractedCards = [], allMonthlyCards = [], allShortnotesCards = [];
     let currentFilterMonth = 'ALL', currentFilterSubject = 'ALL', currentFilterTag = 'ALL', searchQuery = '', currentActiveTab = 'weekly';
+    let activeShortnoteSubject = null; // New state variable for subject grouping
     let bookmarkedCards = JSON.parse(localStorage.getItem('upsc_bookmarks') || '{}');
 
     // Theme Management
@@ -353,7 +398,7 @@
     refreshBtn.addEventListener('click', () => {
         weeksList.style.display = 'none'; monthlyPage.style.display = 'none'; shortnotesPage.style.display = 'none';
         controlHub.style.display = 'none'; readerPage.style.display = 'none';
-        loadingBox.style.display = 'block'; loadingSubtext.innerText = 'Refreshing sketchnotes...';
+        loadingBox.style.display = 'block'; loadingSubtext.innerText = 'Refreshing Data Nodes...';
         allFilesData = []; allMonthlyFilesData = []; allShortnotesFilesData = [];
         allExtractedCards = []; allMonthlyCards = []; allShortnotesCards = [];
         initializeApp();
@@ -372,7 +417,7 @@
             localStorage.setItem('upsc_last_visit', today);
             localStorage.setItem('upsc_streak', streak);
         }
-        streakCounter.innerText = `🔥 ${streak}`;
+        streakCounter.innerText = `⚡ ${streak}`;
     }
     updateStreak();
 
@@ -389,50 +434,16 @@
         return { owner, repo };
     }
 
-    function getAuthHeaders() {
-        const token = localStorage.getItem('upsc_gh_token');
-        return token ? { 'Authorization': `token ${token}` } : {};
-    }
-
-    async function getFileList(folder) {
-        try {
-            const res = await fetch(`manifest.json?v=${Date.now()}`);
-            if (!res.ok) return [];
-            const manifest = await res.json();
-            
-            if (folder === 'html/weekly') return manifest.weekly || [];
-            if (folder === 'html/monthly') return manifest.monthly || [];
-            return [];
-        } catch (err) { 
-            console.error(`Failed to load manifest for ${folder}`, err);
-            return []; 
-        }
-    }
-
-    async function getNestedShortnotesList() {
-        try {
-            const res = await fetch(`manifest.json?v=${Date.now()}`);
-            if (!res.ok) return [];
-            const manifest = await res.json();
-            return manifest.shortnotes || [];
-        } catch (err) {
-            console.error('Failed to load shortnotes from manifest', err);
-            return [];
-        }
-    }
-
-    let repoVersion = ''; // Store it globally
+    let repoVersion = ''; 
 
     async function initializeApp() {
         try {
-            loadingSubtext.innerText = 'Checking for updates...';
+            loadingSubtext.innerText = 'Establishing Uplink...';
             
-            // 1. Always fetch the manifest fresh from the network
             const res = await fetch(`manifest.json?nocache=${Date.now()}`);
             if (!res.ok) throw new Error('Manifest not found');
             const manifest = await res.json();
             
-            // 2. Save the repo version timestamp
             repoVersion = manifest.timestamp || Date.now();
 
             const filesList = (manifest.weekly || []).map(f => {
@@ -471,53 +482,16 @@
             controlHub.style.display = 'flex';
             triggerTabSwitch(currentActiveTab);
 
-            // 3. Hydrate files using the versioned timestamp
             backgroundHydrateFiles();
 
         } catch (err) { 
-            loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0;">Error Loading</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; 
+            loadingBox.innerHTML = `<h3 style="color:#ef4444; margin:0; font-family:'Orbitron',sans-serif;">UPLINK FAILED</h3><p style="color:var(--text-muted); font-size: 0.9rem; margin-top:8px;">${err.message}</p>`; 
         }
     }
 
-    async function backgroundHydrateFiles() {
-        // Use the manifest timestamp instead of Date.now()
-        const versionQuery = `?v=${repoVersion}`;
-        
-        async function hydrate(fileObj, folderPath, listRef, type) {
-            try {
-                // The Service Worker will cache this specific version string.
-                // If repoVersion hasn't changed, this loads instantly from cache.
-                const res = await fetch(`${folderPath}/${fileObj.filename}${versionQuery}`);
-                if (!res.ok) return;
-                const htmlText = await res.text();
-                const doc = new DOMParser().parseFromString(htmlText, 'text/html');
-                const domCards = doc.querySelectorAll('.sketch-card, .card');
-                
-                domCards.forEach((cardEl, idx) => {
-                    const cardId = `${type}_${fileObj.filename}_${idx}`;
-                    const cObj = { 
-                        id: cardId, filename: fileObj.filename, 
-                        cardHTML: cardEl.outerHTML, cardText: cardEl.innerText.toLowerCase(),
-                        formattedRange: fileObj.formattedRange, displayTitle: fileObj.displayTitle, subject: fileObj.subject
-                    };
-                    fileObj.cards.push(cObj);
-                    listRef.push(cObj);
-                });
-                fileObj.loaded = true;
-                applyFiltersAndRender();
-            } catch(e) { console.error("Hydration failed for", fileObj.filename); }
-        }
-
-        for (let f of allFilesData) await hydrate(f, 'html/weekly', allExtractedCards, 'weekly');
-        for (let m of allMonthlyFilesData) await hydrate(m, 'html/monthly', allMonthlyCards, 'monthly');
-        for (let sn of allShortnotesFilesData) await hydrate(sn, `html/Shortnotes/${sn.subject}`, allShortnotesCards, 'sn');
-    }
-
-    // This runs silently in the background, populating cards for Search/Export
     async function backgroundHydrateFiles() {
         const timeBuster = `?v=${Date.now()}`;
         
-        // Helper to fetch and parse a single file
         async function hydrate(fileObj, folderPath, listRef, type) {
             try {
                 const res = await fetch(`${folderPath}/${fileObj.filename}${timeBuster}`);
@@ -537,17 +511,12 @@
                     listRef.push(cObj);
                 });
                 fileObj.loaded = true;
-                
-                // Re-render only if the user is looking at this tab so the "📌 X Sketchnotes" count updates
                 applyFiltersAndRender();
             } catch(e) { console.error("Hydration failed for", fileObj.filename); }
         }
 
-        // Process Weekly one by one
         for (let f of allFilesData) await hydrate(f, 'html/weekly', allExtractedCards, 'weekly');
-        // Process Monthly one by one
         for (let m of allMonthlyFilesData) await hydrate(m, 'html/monthly', allMonthlyCards, 'monthly');
-        // Process Shortnotes one by one
         for (let sn of allShortnotesFilesData) await hydrate(sn, `html/Shortnotes/${sn.subject}`, allShortnotesCards, 'sn');
     }
 
@@ -555,7 +524,7 @@
         const monthSet = new Set();
         files.forEach(f => { monthSet.add(f.startMonthYear); monthSet.add(f.endMonthYear); });
         monthlyFiles.forEach(m => { if (m.monthYearStr) monthSet.add(m.monthYearStr); });
-        let optionsHTML = `<option value="ALL">All Months</option>`;
+        let optionsHTML = `<option value="ALL">All Cycles</option>`;
         Array.from(monthSet).forEach(m => { optionsHTML += `<option value="${m}">${m}</option>`; });
         monthDropdown.innerHTML = optionsHTML;
     }
@@ -563,7 +532,7 @@
     function buildSubjectDropdown(snFiles) {
         const subjectSet = new Set();
         snFiles.forEach(s => { subjectSet.add(s.subject); });
-        let optionsHTML = `<option value="ALL">All Subjects</option>`;
+        let optionsHTML = `<option value="ALL">All Nodes</option>`;
         Array.from(subjectSet).forEach(s => { optionsHTML += `<option value="${s}">${s}</option>`; });
         subjectDropdown.innerHTML = optionsHTML;
     }
@@ -573,6 +542,7 @@
 
     function triggerTabSwitch(tabName) {
         currentActiveTab = tabName;
+        activeShortnoteSubject = null; // Reset shortnote folder view
         switchWeeklyBtn.classList.remove('active'); switchMonthlyBtn.classList.remove('active'); switchShortnotesBtn.classList.remove('active');
         weeksList.style.display = 'none'; monthlyPage.style.display = 'none'; shortnotesPage.style.display = 'none';
         
@@ -655,6 +625,7 @@
         const isWeekly = currentActiveTab === 'weekly';
         const isMonthly = currentActiveTab === 'monthly';
         const isShortnotes = currentActiveTab === 'shortnotes';
+        const isSearchMode = searchQuery !== ''; 
         
         const container = isWeekly ? weeksList : (isMonthly ? monthlyResults : shortnotesResults);
         container.innerHTML = '';
@@ -669,9 +640,65 @@
             filteredFiles = filteredFiles.filter(f => f.subject === currentFilterSubject);
         }
 
-        if (filteredFiles.length === 0) { container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted); background: var(--card-bg-white); border-radius: 14px; border: 1px solid var(--border-color);">No files found for this filter.</div>`; return; }
+        if (filteredFiles.length === 0) { 
+            container.innerHTML = `<div class="glass-panel" style="text-align:center; padding: 30px; color: var(--text-muted);">No records found in this vector.</div>`; 
+            return; 
+        }
 
-        let totalRendered = 0; const isSearchMode = searchQuery !== ''; 
+        // --- NEW FUTURISTIC SUBJECT GROUPING LOGIC FOR SHORTNOTES ---
+        if (isShortnotes && !activeShortnoteSubject && !isSearchMode) {
+            const subjects = [...new Set(filteredFiles.map(f => f.subject))];
+            if (subjects.length === 0) return;
+            
+            subjects.forEach(subject => {
+                const filesInSubject = filteredFiles.filter(f => f.subject === subject);
+                const totalCards = filesInSubject.reduce((acc, f) => acc + f.cards.length, 0);
+                
+                const folderBox = document.createElement('div'); 
+                folderBox.className = 'edition-box glass-panel futuristic-folder';
+                folderBox.innerHTML = `
+                    <div style="flex: 1; display: flex; align-items: center; gap: 16px;">
+                        <span class="folder-icon">📁</span>
+                        <div>
+                            <h3 class="module-title">${subject}</h3>
+                            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+                                ${filesInSubject.length} DATA FILES • 📌 ${totalCards} ENTRIES
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn btn-outline" style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; justify-content: center; align-items: center; font-size: 1.2rem;">➔</button>
+                    </div>
+                `;
+                folderBox.onclick = () => {
+                    activeShortnoteSubject = subject;
+                    applyFiltersAndRender();
+                };
+                container.appendChild(folderBox);
+            });
+            return; // Stop here, wait for folder click to render files
+        }
+
+        if (isShortnotes && activeShortnoteSubject && !isSearchMode) {
+            filteredFiles = filteredFiles.filter(f => f.subject === activeShortnoteSubject);
+            
+            const headerRow = document.createElement('div');
+            headerRow.className = 'glass-panel';
+            headerRow.style.cssText = "display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding: 12px 20px; border-left: 4px solid var(--primary-blue);";
+            headerRow.innerHTML = `
+                <button class="btn btn-outline" id="back-to-subjects" style="margin: 0; padding: 8px 12px;">⬅️ NODES</button>
+                <h2 style="margin: 0; font-family: 'Orbitron', sans-serif; color: var(--text-dark); text-shadow: 0 0 8px var(--neon-glow); text-transform: uppercase; font-size: 1.1rem;">${activeShortnoteSubject} DIRECTORY</h2>
+            `;
+            container.appendChild(headerRow);
+            
+            headerRow.querySelector('#back-to-subjects').onclick = () => {
+                activeShortnoteSubject = null;
+                applyFiltersAndRender();
+            };
+        }
+        // ------------------------------------------------------------
+
+        let totalRendered = 0; 
 
         filteredFiles.forEach(fileItem => {
             let matchedCards = fileItem.cards;
@@ -679,7 +706,6 @@
             if (currentFilterTag === 'Starred') matchedCards = matchedCards.filter(c => bookmarkedCards[c.id]);
             if (isSearchMode) matchedCards = matchedCards.filter(c => c.cardText.includes(searchQuery));
             
-            // Allow empty files to show up, unless user is actively searching or filtering by saved
             if (matchedCards.length === 0 && (isSearchMode || currentFilterTag === 'Starred')) return;
 
             if (isSearchMode && matchedCards.length > 0) {
@@ -692,37 +718,37 @@
                     totalRendered++;
                 });
             } else {
-                const editionBox = document.createElement('div'); editionBox.className = 'edition-box';
+                const editionBox = document.createElement('div'); editionBox.className = 'edition-box glass-panel';
                 let titleText = '', subText = '', fileUrl = '';
                 
                 if (isWeekly) {
-                    titleText = `Week: ${fileItem.formattedRange}`;
-                    subText = `📄 html/weekly/${fileItem.filename}`;
+                    titleText = `LOG: ${fileItem.formattedRange}`;
+                    subText = `html/weekly/${fileItem.filename}`;
                     fileUrl = `html/weekly/${fileItem.filename}`;
                 } else if (isMonthly) {
-                    titleText = `Monthly Sketchnotes: ${fileItem.displayTitle}`;
-                    subText = `📁 html/monthly/${fileItem.filename}`;
+                    titleText = `MONTHLY: ${fileItem.displayTitle}`;
+                    subText = `html/monthly/${fileItem.filename}`;
                     fileUrl = `html/monthly/${fileItem.filename}`;
                 } else {
-                    titleText = `[${fileItem.subject}] ${fileItem.displayTitle}`;
-                    subText = `📁 html/Shortnotes/${fileItem.subject}/${fileItem.filename}`;
+                    titleText = `FILE: ${fileItem.displayTitle}`;
+                    subText = `html/Shortnotes/${fileItem.subject}/${fileItem.filename}`;
                     fileUrl = `html/Shortnotes/${fileItem.subject}/${fileItem.filename}`;
                 }
                 
                 editionBox.innerHTML = `
                     <div style="flex: 1;">
-                        <h3 style="margin: 0 0 4px; font-family: 'Architects Daughter', cursive; font-size: 1.3rem; display: flex; align-items: center; gap: 6px;">${titleText}</h3>
-                        <div style="font-size: 0.82rem; color: var(--text-muted);">${subText} • 📌 ${matchedCards.length} Sketchnotes</div>
+                        <h3 style="margin: 0 0 4px; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--primary-blue); text-transform: uppercase; letter-spacing: 1px;">📄 ${titleText}</h3>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">${subText} • 📌 ${matchedCards.length} ENTRIES</div>
                     </div>
                     <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-outline open-reader-btn" style="position: relative; z-index: 2;">📖 Reader</button>
+                        <button class="btn btn-outline open-reader-btn" style="position: relative; z-index: 2;">📖 MOUNT</button>
                     </div>
                 `;
 
                 editionBox.onclick = (e) => {
                     if (e.target.closest('.open-reader-btn')) {
                         if (matchedCards.length > 0) openFullReaderPage(titleText, matchedCards);
-                        else alert("This file has no sketchnotes yet!");
+                        else alert("Data node empty!");
                     } else window.open(fileUrl, '_blank');
                 };
 
@@ -730,50 +756,55 @@
             }
         });
 
-        if (totalRendered === 0) container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted); background: var(--card-bg-white); border-radius: 14px; border: 1px solid var(--border-color);">No matches found for your search/filters.</div>`;
+        if (totalRendered === 0 && !isShortnotes) {
+            container.innerHTML = `<div class="glass-panel" style="text-align:center; padding: 30px; color: var(--text-muted);">No records match current parameters.</div>`;
+        } else if (totalRendered === 0 && isShortnotes && isSearchMode) {
+            container.innerHTML = `<div class="glass-panel" style="text-align:center; padding: 30px; color: var(--text-muted);">No records match current parameters.</div>`;
+        }
     }
 
     masterExportBtn.addEventListener('click', () => {
         const modalOverlay = document.createElement('div');
-        modalOverlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px);";
+        modalOverlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(8px);";
 
         const modalContent = document.createElement('div');
-        modalContent.style.cssText = "background: var(--card-bg-white); color: var(--text-dark); padding: 24px; border-radius: 18px; max-width: 440px; width: 100%; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); font-family: 'Inter', sans-serif;";
+        modalContent.className = 'glass-panel';
+        modalContent.style.cssText = "padding: 24px; max-width: 440px; width: 100%; border: 1px solid var(--primary-blue);";
 
         const monthSet = new Set();
         allExtractedCards.forEach(c => { monthSet.add(c.startMonthYear); monthSet.add(c.endMonthYear); });
         allMonthlyCards.forEach(c => { if (c.monthYearStr) monthSet.add(c.monthYearStr); });
 
-        let monthOptions = '<option value="ALL">All Months</option>';
+        let monthOptions = '<option value="ALL">All Cycles</option>';
         Array.from(monthSet).forEach(m => { monthOptions += `<option value="${m}">${m}</option>`; });
 
         modalContent.innerHTML = `
-            <h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin-top: 0; font-size: 1.4rem;">📥 Export Sketchnote Summary</h3>
-            <div style="margin-bottom: 14px;">
-                <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">SOURCE:</label>
-                <select id="export-source" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
-                    <option value="all">Weekly, Monthly & Shortnotes</option>
-                    <option value="weekly">Weekly Only</option>
-                    <option value="monthly">Monthly Only</option>
-                    <option value="shortnotes">Shortnotes Only</option>
+            <h3 style="font-family: 'Orbitron', sans-serif; color: var(--primary-blue); margin-top: 0; font-size: 1.4rem; text-transform: uppercase;">📥 EXPORT PROTOCOL</h3>
+            <div style="margin-bottom: 16px;">
+                <label class="filter-label" style="display: block; margin-bottom: 6px;">SOURCE NODE:</label>
+                <select id="export-source" class="search-input" style="padding: 10px; width: 100%;">
+                    <option value="all">Global Matrix</option>
+                    <option value="weekly">Weekly Core Only</option>
+                    <option value="monthly">Monthly Core Only</option>
+                    <option value="shortnotes">Shortnotes Core Only</option>
                 </select>
             </div>
-            <div style="margin-bottom: 14px;">
-                <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">MONTH (Weekly/Monthly):</label>
-                <select id="export-month" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
+            <div style="margin-bottom: 16px;">
+                <label class="filter-label" style="display: block; margin-bottom: 6px;">CYCLE (Weekly/Monthly):</label>
+                <select id="export-month" class="search-input" style="padding: 10px; width: 100%;">
                     ${monthOptions}
                 </select>
             </div>
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;">FILTER:</label>
-                <select id="export-tag" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
-                    <option value="ALL">All Sketchnotes</option>
-                    <option value="Starred">Bookmarked Only</option>
+            <div style="margin-bottom: 24px;">
+                <label class="filter-label" style="display: block; margin-bottom: 6px;">PARAM FILTER:</label>
+                <select id="export-tag" class="search-input" style="padding: 10px; width: 100%;">
+                    <option value="ALL">All Entities</option>
+                    <option value="Starred">Favorited Only</option>
                 </select>
             </div>
-            <div style="display: flex; gap: 10px;">
-                <button id="confirm-export-btn" class="btn" style="flex: 1; justify-content: center;">Download</button>
-                <button id="cancel-export-btn" class="btn btn-outline" style="flex: 1; justify-content: center;">Cancel</button>
+            <div style="display: flex; gap: 12px;">
+                <button id="confirm-export-btn" class="btn" style="flex: 1; justify-content: center;">EXTRACT</button>
+                <button id="cancel-export-btn" class="btn btn-outline" style="flex: 1; justify-content: center;">ABORT</button>
             </div>
         `;
 
@@ -799,23 +830,23 @@
 
             if (targetTag === 'Starred') pool = pool.filter(c => bookmarkedCards[c.id]);
 
-            if (pool.length === 0) { alert('No cards match selection.'); return; }
+            if (pool.length === 0) { alert('Extraction failed: 0 records.'); return; }
 
-            let exportText = `UPSC SKETCHNOTE EXPORT (${sourceType.toUpperCase()})\n==================================================\n\n`;
+            let exportText = `UPSC DATA EXTRACTION (${sourceType.toUpperCase()})\n==================================================\n\n`;
             pool.forEach((item, idx) => {
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = item.cardHTML;
-                const title = tempDiv.querySelector('.handwritten') ? tempDiv.querySelector('.handwritten').innerText : 'Topic';
+                const title = tempDiv.querySelector('.handwritten') ? tempDiv.querySelector('.handwritten').innerText : 'Topic Node';
                 const bullets = Array.from(tempDiv.querySelectorAll('li')).map(li => `- ${li.innerText}`).join('\n');
 
-                exportText += `[${idx + 1}] ${title}\nSource: ${item.formattedRange || item.displayTitle || item.subject}\n${bullets}\n`;
+                exportText += `[${idx + 1}] ${title}\nSource Node: ${item.formattedRange || item.displayTitle || item.subject}\n${bullets}\n`;
                 exportText += `--------------------------------------------------\n\n`;
             });
 
             const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url; a.download = `UPSC_Sketchnote_Export_${Date.now()}.txt`;
+            a.href = url; a.download = `Data_Extraction_${Date.now()}.txt`;
             document.body.appendChild(a); a.click(); document.body.removeChild(a); document.body.removeChild(modalOverlay);
         };
     });
@@ -831,16 +862,17 @@
         injectCardFeatures(cardEl, randomCard.id, randomCard.formattedRange || randomCard.displayTitle);
 
         const modalOverlay = document.createElement('div');
-        modalOverlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(4px);";
+        modalOverlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(8px);";
         
         const modalContent = document.createElement('div');
-        modalContent.style.cssText = "background: var(--card-bg-white); padding: 24px; border-radius: 18px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative;";
+        modalContent.className = 'glass-panel';
+        modalContent.style.cssText = "padding: 24px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid var(--primary-blue);";
         
         const closeBtn = document.createElement('button');
-        closeBtn.innerHTML = '✕ Close'; closeBtn.className = 'btn btn-outline'; closeBtn.style.cssText = "margin-top: 16px; width: 100%; justify-content: center;";
+        closeBtn.innerHTML = '✕ DISMISS'; closeBtn.className = 'btn btn-outline'; closeBtn.style.cssText = "margin-top: 20px; width: 100%; justify-content: center;";
         closeBtn.onclick = () => document.body.removeChild(modalOverlay);
 
-        modalContent.innerHTML = `<h3 style="font-family: 'Architects Daughter', cursive; color: var(--primary-blue); margin-top: 0; font-size: 1.3rem;">🎲 Random Sketchnote Card</h3>`;
+        modalContent.innerHTML = `<h3 style="font-family: 'Orbitron', sans-serif; color: var(--primary-blue); margin-top: 0; font-size: 1.3rem; text-transform: uppercase;">🎲 RANDOM NODE FETCH</h3>`;
         modalContent.appendChild(cardEl); modalContent.appendChild(closeBtn);
         modalOverlay.appendChild(modalContent); document.body.appendChild(modalOverlay);
     });
@@ -885,15 +917,15 @@
 
         if (!token || !filename || !content) {
             uploadStatus.style.display = 'block'; uploadStatus.style.color = '#ef4444';
-            uploadStatus.innerText = '⚠️ Token, filename, and content are required.'; return;
+            uploadStatus.innerText = '⚠️ Tokens, filename, and payload are required.'; return;
         }
 
         if (!filename.endsWith('.html')) filename += '.html';
         localStorage.setItem('upsc_gh_token', token);
 
-        submitUploadBtn.innerText = '⏳ Pushing...'; submitUploadBtn.disabled = true;
+        submitUploadBtn.innerText = '⏳ TRANSMITTING...'; submitUploadBtn.disabled = true;
         uploadStatus.style.display = 'block'; uploadStatus.style.color = 'var(--primary-blue)';
-        uploadStatus.innerText = 'Uploading to GitHub...';
+        uploadStatus.innerText = 'Connecting to Mainframe...';
 
         try {
             const utf8Bytes = new TextEncoder().encode(content);
@@ -912,22 +944,22 @@
             const data = await response.json();
 
             if (response.ok) {
-                uploadStatus.style.color = '#16a34a'; uploadStatus.innerText = '✅ Successfully uploaded! Refreshing hub...';
+                uploadStatus.style.color = '#10b981'; uploadStatus.innerText = '✅ Transmission Successful! Reloading...';
                 document.getElementById('upload-content').value = ''; document.getElementById('upload-filename').value = '';
                 setTimeout(() => { uploadModal.style.display = 'none'; document.getElementById('refresh-btn').click(); }, 1500);
-            } else { throw new Error(data.message || 'Failed to upload'); }
+            } else { throw new Error(data.message || 'Failed to push payload'); }
         } catch (error) {
             uploadStatus.style.color = '#ef4444'; uploadStatus.innerText = `❌ Error: ${error.message}`;
         } finally {
-            submitUploadBtn.innerText = 'Push to GitHub'; submitUploadBtn.disabled = false;
+            submitUploadBtn.innerText = 'TRANSMIT'; submitUploadBtn.disabled = false;
         }
     });
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js').then(registration => {
-                console.log('ServiceWorker registered with scope:', registration.scope);
-            }).catch(err => { console.log('ServiceWorker registration failed:', err); });
+                console.log('ServiceWorker Node registered:', registration.scope);
+            }).catch(err => { console.log('ServiceWorker registration failure:', err); });
         });
     }
 
