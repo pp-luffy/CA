@@ -1,5 +1,5 @@
 {
-  "timestamp": 1794682367454,
+  "timestamp": 1794682400117,
   "weekly": [
     "05102026-11102026.html",
     "12102026-18102026.html",
@@ -39,6 +39,10 @@
     {
       "subject": "Geography",
       "filename": "Plateau.html"
+    },
+    {
+      "subject": "Geography",
+      "filename": "images.html"
     },
     {
       "subject": "Polity",
