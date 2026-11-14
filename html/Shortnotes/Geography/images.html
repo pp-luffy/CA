@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Peninsular Plateau Sketchnote</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Peninsular Plateau Sketchnote Canvas</title>
   <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -18,27 +18,83 @@
       --card-bg: #2a2a2a;
     }
 
-    /* Global Box Sizing Fixes Layout & Scroll Issues */
     *, *::before, *::after {
       box-sizing: border-box;
     }
     
     html, body {
-      overflow-x: hidden; /* Prevents horizontal scroll jumping */
       width: 100%;
-      min-height: 100vh;
+      height: 100%;
       margin: 0;
       padding: 0;
+      overflow: hidden; /* Prevents default browser scrolling */
+      background-color: var(--bg);
+      font-family: 'Patrick Hand', cursive;
+      color: var(--text);
     }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Patrick Hand', cursive;
-      padding: 20px;
-      line-height: 1.5;
+    /* Canvas & Pan/Zoom System */
+    #canvas-container {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: grab;
+      touch-action: none; /* Crucial for custom touch panning */
+      background: radial-gradient(circle, #222 1px, transparent 1px);
+      background-size: 40px 40px; /* Dotted grid background */
     }
     
+    #canvas-container:active {
+      cursor: grabbing;
+    }
+
+    #board {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      max-width: 1200px;
+      transform-origin: 0 0;
+      padding: 40px 20px;
+      will-change: transform;
+    }
+
+    /* UI Controls */
+    #ui-controls {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1000;
+    }
+    
+    #ui-controls button {
+      background: var(--card-bg);
+      border: 2px solid #444;
+      color: var(--text);
+      font-size: 1.2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #ui-controls button:hover {
+      background: #444;
+      transform: scale(1.1);
+      border-color: var(--blue);
+    }
+
+    /* Content Styling */
     h1, h2, h3 {
       font-family: 'Kalam', cursive;
       text-align: center;
@@ -46,35 +102,36 @@
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       color: var(--yellow);
-      text-shadow: 2px 2px 4px #000;
-      margin-bottom: 20px;
-      padding-top: 10px;
+      text-shadow: 3px 3px 5px #000;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
     }
 
     /* Quick Revision Header */
     .revision-sheet {
       background: linear-gradient(135deg, #222, #333);
       border: 2px dashed var(--blue);
-      border-radius: 10px;
-      padding: 20px;
-      margin: 0 auto 40px auto;
-      max-width: 900px;
-      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5);
+      border-radius: 12px;
+      padding: 25px;
+      margin: 0 auto 50px auto;
+      max-width: 950px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.7);
     }
     
     .revision-sheet h2 {
       color: var(--blue);
-      margin-bottom: 15px;
-      font-size: 2.2rem;
+      margin-bottom: 20px;
+      font-size: 2.4rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
     
     .rev-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-      font-size: 1.2rem;
+      gap: 18px;
+      font-size: 1.3rem;
     }
     
     .rev-item span {
@@ -82,13 +139,11 @@
       font-weight: bold;
     }
 
-    /* Masonry Grid Fixes */
+    /* Masonry Grid */
     .masonry {
       column-count: 3;
       column-gap: 25px;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding-bottom: 40px; /* Extra space at the bottom for smooth scrolling */
+      padding-bottom: 50px;
     }
     
     @media (max-width: 992px) {
@@ -103,45 +158,41 @@
     .card {
       background-color: var(--card-bg);
       border: 1px solid #444;
-      border-radius: 8px;
-      padding: 25px 20px 20px 20px;
-      margin-bottom: 25px;
-      /* Critical fixes for column-count layout breaking & scrolling bugs */
+      border-radius: 10px;
+      padding: 25px 20px;
+      margin-bottom: 30px;
       display: inline-block; 
       width: 100%;
       break-inside: avoid;
-      page-break-inside: avoid;
-      /* ----------------------------------------------------------- */
       position: relative;
-      box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+      box-shadow: 6px 6px 18px rgba(0,0,0,0.6);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
     .card:hover {
       transform: rotate(-1deg) scale(1.02);
-      box-shadow: 8px 8px 20px rgba(0,0,0,0.8);
+      box-shadow: 10px 10px 25px rgba(0,0,0,0.9);
       z-index: 10;
     }
     
     .card h3 {
-      font-size: 1.8rem;
-      border-bottom: 2px solid #555;
-      padding-bottom: 8px;
-      margin-bottom: 15px;
+      font-size: 1.9rem;
+      border-bottom: 2px dashed #555;
+      padding-bottom: 10px;
+      margin-bottom: 18px;
     }
 
-    /* Tag position adjusted to prevent overflowing card bounds */
     .tag {
       position: absolute;
-      top: -12px;
-      right: 10px;
-      padding: 5px 15px;
-      border-radius: 4px;
+      top: -15px;
+      right: 15px;
+      padding: 6px 18px;
+      border-radius: 6px;
       font-family: 'Kalam', cursive;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
-      transform: rotate(3deg);
-      box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+      transform: rotate(4deg);
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.6);
       color: #111;
       letter-spacing: 0.5px;
     }
@@ -149,218 +200,341 @@
     ul {
       padding-left: 25px;
       margin: 0;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
+      line-height: 1.6;
     }
     
-    li {
-      margin-bottom: 10px;
-    }
+    li { margin-bottom: 12px; }
     
     .hl-green { color: var(--green); font-weight: bold; }
     .hl-blue { color: var(--blue); font-weight: bold; }
     .hl-yellow { color: var(--yellow); font-weight: bold; }
     .hl-purple { color: var(--purple); font-weight: bold; }
     .hl-orange { color: var(--orange); font-weight: bold; }
-
   </style>
 </head>
 <body>
 
-  <h1>🏞️ Peninsular Plateau</h1>
+  <!-- Floating UI Controls -->
+  <div id="ui-controls">
+    <button onclick="zoom(1.2)" title="Zoom In">➕</button>
+    <button onclick="zoom(0.8)" title="Zoom Out">➖</button>
+    <button onclick="resetZoom()" title="Reset View">🏠</button>
+  </div>
 
-  <!-- Ultra-Short Revision Sheet -->
-  <div class="revision-sheet">
-    <h2>⚡ Quick Revision Core Facts</h2>
-    <div class="rev-grid">
-      <div class="rev-item"><span>Area:</span> 16 lakh sq km (India is 32)</div>
-      <div class="rev-item"><span>Elevation:</span> 600-900 m Avg</div>
-      <div class="rev-item"><span>Shape:</span> Triangular (Apex: Kanniyakumari)</div>
-      <div class="rev-item"><span>Rocks:</span> Archaean gneisses, schists</div>
-      <div class="rev-item"><span>Slope:</span> West to East</div>
-      <div class="rev-item"><span>Exception:</span> Narmada-Tapti flow W in Rift</div>
-      <div class="rev-item"><span>Highest Peak (Meghalaya):</span> Shillong (1,961 m)</div>
-      <div class="rev-item"><span>Highest Peak (Karnataka):</span> Mulangiri (1,913 m)</div>
-      <div class="rev-item"><span>Coal Hub:</span> Gondwana rocks (Chotanagpur)</div>
-      <div class="rev-item"><span>Black Soil:</span> Malwa & Maharashtra (Lava origin)</div>
+  <div id="canvas-container">
+    <div id="board">
+      <h1>🏞️ Peninsular Plateau</h1>
+
+      <!-- Ultra-Short Revision Sheet -->
+      <div class="revision-sheet">
+        <h2>⚡ Quick Revision Core Facts</h2>
+        <div class="rev-grid">
+          <div class="rev-item"><span>Area:</span> 16 lakh sq km (India is 32)</div>
+          <div class="rev-item"><span>Elevation:</span> 600-900 m Avg</div>
+          <div class="rev-item"><span>Shape:</span> Triangular (Apex: Kanniyakumari)</div>
+          <div class="rev-item"><span>Rocks:</span> Archaean gneisses, schists</div>
+          <div class="rev-item"><span>Slope:</span> West to East</div>
+          <div class="rev-item"><span>Exception:</span> Narmada-Tapti flow W in Rift</div>
+          <div class="rev-item"><span>Highest Peak (Meghalaya):</span> Shillong (1,961 m)</div>
+          <div class="rev-item"><span>Highest Peak (Karnataka):</span> Mulangiri (1,913 m)</div>
+          <div class="rev-item"><span>Coal Hub:</span> Gondwana rocks (Chotanagpur)</div>
+          <div class="rev-item"><span>Black Soil:</span> Malwa & Maharashtra (Lava origin)</div>
+        </div>
+      </div>
+
+      <div class="masonry">
+        <!-- Overall Features -->
+        <div class="card" style="border-top: 5px solid var(--purple);">
+          <div class="tag" style="background-color: var(--purple);">General</div>
+          <h3 style="color: var(--purple);">Key Features</h3>
+          <ul>
+            <li>Base coincides with <span class="hl-yellow">North India Plain</span>, Apex at <span class="hl-yellow">Kanniyakumari</span>.</li>
+            <li>One of the <span class="hl-yellow">oldest landforms</span>, highly stable shield block.</li>
+            <li>Little structural change, never submerged (mostly).</li>
+            <li>Aggregation of smaller plateaus, hill ranges, river basins & valleys.</li>
+          </ul>
+        </div>
+
+        <!-- Marwar / Mewar -->
+        <div class="card" style="border-top: 5px solid var(--orange);">
+          <div class="tag" style="background-color: var(--orange);">Rajasthan</div>
+          <h3 style="color: var(--orange);">Marwar / Mewar Plateau</h3>
+          <ul>
+            <li>Located in <span class="hl-yellow">eastern Rajasthan</span> (East of Aravalis).</li>
+            <li>Elevation: <span class="hl-green">250-500 m</span>; Slopes <span class="hl-blue">eastwards</span>.</li>
+            <li>Rocks: Sandstone, shales, limestones of <span class="hl-yellow">Vindhayan period</span>.</li>
+            <li>Rivers: <span class="hl-blue">Banas</span> + tributaries flow NW to Chambal.</li>
+            <li>Appears as a <span class="hl-yellow">Rolling Plain</span> due to erosional activity.</li>
+          </ul>
+        </div>
+
+        <!-- Central Highland -->
+        <div class="card" style="border-top: 5px solid var(--green);">
+          <div class="tag" style="background-color: var(--green);">Central</div>
+          <h3 style="color: var(--green);">Central Highland</h3>
+          <ul>
+            <li>AKA <span class="hl-yellow">Madhya Bharat Pathar</span> (East of Marwar).</li>
+            <li>Comprises basin of <span class="hl-blue">Chambal river</span> (flows in rift valley).</li>
+            <li>Tributaries: Kali Sindh, Banas, Parwan, Parbati.</li>
+            <li>Features: Rolling plateau, rounded sandstone hills, thick forests.</li>
+            <li>North marked by <span class="hl-orange">Chambal Ravines (Badlands)</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Bundelkhand -->
+        <div class="card" style="border-top: 5px solid var(--blue);">
+          <div class="tag" style="background-color: var(--blue);">UP / MP</div>
+          <h3 style="color: var(--blue);">Bundelkhand Upland</h3>
+          <ul>
+            <li>Borders: Yamuna (N), Madhya Bharat (W), Vindhyan Scarp (E/SE), Malwa (S).</li>
+            <li>Made of <span class="hl-yellow">'Bundelkhand gneiss'</span> (granite/gneiss).</li>
+            <li>Elevation: <span class="hl-green">300-600 m</span>; Slopes down to <span class="hl-blue">Yamuna</span>.</li>
+            <li>Spread over 5 UP dists & 4 MP dists.</li>
+            <li>Characterized by <span class="hl-orange">Senile topography</span>, undulating, unfit for cultivation.</li>
+            <li>Rivers: <span class="hl-blue">Betwa, Dhasan, Ken</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Malwa -->
+        <div class="card" style="border-top: 5px solid var(--yellow);">
+          <div class="tag" style="background-color: var(--yellow);">Central</div>
+          <h3 style="color: var(--yellow);">Malwa Plateau</h3>
+          <ul>
+            <li>Triangle: Vindhyan Hills (base), Aravali (W), Madhya Bharat (N), Bundelkhand (E).</li>
+            <li>2 Drainages: <span class="hl-blue">Arabian Sea</span> (Narmada, Tapi) & <span class="hl-blue">Bay of Bengal</span> (Chambal).</li>
+            <li>North drained by Chambal, Kali, Sindh, Parbati, Ken, Betwa.</li>
+            <li>Composed of <span class="hl-orange">extensive lava flow</span> & covered in <span class="hl-yellow">Black Soils</span>.</li>
+            <li>Slope towards North (<span class="hl-green">600m to &lt;500m</span>).</li>
+          </ul>
+        </div>
+
+        <!-- Baghelkhand -->
+        <div class="card" style="border-top: 5px solid var(--purple);">
+          <div class="tag" style="background-color: var(--purple);">East-Central</div>
+          <h3 style="color: var(--purple);">Baghelkhand</h3>
+          <ul>
+            <li>Located North of <span class="hl-yellow">Maikal Range</span>.</li>
+            <li>Bounded by <span class="hl-blue">Son river</span> (North).</li>
+            <li>Rocks: Limestones/Sandstones (West), Granite (East).</li>
+            <li>Acts as <span class="hl-blue">Water Divide</span> between Son (N) and Mahanadi (S).</li>
+            <li>Elevation: <span class="hl-green">150 - 1,200 m</span>. Horizontal strata.</li>
+            <li>Bhanrer & Kaimur near trough-axis.</li>
+          </ul>
+        </div>
+
+        <!-- Chotanagpur -->
+        <div class="card" style="border-top: 5px solid var(--orange);">
+          <div class="tag" style="background-color: var(--orange);">North-East</div>
+          <h3 style="color: var(--orange);">Chotanagpur Plateau</h3>
+          <ul>
+            <li>NE projection (Jharkhand, N. Chhatisgarh, Purulia).</li>
+            <li>Avg Elev: <span class="hl-green">700 m</span>. Mainly <span class="hl-yellow">Gondwana rocks</span>.</li>
+            <li>Drainage: <span class="hl-blue">Radial pattern</span> (Damodar, N/S Koel, Barkar).</li>
+            <li><span class="hl-blue">Damodar River</span> flows W to E in rift valley = <span class="hl-orange">Gondwana Coal Fields</span>.</li>
+            <li><span class="hl-yellow">Hazaribagh Plateau:</span> North of Damodar, 600m, peneplain.</li>
+            <li><span class="hl-yellow">Ranchi Plateau:</span> South, 600m, Monadnocks (Ayers rock like).</li>
+            <li><span class="hl-yellow">Rajmahal Hills:</span> NE edge, basaltic lava, N-S direction.</li>
+          </ul>
+        </div>
+
+        <!-- Meghalaya -->
+        <div class="card" style="border-top: 5px solid var(--green);">
+          <div class="tag" style="background-color: var(--green);">Far-East</div>
+          <h3 style="color: var(--green);">Meghalaya (Shillong) Plateau</h3>
+          <ul>
+            <li>Extension beyond Rajmahal, separated by <span class="hl-yellow">Garo-Rajmahal Gap</span>.</li>
+            <li>Rocks: Archaean quartzites, shales, schists.</li>
+            <li>Slopes: Down to Brahmaputra valley (N) and Surma/Meghna (S).</li>
+            <li>Hills (W to E): <span class="hl-yellow">Garo (900m)</span>, <span class="hl-yellow">Khasi-Jaintia (1,500m)</span>, <span class="hl-yellow">Mikir (700m)</span>.</li>
+            <li>Highest Point: <span class="hl-orange">Shillong (1,961 m)</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Deccan -->
+        <div class="card" style="border-top: 5px solid var(--blue);">
+          <div class="tag" style="background-color: var(--blue);">South</div>
+          <h3 style="color: var(--blue);">Deccan Plateau</h3>
+          <ul>
+            <li>Area: <span class="hl-yellow">5 lakh sq km</span>.</li>
+            <li>Bounds: Satpura/Vindhya/Mahadev (N), Western/Eastern Ghats.</li>
+            <li>Elevation: <span class="hl-green">600 m Avg</span> (Rises 1000m in S, dips 500m in N).</li>
+            <li>General slope is <span class="hl-blue">West to East</span>.</li>
+            <li>Divided into smaller plateaus by rivers.</li>
+          </ul>
+        </div>
+
+        <!-- Maharashtra -->
+        <div class="card" style="border-top: 5px solid var(--yellow);">
+          <div class="tag" style="background-color: var(--yellow);">West-Deccan</div>
+          <h3 style="color: var(--yellow);">Maharashtra Plateau</h3>
+          <ul>
+            <li>North part of Deccan Plateau.</li>
+            <li>Basaltic rocks of lava origin (<span class="hl-orange">Deccan Traps</span> step-like topography).</li>
+            <li>Rolling plain due to weathering.</li>
+            <li>Valleys: <span class="hl-blue">Godavari, Bhima, Krishna</span> (flanked by flat-topped hills).</li>
+            <li>Covered in <span class="hl-yellow">Black Cotton Soil (Regur)</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Karnataka -->
+        <div class="card" style="border-top: 5px solid var(--purple);">
+          <div class="tag" style="background-color: var(--purple);">South</div>
+          <h3 style="color: var(--purple);">Karnataka (Mysore) Plateau</h3>
+          <ul>
+            <li>South of Maharashtra plateau; <span class="hl-green">600-900m</span> elevation.</li>
+            <li>Highest Peak: <span class="hl-orange">Mulangiri (1,913 m)</span> in Baba Budan Hills.</li>
+            <li>Two Parts: 
+              <br>1. <span class="hl-yellow">Malnad:</span> Hill country, deep valleys, dense forests.
+              <br>2. <span class="hl-yellow">Maidan:</span> Rolling plain with low granite hills.</li>
+            <li>Tapers in south, merges with <span class="hl-yellow">Niligiri hills</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Telangana -->
+        <div class="card" style="border-top: 5px solid var(--orange);">
+          <div class="tag" style="background-color: var(--orange);">South-East</div>
+          <h3 style="color: var(--orange);">Telangana Plateau</h3>
+          <ul>
+            <li>Made of <span class="hl-yellow">Archaean gneisses</span>.</li>
+            <li>Elevation: <span class="hl-green">500-600 m</span> (South is higher than North).</li>
+            <li>Drained by: <span class="hl-blue">Godavari, Krishna, Penneru</span>.</li>
+            <li>Divided into <span class="hl-yellow">Ghats</span> and <span class="hl-yellow">Peneplains</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Chhattisgarh -->
+        <div class="card" style="border-top: 5px solid var(--green);">
+          <div class="tag" style="background-color: var(--green);">East-Central</div>
+          <h3 style="color: var(--green);">Chhattisgarh Plain</h3>
+          <ul>
+            <li>The <span class="hl-yellow">only plain</span> worth the name in the Peninsular plateau.</li>
+            <li>Saucer-shaped depression drained by upper <span class="hl-blue">Mahanadi</span>.</li>
+            <li>Between Maikala Range and Odisha hills.</li>
+            <li>Horizontal beds of <span class="hl-yellow">limestone & shales</span>.</li>
+            <li>Named after 36 forts of Haithaivanshi Rajputs.</li>
+            <li>Elevation: <span class="hl-green">250m (E) to 330m (W)</span>.</li>
+          </ul>
+        </div>
+
+      </div>
     </div>
   </div>
 
-  <div class="masonry">
+  <script>
+    const container = document.getElementById('canvas-container');
+    const board = document.getElementById('board');
     
-    <!-- Overall Features -->
-    <div class="card" style="border-top: 4px solid var(--purple);">
-      <div class="tag" style="background-color: var(--purple);">General</div>
-      <h3 style="color: var(--purple);">Key Features</h3>
-      <ul>
-        <li>Base coincides with <span class="hl-yellow">North India Plain</span>, Apex at <span class="hl-yellow">Kanniyakumari</span>.</li>
-        <li>One of the <span class="hl-yellow">oldest landforms</span>, highly stable shield block.</li>
-        <li>Little structural change, never submerged (mostly).</li>
-        <li>Aggregation of smaller plateaus, hill ranges, river basins & valleys.</li>
-      </ul>
-    </div>
+    let scale = 1;
+    let pointX = 0;
+    let pointY = 0;
+    let start = { x: 0, y: 0 };
+    let panning = false;
 
-    <!-- Marwar / Mewar -->
-    <div class="card" style="border-top: 4px solid var(--orange);">
-      <div class="tag" style="background-color: var(--orange);">Rajasthan</div>
-      <h3 style="color: var(--orange);">Marwar / Mewar Plateau</h3>
-      <ul>
-        <li>Located in <span class="hl-yellow">eastern Rajasthan</span> (East of Aravalis).</li>
-        <li>Elevation: <span class="hl-green">250-500 m</span>; Slopes <span class="hl-blue">eastwards</span>.</li>
-        <li>Rocks: Sandstone, shales, limestones of <span class="hl-yellow">Vindhayan period</span>.</li>
-        <li>Rivers: <span class="hl-blue">Banas</span> + tributaries (Berach, Khari) flow NW to Chambal.</li>
-        <li>Appears as a <span class="hl-yellow">Rolling Plain</span> due to erosional activity.</li>
-      </ul>
-    </div>
+    // Initialize board centered
+    function initCenter() {
+      const viewportWidth = window.innerWidth;
+      const boardWidth = Math.min(viewportWidth, 1200); 
+      pointX = (viewportWidth - boardWidth) / 2;
+      pointY = 20; 
+      setTransform();
+    }
+    
+    initCenter();
 
-    <!-- Central Highland -->
-    <div class="card" style="border-top: 4px solid var(--green);">
-      <div class="tag" style="background-color: var(--green);">Central</div>
-      <h3 style="color: var(--green);">Central Highland</h3>
-      <ul>
-        <li>AKA <span class="hl-yellow">Madhya Bharat Pathar</span> (East of Marwar).</li>
-        <li>Comprises basin of <span class="hl-blue">Chambal river</span> (flows in rift valley).</li>
-        <li>Tributaries: Kali Sindh, Banas, Parwan, Parbati.</li>
-        <li>Features: Rolling plateau, rounded sandstone hills, thick forests.</li>
-        <li>North marked by <span class="hl-orange">Chambal Ravines (Badlands)</span>.</li>
-      </ul>
-    </div>
+    function setTransform() {
+      board.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+      // Move background grid to match pan (parallax effect)
+      container.style.backgroundPosition = `${pointX}px ${pointY}px`;
+    }
 
-    <!-- Bundelkhand -->
-    <div class="card" style="border-top: 4px solid var(--blue);">
-      <div class="tag" style="background-color: var(--blue);">UP / MP</div>
-      <h3 style="color: var(--blue);">Bundelkhand Upland</h3>
-      <ul>
-        <li>Borders: Yamuna (N), Madhya Bharat (W), Vindhyan Scarp (E/SE), Malwa (S).</li>
-        <li>Made of <span class="hl-yellow">'Bundelkhand gneiss'</span> (granite/gneiss).</li>
-        <li>Elevation: <span class="hl-green">300-600 m</span>; Slopes down to <span class="hl-blue">Yamuna</span>.</li>
-        <li>Spread over 5 UP dists & 4 MP dists.</li>
-        <li>Characterized by <span class="hl-orange">Senile topography</span>, undulating, unfit for cultivation.</li>
-        <li>Rivers: <span class="hl-blue">Betwa, Dhasan, Ken</span>.</li>
-      </ul>
-    </div>
+    // --- Panning Logic ---
+    container.addEventListener('mousedown', function (e) {
+      if(e.button !== 0 && e.button !== 1) return; // Only left/middle click
+      e.preventDefault(); // Prevents text highlighting while dragging
+      start = { x: e.clientX - pointX, y: e.clientY - pointY };
+      panning = true;
+      container.style.cursor = "grabbing";
+    });
 
-    <!-- Malwa -->
-    <div class="card" style="border-top: 4px solid var(--yellow);">
-      <div class="tag" style="background-color: var(--yellow);">Central</div>
-      <h3 style="color: var(--yellow);">Malwa Plateau</h3>
-      <ul>
-        <li>Triangle: Vindhyan Hills (base), Aravali (W), Madhya Bharat (N), Bundelkhand (E).</li>
-        <li>2 Drainages: <span class="hl-blue">Arabian Sea</span> (Narmada, Tapi, Mahi) & <span class="hl-blue">Bay of Bengal</span> (Chambal, Betwa).</li>
-        <li>North drained by Chambal, Kali, Sindh, Parbati, Ken, Betwa.</li>
-        <li>Composed of <span class="hl-orange">extensive lava flow</span> & covered in <span class="hl-yellow">Black Soils</span>.</li>
-        <li>Slope towards North (<span class="hl-green">600m to &lt;500m</span>); Chambal ravines in North.</li>
-      </ul>
-    </div>
+    window.addEventListener('mouseup', function () {
+      panning = false;
+      container.style.cursor = "grab";
+    });
 
-    <!-- Baghelkhand -->
-    <div class="card" style="border-top: 4px solid var(--purple);">
-      <div class="tag" style="background-color: var(--purple);">East-Central</div>
-      <h3 style="color: var(--purple);">Baghelkhand</h3>
-      <ul>
-        <li>Located North of <span class="hl-yellow">Maikal Range</span>.</li>
-        <li>Bounded by <span class="hl-blue">Son river</span> (North).</li>
-        <li>Rocks: Limestones/Sandstones (West), Granite (East).</li>
-        <li>Acts as <span class="hl-blue">Water Divide</span> between Son (N) and Mahanadi (S).</li>
-        <li>Elevation: <span class="hl-green">150 - 1,200 m</span>. Horizontal strata = no major disturbance.</li>
-        <li>Bhanrer & Kaimur near trough-axis.</li>
-      </ul>
-    </div>
+    window.addEventListener('mousemove', function (e) {
+      if (!panning) return;
+      pointX = (e.clientX - start.x);
+      pointY = (e.clientY - start.y);
+      setTransform();
+    });
 
-    <!-- Chotanagpur -->
-    <div class="card" style="border-top: 4px solid var(--orange);">
-      <div class="tag" style="background-color: var(--orange);">North-East</div>
-      <h3 style="color: var(--orange);">Chotanagpur Plateau</h3>
-      <ul>
-        <li>NE projection (Jharkhand, N. Chhatisgarh, Purulia-WB).</li>
-        <li>Avg Elev: <span class="hl-green">700 m</span>. Mainly <span class="hl-yellow">Gondwana rocks</span>.</li>
-        <li>Drainage: <span class="hl-blue">Radial pattern</span> (Damodar, Subarnrekaha, N/S Koel, Barkar).</li>
-        <li><span class="hl-blue">Damodar River</span> flows W to E in rift valley = <span class="hl-orange">Gondwana Coal Fields</span>.</li>
-        <li><span class="hl-yellow">Hazaribagh Plateau:</span> North of Damodar, 600m, peneplain.</li>
-        <li><span class="hl-yellow">Ranchi Plateau:</span> South of Damodar, 600m, Monadnocks (Ayers rock like).</li>
-        <li><span class="hl-yellow">Rajmahal Hills:</span> NE edge, basaltic lava, N-S direction, 400m avg (567m peak).</li>
-      </ul>
-    </div>
+    // Mobile Touch Panning
+    container.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 1) {
+        start = { x: e.touches[0].clientX - pointX, y: e.touches[0].clientY - pointY };
+        panning = true;
+      }
+    }, { passive: true });
 
-    <!-- Meghalaya -->
-    <div class="card" style="border-top: 4px solid var(--green);">
-      <div class="tag" style="background-color: var(--green);">Far-East</div>
-      <h3 style="color: var(--green);">Meghalaya (Shillong) Plateau</h3>
-      <ul>
-        <li>Extension beyond Rajmahal, separated by <span class="hl-yellow">Garo-Rajmahal Gap</span> (down-faulting filled by Ganga/Brahmaputra).</li>
-        <li>Rocks: Archaean quartzites, shales, schists.</li>
-        <li>Slopes: Down to Brahmaputra valley (N) and Surma/Meghna (S).</li>
-        <li>Hills (W to E): <span class="hl-yellow">Garo (900m)</span>, <span class="hl-yellow">Khasi-Jaintia (1,500m)</span>, <span class="hl-yellow">Mikir (700m)</span>.</li>
-        <li>Highest Point: <span class="hl-orange">Shillong (1,961 m)</span>.</li>
-      </ul>
-    </div>
+    container.addEventListener('touchmove', function(e) {
+      if (!panning || e.touches.length !== 1) return;
+      e.preventDefault(); // Prevent browser pull-to-refresh / scrolling
+      pointX = (e.touches[0].clientX - start.x);
+      pointY = (e.touches[0].clientY - start.y);
+      setTransform();
+    }, { passive: false });
 
-    <!-- Deccan -->
-    <div class="card" style="border-top: 4px solid var(--blue);">
-      <div class="tag" style="background-color: var(--blue);">South</div>
-      <h3 style="color: var(--blue);">Deccan Plateau</h3>
-      <ul>
-        <li>Area: <span class="hl-yellow">5 lakh sq km</span>.</li>
-        <li>Bounds: Satpura/Vindhya/Mahadev/Maikal (N), Western/Eastern Ghats.</li>
-        <li>Elevation: <span class="hl-green">600 m Avg</span> (Rises 1000m in S, dips 500m in N).</li>
-        <li>General slope is <span class="hl-blue">West to East</span>.</li>
-        <li>Divided into smaller plateaus by rivers.</li>
-      </ul>
-    </div>
+    container.addEventListener('touchend', function() {
+      panning = false;
+    });
 
-    <!-- Maharashtra -->
-    <div class="card" style="border-top: 4px solid var(--yellow);">
-      <div class="tag" style="background-color: var(--yellow);">West-Deccan</div>
-      <h3 style="color: var(--yellow);">Maharashtra Plateau</h3>
-      <ul>
-        <li>North part of Deccan Plateau.</li>
-        <li>Basaltic rocks of lava origin (<span class="hl-orange">Deccan Traps</span> step-like topography).</li>
-        <li>Rolling plain due to weathering.</li>
-        <li>Valleys: <span class="hl-blue">Godavari, Bhima, Krishna</span> (flanked by flat-topped hills).</li>
-        <li>Covered in <span class="hl-yellow">Black Cotton Soil (Regur)</span>.</li>
-      </ul>
-    </div>
+    // --- Zoom to Pointer Logic ---
+    container.addEventListener('wheel', function (e) {
+      e.preventDefault(); // Stop page scroll
+      
+      // Calculate mouse position relative to the scaled board
+      const xs = (e.clientX - pointX) / scale;
+      const ys = (e.clientY - pointY) / scale;
+      
+      const delta = e.deltaY ? -e.deltaY : e.detail;
+      
+      if (delta > 0) {
+        scale *= 1.1; // Zoom In
+      } else {
+        scale /= 1.1; // Zoom Out
+      }
+      
+      // Constrain Zoom Limits
+      scale = Math.min(Math.max(0.2, scale), 4);
 
-    <!-- Karnataka -->
-    <div class="card" style="border-top: 4px solid var(--purple);">
-      <div class="tag" style="background-color: var(--purple);">South</div>
-      <h3 style="color: var(--purple);">Karnataka (Mysore) Plateau</h3>
-      <ul>
-        <li>South of Maharashtra plateau; <span class="hl-green">600-900m</span> elevation.</li>
-        <li>Highest Peak: <span class="hl-orange">Mulangiri (1,913 m)</span> in Baba Budan Hills.</li>
-        <li>Two Parts: 
-          <br>1. <span class="hl-yellow">Malnad:</span> Hill country, deep valleys, dense forests.
-          <br>2. <span class="hl-yellow">Maidan:</span> Rolling plain with low granite hills.</li>
-        <li>Tapers in south, merges with <span class="hl-yellow">Niligiri hills</span>.</li>
-      </ul>
-    </div>
+      // Adjust pointX/pointY so the mouse stays over the same spot
+      pointX = e.clientX - xs * scale;
+      pointY = e.clientY - ys * scale;
 
-    <!-- Telangana -->
-    <div class="card" style="border-top: 4px solid var(--orange);">
-      <div class="tag" style="background-color: var(--orange);">South-East</div>
-      <h3 style="color: var(--orange);">Telangana Plateau</h3>
-      <ul>
-        <li>Made of <span class="hl-yellow">Archaean gneisses</span>.</li>
-        <li>Elevation: <span class="hl-green">500-600 m</span> (South is higher than North).</li>
-        <li>Drained by: <span class="hl-blue">Godavari, Krishna, Penneru</span>.</li>
-        <li>Divided into <span class="hl-yellow">Ghats</span> and <span class="hl-yellow">Peneplains</span> (vast featureless plains).</li>
-      </ul>
-    </div>
+      setTransform();
+    }, { passive: false });
 
-    <!-- Chhattisgarh -->
-    <div class="card" style="border-top: 4px solid var(--green);">
-      <div class="tag" style="background-color: var(--green);">East-Central</div>
-      <h3 style="color: var(--green);">Chhattisgarh Plain</h3>
-      <ul>
-        <li>The <span class="hl-yellow">only plain</span> worth the name in the Peninsular plateau.</li>
-        <li>Saucer-shaped depression drained by upper <span class="hl-blue">Mahanadi</span>.</li>
-        <li>Between Maikala Range and Odisha hills.</li>
-        <li>Horizontal beds of <span class="hl-yellow">limestone & shales</span>.</li>
-        <li>Named after 36 forts of Haithaivanshi Rajputs.</li>
-        <li>Elevation: <span class="hl-green">250m (E) to 330m (W)</span>.</li>
-      </ul>
-    </div>
+    // --- UI Controls ---
+    window.zoom = function(factor) {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      
+      const xs = (centerX - pointX) / scale;
+      const ys = (centerY - pointY) / scale;
+      
+      scale *= factor;
+      scale = Math.min(Math.max(0.2, scale), 4);
+      
+      pointX = centerX - xs * scale;
+      pointY = centerY - ys * scale;
+      setTransform();
+    };
 
-  </div>
-
+    window.resetZoom = function() {
+      scale = 1;
+      initCenter();
+    };
+  </script>
 </body>
 </html>
