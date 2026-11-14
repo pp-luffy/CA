@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Indian & Odisha Geography: Complete Interactive Drainage System (UPSC + OPSC ASO Edition)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Dark Mode Styling */
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #0f172a; color: #e2e8f0; font-family: 'Patrick Hand', cursive;
+            margin: 0; padding: 0 0 40px 0; font-size: 1.15rem; line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; margin-top: 80px; }
+        h1, h2, h3, .tag, .revision-title, .handwritten { font-family: 'Kalam', cursive; margin-top: 0; }
+        h1 { text-align: center; color: #f8fafc; font-size: 3rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); margin-bottom: 30px; }
+
+        /* Mobile-Friendly Swipeable Glass Navbar */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            z-index: 1000; display: flex; align-items: center; gap: 10px; padding: 0 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); border-bottom: 1px solid rgba(255,255,255,0.1);
+            overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
+        }
+        .navbar::-webkit-scrollbar { display: none; } 
+        .navbar a {
+            color: #e2e8f0; text-decoration: none; font-family: 'Kalam', cursive; font-size: 1.2rem;
+            padding: 8px 18px; border-radius: 20px; background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease; border: 1px solid transparent; flex-shrink: 0;
+        }
+        .navbar a:hover, .navbar a:active { background: #facc15; color: #0f172a; box-shadow: 0 4px 10px rgba(250, 204, 21, 0.3); }
+
+        /* Ultra-Short Revision Board */
+        .revision-board {
+            background: #1e293b; border: 2px dashed #facc15; border-radius: 16px;
+            padding: 20px; margin-bottom: 40px; box-shadow: 0 8px 32px rgba(250, 204, 21, 0.1);
+        }
+        .revision-title { color: #facc15; text-align: center; font-size: 2.2rem; letter-spacing: 1px; }
+        .revision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .rev-item {
+            background: #0f172a; padding: 15px; border-radius: 10px;
+            border-left: 5px solid #facc15; box-shadow: 4px 4px 12px rgba(0,0,0,0.4);
+        }
+        
+        /* Multiple Images & Zoomable Map Section */
+        .map-section {
+            margin-bottom: 40px; background: #1e293b; padding: 20px;
+            border-radius: 16px; border: 2px dashed #38bdf8; box-shadow: 0 8px 32px rgba(56, 189, 248, 0.15);
+        }
+        .map-header { display: flex; flex-direction: column; gap: 15px; margin-bottom: 15px; text-align: center; }
+        @media (min-width: 768px) {
+            .map-header { flex-direction: row; justify-content: space-between; align-items: center; text-align: left; }
+        }
+        .map-section h2 { color: #38bdf8; font-size: 2rem; margin: 0; }
+        
+        /* Interactive Explainer Panel */
+        .explainer-box {
+            background: rgba(56, 189, 248, 0.1); border-left: 4px solid #38bdf8;
+            padding: 12px 15px; border-radius: 8px; font-size: 1.05rem; margin-bottom: 15px;
+        }
+
+        /* Custom File Upload Button */
+        input[type="file"] { display: none; }
+        .upload-btn {
+            background: #38bdf8; color: #0f172a; padding: 10px 25px; border-radius: 12px; font-family: 'Kalam', cursive;
+            font-weight: bold; font-size: 1.3rem; cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3); display: inline-block;
+        }
+        .upload-btn:active, .upload-btn:hover { background: #7dd3fc; transform: scale(0.98); }
+
+        /* Mobile-Friendly Thumbnail Strip */
+        .thumbnail-strip { 
+            display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px; 
+            margin-bottom: 15px; -webkit-overflow-scrolling: touch; 
+        }
+        .thumbnail-strip::-webkit-scrollbar { height: 6px; }
+        .thumbnail-strip::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+        .thumb-wrapper { position: relative; cursor: pointer; flex-shrink: 0; }
+        .thumb {
+            width: 90px; height: 70px; object-fit: cover; border-radius: 10px;
+            border: 3px solid #475569; transition: all 0.2s ease; opacity: 0.6;
+        }
+        .thumb.active { border-color: #38bdf8; opacity: 1; box-shadow: 0 0 12px rgba(56,189,248,0.6); transform: scale(1.05); }
+
+        /* Mobile-Touch Optimized Map Container */
+        #map-container {
+            width: 100%; height: 60vh; min-height: 400px; background: #000; border: 2px solid #334155;
+            border-radius: 12px; overflow: hidden; position: relative; cursor: grab;
+            display: flex; align-items: center; justify-content: center;
+            touch-action: none;
+        }
+        #map-container:active { cursor: grabbing; }
+        #pdf-map { transform-origin: 0 0; max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.05s linear; }
+        .image-fallback { position: absolute; color: #94a3b8; font-size: 1.1rem; pointer-events: none; z-index: 0; text-align: center; padding: 20px; }
+        .controls-hint {
+            position: absolute; bottom: 10px; background: rgba(0,0,0,0.7); color: #fff;
+            padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; pointer-events: none; z-index: 10;
+        }
+
+        /* Masonry Sketchnote Layout */
+        .masonry { column-count: 2; column-gap: 20px; }
+        @media (max-width: 900px) { .masonry { column-count: 1; } }
+
+        /* Sketchnote Cards */
+        .sketch-card {
+            background: #1e293b; border: 1px solid #334155; border-radius: 16px;
+            padding: 25px 20px 20px 20px; margin-bottom: 25px; position: relative;
+            break-inside: avoid; box-shadow: 4px 4px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Hand-drawn SVGs */
+        .sketch-svg { display: block; margin: 0 auto 10px auto; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); }
+
+        /* Tags */
+        .tag {
+            position: absolute; top: -12px; right: 15px; padding: 4px 18px;
+            border-radius: 6px; font-size: 1.1rem; font-weight: bold; color: #0f172a;
+            transform: rotate(3deg); box-shadow: 3px 3px 10px rgba(0,0,0,0.4); z-index: 10;
+        }
+        .bg-green { background: #4cd137; } .bg-blue { background: #38bdf8; }
+        .bg-yellow { background: #facc15; } .bg-purple { background: #c084fc; } .bg-orange { background: #fb923c; } .bg-pink { background: #f472b6; }
+
+        /* Custom Sketch Table */
+        .sketch-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 1.1rem; background: #0f172a; border-radius: 8px; overflow: hidden; }
+        .sketch-table th { background: rgba(56, 189, 248, 0.2); color: #38bdf8; text-align: left; padding: 10px; border-bottom: 2px dashed #475569; font-family: 'Kalam', cursive; font-size: 1.3rem;}
+        .sketch-table td { padding: 10px; border-bottom: 1px dashed #334155; }
+        .sketch-table tr:last-child td { border-bottom: none; }
+        .sketch-table td:first-child { border-right: 1px dashed #334155; }
+
+        /* Interactive Collapsible Elements */
+        details {
+            background: #0f172a; border-radius: 10px; margin-bottom: 12px;
+            padding: 10px 15px; border-left: 4px solid #475569;
+        }
+        details[open] { border-left-color: #facc15; background: #151e2e; }
+        summary {
+            font-family: 'Kalam', cursive; font-size: 1.3rem; font-weight: bold;
+            cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; color: #e2e8f0;
+        }
+        summary::before {
+            content: '▶'; display: inline-block; margin-right: 10px; font-size: 0.9rem;
+            color: #facc15; transition: transform 0.3s ease;
+        }
+        details[open] > summary::before { transform: rotate(90deg); }
+        details[open] > summary { border-bottom: 1px dashed #475569; padding-bottom: 8px; margin-bottom: 10px; color: #facc15; }
+        
+        .sub-box { background: rgba(0,0,0,0.25); padding: 10px 12px; margin: 8px 0; border-radius: 8px; border-left: 3px solid #f472b6; font-size: 1.05rem; }
+        .trap-box { border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.1); }
+        .stat-box { border-left: 4px solid #10b981; background: rgba(16, 185, 129, 0.1); }
+        .odisha-box { border-left: 4px solid #f97316; background: rgba(249, 115, 22, 0.1); }
+
+        /* Text Highlights & Categories */
+        .hl-green { color: #4ade80; font-weight: bold; }
+        .hl-yellow { color: #facc15; font-weight: bold; }
+        .hl-blue { color: #38bdf8; font-weight: bold; }
+        .hl-orange { color: #fb923c; font-weight: bold; }
+        .hl-pink { color: #f472b6; font-weight: bold; }
+        .hl-red { color: #f87171; font-weight: bold; }
+        
+        .i-city { color: #f472b6; font-weight: bold; }
+        .i-dam { color: #38bdf8; font-weight: bold; }
+        .i-glacier { color: #4ade80; font-weight: bold; }
+        .i-lake { color: #2dd4bf; font-weight: bold; }
+        .i-fall { color: #7dd3fc; font-weight: bold; }
+        .i-park { color: #34d399; font-weight: bold; }
+
+        ul { padding-left: 20px; margin-top: 5px; margin-bottom: 5px; }
+        li { margin-bottom: 6px; }
+        hr { border-top: 1px dashed #475569; margin: 15px 0; }
+        
+        /* Nested Details */
+        .nested-details { margin-left: 10px; margin-top: 10px; border-left-color: #38bdf8; background: #0f172a; }
+        .nested-details[open] { border-left-color: #38bdf8; background: #1e293b; }
+        .nested-details > summary { font-size: 1.2rem; color: #38bdf8; }
+        .nested-details[open] > summary { border-bottom-color: #475569; color: #7dd3fc; }
+        .nested-details > summary::before { color: #38bdf8; }
+
+        /* Back to Top FAB */
+        #fab {
+            position: fixed; bottom: 20px; right: 20px; background: #facc15; color: #0f172a;
+            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scrollable Sticky Navigation -->
+    <nav class="navbar">
+        <a href="#quick-rev">⚡ Quick Rev</a>
+        <a href="#map-viewer">🗺️ Maps</a>
+        <a href="#basics">📚 Basics</a>
+        <a href="#odisha">🔥 OPSC Special</a>
+        <a href="#alignments">🧭 Alignments</a>
+        <a href="#ganga">🙏 Ganga</a>
+        <a href="#indus">🏔️ Indus</a>
+        <a href="#brahma">🐉 Brahma</a>
+        <a href="#west">🌅 West</a>
+        <a href="#east">🌄 East</a>
+        <a href="#misc">🏙️ Miscellany</a>
+    </nav>
+
+    <div class="container">
+        <h1>🇮🇳 Indian & Odisha Drainage System</h1>
+
+        <!-- ULTRA-SHORT REVISION SHEET -->
+        <div class="revision-board" id="quick-rev">
+            <h2 class="revision-title">⚡ EXAM-CRITICAL RAPID FIRE ⚡</h2>
+            <div class="revision-grid">
+                <div class="rev-item">
+                    <span class="hl-yellow">Top River Lengths in India:</span><br>
+                    1. <b>Ganga:</b> 2,525 km<br>
+                    2. <b>Godavari:</b> 1,465 km <i>(Dakshin Ganga)</i><br>
+                    3. <b>Krishna:</b> 1,400 km<br>
+                    4. <b>Yamuna:</b> 1,376 km<br>
+                    5. <b>Narmada:</b> 1,312 km<br>
+                    <i>*Indus (1,114 km in India), Brahma (916 km in India)</i>
+                </div>
+                <div class="rev-item">
+                    <span class="hl-blue">Major Water Divides:</span><br>
+                    Elevated terrains separating basins:<br>
+                    • <b>Western Ghats</b> (Separates East vs West flowing)<br>
+                    • <b>Delhi Ridge</b> (Separates Indus & Ganga)<br>
+                    • <b>Aravallis</b> (Inland drainage barrier)<br>
+                    • <b>Vindhyas & Satpuras</b>
+                </div>
+                <div class="rev-item">
+                    <span class="hl-green">Inland Drainage Systems:</span><br>
+                    Rivers that never reach the ocean.<br>
+                    • <b>Luni Basin:</b> Ephemeral, ends in Rann of Kutch.<br>
+                    • <b>Others:</b> Northern Aravalli, parts of Ladakh (Aksai Chin), arid Thar Desert. 
+                </div>
+                <div class="rev-item stat-box">
+                    <span class="hl-yellow">⚖️ Statutory Anchors:</span><br>
+                    <b>Indus Water Treaty (1960):</b> Brokered by World Bank.<br>
+                    • <b>India gets 20% total water</b>: Exclusive rights over 3 Eastern rivers (<b>Ravi, Beas, Sutlej</b>).<br>
+                    • <b>Pakistan</b> gets 3 Western rivers (<b>Indus, Jhelum, Chenab</b>).
+                </div>
+            </div>
+        </div>
+
+        <!-- MULTI-IMAGE ZOOMABLE MAP SECTION -->
+        <div class="map-section" id="map-viewer">
+            <div class="map-header">
+                <h2>🗺️ Touch-Optimized Map Viewer</h2>
+                <label for="map-upload" class="upload-btn">📁 Select Maps from Folder</label>
+                <input type="file" id="map-upload" multiple accept="image/*">
+            </div>
+            
+            <div class="explainer-box">
+                <b>💡 How to load your folder images:</b> Click the button above, navigate to your local <code>images/drainage/</code> folder on your laptop or phone, and select all the maps you want to load. The browser securely creates instant thumbnails below. Tap any thumbnail to load it into the zoom canvas!
+            </div>
+            
+            <div class="thumbnail-strip" id="thumbnail-strip">
+                <div class="thumb-wrapper">
+                    <img src="images/drainage/default_map.png" class="thumb active" alt="Default Map" onclick="changeMap('images/drainage/default_map.png', this)" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'><rect width=\'100\' height=\'100\' fill=\'%23475569\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'white\' font-size=\'12\'>No Image</text></svg>'">
+                </div>
+            </div>
+            
+            <div id="map-container">
+                <span class="image-fallback">Map Canvas: Select maps using the button above.</span>
+                <span class="controls-hint">Laptop: Scroll & Drag | Mobile: Pinch & Swipe</span>
+                <img src="images/drainage/default_map.png" alt="Drainage Map Viewer" id="pdf-map" style="z-index: 1;" onerror="this.style.display='none'">
+            </div>
+        </div>
+
+        <!-- SKETCHNOTE CANVAS MASONRY -->
+        <div class="masonry">
+
+            <!-- CARD 1: Basin Terminology & Comparison Table -->
+            <div class="sketch-card" id="basics">
+                <div class="tag bg-green">Basics</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#4ade80" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10,90 Q40,20 70,90 T130,90" />
+                    <path d="M40,50 L40,70 M100,50 L100,70 M70,30 L70,50" stroke="#38bdf8" stroke-dasharray="4 4" />
+                </svg>
+                <h2 class="handwritten">📚 River Concepts & Regimes</h2>
+                <ul>
+                    <li><span class="hl-yellow">Catchment Area:</span> Specific area from which a river collects water.</li>
+                    <li><span class="hl-yellow">Watershed / Water Divide:</span> Elevated boundary separating two drainage basins.</li>
+                    <li><span class="hl-yellow">River Regime:</span> The seasonal rise and fall of water volume.</li>
+                </ul>
+                
+                <table class="sketch-table">
+                    <tr>
+                        <th>Himalayan Rivers</th>
+                        <th>Peninsular Rivers</th>
+                    </tr>
+                    <tr>
+                        <td>Perennial (Rain + Glaciers)</td>
+                        <td>Seasonal (Monsoon dependent)</td>
+                    </tr>
+                    <tr>
+                        <td>Antecedent / Dendritic pattern</td>
+                        <td>Concordant / Super-imposed pattern</td>
+                    </tr>
+                    <tr>
+                        <td>Youthful, high erosion, shifting courses, forms large Deltas</td>
+                        <td>Mature, graded profiles, stable courses, forms smaller deltas or Estuaries</td>
+                    </tr>
+                </table>
+                <br>
+                
+                <details>
+                    <summary>Drainage Patterns (Crucial)</summary>
+                    <ul>
+                        <li><span class="hl-blue">Antecedent:</span> Existed <i>before</i> Himalayan uplift. Deep gorges. (Indus, Sutlej, Brahmaputra).</li>
+                        <li><span class="hl-blue">Super-Imposed:</span> River cuts through and ignores underlying rock structure (Damodar, Chambal, Banas).</li>
+                        <li><span class="hl-blue">Dendritic:</span> Tree branch shape (Ganga, Northern Plains).</li>
+                        <li><span class="hl-blue">Radial:</span> Flowing outwards from a central dome (Amarkantak sending Narmada West and Son North).</li>
+                        <li><span class="hl-blue">Centripetal:</span> Flowing inwards to a central depression (Loktak Lake, Sambhar Lake, Chilika Lake).</li>
+                    </ul>
+                </details>
+                
+                <div class="sub-box trap-box">
+                    <b>⚠️ Prelims Trap Alert:</b> You might see "Teesta" listed as a Major Basin in MCQs. It is a <b>minor basin</b>! The major Himalayan ones are Ganga, Indus, and Brahmaputra.
+                </div>
+            </div>
+
+            <!-- CARD 2: ODISHA DRAINAGE (OPSC ASO SPECIAL) -->
+            <div class="sketch-card" id="odisha">
+                <div class="tag bg-orange">OPSC Special</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#f97316" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20,60 Q50,20 80,60 T140,60" />
+                    <circle cx="80" cy="60" r="5" fill="#f97316" />
+                </svg>
+                <h2 class="handwritten">🔥 Odisha Drainage Master</h2>
+                <div class="odisha-box">
+                    Odisha rivers are primarily Peninsular, non-perennial, and flow East into the Bay of Bengal. Crucial for ASO!
+                </div>
+
+                <details open>
+                    <summary>Mahanadi (The Lifeline)</summary>
+                    <div class="sub-box">
+                        <b>Origin:</b> Sihawa Range, Bastar hills (Chhattisgarh). Enters Odisha at Jharsuguda.<br>
+                        <b>Total Length:</b> 851 km (494 km in Odisha).<br>
+                        <span class="i-dam">🧱 Major Dam:</span> Hirakud (Sambalpur) - Longest earthen dam.<br>
+                        <b>Distributaries (Forms delta):</b> Kathjodi, Kuakhai, Birupa, Devi, Daya (flows into Chilika).<br>
+                        <b>Tributaries:</b> Seonath, Jonk, Hasdeo, Ib, Mand, Tel, Ong.
+                    </div>
+                </details>
+
+                <details open>
+                    <summary>Brahmani & Baitarani</summary>
+                    <div class="sub-box">
+                        <b>Brahmani:</b> 2nd largest in Odisha. Formed by the confluence of <b>Sankh</b> and <b>South Koel</b> rivers at <b>Vedvyas</b> (Rourkela). <br>
+                        <span class="i-dam">🧱 Dam:</span> Rengali Dam.<br>
+                        <hr>
+                        <b>Baitarani:</b> Originates from <b>Gonasika hills</b> (Keonjhar). Often called the 'Ganga of Odisha' mythologically. Flows into Bay of Bengal via Dhamra mouth (along with Brahmani).
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Other Key Rivers</summary>
+                    <div class="sub-box">
+                        <b>Subarnarekha:</b> Originates in Chhotanagpur plateau. Forms boundary between West Bengal and Odisha.<br>
+                        <b>Rushikulya:</b> Originates from <b>Daringbadi hills</b> (Kandhamal). <i>⚠️ Trap: Does NOT form a delta!</i> Famous for Olive Ridley turtle mass nesting (Arribada) at Purunabandh.<br>
+                        <b>Budhabalanga:</b> Originates in Similipal massif. Forms the spectacular <span class="i-fall">💦 Barehipani Falls</span>.<br>
+                        <b>Vansadhara:</b> Originates in Kalahandi. Shared with Andhra Pradesh.
+                    </div>
+                </details>
+                
+                <details>
+                    <summary>Odisha Lakes & Lagoons</summary>
+                    <div class="sub-box">
+                        <b>Chilika:</b> Largest brackish water lagoon in Asia. Spread over Puri, Khurda, Ganjam. Receives water from Daya and Bhargavi rivers. Nalabana Bird Sanctuary is located here.<br>
+                        <b>Ansupa:</b> Largest <b>freshwater</b> lake in Odisha. Horseshoe-shaped. Left bank of Mahanadi (Banki, Cuttack).<br>
+                        <b>Kanjia:</b> Freshwater lake inside Nandankanan (Bhubaneswar).
+                    </div>
+                </details>
+            </div>
+
+            <!-- CARD 3: GEOGRAPHICAL ALIGNMENTS -->
+            <div class="sketch-card" id="alignments">
+                <div class="tag bg-pink">Mappings</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#f472b6" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="70" y1="10" x2="70" y2="100" />
+                    <polygon points="70,10 60,30 80,30" fill="#f472b6" />
+                    <line x1="10" y1="55" x2="130" y2="55" />
+                    <polygon points="130,55 110,45 110,65" fill="#f472b6" />
+                </svg>
+                <h2 class="handwritten">🧭 Chronological Alignments</h2>
+                <div class="sub-box">
+                    <span class="hl-pink">North to South - Indus Tributaries:</span><br>
+                    1. Indus<br>
+                    2. Jhelum<br>
+                    3. Chenab<br>
+                    4. Ravi<br>
+                    5. Beas<br>
+                    6. Sutlej<br>
+                    <i>(Mnemonic: In J&K, Cold Rivers Become Snow)</i>
+                </div>
+                
+                <div class="sub-box">
+                    <span class="hl-pink">North to South - East Coast Rivers:</span><br>
+                    1. Subarnarekha (Odisha border)<br>
+                    2. Baitarani (Odisha)<br>
+                    3. Brahmani (Odisha)<br>
+                    4. Mahanadi (Odisha)<br>
+                    5. Godavari (AP)<br>
+                    6. Krishna (AP)<br>
+                    7. Pennar (AP)<br>
+                    8. Kaveri (TN)<br>
+                    9. Vaigai (TN)
+                </div>
+
+                <div class="sub-box">
+                    <span class="hl-pink">West to East - Ganga Tributaries:</span><br>
+                    Yamuna ➔ Ramganga ➔ Gomati ➔ Ghaghara ➔ Gandak ➔ Kosi ➔ Mahananda
+                </div>
+            </div>
+
+            <!-- CARD 4: GANGA SYSTEM -->
+            <div class="sketch-card" id="ganga">
+                <div class="tag bg-yellow">Ganga System</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#facc15" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20,20 C40,50 60,60 70,100" />
+                    <path d="M120,20 C100,50 80,60 70,100" />
+                    <circle cx="70" cy="100" r="6" fill="#facc15" />
+                </svg>
+                <h2 class="handwritten">🙏 The Ganga Basin</h2>
+                <ul>
+                    <li><b>India's Largest Basin.</b> Total length: 2,525 km.</li>
+                    <li><b>Formation:</b> Confluence of <b>Bhagirathi</b> (from Gangotri) and <b>Alaknanda</b> (from Satopanth) at Devprayag.</li>
+                    <li><span class="i-dam">🧱 Major Dams:</span> Tehri Dam (Highest in India). Farakka Barrage.</li>
+                </ul>
+
+                <details>
+                    <summary>🌊 The Panch Prayag</summary>
+                    <div class="sub-box">
+                        1. <b>Vishnuprayag:</b> Alaknanda + Dhauli Ganga<br>
+                        2. <b>Nandprayag:</b> Alaknanda + Nandakini<br>
+                        3. <b>Karnaprayag:</b> Alaknanda + Pindar<br>
+                        4. <b>Rudraprayag:</b> Alaknanda + Mandakini<br>
+                        5. <b>Devprayag:</b> Alaknanda + Bhagirathi (Becomes Ganga)
+                    </div>
+                </details>
+
+                <details>
+                    <summary>⬅️ Left Bank Tributaries</summary>
+                    <div class="sub-box">
+                        <b>Ramganga, Gomati.</b><br>
+                        <b>Ghaghara:</b> Mapchachungo Glacier.<br>
+                        <b>Gandak & Kosi:</b> Kosi is the <span class="hl-red">Sorrow of Bihar</span> (shifting courses).<br>
+                        <b>Mahananda:</b> Last left-hand tributary in India.
+                    </div>
+                </details>
+
+                <details>
+                    <summary>➡️ Right Bank Tributaries</summary>
+                    <details class="nested-details">
+                        <summary>Yamuna (Longest Trib - 1376km)</summary>
+                        <div class="sub-box">
+                            <b>Source:</b> Yamunotri Glacier (Bandarpunch). Joins Ganga at Prayagraj.<br>
+                            <b>Tribs:</b> Chambal, Sindh, Betwa, Ken. 
+                        </div>
+                    </details>
+                    <details class="nested-details">
+                        <summary>Chambal (Super-imposed)</summary>
+                        <div class="sub-box">
+                            Famous for Badland topography (Ravines).<br>
+                            <span class="i-dam">🧱 Dams:</span> Gandhi Sagar, Jawahar Sagar, Rana Pratap Sagar.
+                        </div>
+                    </details>
+                    <details class="nested-details">
+                        <summary>Son & Damodar</summary>
+                        <div class="sub-box">
+                            <b>Son:</b> Originates at Amarkantak. <br>
+                            <b>Damodar:</b> Flows through rift valley. <span class="hl-red">Sorrow of Bengal</span>. 
+                        </div>
+                    </details>
+                </details>
+            </div>
+
+            <!-- CARD 5: INDUS SYSTEM -->
+            <div class="sketch-card" id="indus">
+                <div class="tag bg-blue">Indus System</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#38bdf8" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10,50 Q70,40 130,90" />
+                    <path d="M30,20 Q60,35 90,65" />
+                    <path d="M50,10 Q70,30 110,75" />
+                </svg>
+                <h2 class="handwritten">🏔️ River Indus (Sindhu)</h2>
+                <ul>
+                    <li><b>Source:</b> Bokhar Chu Glacier (Tibet). Known as <b>Singi Khamban</b> (Lion's mouth).</li>
+                    <li><b>Course:</b> Antecedent. Flows NW between Ladakh and Zaskar ranges. Deep gorge at Nanga Parbat.</li>
+                    <li><b>Mithankot:</b> Receives the <b>Panjnad</b> (Satluj, Beas, Ravi, Chenab, Jhelum).</li>
+                </ul>
+
+                <details>
+                    <summary>⬅️ Left Bank Tributaries (Panjnad)</summary>
+                    <details class="nested-details">
+                        <summary>Jhelum</summary>
+                        <div class="sub-box">
+                            <b>Source:</b> Verinag, Pir Panjal. Flows through Wular Lake (Tectonic). <span class="i-dam">🧱 Uri Dam.</span>
+                        </div>
+                    </details>
+                    <details class="nested-details" open>
+                        <summary>Chenab (Longest Tributary)</summary>
+                        <div class="sub-box">
+                            <b>Source:</b> Bara Lacha Pass. Formed by Chandra + Bhaga rivers.<br>
+                            <span class="i-dam">🧱 Dams:</span> Baglihar, Dulhasti, Rattle (J&K).
+                        </div>
+                    </details>
+                    <details class="nested-details">
+                        <summary>Ravi & Beas</summary>
+                        <div class="sub-box">
+                            <b>Ravi:</b> Kullu Hills. <br>
+                            <b>Beas:</b> <i>Flows entirely within India!</i> <span class="i-dam">🧱 Pong Dam, Pandoh Dam.</span>
+                        </div>
+                    </details>
+                    <details class="nested-details">
+                        <summary>Sutlej (Antecedent)</summary>
+                        <div class="sub-box">
+                            <b>Source:</b> Rakas Lake (Mansarovar). Enters India via <b>Shipki La Pass</b>.<br>
+                            <span class="i-dam">🧱 Dams:</span> Bhakra Nangal, Nathpa Jhakri.
+                        </div>
+                    </details>
+                </details>
+            </div>
+
+            <!-- CARD 6: BRAHMAPUTRA SYSTEM -->
+            <div class="sketch-card" id="brahma">
+                <div class="tag bg-yellow">Brahma System</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#fb923c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10,30 L100,30 C120,30 130,50 110,70 L50,90" />
+                    <path d="M40,75 L50,90 L65,80" />
+                </svg>
+                <h2 class="handwritten">🐉 River Brahmaputra</h2>
+                <ul>
+                    <li><b>Source:</b> Chemayungdung Glacier (Tibet). Known as <b>Yarlung Tsangpo</b>.</li>
+                    <li><b>Course:</b> Antecedent. U-turn at Namcha Barwa syntaxial bend. Enters Arunachal as <b>Siang/Dihang</b>.</li>
+                    <li><b>Majuli:</b> World's largest riverine island (Assam).</li>
+                </ul>
+
+                <details>
+                    <summary>⬅️ Left Bank Tributaries</summary>
+                    <div class="sub-box">Dibang, Lohit, Burhi Dihing, Dhansari.</div>
+                </details>
+
+                <details open>
+                    <summary>➡️ Right Bank Tributaries</summary>
+                    <div class="sub-box">
+                        <b>Teesta:</b> Source: Too Lhamo Lake (Fed by Zemu Glacier).<br>
+                        <b>Subansiri:</b> Gold River. <span class="i-dam">🧱 Subansari Dam.</span><br>
+                        <b>Others:</b> Kameng, Manas, Sankosh.
+                    </div>
+                </details>
+            </div>
+
+            <!-- CARD 7: WEST FLOWING RIVERS -->
+            <div class="sketch-card" id="west">
+                <div class="tag bg-purple">West Flowing</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#c084fc" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M120,50 Q60,50 20,50" />
+                    <path d="M40,35 L20,50 L40,65" />
+                    <path d="M10,80 Q70,90 130,80" stroke-dasharray="6 6" />
+                </svg>
+                <h2 class="handwritten">🌅 Arabian Sea Drainage (23%)</h2>
+                
+                <div class="sub-box trap-box">
+                    <b>✍️ Mains Analytical Hook:</b> Why no deltas on the west coast? Short, swift-flowing rivers over hard gradient rock carry minimal silt. They drop directly into the deep Arabian sea, forming <b>Estuaries</b> instead of deltas.
+                </div>
+
+                <details open>
+                    <summary>Narmada & Tapi (Rift Valley Twins)</summary>
+                    <div class="sub-box">
+                        <b>Narmada (1,312km):</b> Amarkantak (Radial). Flows through rift valley between Vindhya and Satpura.<br>
+                        <span class="i-dam">🧱 Dams:</span> Sardar Sarovar. <span class="i-fall">💦 Dhuandhar Falls.</span><br><hr>
+                        <b>Tapi:</b> Betul Plateau. Flows south of Satpura range in parallel rift valley.<br>
+                        <span class="i-city">🏙️ Surat.</span> <span class="i-dam">🧱 Ukai Dam.</span>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Western Ghats Coastals</summary>
+                    <div class="sub-box">
+                        <b>Sharavati (KA):</b> <span class="i-fall">💦 Jog Falls.</span><br>
+                        <b>Mandovi & Zuari (Goa).</b><br>
+                        <b>Periyar (KL):</b> <span class="i-dam">🧱 Idduki, Mulaperiyar.</span>
+                    </div>
+                </details>
+            </div>
+
+            <!-- CARD 8: EAST FLOWING RIVERS -->
+            <div class="sketch-card" id="east">
+                <div class="tag bg-purple">East Flowing</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#f43f5e" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20,50 Q80,50 120,50" />
+                    <path d="M100,35 L120,50 L100,65" />
+                    <path d="M10,80 Q70,90 130,80" stroke-dasharray="6 6" />
+                </svg>
+                <h2 class="handwritten">🌄 Bay of Bengal Drainage (77%)</h2>
+
+                <details open>
+                    <summary>Godavari (1,465 km) - Dakshin Ganga</summary>
+                    <div class="sub-box">
+                        <b>Source:</b> Trimbakeshwar (Nashik, MH). Largest peninsular basin.<br>
+                        <span class="i-dam">🧱 Dams:</span> Jayakwadi, Polavaram, Sriram Sagar.<br>
+                        <b>Tribs:</b> Penganga, Wardha, Wainganga, Indravati, Sabari, Manjra.
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Krishna (1,400 km)</summary>
+                    <div class="sub-box">
+                        <b>Source:</b> Mahabaleshwar (MH).<br>
+                        <span class="i-dam">🧱 Dams:</span> Srisailam, Nagarjuna Sagar (Largest Masonry).<br>
+                        <b>Tribs:</b> Tungabhadra (Largest), Koyna, Bhima, Musi.
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Kaveri (The Regime Exception)</summary>
+                    <div class="sub-box">
+                        <b>Source:</b> Brahmagiri Hills (KA). <br>
+                        <b>⚠️ Unique Regime:</b> Unlike other peninsular rivers, Kaveri is nearly perennial. Gets rain from <b>South-West monsoon (summer)</b> in upper catchment, and <b>North-East monsoon (winter)</b> in lower catchment.<br>
+                        <span class="i-dam">🧱 Dams:</span> Krishnarajsagar, Mettur, Kallanai (Oldest).
+                    </div>
+                </details>
+            </div>
+
+            <!-- CARD 9: MISCELLANY (Cities, Waterways, Disputes) -->
+            <div class="sketch-card" id="misc">
+                <div class="tag bg-blue">Miscellany</div>
+                <svg class="sketch-svg" viewBox="0 0 140 110" width="80" height="60" stroke="#38bdf8" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="20" y="20" width="100" height="70" rx="8" />
+                    <line x1="20" y1="40" x2="120" y2="40" />
+                    <circle cx="40" cy="65" r="4" fill="#38bdf8" />
+                    <circle cx="40" cy="80" r="4" fill="#38bdf8" />
+                </svg>
+                <h2 class="handwritten">🏙️ Cities, Waterways & Disputes</h2>
+
+                <details>
+                    <summary>Important Cities on River Banks</summary>
+                    <table class="sketch-table" style="font-size: 1rem;">
+                        <tr><th>City</th><th>River</th></tr>
+                        <tr><td>Cuttack / Sambalpur</td><td>Mahanadi</td></tr>
+                        <tr><td>Rourkela</td><td>Brahmani</td></tr>
+                        <tr><td>Surat</td><td>Tapi</td></tr>
+                        <tr><td>Kota</td><td>Chambal</td></tr>
+                        <tr><td>Srinagar</td><td>Jhelum</td></tr>
+                        <tr><td>Lucknow</td><td>Gomati</td></tr>
+                        <tr><td>Hyderabad</td><td>Musi</td></tr>
+                        <tr><td>Vijayawada</td><td>Krishna</td></tr>
+                    </table>
+                </details>
+
+                <details>
+                    <summary>Key National Waterways</summary>
+                    <div class="sub-box">
+                        <b>NW-1:</b> Ganga-Bhagirathi-Hooghly (Prayagraj to Haldia) - 1620 km.<br>
+                        <b>NW-2:</b> Brahmaputra (Sadiya to Dhubri) - 891 km.<br>
+                        <b>NW-4:</b> Krishna-Godavari (Kakinada to Puducherry).<br>
+                        <span class="hl-orange">🔥 NW-5 (Odisha Special):</span> Brahmani River and East Coast Canal (Geonkhali to Talcher via Dhamra) - 623 km. Very important for ASO!
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Interstate Water Disputes (Art. 262)</summary>
+                    <div class="sub-box">
+                        <span class="hl-pink">Mahanadi Water Disputes Tribunal:</span> Odisha vs. Chhattisgarh (Constituted in 2018).<br>
+                        <span class="hl-pink">Vansadhara Tribunal:</span> Odisha vs. Andhra Pradesh.<br>
+                        <span class="hl-pink">Cauvery Tribunal:</span> Karnataka, Tamil Nadu, Kerala, Puducherry.<br>
+                        <span class="hl-pink">Krishna Tribunal:</span> Maharashtra, Karnataka, Andhra Pradesh, Telangana.
+                    </div>
+                </details>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Back to Top FAB -->
+    <a href="#quick-rev" id="fab">↑</a>
+
+    <!-- Interactive Map Engine (Mouse & Multi-Touch Mobile Ready) -->
+    <script>
+        const container = document.getElementById('map-container');
+        const img = document.getElementById('pdf-map');
+        const uploader = document.getElementById('map-upload');
+        const thumbStrip = document.getElementById('thumbnail-strip');
+        
+        let scale = 1; 
+        let pointX = 0; let pointY = 0; 
+        
+        // Mouse State
+        let isDragging = false; 
+        let start = { x: 0, y: 0 };
+        
+        // Touch State
+        let lastTouchDist = 0;
+
+        function setTransform() {
+            img.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+
+        function resetZoom() {
+            scale = 1; pointX = 0; pointY = 0;
+            setTransform();
+            img.style.display = 'block';
+        }
+
+        // Switch main image based on thumbnail click
+        window.changeMap = function(src, thumbElement) {
+            img.src = src;
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            if (thumbElement) thumbElement.classList.add('active');
+            resetZoom();
+        }
+
+        // Handle dynamically loading multiple images from file picker
+        uploader.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if(files.length > 0) {
+                const firstThumb = thumbStrip.querySelector('.thumb');
+                if(firstThumb && firstThumb.src.includes('default_map.png')) {
+                    thumbStrip.innerHTML = ''; 
+                }
+            }
+
+            for(let file of files) {
+                const url = URL.createObjectURL(file); 
+                const wrapper = document.createElement('div');
+                wrapper.className = 'thumb-wrapper';
+                const thumb = document.createElement('img');
+                thumb.src = url;
+                thumb.className = 'thumb';
+                thumb.title = file.name;
+                thumb.onclick = () => changeMap(url, thumb);
+                wrapper.appendChild(thumb);
+                thumbStrip.appendChild(wrapper);
+                
+                // Set first selected image as active view immediately
+                if (file === files[0]) {
+                    changeMap(url, thumb);
+                }
+            }
+            uploader.value = ''; 
+        });
+
+        // -----------------------------------------------------
+        // MOUSE EVENTS (Laptop/Desktop)
+        // -----------------------------------------------------
+        container.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            isDragging = true;
+            start = { x: e.clientX - pointX, y: e.clientY - pointY };
+        });
+        
+        container.addEventListener('mouseup', () => isDragging = false);
+        container.addEventListener('mouseleave', () => isDragging = false);
+        
+        container.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            pointX = (e.clientX - start.x);
+            pointY = (e.clientY - start.y);
+            setTransform();
+        });
+
+        container.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            let xs = (e.clientX - pointX) / scale;
+            let ys = (e.clientY - pointY) / scale;
+            let delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+            
+            if (delta > 0) scale *= 1.1; else scale /= 1.1;
+            
+            if (scale < 0.5) scale = 0.5;
+            if (scale > 10) scale = 10;
+            
+            pointX = e.clientX - xs * scale;
+            pointY = e.clientY - ys * scale;
+            setTransform();
+        });
+
+        // -----------------------------------------------------
+        // TOUCH EVENTS (Mobile/Tablet Pinch & Pan)
+        // -----------------------------------------------------
+        container.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                start = { x: e.touches[0].clientX - pointX, y: e.touches[0].clientY - pointY };
+            } else if (e.touches.length === 2) {
+                isDragging = false;
+                lastTouchDist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+            }
+        }, {passive: false});
+
+        container.addEventListener('touchmove', (e) => {
+            e.preventDefault(); 
+            
+            if (e.touches.length === 1 && isDragging) {
+                pointX = e.touches[0].clientX - start.x;
+                pointY = e.touches[0].clientY - start.y;
+                setTransform();
+            } else if (e.touches.length === 2) {
+                const currentDist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                
+                const zoomFactor = currentDist / lastTouchDist;
+                
+                scale *= zoomFactor;
+                if (scale < 0.5) scale = 0.5;
+                if (scale > 10) scale = 10;
+                
+                lastTouchDist = currentDist;
+                setTransform();
+            }
+        }, {passive: false});
+
+        container.addEventListener('touchend', () => { isDragging = false; });
+        container.addEventListener('touchcancel', () => { isDragging = false; });
+    </script>
+</body>
+</html>
