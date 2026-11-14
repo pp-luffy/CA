@@ -1,397 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geography Visual Gallery</title>
-    <style>
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
-            --accent: #00a8ff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peninsular Plateau Sketchnote</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1a1a;
+      --text: #f0f0f0;
+      --green: #4cd137;
+      --blue: #00a8ff;
+      --yellow: #ffeb3b;
+      --gold: #e1b12c;
+      --purple: #9c88ff;
+      --orange: #e84118;
+      --card-bg: #2a2a2a;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Global Box Sizing Fixes Layout & Scroll Issues */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      overflow-x: hidden; /* Prevents horizontal scroll jumping */
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            padding: 20px;
-        }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Patrick Hand', cursive;
+      padding: 20px;
+      line-height: 1.5;
+    }
+    
+    h1, h2, h3 {
+      font-family: 'Kalam', cursive;
+      text-align: center;
+      margin-top: 0;
+    }
 
-        .header {
-            text-align: center;
-            padding: 2rem 0;
-            margin-bottom: 2rem;
-        }
+    h1 {
+      font-size: 3rem;
+      color: var(--yellow);
+      text-shadow: 2px 2px 4px #000;
+      margin-bottom: 20px;
+      padding-top: 10px;
+    }
 
-        .header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            color: var(--accent);
-        }
+    /* Quick Revision Header */
+    .revision-sheet {
+      background: linear-gradient(135deg, #222, #333);
+      border: 2px dashed var(--blue);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 0 auto 40px auto;
+      max-width: 900px;
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5);
+    }
+    
+    .revision-sheet h2 {
+      color: var(--blue);
+      margin-bottom: 15px;
+      font-size: 2.2rem;
+    }
+    
+    .rev-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      font-size: 1.2rem;
+    }
+    
+    .rev-item span {
+      color: var(--yellow);
+      font-weight: bold;
+    }
 
-        /* Gallery Grid */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    /* Masonry Grid Fixes */
+    .masonry {
+      column-count: 3;
+      column-gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 40px; /* Extra space at the bottom for smooth scrolling */
+    }
+    
+    @media (max-width: 992px) {
+      .masonry { column-count: 2; }
+    }
+    
+    @media (max-width: 768px) {
+      .masonry { column-count: 1; column-gap: 0; }
+    }
 
-        .gallery-item {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            aspect-ratio: 4/3;
-        }
+    /* Polaroid Cards */
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 25px 20px 20px 20px;
+      margin-bottom: 25px;
+      /* Critical fixes for column-count layout breaking & scrolling bugs */
+      display: inline-block; 
+      width: 100%;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      /* ----------------------------------------------------------- */
+      position: relative;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: rotate(-1deg) scale(1.02);
+      box-shadow: 8px 8px 20px rgba(0,0,0,0.8);
+      z-index: 10;
+    }
+    
+    .card h3 {
+      font-size: 1.8rem;
+      border-bottom: 2px solid #555;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+    }
 
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 168, 255, 0.2);
-        }
+    /* Tag position adjusted to prevent overflowing card bounds */
+    .tag {
+      position: absolute;
+      top: -12px;
+      right: 10px;
+      padding: 5px 15px;
+      border-radius: 4px;
+      font-family: 'Kalam', cursive;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transform: rotate(3deg);
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+      color: #111;
+      letter-spacing: 0.5px;
+    }
+    
+    ul {
+      padding-left: 25px;
+      margin: 0;
+      font-size: 1.15rem;
+    }
+    
+    li {
+      margin-bottom: 10px;
+    }
+    
+    .hl-green { color: var(--green); font-weight: bold; }
+    .hl-blue { color: var(--blue); font-weight: bold; }
+    .hl-yellow { color: var(--yellow); font-weight: bold; }
+    .hl-purple { color: var(--purple); font-weight: bold; }
+    .hl-orange { color: var(--orange); font-weight: bold; }
 
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .title-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-            padding: 20px 15px 15px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-            pointer-events: none;
-        }
-
-        /* Fullscreen Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            overflow: hidden;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1001;
-            background: linear-gradient(rgba(0,0,0,0.8), transparent);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            color: var(--text-color);
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-        }
-
-        .control-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            backdrop-filter: blur(5px);
-        }
-
-        .control-btn:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .control-btn.close {
-            background: rgba(255, 59, 48, 0.2);
-            border-color: rgba(255, 59, 48, 0.5);
-        }
-
-        .control-btn.close:hover {
-            background: #ff3b30;
-        }
-
-        .modal-body {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: grab;
-            overflow: auto; /* Allows scrolling when zoomed in */
-        }
-
-        .modal-body:active {
-            cursor: grabbing;
-        }
-
-        .modal-img {
-            max-width: 90vw;
-            max-height: 85vh;
-            object-fit: contain;
-            transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform-origin: center center;
-        }
-
-        /* Hide scrollbars in modal */
-        .modal-body::-webkit-scrollbar {
-            display: none;
-        }
-        .modal-body {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            .modal-header {
-                padding: 15px;
-            }
-            .control-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            .modal-img {
-                max-width: 100vw;
-                max-height: 80vh;
-            }
-        }
-    </style>
+  </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Geographical Features</h1>
+  <h1>🏞️ Peninsular Plateau</h1>
+
+  <!-- Ultra-Short Revision Sheet -->
+  <div class="revision-sheet">
+    <h2>⚡ Quick Revision Core Facts</h2>
+    <div class="rev-grid">
+      <div class="rev-item"><span>Area:</span> 16 lakh sq km (India is 32)</div>
+      <div class="rev-item"><span>Elevation:</span> 600-900 m Avg</div>
+      <div class="rev-item"><span>Shape:</span> Triangular (Apex: Kanniyakumari)</div>
+      <div class="rev-item"><span>Rocks:</span> Archaean gneisses, schists</div>
+      <div class="rev-item"><span>Slope:</span> West to East</div>
+      <div class="rev-item"><span>Exception:</span> Narmada-Tapti flow W in Rift</div>
+      <div class="rev-item"><span>Highest Peak (Meghalaya):</span> Shillong (1,961 m)</div>
+      <div class="rev-item"><span>Highest Peak (Karnataka):</span> Mulangiri (1,913 m)</div>
+      <div class="rev-item"><span>Coal Hub:</span> Gondwana rocks (Chotanagpur)</div>
+      <div class="rev-item"><span>Black Soil:</span> Malwa & Maharashtra (Lava origin)</div>
+    </div>
+  </div>
+
+  <div class="masonry">
+    
+    <!-- Overall Features -->
+    <div class="card" style="border-top: 4px solid var(--purple);">
+      <div class="tag" style="background-color: var(--purple);">General</div>
+      <h3 style="color: var(--purple);">Key Features</h3>
+      <ul>
+        <li>Base coincides with <span class="hl-yellow">North India Plain</span>, Apex at <span class="hl-yellow">Kanniyakumari</span>.</li>
+        <li>One of the <span class="hl-yellow">oldest landforms</span>, highly stable shield block.</li>
+        <li>Little structural change, never submerged (mostly).</li>
+        <li>Aggregation of smaller plateaus, hill ranges, river basins & valleys.</li>
+      </ul>
     </div>
 
-    <div class="gallery">
-        <!-- Drainage Image -->
-        <div class="gallery-item" onclick="openModal('./images/drainage.jpg', 'Drainage System')">
-            <!-- Fallback to .jpeg if .jpg fails using onerror -->
-            <img src="./images/drainage.jpg" onerror="this.onerror=null; this.src='./images/drainage.jpeg';" alt="Drainage">
-            <div class="title-overlay">Drainage System</div>
-        </div>
-
-        <!-- Mountain of Peninsular Image -->
-        <div class="gallery-item" onclick="openModal('./images/mountainOfPeninsular.jpg', 'Peninsular Mountains')">
-            <img src="./images/mountainOfPeninsular.jpg" onerror="this.onerror=null; this.src='./images/mountainOfPeninsular.jpeg';" alt="Peninsular Mountains">
-            <div class="title-overlay">Peninsular Mountains</div>
-        </div>
-
-        <!-- Plateau Image -->
-        <div class="gallery-item" onclick="openModal('./images/plateau.jpg', 'Plateau Region')">
-            <img src="./images/plateau.jpg" onerror="this.onerror=null; this.src='./images/plateau.jpeg';" alt="Plateau">
-            <div class="title-overlay">Plateau Region</div>
-        </div>
-
-        <!-- Coastal Image -->
-        <div class="gallery-item" onclick="openModal('./images/coastal.jpg', 'Coastal Plains')">
-            <img src="./images/coastal.jpg" onerror="this.onerror=null; this.src='./images/coastal.jpeg';" alt="Coastal Plains">
-            <div class="title-overlay">Coastal Plains</div>
-        </div>
+    <!-- Marwar / Mewar -->
+    <div class="card" style="border-top: 4px solid var(--orange);">
+      <div class="tag" style="background-color: var(--orange);">Rajasthan</div>
+      <h3 style="color: var(--orange);">Marwar / Mewar Plateau</h3>
+      <ul>
+        <li>Located in <span class="hl-yellow">eastern Rajasthan</span> (East of Aravalis).</li>
+        <li>Elevation: <span class="hl-green">250-500 m</span>; Slopes <span class="hl-blue">eastwards</span>.</li>
+        <li>Rocks: Sandstone, shales, limestones of <span class="hl-yellow">Vindhayan period</span>.</li>
+        <li>Rivers: <span class="hl-blue">Banas</span> + tributaries (Berach, Khari) flow NW to Chambal.</li>
+        <li>Appears as a <span class="hl-yellow">Rolling Plain</span> due to erosional activity.</li>
+      </ul>
     </div>
 
-    <!-- Fullscreen Zoom Modal -->
-    <div class="modal" id="imageModal">
-        <div class="modal-header">
-            <div class="modal-title" id="modalTitle">Image Title</div>
-            <div class="controls">
-                <button class="control-btn" onclick="zoomOut()" title="Zoom Out">−</button>
-                <button class="control-btn" onclick="zoomIn()" title="Zoom In">+</button>
-                <button class="control-btn close" onclick="closeModal()" title="Close">×</button>
-            </div>
-        </div>
-        <div class="modal-body" id="modalBody">
-            <img class="modal-img" id="modalImage" src="" alt="Zoomed Image">
-        </div>
+    <!-- Central Highland -->
+    <div class="card" style="border-top: 4px solid var(--green);">
+      <div class="tag" style="background-color: var(--green);">Central</div>
+      <h3 style="color: var(--green);">Central Highland</h3>
+      <ul>
+        <li>AKA <span class="hl-yellow">Madhya Bharat Pathar</span> (East of Marwar).</li>
+        <li>Comprises basin of <span class="hl-blue">Chambal river</span> (flows in rift valley).</li>
+        <li>Tributaries: Kali Sindh, Banas, Parwan, Parbati.</li>
+        <li>Features: Rolling plateau, rounded sandstone hills, thick forests.</li>
+        <li>North marked by <span class="hl-orange">Chambal Ravines (Badlands)</span>.</li>
+      </ul>
     </div>
 
-    <script>
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImage');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        
-        let currentScale = 1;
-        const scaleStep = 0.5;
-        const maxScale = 4;
-        const minScale = 0.5;
+    <!-- Bundelkhand -->
+    <div class="card" style="border-top: 4px solid var(--blue);">
+      <div class="tag" style="background-color: var(--blue);">UP / MP</div>
+      <h3 style="color: var(--blue);">Bundelkhand Upland</h3>
+      <ul>
+        <li>Borders: Yamuna (N), Madhya Bharat (W), Vindhyan Scarp (E/SE), Malwa (S).</li>
+        <li>Made of <span class="hl-yellow">'Bundelkhand gneiss'</span> (granite/gneiss).</li>
+        <li>Elevation: <span class="hl-green">300-600 m</span>; Slopes down to <span class="hl-blue">Yamuna</span>.</li>
+        <li>Spread over 5 UP dists & 4 MP dists.</li>
+        <li>Characterized by <span class="hl-orange">Senile topography</span>, undulating, unfit for cultivation.</li>
+        <li>Rivers: <span class="hl-blue">Betwa, Dhasan, Ken</span>.</li>
+      </ul>
+    </div>
 
-        // Variables for drag functionality
-        let isDragging = false;
-        let startX, startY, scrollLeft, scrollTop;
+    <!-- Malwa -->
+    <div class="card" style="border-top: 4px solid var(--yellow);">
+      <div class="tag" style="background-color: var(--yellow);">Central</div>
+      <h3 style="color: var(--yellow);">Malwa Plateau</h3>
+      <ul>
+        <li>Triangle: Vindhyan Hills (base), Aravali (W), Madhya Bharat (N), Bundelkhand (E).</li>
+        <li>2 Drainages: <span class="hl-blue">Arabian Sea</span> (Narmada, Tapi, Mahi) & <span class="hl-blue">Bay of Bengal</span> (Chambal, Betwa).</li>
+        <li>North drained by Chambal, Kali, Sindh, Parbati, Ken, Betwa.</li>
+        <li>Composed of <span class="hl-orange">extensive lava flow</span> & covered in <span class="hl-yellow">Black Soils</span>.</li>
+        <li>Slope towards North (<span class="hl-green">600m to &lt;500m</span>); Chambal ravines in North.</li>
+      </ul>
+    </div>
 
-        function openModal(imageSrc, title) {
-            modal.style.display = 'flex';
-            
-            // Allow the image to load first before assigning, keeping the fallback intact
-            const img = new Image();
-            img.onload = function() { modalImg.src = this.src; };
-            img.onerror = function() { modalImg.src = imageSrc.replace('.jpg', '.jpeg'); };
-            img.src = imageSrc;
+    <!-- Baghelkhand -->
+    <div class="card" style="border-top: 4px solid var(--purple);">
+      <div class="tag" style="background-color: var(--purple);">East-Central</div>
+      <h3 style="color: var(--purple);">Baghelkhand</h3>
+      <ul>
+        <li>Located North of <span class="hl-yellow">Maikal Range</span>.</li>
+        <li>Bounded by <span class="hl-blue">Son river</span> (North).</li>
+        <li>Rocks: Limestones/Sandstones (West), Granite (East).</li>
+        <li>Acts as <span class="hl-blue">Water Divide</span> between Son (N) and Mahanadi (S).</li>
+        <li>Elevation: <span class="hl-green">150 - 1,200 m</span>. Horizontal strata = no major disturbance.</li>
+        <li>Bhanrer & Kaimur near trough-axis.</li>
+      </ul>
+    </div>
 
-            modalTitle.textContent = title;
-            resetZoom();
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
+    <!-- Chotanagpur -->
+    <div class="card" style="border-top: 4px solid var(--orange);">
+      <div class="tag" style="background-color: var(--orange);">North-East</div>
+      <h3 style="color: var(--orange);">Chotanagpur Plateau</h3>
+      <ul>
+        <li>NE projection (Jharkhand, N. Chhatisgarh, Purulia-WB).</li>
+        <li>Avg Elev: <span class="hl-green">700 m</span>. Mainly <span class="hl-yellow">Gondwana rocks</span>.</li>
+        <li>Drainage: <span class="hl-blue">Radial pattern</span> (Damodar, Subarnrekaha, N/S Koel, Barkar).</li>
+        <li><span class="hl-blue">Damodar River</span> flows W to E in rift valley = <span class="hl-orange">Gondwana Coal Fields</span>.</li>
+        <li><span class="hl-yellow">Hazaribagh Plateau:</span> North of Damodar, 600m, peneplain.</li>
+        <li><span class="hl-yellow">Ranchi Plateau:</span> South of Damodar, 600m, Monadnocks (Ayers rock like).</li>
+        <li><span class="hl-yellow">Rajmahal Hills:</span> NE edge, basaltic lava, N-S direction, 400m avg (567m peak).</li>
+      </ul>
+    </div>
 
-        function closeModal() {
-            modal.style.display = 'none';
-            modalImg.src = '';
-            document.body.style.overflow = 'auto'; // Restore background scrolling
-        }
+    <!-- Meghalaya -->
+    <div class="card" style="border-top: 4px solid var(--green);">
+      <div class="tag" style="background-color: var(--green);">Far-East</div>
+      <h3 style="color: var(--green);">Meghalaya (Shillong) Plateau</h3>
+      <ul>
+        <li>Extension beyond Rajmahal, separated by <span class="hl-yellow">Garo-Rajmahal Gap</span> (down-faulting filled by Ganga/Brahmaputra).</li>
+        <li>Rocks: Archaean quartzites, shales, schists.</li>
+        <li>Slopes: Down to Brahmaputra valley (N) and Surma/Meghna (S).</li>
+        <li>Hills (W to E): <span class="hl-yellow">Garo (900m)</span>, <span class="hl-yellow">Khasi-Jaintia (1,500m)</span>, <span class="hl-yellow">Mikir (700m)</span>.</li>
+        <li>Highest Point: <span class="hl-orange">Shillong (1,961 m)</span>.</li>
+      </ul>
+    </div>
 
-        function zoomIn() {
-            if (currentScale < maxScale) {
-                currentScale += scaleStep;
-                applyTransform();
-            }
-        }
+    <!-- Deccan -->
+    <div class="card" style="border-top: 4px solid var(--blue);">
+      <div class="tag" style="background-color: var(--blue);">South</div>
+      <h3 style="color: var(--blue);">Deccan Plateau</h3>
+      <ul>
+        <li>Area: <span class="hl-yellow">5 lakh sq km</span>.</li>
+        <li>Bounds: Satpura/Vindhya/Mahadev/Maikal (N), Western/Eastern Ghats.</li>
+        <li>Elevation: <span class="hl-green">600 m Avg</span> (Rises 1000m in S, dips 500m in N).</li>
+        <li>General slope is <span class="hl-blue">West to East</span>.</li>
+        <li>Divided into smaller plateaus by rivers.</li>
+      </ul>
+    </div>
 
-        function zoomOut() {
-            if (currentScale > minScale) {
-                currentScale -= scaleStep;
-                applyTransform();
-            }
-        }
+    <!-- Maharashtra -->
+    <div class="card" style="border-top: 4px solid var(--yellow);">
+      <div class="tag" style="background-color: var(--yellow);">West-Deccan</div>
+      <h3 style="color: var(--yellow);">Maharashtra Plateau</h3>
+      <ul>
+        <li>North part of Deccan Plateau.</li>
+        <li>Basaltic rocks of lava origin (<span class="hl-orange">Deccan Traps</span> step-like topography).</li>
+        <li>Rolling plain due to weathering.</li>
+        <li>Valleys: <span class="hl-blue">Godavari, Bhima, Krishna</span> (flanked by flat-topped hills).</li>
+        <li>Covered in <span class="hl-yellow">Black Cotton Soil (Regur)</span>.</li>
+      </ul>
+    </div>
 
-        function resetZoom() {
-            currentScale = 1;
-            applyTransform();
-            modalBody.scrollLeft = 0;
-            modalBody.scrollTop = 0;
-        }
+    <!-- Karnataka -->
+    <div class="card" style="border-top: 4px solid var(--purple);">
+      <div class="tag" style="background-color: var(--purple);">South</div>
+      <h3 style="color: var(--purple);">Karnataka (Mysore) Plateau</h3>
+      <ul>
+        <li>South of Maharashtra plateau; <span class="hl-green">600-900m</span> elevation.</li>
+        <li>Highest Peak: <span class="hl-orange">Mulangiri (1,913 m)</span> in Baba Budan Hills.</li>
+        <li>Two Parts: 
+          <br>1. <span class="hl-yellow">Malnad:</span> Hill country, deep valleys, dense forests.
+          <br>2. <span class="hl-yellow">Maidan:</span> Rolling plain with low granite hills.</li>
+        <li>Tapers in south, merges with <span class="hl-yellow">Niligiri hills</span>.</li>
+      </ul>
+    </div>
 
-        function applyTransform() {
-            modalImg.style.transform = `scale(${currentScale})`;
-            
-            // Adjust body display to allow scrolling when image scales beyond screen
-            if(currentScale > 1) {
-                modalImg.style.maxWidth = 'none';
-                modalImg.style.maxHeight = 'none';
-            } else {
-                modalImg.style.maxWidth = '90vw';
-                modalImg.style.maxHeight = '85vh';
-            }
-        }
+    <!-- Telangana -->
+    <div class="card" style="border-top: 4px solid var(--orange);">
+      <div class="tag" style="background-color: var(--orange);">South-East</div>
+      <h3 style="color: var(--orange);">Telangana Plateau</h3>
+      <ul>
+        <li>Made of <span class="hl-yellow">Archaean gneisses</span>.</li>
+        <li>Elevation: <span class="hl-green">500-600 m</span> (South is higher than North).</li>
+        <li>Drained by: <span class="hl-blue">Godavari, Krishna, Penneru</span>.</li>
+        <li>Divided into <span class="hl-yellow">Ghats</span> and <span class="hl-yellow">Peneplains</span> (vast featureless plains).</li>
+      </ul>
+    </div>
 
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && modal.style.display === 'flex') {
-                closeModal();
-            }
-        });
+    <!-- Chhattisgarh -->
+    <div class="card" style="border-top: 4px solid var(--green);">
+      <div class="tag" style="background-color: var(--green);">East-Central</div>
+      <h3 style="color: var(--green);">Chhattisgarh Plain</h3>
+      <ul>
+        <li>The <span class="hl-yellow">only plain</span> worth the name in the Peninsular plateau.</li>
+        <li>Saucer-shaped depression drained by upper <span class="hl-blue">Mahanadi</span>.</li>
+        <li>Between Maikala Range and Odisha hills.</li>
+        <li>Horizontal beds of <span class="hl-yellow">limestone & shales</span>.</li>
+        <li>Named after 36 forts of Haithaivanshi Rajputs.</li>
+        <li>Elevation: <span class="hl-green">250m (E) to 330m (W)</span>.</li>
+      </ul>
+    </div>
 
-        // Mouse wheel zoom support
-        modalBody.addEventListener('wheel', function(e) {
-            e.preventDefault();
-            if (e.deltaY < 0) {
-                zoomIn();
-            } else {
-                zoomOut();
-            }
-        }, { passive: false });
+  </div>
 
-        // Drag to pan functionality for zoomed images
-        modalBody.addEventListener('mousedown', (e) => {
-            if(currentScale <= 1) return;
-            isDragging = true;
-            startX = e.pageX - modalBody.offsetLeft;
-            startY = e.pageY - modalBody.offsetTop;
-            scrollLeft = modalBody.scrollLeft;
-            scrollTop = modalBody.scrollTop;
-        });
-
-        modalBody.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
-        modalBody.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        modalBody.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - modalBody.offsetLeft;
-            const y = e.pageY - modalBody.offsetTop;
-            const walkX = (x - startX) * 2; // Scroll-fast multiplier
-            const walkY = (y - startY) * 2;
-            modalBody.scrollLeft = scrollLeft - walkX;
-            modalBody.scrollTop = scrollTop - walkY;
-        });
-
-        // Touch support for dragging on mobile
-        modalBody.addEventListener('touchstart', (e) => {
-            if(currentScale <= 1) return;
-            isDragging = true;
-            startX = e.touches[0].pageX - modalBody.offsetLeft;
-            startY = e.touches[0].pageY - modalBody.offsetTop;
-            scrollLeft = modalBody.scrollLeft;
-            scrollTop = modalBody.scrollTop;
-        });
-
-        modalBody.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        modalBody.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const x = e.touches[0].pageX - modalBody.offsetLeft;
-            const y = e.touches[0].pageY - modalBody.offsetTop;
-            const walkX = (x - startX) * 2;
-            const walkY = (y - startY) * 2;
-            modalBody.scrollLeft = scrollLeft - walkX;
-            modalBody.scrollTop = scrollTop - walkY;
-        });
-    </script>
 </body>
 </html>
