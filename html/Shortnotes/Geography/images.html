@@ -27,7 +27,7 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden; /* Prevents default browser scrolling */
+      overflow: hidden; 
       background-color: var(--bg);
       font-family: 'Patrick Hand', cursive;
       color: var(--text);
@@ -41,9 +41,12 @@
       top: 0;
       left: 0;
       cursor: grab;
-      touch-action: none; /* Crucial for custom touch panning */
-      background: radial-gradient(circle, #222 1px, transparent 1px);
-      background-size: 40px 40px; /* Dotted grid background */
+      touch-action: none;
+      background: radial-gradient(circle, #333 1.5px, transparent 1.5px);
+      background-size: 40px 40px;
+      /* Crucial: prevents native dragging from breaking the pan state */
+      user-select: none;
+      -webkit-user-select: none; 
     }
     
     #canvas-container:active {
@@ -56,7 +59,7 @@
       left: 0;
       width: 100%;
       max-width: 1200px;
-      transform-origin: 0 0;
+      transform-origin: 0 0 !important; /* Forces origin to top-left for accurate pointer math */
       padding: 40px 20px;
       will-change: transform;
     }
@@ -109,7 +112,6 @@
       letter-spacing: 2px;
     }
 
-    /* Quick Revision Header */
     .revision-sheet {
       background: linear-gradient(135deg, #222, #333);
       border: 2px dashed var(--blue);
@@ -139,22 +141,15 @@
       font-weight: bold;
     }
 
-    /* Masonry Grid */
     .masonry {
       column-count: 3;
       column-gap: 25px;
       padding-bottom: 50px;
     }
     
-    @media (max-width: 992px) {
-      .masonry { column-count: 2; }
-    }
-    
-    @media (max-width: 768px) {
-      .masonry { column-count: 1; column-gap: 0; }
-    }
+    @media (max-width: 992px) { .masonry { column-count: 2; } }
+    @media (max-width: 768px) { .masonry { column-count: 1; column-gap: 0; } }
 
-    /* Polaroid Cards */
     .card {
       background-color: var(--card-bg);
       border: 1px solid #444;
@@ -217,8 +212,8 @@
 
   <!-- Floating UI Controls -->
   <div id="ui-controls">
-    <button onclick="zoom(1.2)" title="Zoom In">➕</button>
-    <button onclick="zoom(0.8)" title="Zoom Out">➖</button>
+    <button onclick="zoomBtn(1.2)" title="Zoom In">➕</button>
+    <button onclick="zoomBtn(0.8)" title="Zoom Out">➖</button>
     <button onclick="resetZoom()" title="Reset View">🏠</button>
   </div>
 
@@ -416,7 +411,6 @@
             <li>Elevation: <span class="hl-green">250m (E) to 330m (W)</span>.</li>
           </ul>
         </div>
-
       </div>
     </div>
   </div>
@@ -430,109 +424,157 @@
     let pointY = 0;
     let start = { x: 0, y: 0 };
     let panning = false;
+    let isPinching = false;
+    let initialPinchDistance = null;
+    let initialScale = 1;
 
-    // Initialize board centered
+    function setTransform() {
+      board.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+      // Crucial Fix: Scaling the background alongside the board to eliminate the optical illusion
+      container.style.backgroundSize = `${40 * scale}px ${40 * scale}px`;
+      container.style.backgroundPosition = `${pointX}px ${pointY}px`;
+    }
+
     function initCenter() {
       const viewportWidth = window.innerWidth;
       const boardWidth = Math.min(viewportWidth, 1200); 
       pointX = (viewportWidth - boardWidth) / 2;
       pointY = 20; 
+      scale = 1;
       setTransform();
     }
     
     initCenter();
 
-    function setTransform() {
-      board.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
-      // Move background grid to match pan (parallax effect)
-      container.style.backgroundPosition = `${pointX}px ${pointY}px`;
-    }
-
-    // --- Panning Logic ---
-    container.addEventListener('mousedown', function (e) {
-      if(e.button !== 0 && e.button !== 1) return; // Only left/middle click
-      e.preventDefault(); // Prevents text highlighting while dragging
+    // --- Mouse Panning ---
+    container.addEventListener('mousedown', (e) => {
+      // Prevents native drag-and-drop on text/elements that jammed the pan state
+      e.preventDefault(); 
+      if (e.button !== 0 && e.button !== 1) return;
+      
       start = { x: e.clientX - pointX, y: e.clientY - pointY };
       panning = true;
       container.style.cursor = "grabbing";
     });
 
-    window.addEventListener('mouseup', function () {
+    window.addEventListener('mousemove', (e) => {
+      if (!panning || isPinching) return;
+      pointX = e.clientX - start.x;
+      pointY = e.clientY - start.y;
+      setTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
       panning = false;
       container.style.cursor = "grab";
     });
 
-    window.addEventListener('mousemove', function (e) {
-      if (!panning) return;
-      pointX = (e.clientX - start.x);
-      pointY = (e.clientY - start.y);
-      setTransform();
-    });
+    // --- Mouse Wheel Zoom to Pointer ---
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault(); 
+      
+      const rect = container.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
 
-    // Mobile Touch Panning
-    container.addEventListener('touchstart', function(e) {
+      // Unscaled coordinates of pointer on the board
+      const targetX = (mouseX - pointX) / scale;
+      const targetY = (mouseY - pointY) / scale;
+      
+      // Determine zoom direction
+      let newScale = scale;
+      if (e.deltaY < 0) {
+        newScale *= 1.1; 
+      } else {
+        newScale /= 1.1; 
+      }
+      
+      newScale = Math.min(Math.max(0.2, newScale), 4);
+
+      // Lock the unscaled coordinate to the exact same screen coordinate
+      pointX = mouseX - (targetX * newScale);
+      pointY = mouseY - (targetY * newScale);
+      scale = newScale;
+      
+      setTransform();
+    }, { passive: false });
+
+    // --- Touch Pan & Pinch Zoom ---
+    container.addEventListener('touchstart', (e) => {
+      e.preventDefault();
       if (e.touches.length === 1) {
         start = { x: e.touches[0].clientX - pointX, y: e.touches[0].clientY - pointY };
         panning = true;
+      } else if (e.touches.length === 2) {
+        isPinching = true;
+        panning = false;
+        initialPinchDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        initialScale = scale;
       }
-    }, { passive: true });
-
-    container.addEventListener('touchmove', function(e) {
-      if (!panning || e.touches.length !== 1) return;
-      e.preventDefault(); // Prevent browser pull-to-refresh / scrolling
-      pointX = (e.touches[0].clientX - start.x);
-      pointY = (e.touches[0].clientY - start.y);
-      setTransform();
     }, { passive: false });
 
-    container.addEventListener('touchend', function() {
-      panning = false;
+    container.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      if (panning && e.touches.length === 1) {
+        pointX = e.touches[0].clientX - start.x;
+        pointY = e.touches[0].clientY - start.y;
+        setTransform();
+      } else if (isPinching && e.touches.length === 2) {
+        const currentDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        
+        let newScale = initialScale * (currentDistance / initialPinchDistance);
+        newScale = Math.min(Math.max(0.2, newScale), 4);
+        
+        // Zoom relative to the center of the pinch
+        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        
+        const targetX = (centerX - pointX) / scale;
+        const targetY = (centerY - pointY) / scale;
+        
+        pointX = centerX - (targetX * newScale);
+        pointY = centerY - (targetY * newScale);
+        scale = newScale;
+        
+        setTransform();
+      }
+    }, { passive: false });
+
+    container.addEventListener('touchend', (e) => {
+      if (e.touches.length < 2) isPinching = false;
+      if (e.touches.length === 1) {
+        start = { x: e.touches[0].clientX - pointX, y: e.touches[0].clientY - pointY };
+        panning = true;
+      } else {
+        panning = false;
+      }
     });
 
-    // --- Zoom to Pointer Logic ---
-    container.addEventListener('wheel', function (e) {
-      e.preventDefault(); // Stop page scroll
-      
-      // Calculate mouse position relative to the scaled board
-      const xs = (e.clientX - pointX) / scale;
-      const ys = (e.clientY - pointY) / scale;
-      
-      const delta = e.deltaY ? -e.deltaY : e.detail;
-      
-      if (delta > 0) {
-        scale *= 1.1; // Zoom In
-      } else {
-        scale /= 1.1; // Zoom Out
-      }
-      
-      // Constrain Zoom Limits
-      scale = Math.min(Math.max(0.2, scale), 4);
-
-      // Adjust pointX/pointY so the mouse stays over the same spot
-      pointX = e.clientX - xs * scale;
-      pointY = e.clientY - ys * scale;
-
-      setTransform();
-    }, { passive: false });
-
     // --- UI Controls ---
-    window.zoom = function(factor) {
+    window.zoomBtn = function(factor) {
+      // Buttons zoom to the center of the screen
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
       
-      const xs = (centerX - pointX) / scale;
-      const ys = (centerY - pointY) / scale;
+      const targetX = (centerX - pointX) / scale;
+      const targetY = (centerY - pointY) / scale;
       
-      scale *= factor;
-      scale = Math.min(Math.max(0.2, scale), 4);
+      let newScale = scale * factor;
+      newScale = Math.min(Math.max(0.2, newScale), 4);
       
-      pointX = centerX - xs * scale;
-      pointY = centerY - ys * scale;
+      pointX = centerX - (targetX * newScale);
+      pointY = centerY - (targetY * newScale);
+      scale = newScale;
       setTransform();
     };
 
     window.resetZoom = function() {
-      scale = 1;
       initCenter();
     };
   </script>
