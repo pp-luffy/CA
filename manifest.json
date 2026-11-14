@@ -1,5 +1,5 @@
 {
-  "timestamp": 1794674329682,
+  "timestamp": 1794680586399,
   "weekly": [
     "05102026-11102026.html",
     "12102026-18102026.html",
@@ -23,6 +23,10 @@
     {
       "subject": "Economy",
       "filename": "Economic_Planning.html"
+    },
+    {
+      "subject": "Geography",
+      "filename": "Drainage.html"
     },
     {
       "subject": "Polity",
