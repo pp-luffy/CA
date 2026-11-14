@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Coastline Sketchnote</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 30px;
+            box-sizing: border-box;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kalam', cursive;
+            margin-top: 0;
+        }
+
+        .header-container {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 5px #000;
+            letter-spacing: 2px;
+        }
+
+        /* Quick Revision Sheet */
+        .revision-sheet {
+            background: #222;
+            border: 3px dashed #00a8ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .revision-sheet h2 {
+            color: #00a8ff;
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .revision-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .rev-badge {
+            background: #2a2a2a;
+            border-left: 5px solid #ffeb3b;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .highlight-green {
+            color: #4cd137;
+            font-weight: bold;
+        }
+        
+        .highlight-blue {
+            color: #00a8ff;
+            font-weight: bold;
+        }
+
+        /* Masonry Grid Layout */
+        .masonry-container {
+            column-count: 3;
+            column-gap: 25px;
+        }
+
+        @media (max-width: 1200px) {
+            .masonry-container { column-count: 2; }
+        }
+        @media (max-width: 800px) {
+            .masonry-container { column-count: 1; }
+        }
+
+        .card {
+            background: #252525;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+            border: 2px solid #333;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: scale(1.02) rotate(-1deg);
+            border-color: #555;
+            z-index: 10;
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .tag {
+            position: absolute;
+            top: -12px;
+            right: -10px;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            transform: rotate(4deg);
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+            font-family: 'Kalam', cursive;
+        }
+
+        .tag-geo { background: #4cd137; color: #1a1a1a; } /* Green */
+        .tag-concept { background: #9c88ff; color: #fff; } /* Purple */
+        .tag-east { background: #00a8ff; color: #fff; } /* Blue */
+        .tag-west { background: #e84118; color: #fff; } /* Orange */
+        .tag-econ { background: #e1b12c; color: #1a1a1a; } /* Yellow */
+
+        ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <h1 class="title">🌊 Coastlines & Coastal Plains of India</h1>
+    </div>
+
+    <!-- ⚡ ULTRA-SHORT REVISION SHEET -->
+    <div class="revision-sheet">
+        <h2>⚡ Quick Revision Core Facts</h2>
+        <div class="revision-grid">
+            <div class="rev-badge">Length: <span class="highlight">&nbsp;7516.6 Km</span>&nbsp;(6100 Mainland + 1197 Islands)</div>
+            <div class="rev-badge">States/UTs: <span class="highlight">&nbsp;13</span></div>
+            <div class="rev-badge">Origin: <span class="highlight">&nbsp;Faulting of Gondwanaland</span>&nbsp;(Cretaceous)</div>
+            <div class="rev-badge">East Plains Avg Width: <span class="highlight">&nbsp;120 Km</span></div>
+            <div class="rev-badge">West Plains Avg Width: <span class="highlight">&nbsp;65 Km</span></div>
+            <div class="rev-badge">Emergence: <span class="highlight">&nbsp;Coramandal (TN) & Malabar (Kerala)</span></div>
+            <div class="rev-badge">Submergence: <span class="highlight">&nbsp;Konkan (MH & Goa)</span></div>
+            <div class="rev-badge">Largest Lake: <span class="highlight">&nbsp;Chilka (780-1144 sq km)</span></div>
+            <div class="rev-badge">Largest Backwater: <span class="highlight">&nbsp;Vembanad (75 Km long)</span></div>
+            <div class="rev-badge">Highest Waterfall: <span class="highlight">&nbsp;Gersoppa/Jog (271m)</span></div>
+            <div class="rev-badge">Highest Volcanic Peak: <span class="highlight">&nbsp;Mt. Girnar (1117m)</span></div>
+            <div class="rev-badge">Key Sand Mineral: <span class="highlight">&nbsp;Monazite (Kerala)</span></div>
+        </div>
+    </div>
+
+    <!-- 🗺️ MASONRY SKETCHNOTE CANVAS -->
+    <div class="masonry-container">
+
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="tag tag-geo">Geography</div>
+            <h3 style="color: #ffeb3b;">Indian Coastline</h3>
+            <ul>
+                <li>Total length: <span class="highlight">7516.6 Km</span> (6100 km mainland + 1197 km islands)</li>
+                <li>Touches <span class="highlight">13 States and UTs</span>.</li>
+                <li>Formation: Result of <span class="highlight-green">faulting of Gondwanaland</span> during the Cretaceous period (Continental Drift).</li>
+                <li>Harbours: Straight & regular coast. <span class="highlight">Lacks many natural harbours</span> (unlike indented European coastlines).</li>
+                <li>The Bay of Bengal & Arabian Sea formed during the Cretaceous or early Tertiary period after Gondwanaland disintegration.</li>
+            </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="tag tag-concept">Geology</div>
+            <h3 style="color: #9c88ff;">Emergence & Submergence</h3>
+            <ul>
+                <li><span class="highlight">Emergence:</span> Formed by uplift of land or lowering of sea level. Features: Bars, spits, lagoons, salt marshes, beaches, sea cliffs, arches.</li>
+                <li><span class="highlight">Submergence:</span> Exact opposite. Formed by sinking land/rising sea.</li>
+                <li><span class="highlight-blue">East Coast (Tamil Nadu):</span> Coast of Emergence.</li>
+                <li><span class="highlight-blue">West Coast:</span> Mixed. Northern part is submerged (due to faulting). Southern (Kerala) is emergent.</li>
+                <li><span class="highlight">Coramandal Coast (TN):</span> Emergence</li>
+                <li><span class="highlight">Malabar Coast (Kerala):</span> Emergence</li>
+                <li><span class="highlight">Konkan Coast (MH & Goa):</span> Submergence</li>
+            </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="tag tag-east">East Coast</div>
+            <h3 style="color: #00a8ff;">East Coast & Eastern Plains</h3>
+            <ul>
+                <li>Lies between Eastern Ghats & Bay of Bengal.</li>
+                <li>Extends from <span class="highlight">Subarnarekha river / Ganga delta</span> to Kanniyakumari.</li>
+                <li>Extensive plains: Average width of <span class="highlight">120 km</span>.</li>
+                <li>Marked by large river deltas: <span class="highlight-green">Mahanadi, Godavari, Krishna, Cauvery</span>.</li>
+                <li>Features: Chilka lake, Pulicat lake (lagoon).</li>
+                <li>Northern region (Mahanadi to Krishna) = <span class="highlight">Northern Circars</span>.</li>
+                <li>Southern region (Krishna to Cauvery) = <span class="highlight">Carnatic</span>.</li>
+            </ul>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="tag tag-east">East Coast</div>
+            <h3 style="color: #00a8ff;">Utkal, Andhra & TN Plains</h3>
+            <ul>
+                <li><span class="highlight">Utkal Plain (Odisha):</span> Mahanadi delta. Features <span class="highlight">Chilka Lake</span> (biggest in country, 780 sq km winter - 1144 sq km monsoon). Low hills to the south.</li>
+                <li><span class="highlight">Andhra Plain:</span> South of Utkal to Pulicat Lake (barred by <span class="highlight-green">Sriharikota Island - ISRO</span>). Godavari & Krishna deltas merged here.</li>
+                <li>Delta advanced 35 km into sea recently -> <span class="highlight">Kolleru Lake</span> is now far inland! Lacks good harbours except Vishakhapatnam & Machilipatnam.</li>
+                <li><span class="highlight">Tamil Nadu Plain:</span> Pulicat to KK (675 km long). Cauvery delta is <span class="highlight">130 km wide</span> ("granary of South India").</li>
+                <li><span class="highlight">Coramandal Coast / Payan Ghat:</span> False Divi Point (AP/Krishna Delta) to Kanyakumari.</li>
+            </ul>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+            <div class="tag tag-west">West Coast</div>
+            <h3 style="color: #e84118;">West Coast & Western Plains</h3>
+            <ul>
+                <li>Extends from <span class="highlight">Rann of Kachchh / Gulf of Cambay</span> to Cape Comorin (KK).</li>
+                <li>Narrow plains: Average width of <span class="highlight">65 km</span>.</li>
+                <li>Made of alluvium from short Western Ghats streams.</li>
+                <li>Dotted with coves (small bays), creeks, and estuaries (<span class="highlight">Narmada and Tapi</span> are major).</li>
+                <li>Regional divisions: <span class="highlight">Konkan</span> (MH & Goa), <span class="highlight">Karnataka</span>, <span class="highlight">Kerala / Malabar</span>.</li>
+            </ul>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card">
+            <div class="tag tag-west">West Coast</div>
+            <h3 style="color: #e84118;">Gujarat, Kutch & Kathiawar</h3>
+            <ul>
+                <li><span class="highlight">Kutch & Kathiawar:</span> Extension of Peninsular plateau (Kathiawar = Deccan Lava, Kutch = Tertiary rocks), now levelled down.</li>
+                <li><span class="highlight">Kutch Peninsula:</span> Former island filled by Indus River sediment. Now arid/semi-arid.</li>
+                <li><span class="highlight">Rann of Kutch:</span> Great Rann (salt-soaked, North) & Little Rann (South/SE).</li>
+                <li><span class="highlight">Kathiawar:</span> Mandav Hills (radial drainage). <span class="highlight">Mt. Girnar (1117m)</span> highest point, volcanic. Gir Range has dense forests, home of <span class="highlight-green">Gir lion</span>.</li>
+                <li><span class="highlight">Gujarat Plain:</span> East of Kachchh. Rivers: Narmada, Tapi, Mahi, Sabarmati. East is fertile; coast has windblown loess (sand heaps).</li>
+            </ul>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card">
+            <div class="tag tag-west">West Coast</div>
+            <h3 style="color: #e84118;">Konkan & Karnataka Plains</h3>
+            <ul>
+                <li><span class="highlight">Konkan Plain:</span> Daman to Goa (50-80 km wide). Marine erosion features: cliffs, shoals, reefs.</li>
+                <li><span class="highlight-blue">Thane Creek (Mumbai)</span> provides excellent natural harbour.</li>
+                <li><span class="highlight">Karnataka Coastal Plain:</span> Goa to Mangalore (30-50 km wide, max 70 km). Marked marine topography.</li>
+                <li>Steep streams make waterfalls: Sharavati river creates <span class="highlight">Gersoppa (Jog) Falls (271m)</span>. *(Trivia: Angel falls 979m (highest), Tugela 948m (second)).*</li>
+            </ul>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card">
+            <div class="tag tag-west">West Coast</div>
+            <h3 style="color: #e84118;">Kerala / Malabar Plain</h3>
+            <ul>
+                <li>Mangalore to Kanniyakumari. Wider than Karnataka plain, low-lying.</li>
+                <li>Famous for lakes, lagoons, spits, and <span class="highlight-green">backwaters (Kayals)</span> - shallow lagoons parallel to the coastline.</li>
+                <li><span class="highlight">Vembanad Lake:</span> Largest backwater, 75 km long and 5-10 km wide.</li>
+                <li>Gives rise to a <span class="highlight">55 km long spit</span>.</li>
+            </ul>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="card">
+            <div class="tag tag-econ">Economy</div>
+            <h3 style="color: #e1b12c;">Economic Significance</h3>
+            <ul>
+                <li><span class="highlight-green">Agriculture:</span> Fertile soils (Rice is the main crop). Coconut trees grow abundantly along the coast.</li>
+                <li><span class="highlight-blue">Trade:</span> Coast dotted with big/small ports for commerce. Fishing is a major occupation.</li>
+                <li><span class="highlight">Minerals & Energy:</span> Sedimentary rocks contain mineral oil (<span class="highlight-green">KG Basin</span>).</li>
+                <li><span class="highlight">Nuclear Power:</span> Kerala coast sands contain huge deposits of <span class="highlight-blue">MONAZITE</span>.</li>
+                <li><span class="highlight">Salt:</span> Low-lying areas of Gujarat produce large amounts of salt.</li>
+                <li><span class="highlight">Tourism:</span> Kerala backwaters and Goa beaches are major international tourist destinations.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
