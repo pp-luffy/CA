@@ -7,13 +7,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #1a1a1a; --text: #f0f0f0; --green: #4cd137; --blue: #00a8ff; 
-      --yellow: #ffeb3b; --gold: #e1b12c; --purple: #9c88ff; --orange: #e84118; --card-bg: #2a2a2a;
+      --bg: #1a1a1a;
+      --text: #f0f0f0;
+      --green: #4cd137;
+      --blue: #00a8ff;
+      --yellow: #ffeb3b;
+      --gold: #e1b12c;
+      --purple: #9c88ff;
+      --orange: #e84118;
+      --card-bg: #2a2a2a;
     }
     
     body {
-      background-color: var(--bg); color: var(--text);
-      font-family: 'Patrick Hand', cursive; margin: 0; padding: 30px; line-height: 1.5; position: relative; 
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Patrick Hand', cursive;
+      margin: 0;
+      padding: 30px;
+      line-height: 1.5;
+      position: relative; 
     }
     
     h1, h2, h3 { font-family: 'Kalam', cursive; text-align: center; margin-top: 0; }
@@ -35,6 +47,7 @@
         background: rgba(0, 168, 255, 0.2); box-shadow: 0 0 10px rgba(0, 168, 255, 0.4);
     }
     
+    /* Highlight Tool Group */
     .highlight-tools {
         display: flex; align-items: center; gap: 8px;
         background: rgba(0,0,0,0.3); border-radius: 6px;
@@ -54,7 +67,7 @@
     body.add-note-mode { cursor: crosshair !important; }
     body.highlight-mode { cursor: text !important; }
 
-    /* Sticky Notes */
+    /* Draggable, Resizable Mini Notes */
     .mini-note {
         position: absolute; background: var(--yellow); color: #1a1a1a;
         border-radius: 10px; font-family: 'Kalam', cursive; font-size: 1.1rem;
@@ -83,8 +96,12 @@
     .mini-note-delete {
         background: var(--orange); color: white; border: none; border-radius: 50%;
         width: 18px; height: 18px; font-size: 10px; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
+        display: none; align-items: center; justify-content: center;
     }
+    /* Show delete button on hover or focus */
+    .mini-note:hover .mini-note-delete,
+    .mini-note:focus-within .mini-note-delete { display: flex; }
+    
     .mini-note-input {
         width: 100%; height: 100%; flex-grow: 1; background: transparent;
         border: none; padding: 8px; color: inherit; font-family: inherit;
@@ -95,10 +112,9 @@
     .user-highlight {
         background-color: rgba(255, 235, 59, 0.8); color: #000;
         border-radius: 3px; padding: 0 2px; cursor: pointer;
+        transition: opacity 0.2s;
     }
-    .highlight-mode .user-highlight:hover {
-        opacity: 0.7; /* Gives a visual cue that it can be clicked/removed */
-    }
+    .highlight-mode .user-highlight:hover { opacity: 0.6; } /* Shows it can be clicked to undo */
 
     /* Status Alert */
     #upload-status {
@@ -164,9 +180,9 @@
   <div class="revision-sheet">
     <h2>⚡ Quick Revision Core Facts</h2>
     <div class="rev-grid">
-      <div class="rev-badge">Length: <span class="highlight">&nbsp;7516.6 Km</span>&nbsp;(6100 Mainland + 1197 Islands)</div>
+      <div class="rev-badge">Length: <span class="highlight">&nbsp;7516.6 Km</span></div>
       <div class="rev-badge">States/UTs: <span class="highlight">&nbsp;13</span></div>
-      <div class="rev-badge">Origin: <span class="highlight">&nbsp;Faulting of Gondwanaland</span>&nbsp;(Cretaceous)</div>
+      <div class="rev-badge">Origin: <span class="highlight">&nbsp;Faulting of Gondwanaland</span></div>
       <div class="rev-badge">East Plains Avg Width: <span class="highlight">&nbsp;120 Km</span></div>
       <div class="rev-badge">West Plains Avg Width: <span class="highlight">&nbsp;65 Km</span></div>
       <div class="rev-badge">Emergence: <span class="highlight">&nbsp;Coramandal (TN) & Malabar (Kerala)</span></div>
@@ -310,10 +326,35 @@
       let isHighlightMode = false;
       let notesData = JSON.parse(localStorage.getItem(`upsc_notes_${PAGE_ID}`) || '[]');
 
-      // Load locally saved sticky notes
+      // SMART HYDRATION: Pick up notes that are hardcoded into HTML from GitHub
+      function hydrateFromDOM() {
+          const staticNotes = document.querySelectorAll('#notes-container .mini-note');
+          let modified = false;
+          
+          staticNotes.forEach(noteEl => {
+              const id = noteEl.id;
+              // If we don't have this note in local storage, grab it from HTML
+              if (!notesData.find(n => n.id === id)) {
+                  const left = noteEl.style.left;
+                  const top = noteEl.style.top;
+                  const width = noteEl.style.width;
+                  const height = noteEl.style.height;
+                  const bg = noteEl.style.backgroundColor || '#ffeb3b';
+                  const textarea = noteEl.querySelector('textarea');
+                  const text = textarea ? (textarea.value || textarea.innerHTML) : '';
+                  
+                  notesData.push({ id, left, top, width, height, bg, text });
+                  modified = true;
+              }
+          });
+          
+          if (modified) saveLocal();
+      }
+
       function renderExistingNotes() {
-          notesContainer.innerHTML = '';
-          notesData.forEach(note => createNoteElement(note));
+          hydrateFromDOM(); // Run hydration first
+          notesContainer.innerHTML = ''; // Wipe DOM to prevent duplicates
+          notesData.forEach(note => createNoteElement(note)); // Rebuild with full interactivity
           updateSaveButtonVisibility();
       }
 
@@ -345,8 +386,9 @@
           toggleNoteModeBtn.innerText = '📝 ADD NOTES';
       });
 
-      // Undo Highlight Logic (Click to remove)
+      // Interactive Click Logic (Add Note & Undo Highlight)
       document.body.addEventListener('click', (e) => {
+          // UNDO HIGHLIGHT LOGIC
           if (isHighlightMode && e.target.classList.contains('user-highlight')) {
               e.preventDefault();
               e.stopPropagation();
@@ -356,11 +398,11 @@
                   parent.insertBefore(mark.firstChild, mark);
               }
               parent.removeChild(mark);
-              updateSaveButtonVisibility(true); // Flag DOM change
+              updateSaveButtonVisibility(true); 
               return;
           }
           
-          // Add Note Logic
+          // ADD NOTE LOGIC
           if (!isNoteMode) return;
           if (e.target.closest('.mini-note') || e.target.closest('.action-bar')) return;
 
@@ -378,10 +420,10 @@
           saveLocal();
           createNoteElement(newNote, true);
           
-          toggleNoteModeBtn.click(); // Auto turn off
+          toggleNoteModeBtn.click(); // Auto turn off mode
       });
 
-      // Highlight Text Selection Logic (With Contrast Checker)
+      // Text Selection Highlighting Logic
       document.addEventListener('mouseup', () => {
           if (!isHighlightMode) return;
           
@@ -390,12 +432,11 @@
           
           const hexColor = highlightColorInput.value;
           
-          // Calculate Brightness/Luminance to determine text color
+          // Determine contrast color
           const r = parseInt(hexColor.slice(1, 3), 16);
           const g = parseInt(hexColor.slice(3, 5), 16);
           const b = parseInt(hexColor.slice(5, 7), 16);
           const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-          
           const textColor = luminance > 0.5 ? '#000000' : '#ffffff';
           
           try {
@@ -406,9 +447,9 @@
               mark.style.color = textColor;
               
               range.surroundContents(mark);
-              updateSaveButtonVisibility(true); // Alert UI that DOM has changed
+              updateSaveButtonVisibility(true); 
           } catch (err) {
-              console.log("Cannot highlight across multiple HTML block boundaries.");
+              console.log("Cannot highlight across HTML block boundaries.");
           }
           
           selection.removeAllRanges();
@@ -448,9 +489,11 @@
           }).observe(noteDiv);
 
           noteDiv.querySelector('.mini-note-delete').addEventListener('click', () => {
+              // Delete permanently
               notesData = notesData.filter(n => n.id !== data.id);
               saveLocal();
               noteDiv.remove();
+              updateSaveButtonVisibility(true); // Allow saving to push the deletion to Github
           });
           
           notesContainer.appendChild(noteDiv);
@@ -465,7 +508,7 @@
           }
       }
 
-      // Dragging Logic
+      // Vanilla JS Dragging Logic
       let draggedNote = null, offsetX = 0, offsetY = 0;
       
       document.addEventListener('mousedown', (e) => {
@@ -493,7 +536,7 @@
           }
       });
 
-      // Storage
+      // Storage Mgmt
       function saveLocal() {
           localStorage.setItem(`upsc_notes_${PAGE_ID}`, JSON.stringify(notesData));
           updateSaveButtonVisibility();
@@ -507,7 +550,6 @@
           }
       }
 
-      // Github Sync Logic
       function getGithubRepoDetails() {
           let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
           if (window.location.hostname.includes('github.io')) {
@@ -528,6 +570,7 @@
           }
       }
 
+      // --- BULLETPROOF CLONE-SAVE TO GITHUB ---
       saveGithubBtn.addEventListener('click', async function() {
           const token = localStorage.getItem('upsc_gh_token');
           if (!token) return alert("GitHub token not found! Configure your token in the main Hub dashboard.");
@@ -537,44 +580,21 @@
           showStatus('Packaging document...');
 
           try {
-              // Convert textareas to static HTML for saving
-              document.querySelectorAll('.mini-note-input').forEach(ta => { ta.innerHTML = ta.value; });
+              // Create a clone of the entire document so we don't break live event listeners
+              const docClone = document.documentElement.cloneNode(true);
               
-              // Hide action bar from save
-              const actionBarClone = document.querySelector('.action-bar').cloneNode(true);
-              document.querySelector('.action-bar').remove();
-              
-              // Remove delete buttons before save so they don't break static viewing
-              const originalNotesHtml = notesContainer.innerHTML;
-              notesContainer.innerHTML = notesContainer.innerHTML.replace(/<button class="mini-note-delete"[^>]*>✖<\/button>/g, '');
-
-              const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-
-              // Restore DOM for user
-              notesContainer.innerHTML = originalNotesHtml;
-              document.body.prepend(actionBarClone);
-              
-              // Re-bind listeners on clone
-              document.getElementById('toggle-note-mode').addEventListener('click', function(e) {
-                  e.stopPropagation(); isNoteMode = !isNoteMode; isHighlightMode = false;
-                  document.body.classList.toggle('add-note-mode', isNoteMode);
-                  document.body.classList.remove('highlight-mode');
-                  this.classList.toggle('active', isNoteMode);
-                  document.getElementById('toggle-highlight-mode').classList.remove('active');
-                  this.innerText = isNoteMode ? '❌ CANCEL NOTES' : '📝 ADD NOTES';
-              });
-              document.getElementById('toggle-highlight-mode').addEventListener('click', function(e) {
-                  e.stopPropagation(); isHighlightMode = !isHighlightMode; isNoteMode = false;
-                  document.body.classList.toggle('highlight-mode', isHighlightMode);
-                  document.body.classList.remove('add-note-mode');
-                  this.classList.toggle('active', isHighlightMode);
-                  document.getElementById('toggle-note-mode').classList.remove('active');
-                  document.getElementById('toggle-note-mode').innerText = '📝 ADD NOTES';
+              // In the clone, convert textareas to static HTML for saving
+              docClone.querySelectorAll('.mini-note-input').forEach(ta => { 
+                  ta.innerHTML = ta.value; 
               });
               
-              const restoredBtn = document.getElementById('save-github-btn');
-              restoredBtn.innerText = '⏳ SAVING...';
-              restoredBtn.disabled = true;
+              // In the clone, remove the action bar and delete buttons for a clean static view
+              const actionBarClone = docClone.querySelector('.action-bar');
+              if(actionBarClone) actionBarClone.remove();
+              
+              docClone.querySelectorAll('.mini-note-delete').forEach(btn => btn.remove());
+
+              const fullHtml = "<!DOCTYPE html>\n" + docClone.outerHTML;
 
               showStatus('Connecting to Mainframe...');
               const utf8Bytes = new TextEncoder().encode(fullHtml);
@@ -602,17 +622,16 @@
 
               if (putResponse.ok) {
                   showStatus('✅ Sync Successful! Data burned into file.');
-                  restoredBtn.innerText = '☁️ SAVED';
-                  setTimeout(() => { restoredBtn.innerText = '☁️ SAVE TO GITHUB'; restoredBtn.disabled = false; }, 2000);
+                  this.innerText = '☁️ SAVED';
+                  setTimeout(() => { this.innerText = '☁️ SAVE TO GITHUB'; this.disabled = false; }, 2000);
               } else {
                   throw new Error((await putResponse.json()).message);
               }
           } catch (error) {
               console.error(error);
               showStatus(`❌ Error: ${error.message}`, true);
-              const restoredBtn = document.getElementById('save-github-btn');
-              restoredBtn.innerText = '☁️ SAVE TO GITHUB';
-              restoredBtn.disabled = false;
+              this.innerText = '☁️ SAVE TO GITHUB';
+              this.disabled = false;
           }
       });
 
