@@ -25,6 +25,7 @@
       margin: 0;
       padding: 20px;
       line-height: 1.5;
+      position: relative; /* Needed for absolute positioning of notes */
     }
     
     h1, h2, h3 {
@@ -38,6 +39,144 @@
       color: var(--yellow);
       text-shadow: 2px 2px 4px #000;
       margin-bottom: 10px;
+    }
+
+    /* Top Action Bar for Notes */
+    .action-bar {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        background: rgba(15, 23, 42, 0.85);
+        padding: 10px 15px;
+        border-radius: 12px;
+        border: 1px solid var(--blue);
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .action-btn {
+        background: transparent;
+        color: var(--blue);
+        border: 1px solid var(--blue);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-family: 'Orbitron', sans-serif, 'Kalam', cursive;
+        font-size: 0.9rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .action-btn:hover, .action-btn.active {
+        background: rgba(0, 168, 255, 0.2);
+        box-shadow: 0 0 10px rgba(0, 168, 255, 0.4);
+    }
+    
+    .action-btn-save {
+        color: var(--green);
+        border-color: var(--green);
+    }
+    .action-btn-save:hover {
+        background: rgba(76, 209, 55, 0.2);
+        box-shadow: 0 0 10px rgba(76, 209, 55, 0.4);
+    }
+
+    body.add-note-mode {
+        cursor: crosshair !important;
+    }
+
+    /* Floating Mini Notes */
+    .mini-note {
+        position: absolute;
+        background: var(--yellow);
+        color: #1a1a1a;
+        padding: 10px 15px;
+        border-radius: 2px 15px 15px 15px;
+        font-family: 'Kalam', cursive;
+        font-size: 1.1rem;
+        box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+        max-width: 250px;
+        z-index: 500;
+        transform: rotate(-2deg);
+        border-left: 4px solid var(--gold);
+        transition: transform 0.2s;
+    }
+    .mini-note:hover {
+        transform: scale(1.05) rotate(0deg);
+        z-index: 501;
+    }
+    
+    .mini-note-input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px dashed #1a1a1a;
+        color: #1a1a1a;
+        font-family: 'Kalam', cursive;
+        font-size: 1.1rem;
+        outline: none;
+        resize: vertical;
+    }
+    
+    .mini-note-delete {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: var(--orange);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    .mini-note:hover .mini-note-delete {
+        display: flex;
+    }
+
+    /* Status Overlay */
+    #upload-status {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.9);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 1px solid var(--blue);
+        z-index: 2000;
+        display: none;
+        font-family: 'Orbitron', sans-serif, sans-serif;
+        text-align: center;
+    }
+
+    /* Custom Image Container */
+    .sketchnote-img-container {
+        text-align: center;
+        margin: 30px auto 50px auto;
+    }
+
+    .sketchnote-img-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 3px solid #444;
+        box-shadow: 8px 8px 15px rgba(0,0,0,0.6);
+        transform: rotate(-1deg);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .sketchnote-img-container img:hover {
+        transform: scale(1.02) rotate(0deg);
+        border-color: var(--blue);
     }
 
     /* Quick Revision Header */
@@ -139,29 +278,20 @@
     .hl-purple { color: var(--purple); font-weight: bold; }
     .hl-orange { color: var(--orange); font-weight: bold; }
 
-    /* Custom Image Container */
-    .sketchnote-img-container {
-        text-align: center;
-        margin: 30px auto;
-    }
-
-    .sketchnote-img-container img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        border: 3px solid #444;
-        box-shadow: 8px 8px 15px rgba(0,0,0,0.6);
-        transform: rotate(-1deg);
-        transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .sketchnote-img-container img:hover {
-        transform: scale(1.02) rotate(0deg);
-        border-color: var(--blue);
-    }
   </style>
 </head>
 <body>
+
+  <!-- Action Bar for Notes -->
+  <div class="action-bar">
+      <button class="action-btn" id="toggle-note-mode">📝 ADD NOTES</button>
+      <button class="action-btn action-btn-save" id="save-github-btn" style="display: none;">☁️ SAVE TO GITHUB</button>
+  </div>
+
+  <div id="upload-status">Processing...</div>
+
+  <!-- Container where dynamic notes will be appended -->
+  <div id="notes-container"></div>
 
   <h1>🏞️ Peninsular Plateau</h1>
 
@@ -364,5 +494,287 @@
 
   </div>
 
+  <!-- Script for interactive notes and Github upload -->
+  <script>
+      const PAGE_ID = 'plateau'; // Unique ID for this page's notes in localStorage
+      
+      // Config for GitHub (Match this with your Hub)
+      const CONFIG = { 
+          githubOwner: "pp-luffy", 
+          githubRepo: "CA" 
+      };
+
+      const toggleNoteModeBtn = document.getElementById('toggle-note-mode');
+      const saveGithubBtn = document.getElementById('save-github-btn');
+      const notesContainer = document.getElementById('notes-container');
+      const uploadStatus = document.getElementById('upload-status');
+      
+      let isNoteMode = false;
+      let notesData = JSON.parse(localStorage.getItem(`upsc_notes_${PAGE_ID}`) || '[]');
+
+      // Initialize existing notes on load
+      function renderExistingNotes() {
+          notesContainer.innerHTML = '';
+          notesData.forEach(note => createNoteElement(note.id, note.x, note.y, note.text));
+          updateSaveButtonVisibility();
+      }
+
+      // Toggle Note Mode
+      toggleNoteModeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          isNoteMode = !isNoteMode;
+          
+          if (isNoteMode) {
+              document.body.classList.add('add-note-mode');
+              toggleNoteModeBtn.classList.add('active');
+              toggleNoteModeBtn.innerText = '❌ CANCEL ADDING';
+          } else {
+              document.body.classList.remove('add-note-mode');
+              toggleNoteModeBtn.classList.remove('active');
+              toggleNoteModeBtn.innerText = '📝 ADD NOTES';
+          }
+      });
+
+      // Click anywhere on body to add a note (if in mode)
+      document.body.addEventListener('click', (e) => {
+          if (!isNoteMode) return;
+          
+          // Prevent clicking inside existing notes or the action bar from making new notes
+          if (e.target.closest('.mini-note') || e.target.closest('.action-bar')) return;
+
+          // Calculate percentage position so it scales on different screens
+          const xPercent = (e.pageX / document.documentElement.scrollWidth) * 100;
+          const yPercent = (e.pageY / document.documentElement.scrollHeight) * 100;
+          
+          const newNote = {
+              id: 'note_' + Date.now(),
+              x: xPercent,
+              y: yPercent,
+              text: ''
+          };
+          
+          notesData.push(newNote);
+          saveLocal();
+          
+          createNoteElement(newNote.id, newNote.x, newNote.y, newNote.text, true);
+          
+          // Automatically turn off mode after placing one
+          document.body.classList.remove('add-note-mode');
+          toggleNoteModeBtn.classList.remove('active');
+          toggleNoteModeBtn.innerText = '📝 ADD NOTES';
+          isNoteMode = false;
+      });
+
+      // DOM Element Creation
+      function createNoteElement(id, xPercent, yPercent, text, focus = false) {
+          const noteDiv = document.createElement('div');
+          noteDiv.className = 'mini-note';
+          noteDiv.id = id;
+          noteDiv.style.left = `${xPercent}%`;
+          noteDiv.style.top = `${yPercent}%`;
+          
+          noteDiv.innerHTML = `
+              <button class="mini-note-delete" title="Delete">✖</button>
+              <textarea class="mini-note-input" rows="2" placeholder="Jot a note...">${text}</textarea>
+          `;
+          
+          const textarea = noteDiv.querySelector('textarea');
+          const deleteBtn = noteDiv.querySelector('.mini-note-delete');
+          
+          // Auto-resize textarea
+          textarea.addEventListener('input', function() {
+              this.style.height = 'auto';
+              this.style.height = (this.scrollHeight) + 'px';
+              
+              // Update array
+              const index = notesData.findIndex(n => n.id === id);
+              if (index > -1) {
+                  notesData[index].text = this.value;
+                  saveLocal();
+              }
+          });
+
+          // Trigger initial resize if text exists
+          if(text) {
+              setTimeout(() => {
+                  textarea.style.height = 'auto';
+                  textarea.style.height = (textarea.scrollHeight) + 'px';
+              }, 10);
+          }
+
+          // Delete functionality
+          deleteBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              notesData = notesData.filter(n => n.id !== id);
+              saveLocal();
+              noteDiv.remove();
+          });
+          
+          notesContainer.appendChild(noteDiv);
+          
+          if (focus) {
+              textarea.focus();
+          }
+      }
+
+      // Local Storage
+      function saveLocal() {
+          localStorage.setItem(`upsc_notes_${PAGE_ID}`, JSON.stringify(notesData));
+          updateSaveButtonVisibility();
+      }
+
+      function updateSaveButtonVisibility() {
+          if (notesData.length > 0) {
+              saveGithubBtn.style.display = 'inline-block';
+          } else {
+              saveGithubBtn.style.display = 'none';
+          }
+      }
+
+      // Helper to get Github details matching your hub
+      function getGithubRepoDetails() {
+          let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
+          if (window.location.hostname.includes('github.io')) {
+              owner = window.location.hostname.split('.')[0];
+              const pathParts = window.location.pathname.split('/').filter(p => p);
+              if (pathParts.length > 0) repo = pathParts[0];
+          }
+          return { owner, repo };
+      }
+
+      function showStatus(message, isError = false) {
+          uploadStatus.innerText = message;
+          uploadStatus.style.display = 'block';
+          uploadStatus.style.borderColor = isError ? '#e84118' : '#00a8ff';
+          uploadStatus.style.color = isError ? '#e84118' : '#fff';
+          
+          if (!isError && message.includes('Success')) {
+              setTimeout(() => {
+                  uploadStatus.style.display = 'none';
+              }, 3000);
+          }
+      }
+
+      // GitHub Bulk Save Logic
+      saveGithubBtn.addEventListener('click', async () => {
+          const token = localStorage.getItem('upsc_gh_token');
+          
+          if (!token) {
+              alert("GitHub token not found! Please upload a file via the Hub Dashboard first to configure your token locally.");
+              return;
+          }
+
+          if (notesData.length === 0) return;
+
+          saveGithubBtn.innerText = '⏳ SAVING...';
+          saveGithubBtn.disabled = true;
+          showStatus('Preparing document for upload...');
+
+          try {
+              // 1. Temporarily remove the action bar and container from DOM so they don't get saved into the static HTML
+              const actionBarClone = document.querySelector('.action-bar').cloneNode(true);
+              document.querySelector('.action-bar').remove();
+              
+              // Hide inputs, convert them to static text inside the note divs for the final HTML
+              const staticNotesHtml = notesContainer.innerHTML.replace(/<textarea[^>]*>/g, '<div>').replace(/<\/textarea>/g, '</div>').replace(/<button[^>]*>✖<\/button>/g, '');
+              
+              const originalNotesHtml = notesContainer.innerHTML;
+              notesContainer.innerHTML = staticNotesHtml;
+
+              // 2. Grab the full HTML of the page
+              const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+              // 3. Restore the DOM for the user locally
+              notesContainer.innerHTML = originalNotesHtml;
+              document.body.prepend(actionBarClone);
+              // Re-bind listeners for the restored clone
+              document.getElementById('toggle-note-mode').addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  isNoteMode = !isNoteMode;
+                  const btn = document.getElementById('toggle-note-mode');
+                  if (isNoteMode) {
+                      document.body.classList.add('add-note-mode');
+                      btn.classList.add('active');
+                      btn.innerText = '❌ CANCEL ADDING';
+                  } else {
+                      document.body.classList.remove('add-note-mode');
+                      btn.classList.remove('active');
+                      btn.innerText = '📝 ADD NOTES';
+                  }
+              });
+              
+              // Keep the button disabled state matching
+              const newSaveBtn = document.getElementById('save-github-btn');
+              newSaveBtn.innerText = '⏳ SAVING...';
+              newSaveBtn.disabled = true;
+
+              // 4. Upload to GitHub
+              showStatus('Connecting to Mainframe...');
+              
+              // Encode for API
+              const utf8Bytes = new TextEncoder().encode(fullHtml);
+              const base64Content = btoa(String.fromCharCode(...utf8Bytes));
+
+              const { owner, repo } = getGithubRepoDetails();
+              
+              // Extract current filename from URL (e.g., 'plateau.html')
+              let filename = window.location.pathname.split('/').pop() || 'plateau.html';
+              // Assumes this file is in html/Shortnotes/Geography or similar.
+              const path = `html/Shortnotes/Geography/${filename}`; 
+              
+              const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+              // We need to get the file's current SHA to update it
+              showStatus('Checking file status...');
+              const getResponse = await fetch(apiUrl, {
+                  headers: { 'Authorization': `token ${token}` }
+              });
+              
+              let sha = null;
+              if (getResponse.ok) {
+                  const fileData = await getResponse.json();
+                  sha = fileData.sha;
+              }
+
+              showStatus('Overwriting file with new notes...');
+              const bodyData = {
+                  message: `Update ${filename} with new sticky notes`,
+                  content: base64Content
+              };
+              if (sha) bodyData.sha = sha; // Include SHA if file already exists
+
+              const putResponse = await fetch(apiUrl, {
+                  method: 'PUT',
+                  headers: { 
+                      'Authorization': `token ${token}`, 
+                      'Content-Type': 'application/json' 
+                  },
+                  body: JSON.stringify(bodyData)
+              });
+
+              if (putResponse.ok) {
+                  showStatus('✅ Sync Successful! Notes permanently attached.');
+                  newSaveBtn.innerText = '☁️ SAVED';
+                  setTimeout(() => {
+                      newSaveBtn.innerText = '☁️ SAVE TO GITHUB';
+                      newSaveBtn.disabled = false;
+                  }, 2000);
+              } else {
+                  const errData = await putResponse.json();
+                  throw new Error(errData.message);
+              }
+
+          } catch (error) {
+              console.error(error);
+              showStatus(`❌ Error: ${error.message}`, true);
+              const restoredBtn = document.getElementById('save-github-btn');
+              restoredBtn.innerText = '☁️ SAVE TO GITHUB';
+              restoredBtn.disabled = false;
+          }
+      });
+
+      // Init
+      renderExistingNotes();
+  </script>
 </body>
 </html>
