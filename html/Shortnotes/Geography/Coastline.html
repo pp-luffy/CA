@@ -7,25 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #1a1a1a;
-      --text: #f0f0f0;
-      --green: #4cd137;
-      --blue: #00a8ff;
-      --yellow: #ffeb3b;
-      --gold: #e1b12c;
-      --purple: #9c88ff;
-      --orange: #e84118;
-      --card-bg: #2a2a2a;
+      --bg: #1a1a1a; --text: #f0f0f0; --green: #4cd137; --blue: #00a8ff; 
+      --yellow: #ffeb3b; --gold: #e1b12c; --purple: #9c88ff; --orange: #e84118; --card-bg: #2a2a2a;
     }
     
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Patrick Hand', cursive;
-      margin: 0;
-      padding: 30px;
-      line-height: 1.5;
-      position: relative; 
+      background-color: var(--bg); color: var(--text);
+      font-family: 'Patrick Hand', cursive; margin: 0; padding: 30px; line-height: 1.5; position: relative; 
     }
     
     h1, h2, h3 { font-family: 'Kalam', cursive; text-align: center; margin-top: 0; }
@@ -47,7 +35,6 @@
         background: rgba(0, 168, 255, 0.2); box-shadow: 0 0 10px rgba(0, 168, 255, 0.4);
     }
     
-    /* Highlight Tool Group */
     .highlight-tools {
         display: flex; align-items: center; gap: 8px;
         background: rgba(0,0,0,0.3); border-radius: 6px;
@@ -67,7 +54,7 @@
     body.add-note-mode { cursor: crosshair !important; }
     body.highlight-mode { cursor: text !important; }
 
-    /* Draggable, Resizable Mini Notes */
+    /* Sticky Notes */
     .mini-note {
         position: absolute; background: var(--yellow); color: #1a1a1a;
         border-radius: 10px; font-family: 'Kalam', cursive; font-size: 1.1rem;
@@ -107,7 +94,10 @@
     /* User Highlights */
     .user-highlight {
         background-color: rgba(255, 235, 59, 0.8); color: #000;
-        border-radius: 3px; padding: 0 2px;
+        border-radius: 3px; padding: 0 2px; cursor: pointer;
+    }
+    .highlight-mode .user-highlight:hover {
+        opacity: 0.7; /* Gives a visual cue that it can be clicked/removed */
     }
 
     /* Status Alert */
@@ -146,7 +136,6 @@
     
     ul { padding-left: 20px; margin-top: 10px; }
     li { margin-bottom: 12px; font-size: 1.25rem; }
-
   </style>
 </head>
 <body>
@@ -168,12 +157,10 @@
 
   <h1>🌊 Coastlines & Coastal Plains of India</h1>
 
-  <!-- Image Block -->
   <div class="sketchnote-img-container">
       <img src="./images/coastal.jpg" onerror="this.onerror=null; this.src='./images/coastal.jpeg';" alt="Coastal Plains Map">
   </div>
 
-  <!-- Ultra-Short Revision Sheet -->
   <div class="revision-sheet">
     <h2>⚡ Quick Revision Core Facts</h2>
     <div class="rev-grid">
@@ -200,9 +187,9 @@
         <ul>
             <li>Total length: <span class="highlight">7516.6 Km</span> (6100 km mainland + 1197 km islands)</li>
             <li>Touches <span class="highlight">13 States and UTs</span>.</li>
-            <li>Formation: Result of <span class="highlight-green">faulting of Gondwanaland</span> during the Cretaceous period (Continental Drift).</li>
-            <li>Harbours: Straight & regular coast. <span class="highlight">Lacks many natural harbours</span> (unlike indented European coastlines).</li>
-            <li>The Bay of Bengal & Arabian Sea formed during the Cretaceous or early Tertiary period after Gondwanaland disintegration.</li>
+            <li>Formation: Result of <span class="highlight-green">faulting of Gondwanaland</span> during the Cretaceous period.</li>
+            <li>Harbours: Straight & regular coast. <span class="highlight">Lacks many natural harbours</span>.</li>
+            <li>The Bay of Bengal & Arabian Sea formed after Gondwanaland disintegration.</li>
         </ul>
     </div>
 
@@ -210,12 +197,11 @@
         <div class="tag tag-concept">Geology</div>
         <h3 style="color: #9c88ff;">Emergence & Submergence</h3>
         <ul>
-            <li><span class="highlight">Emergence:</span> Formed by uplift of land or lowering of sea level. Features: Bars, spits, lagoons, salt marshes, beaches, sea cliffs, arches.</li>
-            <li><span class="highlight">Submergence:</span> Exact opposite. Formed by sinking land/rising sea.</li>
+            <li><span class="highlight">Emergence:</span> Formed by uplift of land. Features: Bars, spits, lagoons, salt marshes, beaches, sea cliffs, arches.</li>
+            <li><span class="highlight">Submergence:</span> Formed by sinking land/rising sea.</li>
             <li><span class="highlight-blue">East Coast (Tamil Nadu):</span> Coast of Emergence.</li>
-            <li><span class="highlight-blue">West Coast:</span> Mixed. Northern part is submerged (due to faulting). Southern (Kerala) is emergent.</li>
-            <li><span class="highlight">Coramandal Coast (TN):</span> Emergence</li>
-            <li><span class="highlight">Malabar Coast (Kerala):</span> Emergence</li>
+            <li><span class="highlight-blue">West Coast:</span> Mixed. Northern part is submerged. Southern (Kerala) is emergent.</li>
+            <li><span class="highlight">Coramandal Coast (TN) & Malabar Coast:</span> Emergence</li>
             <li><span class="highlight">Konkan Coast (MH & Goa):</span> Submergence</li>
         </ul>
     </div>
@@ -229,8 +215,7 @@
             <li>Extensive plains: Average width of <span class="highlight">120 km</span>.</li>
             <li>Marked by large river deltas: <span class="highlight-green">Mahanadi, Godavari, Krishna, Cauvery</span>.</li>
             <li>Features: Chilka lake, Pulicat lake (lagoon).</li>
-            <li>Northern region (Mahanadi to Krishna) = <span class="highlight">Northern Circars</span>.</li>
-            <li>Southern region (Krishna to Cauvery) = <span class="highlight">Carnatic</span>.</li>
+            <li>Northern region = <span class="highlight">Northern Circars</span>. Southern region = <span class="highlight">Carnatic</span>.</li>
         </ul>
     </div>
 
@@ -238,11 +223,11 @@
         <div class="tag tag-east">East Coast</div>
         <h3 style="color: #00a8ff;">Utkal, Andhra & TN Plains</h3>
         <ul>
-            <li><span class="highlight">Utkal Plain (Odisha):</span> Mahanadi delta. Features <span class="highlight">Chilka Lake</span> (biggest in country, 780 sq km winter - 1144 sq km monsoon). Low hills to the south.</li>
-            <li><span class="highlight">Andhra Plain:</span> South of Utkal to Pulicat Lake (barred by <span class="highlight-green">Sriharikota Island - ISRO</span>). Godavari & Krishna deltas merged here.</li>
-            <li>Delta advanced 35 km into sea recently -> <span class="highlight">Kolleru Lake</span> is now far inland! Lacks good harbours except Vishakhapatnam & Machilipatnam.</li>
-            <li><span class="highlight">Tamil Nadu Plain:</span> Pulicat to KK (675 km long). Cauvery delta is <span class="highlight">130 km wide</span> ("granary of South India").</li>
-            <li><span class="highlight">Coramandal Coast / Payan Ghat:</span> False Divi Point (AP/Krishna Delta) to Kanyakumari.</li>
+            <li><span class="highlight">Utkal Plain (Odisha):</span> Mahanadi delta. Features <span class="highlight">Chilka Lake</span>.</li>
+            <li><span class="highlight">Andhra Plain:</span> Godavari & Krishna deltas merged here.</li>
+            <li>Delta advanced 35 km into sea recently -> <span class="highlight">Kolleru Lake</span> is now far inland! Lacks good harbours.</li>
+            <li><span class="highlight">Tamil Nadu Plain:</span> Cauvery delta is <span class="highlight">130 km wide</span> ("granary of South India").</li>
+            <li><span class="highlight">Coramandal Coast / Payan Ghat:</span> False Divi Point to Kanyakumari.</li>
         </ul>
     </div>
 
@@ -253,8 +238,8 @@
             <li>Extends from <span class="highlight">Rann of Kachchh / Gulf of Cambay</span> to Cape Comorin (KK).</li>
             <li>Narrow plains: Average width of <span class="highlight">65 km</span>.</li>
             <li>Made of alluvium from short Western Ghats streams.</li>
-            <li>Dotted with coves (small bays), creeks, and estuaries (<span class="highlight">Narmada and Tapi</span> are major).</li>
-            <li>Regional divisions: <span class="highlight">Konkan</span> (MH & Goa), <span class="highlight">Karnataka</span>, <span class="highlight">Kerala / Malabar</span>.</li>
+            <li>Dotted with coves, creeks, and estuaries (<span class="highlight">Narmada and Tapi</span> are major).</li>
+            <li>Regional divisions: <span class="highlight">Konkan</span>, <span class="highlight">Karnataka</span>, <span class="highlight">Kerala / Malabar</span>.</li>
         </ul>
     </div>
 
@@ -262,11 +247,11 @@
         <div class="tag tag-west">West Coast</div>
         <h3 style="color: #e84118;">Gujarat, Kutch & Kathiawar</h3>
         <ul>
-            <li><span class="highlight">Kutch & Kathiawar:</span> Extension of Peninsular plateau (Kathiawar = Deccan Lava, Kutch = Tertiary rocks), now levelled down.</li>
+            <li><span class="highlight">Kutch & Kathiawar:</span> Extension of Peninsular plateau, now levelled down.</li>
             <li><span class="highlight">Kutch Peninsula:</span> Former island filled by Indus River sediment. Now arid/semi-arid.</li>
             <li><span class="highlight">Rann of Kutch:</span> Great Rann (salt-soaked, North) & Little Rann (South/SE).</li>
-            <li><span class="highlight">Kathiawar:</span> Mandav Hills (radial drainage). <span class="highlight">Mt. Girnar (1117m)</span> highest point, volcanic. Gir Range has dense forests, home of <span class="highlight-green">Gir lion</span>.</li>
-            <li><span class="highlight">Gujarat Plain:</span> East of Kachchh. Rivers: Narmada, Tapi, Mahi, Sabarmati. East is fertile; coast has windblown loess (sand heaps).</li>
+            <li><span class="highlight">Kathiawar:</span> Mandav Hills. <span class="highlight">Mt. Girnar (1117m)</span> highest point, volcanic. Gir Range home of <span class="highlight-green">Gir lion</span>.</li>
+            <li><span class="highlight">Gujarat Plain:</span> East of Kachchh. Rivers: Narmada, Tapi, Mahi, Sabarmati.</li>
         </ul>
     </div>
 
@@ -274,10 +259,10 @@
         <div class="tag tag-west">West Coast</div>
         <h3 style="color: #e84118;">Konkan & Karnataka Plains</h3>
         <ul>
-            <li><span class="highlight">Konkan Plain:</span> Daman to Goa (50-80 km wide). Marine erosion features: cliffs, shoals, reefs.</li>
+            <li><span class="highlight">Konkan Plain:</span> Daman to Goa. Marine erosion features: cliffs, shoals, reefs.</li>
             <li><span class="highlight-blue">Thane Creek (Mumbai)</span> provides excellent natural harbour.</li>
-            <li><span class="highlight">Karnataka Coastal Plain:</span> Goa to Mangalore (30-50 km wide, max 70 km). Marked marine topography.</li>
-            <li>Steep streams make waterfalls: Sharavati river creates <span class="highlight">Gersoppa (Jog) Falls (271m)</span>. *(Trivia: Angel falls 979m (highest), Tugela 948m (second)).*</li>
+            <li><span class="highlight">Karnataka Coastal Plain:</span> Goa to Mangalore. Marked marine topography.</li>
+            <li>Steep streams make waterfalls: Sharavati river creates <span class="highlight">Gersoppa (Jog) Falls (271m)</span>.</li>
         </ul>
     </div>
 
@@ -286,7 +271,7 @@
         <h3 style="color: #e84118;">Kerala / Malabar Plain</h3>
         <ul>
             <li>Mangalore to Kanniyakumari. Wider than Karnataka plain, low-lying.</li>
-            <li>Famous for lakes, lagoons, spits, and <span class="highlight-green">backwaters (Kayals)</span> - shallow lagoons parallel to the coastline.</li>
+            <li>Famous for lakes, lagoons, spits, and <span class="highlight-green">backwaters (Kayals)</span>.</li>
             <li><span class="highlight">Vembanad Lake:</span> Largest backwater, 75 km long and 5-10 km wide.</li>
             <li>Gives rise to a <span class="highlight">55 km long spit</span>.</li>
         </ul>
@@ -296,12 +281,12 @@
         <div class="tag tag-econ">Economy</div>
         <h3 style="color: #e1b12c;">Economic Significance</h3>
         <ul>
-            <li><span class="highlight-green">Agriculture:</span> Fertile soils (Rice is the main crop). Coconut trees grow abundantly along the coast.</li>
-            <li><span class="highlight-blue">Trade:</span> Coast dotted with big/small ports for commerce. Fishing is a major occupation.</li>
+            <li><span class="highlight-green">Agriculture:</span> Fertile soils (Rice). Coconut trees grow abundantly along the coast.</li>
+            <li><span class="highlight-blue">Trade:</span> Coast dotted with big/small ports. Fishing is a major occupation.</li>
             <li><span class="highlight">Minerals & Energy:</span> Sedimentary rocks contain mineral oil (<span class="highlight-green">KG Basin</span>).</li>
             <li><span class="highlight">Nuclear Power:</span> Kerala coast sands contain huge deposits of <span class="highlight-blue">MONAZITE</span>.</li>
             <li><span class="highlight">Salt:</span> Low-lying areas of Gujarat produce large amounts of salt.</li>
-            <li><span class="highlight">Tourism:</span> Kerala backwaters and Goa beaches are major international tourist destinations.</li>
+            <li><span class="highlight">Tourism:</span> Kerala backwaters and Goa beaches.</li>
         </ul>
     </div>
 
@@ -360,8 +345,22 @@
           toggleNoteModeBtn.innerText = '📝 ADD NOTES';
       });
 
-      // Add Note on Click
+      // Undo Highlight Logic (Click to remove)
       document.body.addEventListener('click', (e) => {
+          if (isHighlightMode && e.target.classList.contains('user-highlight')) {
+              e.preventDefault();
+              e.stopPropagation();
+              const mark = e.target;
+              const parent = mark.parentNode;
+              while (mark.firstChild) {
+                  parent.insertBefore(mark.firstChild, mark);
+              }
+              parent.removeChild(mark);
+              updateSaveButtonVisibility(true); // Flag DOM change
+              return;
+          }
+          
+          // Add Note Logic
           if (!isNoteMode) return;
           if (e.target.closest('.mini-note') || e.target.closest('.action-bar')) return;
 
@@ -397,7 +396,6 @@
           const b = parseInt(hexColor.slice(5, 7), 16);
           const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
           
-          // If background is very dark, make text white so it's readable
           const textColor = luminance > 0.5 ? '#000000' : '#ffffff';
           
           try {
@@ -503,13 +501,13 @@
 
       function updateSaveButtonVisibility(forceShow = false) {
           if (notesData.length > 0 || forceShow) {
-              saveGithubBtn.style.display = 'inline-flex';
+              saveGithubBtn.style.display = 'inline-block';
           } else {
               saveGithubBtn.style.display = 'none';
           }
       }
 
-      // Github Sync Logic (ONLY triggered when explicitly clicking the button)
+      // Github Sync Logic
       function getGithubRepoDetails() {
           let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
           if (window.location.hostname.includes('github.io')) {
