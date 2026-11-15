@@ -106,10 +106,10 @@
 
     /* User Highlights */
     .user-highlight {
-        /* Defaults, overriden dynamically by JS */
         background-color: rgba(255, 235, 59, 0.8); color: #000;
-        border-radius: 3px; padding: 0 2px;
+        border-radius: 3px; padding: 0 2px; cursor: pointer;
     }
+    .highlight-mode .user-highlight:hover { opacity: 0.7; }
 
     /* Status Alert */
     #upload-status {
@@ -401,8 +401,21 @@
           toggleNoteModeBtn.innerText = '📝 ADD NOTES';
       });
 
-      // Add Note on Click
+      // Add Note & Undo Highlight Logic
       document.body.addEventListener('click', (e) => {
+          if (isHighlightMode && e.target.classList.contains('user-highlight')) {
+              e.preventDefault();
+              e.stopPropagation();
+              const mark = e.target;
+              const parent = mark.parentNode;
+              while (mark.firstChild) {
+                  parent.insertBefore(mark.firstChild, mark);
+              }
+              parent.removeChild(mark);
+              updateSaveButtonVisibility(true); 
+              return;
+          }
+
           if (!isNoteMode) return;
           if (e.target.closest('.mini-note') || e.target.closest('.action-bar')) return;
 
