@@ -34,6 +34,27 @@
             letter-spacing: 2px;
         }
 
+        /* Custom Image Container */
+        .sketchnote-img-container {
+            text-align: center;
+            margin: 30px auto 50px auto;
+        }
+
+        .sketchnote-img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 3px solid #444;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.6);
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .sketchnote-img-container img:hover {
+            transform: scale(1.02) rotate(0deg);
+            border-color: #00a8ff;
+        }
+
         /* Quick Revision Sheet */
         .revision-sheet {
             background: #222;
@@ -158,6 +179,11 @@
 
     <div class="header-container">
         <h1 class="title">🌊 Coastlines & Coastal Plains of India</h1>
+    </div>
+
+    <!-- Image Block -->
+    <div class="sketchnote-img-container">
+        <img src="./images/coastal.jpg" onerror="this.onerror=null; this.src='./images/coastal.jpeg';" alt="Coastal Plains Map">
     </div>
 
     <!-- ⚡ ULTRA-SHORT REVISION SHEET -->
