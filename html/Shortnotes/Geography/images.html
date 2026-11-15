@@ -115,7 +115,7 @@
             align-items: center;
             z-index: 1001;
             background: linear-gradient(rgba(0,0,0,0.8), transparent);
-            pointer-events: none; /* Let clicks pass through empty areas */
+            pointer-events: none; 
         }
 
         .modal-title {
@@ -128,7 +128,7 @@
         .controls {
             display: flex;
             gap: 12px;
-            pointer-events: auto; /* Re-enable clicks for buttons */
+            pointer-events: auto; 
         }
 
         .control-btn {
@@ -206,7 +206,6 @@
             max-width: 90vw;
             max-height: 85vh;
             object-fit: contain;
-            /* Transform is applied via JS. No transition so zoom/pan is instant and smooth */
             user-select: none;
             -webkit-user-drag: none; 
         }
@@ -227,15 +226,9 @@
         <h1>Geographical Features</h1>
     </div>
 
-    <!-- Gallery Container -->
-    <div class="gallery" id="galleryContainer">
-        <!-- Javascript will populate this automatically based on the image list below -->
-    </div>
+    <div class="gallery" id="galleryContainer"></div>
 
-    <!-- Fullscreen Zoom Modal -->
     <div class="modal" id="imageModal">
-        
-        <!-- Navigation Buttons -->
         <button class="nav-btn nav-prev" onclick="changeImage(-1)" title="Previous Image">❮</button>
         <button class="nav-btn nav-next" onclick="changeImage(1)" title="Next Image">❯</button>
 
@@ -251,14 +244,12 @@
             </div>
         </div>
 
-        <!-- Touch/Mouse listening area -->
         <div class="modal-body" id="modalBody">
             <img class="modal-img" id="modalImage" src="" alt="Zoomed Image">
         </div>
     </div>
 
     <script>
-        // --- DATA & SETUP ---
         const imagesData = [
             { src: './images/drainage.jpg', fallback: './images/drainage.jpeg', title: 'Drainage System' },
             { src: './images/mountainOfPeninsular.jpg', fallback: './images/mountainOfPeninsular.jpeg', title: 'Peninsular Mountains' },
@@ -268,7 +259,6 @@
 
         let currentIndex = 0;
         
-        // Render Gallery Items
         const galleryContainer = document.getElementById('galleryContainer');
         imagesData.forEach((imgObj, index) => {
             const div = document.createElement('div');
@@ -282,18 +272,15 @@
             galleryContainer.appendChild(div);
         });
 
-        // --- MODAL CONTROLS ---
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
 
-        // Transform State Variables
         let scale = 1;
         let pointX = 0, pointY = 0; 
         let rotation = 0;
         
-        // Dragging State
         let isDragging = false;
         let startX, startY;
 
@@ -314,7 +301,6 @@
             const imgData = imagesData[index];
             modalTitle.textContent = imgData.title;
             
-            // Preload logic with fallback
             const img = new Image();
             img.onload = () => { modalImg.src = img.src; };
             img.onerror = () => { modalImg.src = imgData.fallback; };
@@ -330,7 +316,6 @@
             loadImage(currentIndex);
         }
 
-        // --- TRANSFORM LOGIC ---
         function applyTransform() {
             modalImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale}) rotate(${rotation}deg)`;
         }
@@ -357,24 +342,19 @@
             document.body.removeChild(link);
         }
 
-        // --- BUTTON ZOOMING (Zoom to center) ---
         function zoomInBtn() { executeZoom(1.5, window.innerWidth / 2, window.innerHeight / 2); }
         function zoomOutBtn() { executeZoom(1 / 1.5, window.innerWidth / 2, window.innerHeight / 2); }
 
-        // --- CORE MATH: POINTER-RELATIVE ZOOM ---
         function executeZoom(zoomFactor, mouseClientX, mouseClientY) {
             let newScale = scale * zoomFactor;
-            // Constrain Zoom
             newScale = Math.max(0.2, Math.min(newScale, 15)); 
             
             const scaleChange = newScale / scale;
             
-            // Calculate cursor position relative to the absolute center of the viewport
             const rect = modalBody.getBoundingClientRect();
             const mouseX = mouseClientX - rect.left - rect.width / 2;
             const mouseY = mouseClientY - rect.top - rect.height / 2;
             
-            // Adjust translation so the pixel under the mouse stays exactly under the mouse
             pointX = mouseX - (mouseX - pointX) * scaleChange;
             pointY = mouseY - (mouseY - pointY) * scaleChange;
             
@@ -382,29 +362,23 @@
             applyTransform();
         }
 
-        // --- MOUSE WHEEL ZOOM ---
         modalBody.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const zoomFactor = e.deltaY < 0 ? 1.15 : (1 / 1.15); // Smooth increments
+            const zoomFactor = e.deltaY < 0 ? 1.15 : (1 / 1.15); 
             executeZoom(zoomFactor, e.clientX, e.clientY);
         }, { passive: false });
 
-        // --- DOUBLE CLICK TO ZOOM ---
-        let lastTap = 0;
-        modalBody.addEventListener('dblclick', handleDoubleClick);
-        
-        function handleDoubleClick(e) {
+        modalBody.addEventListener('dblclick', (e) => {
             e.preventDefault();
             if (scale > 1) {
                 resetTransform();
             } else {
                 executeZoom(2.5, e.clientX, e.clientY);
             }
-        }
+        });
 
-        // --- DRAG TO PAN (MOUSE) ---
         modalBody.addEventListener('mousedown', (e) => {
-            if(e.button !== 0) return; // Only left click
+            if(e.button !== 0) return; 
             e.preventDefault();
             isDragging = true;
             startX = e.clientX - pointX;
@@ -420,39 +394,51 @@
 
         window.addEventListener('mouseup', () => { isDragging = false; });
 
-        // --- TOUCH / PINCH TO ZOOM (MOBILE) ---
+        // --- FIXED MOBILE TOUCH SUPPORT ---
         let initialPinchDistance = null;
         let initialPinchScale = 1;
+        let lastTap = 0;
 
         modalBody.addEventListener('touchstart', (e) => {
-            // Detect double tap for mobile zoom
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTap;
-            if (tapLength < 300 && tapLength > 0) {
-                if (scale > 1) resetTransform();
-                else executeZoom(2.5, e.touches[0].clientX, e.touches[0].clientY);
-            }
-            lastTap = currentTime;
+            if (e.touches.length === 1) {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                
+                // Double tap logic ONLY triggers if it's 1 finger
+                if (tapLength < 300 && tapLength > 0) {
+                    if (scale > 1) {
+                        resetTransform();
+                    } else {
+                        executeZoom(2.5, e.touches[0].clientX, e.touches[0].clientY);
+                    }
+                    lastTap = 0; // Clear so it doesn't loop
+                } else {
+                    lastTap = currentTime;
+                }
 
-            if (e.touches.length === 2) {
-                // Start Pinch
+                // Prepare for dragging
+                isDragging = true;
+                startX = e.touches[0].clientX - pointX;
+                startY = e.touches[0].clientY - pointY;
+                
+            } else if (e.touches.length === 2) {
+                // Second finger touched: Cancel double tap to prevent the reset bug
+                lastTap = 0; 
+                
+                // Prepare for pinching
                 initialPinchDistance = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX,
                     e.touches[0].clientY - e.touches[1].clientY
                 );
                 initialPinchScale = scale;
-            } else if (e.touches.length === 1) {
-                // Start Drag
-                isDragging = true;
-                startX = e.touches[0].clientX - pointX;
-                startY = e.touches[0].clientY - pointY;
+                isDragging = false; 
             }
         });
 
         modalBody.addEventListener('touchmove', (e) => {
-            e.preventDefault(); // Prevent page scroll while messing with image
-            if (e.touches.length === 2) {
-                // Handle Pinch
+            e.preventDefault(); 
+            
+            if (e.touches.length === 2 && initialPinchDistance) {
                 const currentDistance = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX,
                     e.touches[0].clientY - e.touches[1].clientY
@@ -461,29 +447,35 @@
                 const zoomFactorMultiplier = currentDistance / initialPinchDistance;
                 let targetScale = initialPinchScale * zoomFactorMultiplier;
                 
-                // Get midpoint between the two fingers
+                const incrementalRatio = targetScale / scale;
+                
                 const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
                 const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
                 
-                // We use executeZoom indirectly to keep translation math solid, 
-                // but since we compute total scale, we pass the incremental ratio:
-                const incrementalRatio = targetScale / scale;
                 executeZoom(incrementalRatio, midX, midY);
                 
             } else if (e.touches.length === 1 && isDragging) {
-                // Handle Drag
                 pointX = e.touches[0].clientX - startX;
                 pointY = e.touches[0].clientY - startY;
                 applyTransform();
             }
         }, { passive: false });
 
-        modalBody.addEventListener('touchend', () => { 
-            isDragging = false; 
-            initialPinchDistance = null;
+        modalBody.addEventListener('touchend', (e) => { 
+            if (e.touches.length < 2) {
+                initialPinchDistance = null;
+            }
+            if (e.touches.length === 1) {
+                // Smooth transition: if you lift one finger after a pinch, 
+                // the remaining finger can continue dragging without snapping.
+                startX = e.touches[0].clientX - pointX;
+                startY = e.touches[0].clientY - pointY;
+                isDragging = true;
+            } else {
+                isDragging = false; 
+            }
         });
 
-        // --- KEYBOARD SHORTCUTS ---
         document.addEventListener('keydown', (e) => {
             if (modal.style.display === 'flex') {
                 if (e.key === 'Escape') closeModal();
