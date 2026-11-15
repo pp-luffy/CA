@@ -139,11 +139,36 @@
     .hl-purple { color: var(--purple); font-weight: bold; }
     .hl-orange { color: var(--orange); font-weight: bold; }
 
+    /* Custom Image Container */
+    .sketchnote-img-container {
+        text-align: center;
+        margin: 30px auto;
+    }
+
+    .sketchnote-img-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 3px solid #444;
+        box-shadow: 8px 8px 15px rgba(0,0,0,0.6);
+        transform: rotate(-1deg);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .sketchnote-img-container img:hover {
+        transform: scale(1.02) rotate(0deg);
+        border-color: var(--blue);
+    }
   </style>
 </head>
 <body>
 
   <h1>🏞️ Peninsular Plateau</h1>
+
+  <!-- Image Block -->
+  <div class="sketchnote-img-container">
+      <img src="./images/plateau.jpg" onerror="this.onerror=null; this.src='./images/plateau.jpeg';" alt="Plateau Region Map">
+  </div>
 
   <!-- Ultra-Short Revision Sheet -->
   <div class="revision-sheet">
