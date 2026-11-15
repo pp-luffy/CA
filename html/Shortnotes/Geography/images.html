@@ -235,6 +235,7 @@
         <div class="modal-header">
             <div class="modal-title" id="modalTitle">Image Title</div>
             <div class="controls">
+                <button class="control-btn" onclick="openInNewTab()" title="Open in New Tab">↗</button>
                 <button class="control-btn" onclick="rotateImage()" title="Rotate 90°">↻</button>
                 <button class="control-btn" onclick="downloadImage()" title="Download">↓</button>
                 <button class="control-btn" onclick="resetTransform()" title="Reset View">⛶</button>
@@ -255,7 +256,13 @@
             { src: './images/mountainOfPeninsular.jpg', fallback: './images/mountainOfPeninsular.jpeg', title: 'Peninsular Mountains' },
             { src: './images/plateau.jpg', fallback: './images/plateau.jpeg', title: 'Plateau Region' },
             { src: './images/coastal.jpg', fallback: './images/coastal.jpeg', title: 'Coastal Plains' },
-            { src: './images/islands.jpg', fallback: './images/islands.jpeg', title: 'Islands' }
+            { src: './images/islands.jpg', fallback: './images/islands.jpeg', title: 'Islands' },
+            // Added 5 Custom Images
+            { src: './images/ganga.jpg', fallback: './images/ganga.jpeg', title: 'Ganga River System' },
+            { src: './images/gangaOrigin.jpg', fallback: './images/gangaOrigin.jpeg', title: 'Origin of Ganga' },
+            { src: './images/indus.jpg', fallback: './images/indus.jpeg', title: 'Indus River System' },
+            { src: './images/brahmaputra.jpg', fallback: './images/brahmaputra.jpeg', title: 'Brahmaputra Basin' },
+            { src: './images/peninsularRiver.jpg', fallback: './images/peninsularRiver.jpeg', title: 'Peninsular Rivers' }
         ];
 
         let currentIndex = 0;
@@ -332,6 +339,10 @@
         function rotateImage() {
             rotation += 90;
             applyTransform();
+        }
+
+        function openInNewTab() {
+            window.open(modalImg.src, '_blank');
         }
 
         function downloadImage() {
