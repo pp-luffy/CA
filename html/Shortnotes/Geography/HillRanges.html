@@ -40,6 +40,27 @@
             margin-top: 10px;
         }
 
+        /* Custom Image Container */
+        .sketchnote-img-container {
+            text-align: center;
+            margin: 30px auto 50px auto; /* Added extra bottom margin */
+        }
+
+        .sketchnote-img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 3px solid #444;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.6);
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .sketchnote-img-container img:hover {
+            transform: scale(1.02) rotate(0deg);
+            border-color: #00a8ff; /* Using the blue accent color */
+        }
+
         /* Quick Revision Sheet */
         .revision-sheet {
             background-color: #222;
@@ -169,6 +190,11 @@
     <div class="main-header">
         <h1>⛰️ Hill Ranges of the Peninsular Plateau</h1>
         <p>Relict Hills, Block Mountains, and Coastal Ghats</p>
+    </div>
+
+    <!-- Image Block -->
+    <div class="sketchnote-img-container">
+        <img src="./images/mountainOfPeninsular.jpg" onerror="this.onerror=null; this.src='./images/mountainOfPeninsular.jpeg';" alt="Peninsular Mountains">
     </div>
 
     <!-- ULTRA-SHORT REVISION SHEET -->
