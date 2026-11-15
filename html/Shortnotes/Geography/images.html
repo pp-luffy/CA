@@ -1,582 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Peninsular Plateau Sketchnote Canvas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #1a1a1a;
-      --text: #f0f0f0;
-      --green: #4cd137;
-      --blue: #00a8ff;
-      --yellow: #ffeb3b;
-      --gold: #e1b12c;
-      --purple: #9c88ff;
-      --orange: #e84118;
-      --card-bg: #2a2a2a;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Visual Gallery - Interactive</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent: #00a8ff;
+            --modal-overlay: rgba(0, 0, 0, 0.95);
+        }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden; 
-      background-color: var(--bg);
-      font-family: 'Patrick Hand', cursive;
-      color: var(--text);
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Canvas & Pan/Zoom System */
-    #canvas-container {
-      width: 100vw;
-      height: 100vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      cursor: grab;
-      touch-action: none;
-      background: radial-gradient(circle, #333 1.5px, transparent 1.5px);
-      background-size: 40px 40px;
-      /* Crucial: prevents native dragging from breaking the pan state */
-      user-select: none;
-      -webkit-user-select: none; 
-    }
-    
-    #canvas-container:active {
-      cursor: grabbing;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
 
-    #board {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      max-width: 1200px;
-      transform-origin: 0 0 !important; /* Forces origin to top-left for accurate pointer math */
-      padding: 40px 20px;
-      will-change: transform;
-    }
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
 
-    /* UI Controls */
-    #ui-controls {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      z-index: 1000;
-    }
-    
-    #ui-controls button {
-      background: var(--card-bg);
-      border: 2px solid #444;
-      color: var(--text);
-      font-size: 1.2rem;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    #ui-controls button:hover {
-      background: #444;
-      transform: scale(1.1);
-      border-color: var(--blue);
-    }
+        .header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
 
-    /* Content Styling */
-    h1, h2, h3 {
-      font-family: 'Kalam', cursive;
-      text-align: center;
-      margin-top: 0;
-    }
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    h1 {
-      font-size: 3.5rem;
-      color: var(--yellow);
-      text-shadow: 3px 3px 5px #000;
-      margin-bottom: 30px;
-      letter-spacing: 2px;
-    }
+        .gallery-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            aspect-ratio: 4/3;
+        }
 
-    .revision-sheet {
-      background: linear-gradient(135deg, #222, #333);
-      border: 2px dashed var(--blue);
-      border-radius: 12px;
-      padding: 25px;
-      margin: 0 auto 50px auto;
-      max-width: 950px;
-      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.7);
-    }
-    
-    .revision-sheet h2 {
-      color: var(--blue);
-      margin-bottom: 20px;
-      font-size: 2.4rem;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    
-    .rev-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-      font-size: 1.3rem;
-    }
-    
-    .rev-item span {
-      color: var(--yellow);
-      font-weight: bold;
-    }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 168, 255, 0.2);
+        }
 
-    .masonry {
-      column-count: 3;
-      column-gap: 25px;
-      padding-bottom: 50px;
-    }
-    
-    @media (max-width: 992px) { .masonry { column-count: 2; } }
-    @media (max-width: 768px) { .masonry { column-count: 1; column-gap: 0; } }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
 
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid #444;
-      border-radius: 10px;
-      padding: 25px 20px;
-      margin-bottom: 30px;
-      display: inline-block; 
-      width: 100%;
-      break-inside: avoid;
-      position: relative;
-      box-shadow: 6px 6px 18px rgba(0,0,0,0.6);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .card:hover {
-      transform: rotate(-1deg) scale(1.02);
-      box-shadow: 10px 10px 25px rgba(0,0,0,0.9);
-      z-index: 10;
-    }
-    
-    .card h3 {
-      font-size: 1.9rem;
-      border-bottom: 2px dashed #555;
-      padding-bottom: 10px;
-      margin-bottom: 18px;
-    }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
 
-    .tag {
-      position: absolute;
-      top: -15px;
-      right: 15px;
-      padding: 6px 18px;
-      border-radius: 6px;
-      font-family: 'Kalam', cursive;
-      font-size: 1.2rem;
-      font-weight: bold;
-      transform: rotate(4deg);
-      box-shadow: 4px 4px 10px rgba(0,0,0,0.6);
-      color: #111;
-      letter-spacing: 0.5px;
-    }
-    
-    ul {
-      padding-left: 25px;
-      margin: 0;
-      font-size: 1.2rem;
-      line-height: 1.6;
-    }
-    
-    li { margin-bottom: 12px; }
-    
-    .hl-green { color: var(--green); font-weight: bold; }
-    .hl-blue { color: var(--blue); font-weight: bold; }
-    .hl-yellow { color: var(--yellow); font-weight: bold; }
-    .hl-purple { color: var(--purple); font-weight: bold; }
-    .hl-orange { color: var(--orange); font-weight: bold; }
-  </style>
+        .title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 30px 15px 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        /* Fullscreen Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-overlay);
+            z-index: 1000;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        /* Top Bar */
+        .modal-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1001;
+            background: linear-gradient(rgba(0,0,0,0.8), transparent);
+            pointer-events: none; /* Let clicks pass through empty areas */
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            pointer-events: auto; /* Re-enable clicks for buttons */
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            backdrop-filter: blur(5px);
+            user-select: none;
+        }
+
+        .control-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .control-btn.close {
+            background: rgba(255, 59, 48, 0.2);
+            border-color: rgba(255, 59, 48, 0.5);
+        }
+
+        .control-btn.close:hover {
+            background: #ff3b30;
+        }
+
+        /* Navigation Arrows */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        
+        .nav-btn:hover { background: var(--accent); }
+        .nav-prev { left: 20px; }
+        .nav-next { right: 20px; }
+
+        /* Modal Body for Canvas */
+        .modal-body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            position: relative;
+        }
+
+        .modal-body:active {
+            cursor: grabbing;
+        }
+
+        /* The Image */
+        .modal-img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            /* Transform is applied via JS. No transition so zoom/pan is instant and smooth */
+            user-select: none;
+            -webkit-user-drag: none; 
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .modal-header { padding: 10px; flex-direction: column; gap: 10px; align-items: flex-start; }
+            .modal-title { font-size: 1.2rem; }
+            .control-btn { width: 38px; height: 38px; font-size: 1.1rem; }
+            .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+            .modal-img { max-width: 100vw; max-height: 80vh; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Floating UI Controls -->
-  <div id="ui-controls">
-    <button onclick="zoomBtn(1.2)" title="Zoom In">➕</button>
-    <button onclick="zoomBtn(0.8)" title="Zoom Out">➖</button>
-    <button onclick="resetZoom()" title="Reset View">🏠</button>
-  </div>
-
-  <div id="canvas-container">
-    <div id="board">
-      <h1>🏞️ Peninsular Plateau</h1>
-
-      <!-- Ultra-Short Revision Sheet -->
-      <div class="revision-sheet">
-        <h2>⚡ Quick Revision Core Facts</h2>
-        <div class="rev-grid">
-          <div class="rev-item"><span>Area:</span> 16 lakh sq km (India is 32)</div>
-          <div class="rev-item"><span>Elevation:</span> 600-900 m Avg</div>
-          <div class="rev-item"><span>Shape:</span> Triangular (Apex: Kanniyakumari)</div>
-          <div class="rev-item"><span>Rocks:</span> Archaean gneisses, schists</div>
-          <div class="rev-item"><span>Slope:</span> West to East</div>
-          <div class="rev-item"><span>Exception:</span> Narmada-Tapti flow W in Rift</div>
-          <div class="rev-item"><span>Highest Peak (Meghalaya):</span> Shillong (1,961 m)</div>
-          <div class="rev-item"><span>Highest Peak (Karnataka):</span> Mulangiri (1,913 m)</div>
-          <div class="rev-item"><span>Coal Hub:</span> Gondwana rocks (Chotanagpur)</div>
-          <div class="rev-item"><span>Black Soil:</span> Malwa & Maharashtra (Lava origin)</div>
-        </div>
-      </div>
-
-      <div class="masonry">
-        <!-- Overall Features -->
-        <div class="card" style="border-top: 5px solid var(--purple);">
-          <div class="tag" style="background-color: var(--purple);">General</div>
-          <h3 style="color: var(--purple);">Key Features</h3>
-          <ul>
-            <li>Base coincides with <span class="hl-yellow">North India Plain</span>, Apex at <span class="hl-yellow">Kanniyakumari</span>.</li>
-            <li>One of the <span class="hl-yellow">oldest landforms</span>, highly stable shield block.</li>
-            <li>Little structural change, never submerged (mostly).</li>
-            <li>Aggregation of smaller plateaus, hill ranges, river basins & valleys.</li>
-          </ul>
-        </div>
-
-        <!-- Marwar / Mewar -->
-        <div class="card" style="border-top: 5px solid var(--orange);">
-          <div class="tag" style="background-color: var(--orange);">Rajasthan</div>
-          <h3 style="color: var(--orange);">Marwar / Mewar Plateau</h3>
-          <ul>
-            <li>Located in <span class="hl-yellow">eastern Rajasthan</span> (East of Aravalis).</li>
-            <li>Elevation: <span class="hl-green">250-500 m</span>; Slopes <span class="hl-blue">eastwards</span>.</li>
-            <li>Rocks: Sandstone, shales, limestones of <span class="hl-yellow">Vindhayan period</span>.</li>
-            <li>Rivers: <span class="hl-blue">Banas</span> + tributaries flow NW to Chambal.</li>
-            <li>Appears as a <span class="hl-yellow">Rolling Plain</span> due to erosional activity.</li>
-          </ul>
-        </div>
-
-        <!-- Central Highland -->
-        <div class="card" style="border-top: 5px solid var(--green);">
-          <div class="tag" style="background-color: var(--green);">Central</div>
-          <h3 style="color: var(--green);">Central Highland</h3>
-          <ul>
-            <li>AKA <span class="hl-yellow">Madhya Bharat Pathar</span> (East of Marwar).</li>
-            <li>Comprises basin of <span class="hl-blue">Chambal river</span> (flows in rift valley).</li>
-            <li>Tributaries: Kali Sindh, Banas, Parwan, Parbati.</li>
-            <li>Features: Rolling plateau, rounded sandstone hills, thick forests.</li>
-            <li>North marked by <span class="hl-orange">Chambal Ravines (Badlands)</span>.</li>
-          </ul>
-        </div>
-
-        <!-- Bundelkhand -->
-        <div class="card" style="border-top: 5px solid var(--blue);">
-          <div class="tag" style="background-color: var(--blue);">UP / MP</div>
-          <h3 style="color: var(--blue);">Bundelkhand Upland</h3>
-          <ul>
-            <li>Borders: Yamuna (N), Madhya Bharat (W), Vindhyan Scarp (E/SE), Malwa (S).</li>
-            <li>Made of <span class="hl-yellow">'Bundelkhand gneiss'</span> (granite/gneiss).</li>
-            <li>Elevation: <span class="hl-green">300-600 m</span>; Slopes down to <span class="hl-blue">Yamuna</span>.</li>
-            <li>Spread over 5 UP dists & 4 MP dists.</li>
-            <li>Characterized by <span class="hl-orange">Senile topography</span>, undulating, unfit for cultivation.</li>
-            <li>Rivers: <span class="hl-blue">Betwa, Dhasan, Ken</span>.</li>
-          </ul>
-        </div>
-
-        <!-- Malwa -->
-        <div class="card" style="border-top: 5px solid var(--yellow);">
-          <div class="tag" style="background-color: var(--yellow);">Central</div>
-          <h3 style="color: var(--yellow);">Malwa Plateau</h3>
-          <ul>
-            <li>Triangle: Vindhyan Hills (base), Aravali (W), Madhya Bharat (N), Bundelkhand (E).</li>
-            <li>2 Drainages: <span class="hl-blue">Arabian Sea</span> (Narmada, Tapi) & <span class="hl-blue">Bay of Bengal</span> (Chambal).</li>
-            <li>North drained by Chambal, Kali, Sindh, Parbati, Ken, Betwa.</li>
-            <li>Composed of <span class="hl-orange">extensive lava flow</span> & covered in <span class="hl-yellow">Black Soils</span>.</li>
-            <li>Slope towards North (<span class="hl-green">600m to &lt;500m</span>).</li>
-          </ul>
-        </div>
-
-        <!-- Baghelkhand -->
-        <div class="card" style="border-top: 5px solid var(--purple);">
-          <div class="tag" style="background-color: var(--purple);">East-Central</div>
-          <h3 style="color: var(--purple);">Baghelkhand</h3>
-          <ul>
-            <li>Located North of <span class="hl-yellow">Maikal Range</span>.</li>
-            <li>Bounded by <span class="hl-blue">Son river</span> (North).</li>
-            <li>Rocks: Limestones/Sandstones (West), Granite (East).</li>
-            <li>Acts as <span class="hl-blue">Water Divide</span> between Son (N) and Mahanadi (S).</li>
-            <li>Elevation: <span class="hl-green">150 - 1,200 m</span>. Horizontal strata.</li>
-            <li>Bhanrer & Kaimur near trough-axis.</li>
-          </ul>
-        </div>
-
-        <!-- Chotanagpur -->
-        <div class="card" style="border-top: 5px solid var(--orange);">
-          <div class="tag" style="background-color: var(--orange);">North-East</div>
-          <h3 style="color: var(--orange);">Chotanagpur Plateau</h3>
-          <ul>
-            <li>NE projection (Jharkhand, N. Chhatisgarh, Purulia).</li>
-            <li>Avg Elev: <span class="hl-green">700 m</span>. Mainly <span class="hl-yellow">Gondwana rocks</span>.</li>
-            <li>Drainage: <span class="hl-blue">Radial pattern</span> (Damodar, N/S Koel, Barkar).</li>
-            <li><span class="hl-blue">Damodar River</span> flows W to E in rift valley = <span class="hl-orange">Gondwana Coal Fields</span>.</li>
-            <li><span class="hl-yellow">Hazaribagh Plateau:</span> North of Damodar, 600m, peneplain.</li>
-            <li><span class="hl-yellow">Ranchi Plateau:</span> South, 600m, Monadnocks (Ayers rock like).</li>
-            <li><span class="hl-yellow">Rajmahal Hills:</span> NE edge, basaltic lava, N-S direction.</li>
-          </ul>
-        </div>
-
-        <!-- Meghalaya -->
-        <div class="card" style="border-top: 5px solid var(--green);">
-          <div class="tag" style="background-color: var(--green);">Far-East</div>
-          <h3 style="color: var(--green);">Meghalaya (Shillong) Plateau</h3>
-          <ul>
-            <li>Extension beyond Rajmahal, separated by <span class="hl-yellow">Garo-Rajmahal Gap</span>.</li>
-            <li>Rocks: Archaean quartzites, shales, schists.</li>
-            <li>Slopes: Down to Brahmaputra valley (N) and Surma/Meghna (S).</li>
-            <li>Hills (W to E): <span class="hl-yellow">Garo (900m)</span>, <span class="hl-yellow">Khasi-Jaintia (1,500m)</span>, <span class="hl-yellow">Mikir (700m)</span>.</li>
-            <li>Highest Point: <span class="hl-orange">Shillong (1,961 m)</span>.</li>
-          </ul>
-        </div>
-
-        <!-- Deccan -->
-        <div class="card" style="border-top: 5px solid var(--blue);">
-          <div class="tag" style="background-color: var(--blue);">South</div>
-          <h3 style="color: var(--blue);">Deccan Plateau</h3>
-          <ul>
-            <li>Area: <span class="hl-yellow">5 lakh sq km</span>.</li>
-            <li>Bounds: Satpura/Vindhya/Mahadev (N), Western/Eastern Ghats.</li>
-            <li>Elevation: <span class="hl-green">600 m Avg</span> (Rises 1000m in S, dips 500m in N).</li>
-            <li>General slope is <span class="hl-blue">West to East</span>.</li>
-            <li>Divided into smaller plateaus by rivers.</li>
-          </ul>
-        </div>
-
-        <!-- Maharashtra -->
-        <div class="card" style="border-top: 5px solid var(--yellow);">
-          <div class="tag" style="background-color: var(--yellow);">West-Deccan</div>
-          <h3 style="color: var(--yellow);">Maharashtra Plateau</h3>
-          <ul>
-            <li>North part of Deccan Plateau.</li>
-            <li>Basaltic rocks of lava origin (<span class="hl-orange">Deccan Traps</span> step-like topography).</li>
-            <li>Rolling plain due to weathering.</li>
-            <li>Valleys: <span class="hl-blue">Godavari, Bhima, Krishna</span> (flanked by flat-topped hills).</li>
-            <li>Covered in <span class="hl-yellow">Black Cotton Soil (Regur)</span>.</li>
-          </ul>
-        </div>
-
-        <!-- Karnataka -->
-        <div class="card" style="border-top: 5px solid var(--purple);">
-          <div class="tag" style="background-color: var(--purple);">South</div>
-          <h3 style="color: var(--purple);">Karnataka (Mysore) Plateau</h3>
-          <ul>
-            <li>South of Maharashtra plateau; <span class="hl-green">600-900m</span> elevation.</li>
-            <li>Highest Peak: <span class="hl-orange">Mulangiri (1,913 m)</span> in Baba Budan Hills.</li>
-            <li>Two Parts: 
-              <br>1. <span class="hl-yellow">Malnad:</span> Hill country, deep valleys, dense forests.
-              <br>2. <span class="hl-yellow">Maidan:</span> Rolling plain with low granite hills.</li>
-            <li>Tapers in south, merges with <span class="hl-yellow">Niligiri hills</span>.</li>
-          </ul>
-        </div>
-
-        <!-- Telangana -->
-        <div class="card" style="border-top: 5px solid var(--orange);">
-          <div class="tag" style="background-color: var(--orange);">South-East</div>
-          <h3 style="color: var(--orange);">Telangana Plateau</h3>
-          <ul>
-            <li>Made of <span class="hl-yellow">Archaean gneisses</span>.</li>
-            <li>Elevation: <span class="hl-green">500-600 m</span> (South is higher than North).</li>
-            <li>Drained by: <span class="hl-blue">Godavari, Krishna, Penneru</span>.</li>
-            <li>Divided into <span class="hl-yellow">Ghats</span> and <span class="hl-yellow">Peneplains</span>.</li>
-          </ul>
-        </div>
-
-        <!-- Chhattisgarh -->
-        <div class="card" style="border-top: 5px solid var(--green);">
-          <div class="tag" style="background-color: var(--green);">East-Central</div>
-          <h3 style="color: var(--green);">Chhattisgarh Plain</h3>
-          <ul>
-            <li>The <span class="hl-yellow">only plain</span> worth the name in the Peninsular plateau.</li>
-            <li>Saucer-shaped depression drained by upper <span class="hl-blue">Mahanadi</span>.</li>
-            <li>Between Maikala Range and Odisha hills.</li>
-            <li>Horizontal beds of <span class="hl-yellow">limestone & shales</span>.</li>
-            <li>Named after 36 forts of Haithaivanshi Rajputs.</li>
-            <li>Elevation: <span class="hl-green">250m (E) to 330m (W)</span>.</li>
-          </ul>
-        </div>
-      </div>
+    <div class="header">
+        <h1>Geographical Features</h1>
     </div>
-  </div>
 
-  <script>
-    const container = document.getElementById('canvas-container');
-    const board = document.getElementById('board');
-    
-    let scale = 1;
-    let pointX = 0;
-    let pointY = 0;
-    let start = { x: 0, y: 0 };
-    let panning = false;
-    let isPinching = false;
-    let initialPinchDistance = null;
-    let initialScale = 1;
+    <!-- Gallery Container -->
+    <div class="gallery" id="galleryContainer">
+        <!-- Javascript will populate this automatically based on the image list below -->
+    </div>
 
-    function setTransform() {
-      board.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
-      // Crucial Fix: Scaling the background alongside the board to eliminate the optical illusion
-      container.style.backgroundSize = `${40 * scale}px ${40 * scale}px`;
-      container.style.backgroundPosition = `${pointX}px ${pointY}px`;
-    }
-
-    function initCenter() {
-      const viewportWidth = window.innerWidth;
-      const boardWidth = Math.min(viewportWidth, 1200); 
-      pointX = (viewportWidth - boardWidth) / 2;
-      pointY = 20; 
-      scale = 1;
-      setTransform();
-    }
-    
-    initCenter();
-
-    // --- Mouse Panning ---
-    container.addEventListener('mousedown', (e) => {
-      // Prevents native drag-and-drop on text/elements that jammed the pan state
-      e.preventDefault(); 
-      if (e.button !== 0 && e.button !== 1) return;
-      
-      start = { x: e.clientX - pointX, y: e.clientY - pointY };
-      panning = true;
-      container.style.cursor = "grabbing";
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (!panning || isPinching) return;
-      pointX = e.clientX - start.x;
-      pointY = e.clientY - start.y;
-      setTransform();
-    });
-
-    window.addEventListener('mouseup', () => {
-      panning = false;
-      container.style.cursor = "grab";
-    });
-
-    // --- Mouse Wheel Zoom to Pointer ---
-    container.addEventListener('wheel', (e) => {
-      e.preventDefault(); 
-      
-      const rect = container.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-
-      // Unscaled coordinates of pointer on the board
-      const targetX = (mouseX - pointX) / scale;
-      const targetY = (mouseY - pointY) / scale;
-      
-      // Determine zoom direction
-      let newScale = scale;
-      if (e.deltaY < 0) {
-        newScale *= 1.1; 
-      } else {
-        newScale /= 1.1; 
-      }
-      
-      newScale = Math.min(Math.max(0.2, newScale), 4);
-
-      // Lock the unscaled coordinate to the exact same screen coordinate
-      pointX = mouseX - (targetX * newScale);
-      pointY = mouseY - (targetY * newScale);
-      scale = newScale;
-      
-      setTransform();
-    }, { passive: false });
-
-    // --- Touch Pan & Pinch Zoom ---
-    container.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      if (e.touches.length === 1) {
-        start = { x: e.touches[0].clientX - pointX, y: e.touches[0].clientY - pointY };
-        panning = true;
-      } else if (e.touches.length === 2) {
-        isPinching = true;
-        panning = false;
-        initialPinchDistance = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
-        initialScale = scale;
-      }
-    }, { passive: false });
-
-    container.addEventListener('touchmove', (e) => {
-      e.preventDefault();
-      if (panning && e.touches.length === 1) {
-        pointX = e.touches[0].clientX - start.x;
-        pointY = e.touches[0].clientY - start.y;
-        setTransform();
-      } else if (isPinching && e.touches.length === 2) {
-        const currentDistance = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
+    <!-- Fullscreen Zoom Modal -->
+    <div class="modal" id="imageModal">
         
-        let newScale = initialScale * (currentDistance / initialPinchDistance);
-        newScale = Math.min(Math.max(0.2, newScale), 4);
-        
-        // Zoom relative to the center of the pinch
-        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-        
-        const targetX = (centerX - pointX) / scale;
-        const targetY = (centerY - pointY) / scale;
-        
-        pointX = centerX - (targetX * newScale);
-        pointY = centerY - (targetY * newScale);
-        scale = newScale;
-        
-        setTransform();
-      }
-    }, { passive: false });
+        <!-- Navigation Buttons -->
+        <button class="nav-btn nav-prev" onclick="changeImage(-1)" title="Previous Image">❮</button>
+        <button class="nav-btn nav-next" onclick="changeImage(1)" title="Next Image">❯</button>
 
-    container.addEventListener('touchend', (e) => {
-      if (e.touches.length < 2) isPinching = false;
-      if (e.touches.length === 1) {
-        start = { x: e.touches[0].clientX - pointX, y: e.touches[0].clientY - pointY };
-        panning = true;
-      } else {
-        panning = false;
-      }
-    });
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">Image Title</div>
+            <div class="controls">
+                <button class="control-btn" onclick="rotateImage()" title="Rotate 90°">↻</button>
+                <button class="control-btn" onclick="downloadImage()" title="Download">↓</button>
+                <button class="control-btn" onclick="resetTransform()" title="Reset View">⛶</button>
+                <button class="control-btn" onclick="zoomOutBtn()" title="Zoom Out">−</button>
+                <button class="control-btn" onclick="zoomInBtn()" title="Zoom In">+</button>
+                <button class="control-btn close" onclick="closeModal()" title="Close">×</button>
+            </div>
+        </div>
 
-    // --- UI Controls ---
-    window.zoomBtn = function(factor) {
-      // Buttons zoom to the center of the screen
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      
-      const targetX = (centerX - pointX) / scale;
-      const targetY = (centerY - pointY) / scale;
-      
-      let newScale = scale * factor;
-      newScale = Math.min(Math.max(0.2, newScale), 4);
-      
-      pointX = centerX - (targetX * newScale);
-      pointY = centerY - (targetY * newScale);
-      scale = newScale;
-      setTransform();
-    };
+        <!-- Touch/Mouse listening area -->
+        <div class="modal-body" id="modalBody">
+            <img class="modal-img" id="modalImage" src="" alt="Zoomed Image">
+        </div>
+    </div>
 
-    window.resetZoom = function() {
-      initCenter();
-    };
-  </script>
+    <script>
+        // --- DATA & SETUP ---
+        const imagesData = [
+            { src: './images/drainage.jpg', fallback: './images/drainage.jpeg', title: 'Drainage System' },
+            { src: './images/mountainOfPeninsular.jpg', fallback: './images/mountainOfPeninsular.jpeg', title: 'Peninsular Mountains' },
+            { src: './images/plateau.jpg', fallback: './images/plateau.jpeg', title: 'Plateau Region' },
+            { src: './images/coastal.jpg', fallback: './images/coastal.jpeg', title: 'Coastal Plains' }
+        ];
+
+        let currentIndex = 0;
+        
+        // Render Gallery Items
+        const galleryContainer = document.getElementById('galleryContainer');
+        imagesData.forEach((imgObj, index) => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.onclick = () => openModal(index);
+            
+            div.innerHTML = `
+                <img src="${imgObj.src}" onerror="this.onerror=null; this.src='${imgObj.fallback}';" alt="${imgObj.title}">
+                <div class="title-overlay">${imgObj.title}</div>
+            `;
+            galleryContainer.appendChild(div);
+        });
+
+        // --- MODAL CONTROLS ---
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        // Transform State Variables
+        let scale = 1;
+        let pointX = 0, pointY = 0; 
+        let rotation = 0;
+        
+        // Dragging State
+        let isDragging = false;
+        let startX, startY;
+
+        function openModal(index) {
+            currentIndex = index;
+            modal.style.display = 'flex';
+            loadImage(index);
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            modalImg.src = '';
+            document.body.style.overflow = 'auto'; 
+        }
+
+        function loadImage(index) {
+            const imgData = imagesData[index];
+            modalTitle.textContent = imgData.title;
+            
+            // Preload logic with fallback
+            const img = new Image();
+            img.onload = () => { modalImg.src = img.src; };
+            img.onerror = () => { modalImg.src = imgData.fallback; };
+            img.src = imgData.src;
+
+            resetTransform();
+        }
+
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = imagesData.length - 1;
+            if (currentIndex >= imagesData.length) currentIndex = 0;
+            loadImage(currentIndex);
+        }
+
+        // --- TRANSFORM LOGIC ---
+        function applyTransform() {
+            modalImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale}) rotate(${rotation}deg)`;
+        }
+
+        function resetTransform() {
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            rotation = 0;
+            applyTransform();
+        }
+
+        function rotateImage() {
+            rotation += 90;
+            applyTransform();
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.href = modalImg.src;
+            link.download = imagesData[currentIndex].title + '.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // --- BUTTON ZOOMING (Zoom to center) ---
+        function zoomInBtn() { executeZoom(1.5, window.innerWidth / 2, window.innerHeight / 2); }
+        function zoomOutBtn() { executeZoom(1 / 1.5, window.innerWidth / 2, window.innerHeight / 2); }
+
+        // --- CORE MATH: POINTER-RELATIVE ZOOM ---
+        function executeZoom(zoomFactor, mouseClientX, mouseClientY) {
+            let newScale = scale * zoomFactor;
+            // Constrain Zoom
+            newScale = Math.max(0.2, Math.min(newScale, 15)); 
+            
+            const scaleChange = newScale / scale;
+            
+            // Calculate cursor position relative to the absolute center of the viewport
+            const rect = modalBody.getBoundingClientRect();
+            const mouseX = mouseClientX - rect.left - rect.width / 2;
+            const mouseY = mouseClientY - rect.top - rect.height / 2;
+            
+            // Adjust translation so the pixel under the mouse stays exactly under the mouse
+            pointX = mouseX - (mouseX - pointX) * scaleChange;
+            pointY = mouseY - (mouseY - pointY) * scaleChange;
+            
+            scale = newScale;
+            applyTransform();
+        }
+
+        // --- MOUSE WHEEL ZOOM ---
+        modalBody.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const zoomFactor = e.deltaY < 0 ? 1.15 : (1 / 1.15); // Smooth increments
+            executeZoom(zoomFactor, e.clientX, e.clientY);
+        }, { passive: false });
+
+        // --- DOUBLE CLICK TO ZOOM ---
+        let lastTap = 0;
+        modalBody.addEventListener('dblclick', handleDoubleClick);
+        
+        function handleDoubleClick(e) {
+            e.preventDefault();
+            if (scale > 1) {
+                resetTransform();
+            } else {
+                executeZoom(2.5, e.clientX, e.clientY);
+            }
+        }
+
+        // --- DRAG TO PAN (MOUSE) ---
+        modalBody.addEventListener('mousedown', (e) => {
+            if(e.button !== 0) return; // Only left click
+            e.preventDefault();
+            isDragging = true;
+            startX = e.clientX - pointX;
+            startY = e.clientY - pointY;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            pointX = e.clientX - startX;
+            pointY = e.clientY - startY;
+            applyTransform();
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        // --- TOUCH / PINCH TO ZOOM (MOBILE) ---
+        let initialPinchDistance = null;
+        let initialPinchScale = 1;
+
+        modalBody.addEventListener('touchstart', (e) => {
+            // Detect double tap for mobile zoom
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+            if (tapLength < 300 && tapLength > 0) {
+                if (scale > 1) resetTransform();
+                else executeZoom(2.5, e.touches[0].clientX, e.touches[0].clientY);
+            }
+            lastTap = currentTime;
+
+            if (e.touches.length === 2) {
+                // Start Pinch
+                initialPinchDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                initialPinchScale = scale;
+            } else if (e.touches.length === 1) {
+                // Start Drag
+                isDragging = true;
+                startX = e.touches[0].clientX - pointX;
+                startY = e.touches[0].clientY - pointY;
+            }
+        });
+
+        modalBody.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent page scroll while messing with image
+            if (e.touches.length === 2) {
+                // Handle Pinch
+                const currentDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                
+                const zoomFactorMultiplier = currentDistance / initialPinchDistance;
+                let targetScale = initialPinchScale * zoomFactorMultiplier;
+                
+                // Get midpoint between the two fingers
+                const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                
+                // We use executeZoom indirectly to keep translation math solid, 
+                // but since we compute total scale, we pass the incremental ratio:
+                const incrementalRatio = targetScale / scale;
+                executeZoom(incrementalRatio, midX, midY);
+                
+            } else if (e.touches.length === 1 && isDragging) {
+                // Handle Drag
+                pointX = e.touches[0].clientX - startX;
+                pointY = e.touches[0].clientY - startY;
+                applyTransform();
+            }
+        }, { passive: false });
+
+        modalBody.addEventListener('touchend', () => { 
+            isDragging = false; 
+            initialPinchDistance = null;
+        });
+
+        // --- KEYBOARD SHORTCUTS ---
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'flex') {
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowRight') changeImage(1);
+                if (e.key === 'ArrowLeft') changeImage(-1);
+            }
+        });
+    </script>
 </body>
 </html>
