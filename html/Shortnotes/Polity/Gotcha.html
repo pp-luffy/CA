@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Sketchnote: Indian Polity Tricky Facts</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+        
+        :root {
+            --bg-color: #121212;
+            --grid-color: rgba(255, 255, 255, 0.05);
+            --text-main: #e0e0e0;
+            --pink: #ff79c6;
+            --cyan: #8be9fd;
+            --green: #50fa7b;
+            --purple: #bd93f9;
+            --orange: #ffb86c;
+            --red: #ff5555;
+            --yellow: #f1fa8c;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 25px 25px; /* Digital notebook grid */
+            color: var(--text-main);
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 40px 20px;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            font-family: 'Kalam', cursive;
+            font-size: 3.5rem;
+            color: var(--yellow);
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.8);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            width: 110%;
+            height: 15px;
+            background: rgba(255, 121, 198, 0.4);
+            bottom: 10px;
+            left: -5%;
+            z-index: -1;
+            border-radius: 50%;
+            transform: rotate(-2deg);
+        }
+
+        /* Ultra-Short Revision Sheet - Pinned Note Style */
+        .quick-revision {
+            background: #1e1e2e;
+            border: 3px solid #44475a;
+            border-radius: 2% 98% 2% 98% / 98% 2% 98% 2%; /* Hand-drawn box */
+            padding: 25px 35px;
+            margin: 0 auto 50px auto;
+            max-width: 1000px;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .pin {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .quick-revision h2 { 
+            margin-top: 0; 
+            color: var(--cyan); 
+            font-family: 'Kalam', cursive; 
+            text-align: center;
+            font-size: 2rem;
+            border-bottom: 2px dashed #44475a;
+            padding-bottom: 15px;
+        }
+        .quick-revision-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .quick-item {
+            background: #282a36;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid;
+            font-size: 1.1rem;
+        }
+        .quick-item:nth-child(1) { border-color: var(--pink); color: var(--pink); }
+        .quick-item:nth-child(2) { border-color: var(--cyan); color: var(--cyan); }
+        .quick-item:nth-child(3) { border-color: var(--green); color: var(--green); }
+        .quick-item:nth-child(4) { border-color: var(--purple); color: var(--purple); }
+        .quick-item:nth-child(5) { border-color: var(--red); color: var(--red); }
+        .quick-item span { color: #fff; font-weight: bold; margin-right: 5px; }
+
+        /* Masonry Layout for Content */
+        .masonry {
+            column-count: 3;
+            column-gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        @media (max-width: 1100px) { .masonry { column-count: 2; } }
+        @media (max-width: 768px) { .masonry { column-count: 1; } }
+
+        .sketch-card {
+            background-color: #181a1f;
+            border: 3px solid;
+            /* Irregular border for hand-drawn look */
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 25px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .sketch-card:hover {
+            transform: scale(1.02) rotate(1deg);
+            z-index: 10;
+        }
+
+        .sketch-card h3 {
+            font-family: 'Kalam', cursive;
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 3px dashed rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+        .sketch-card p.subtitle {
+            font-size: 1rem;
+            color: #a0a0a0;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Card Theme Colors */
+        .theme-pink { border-color: var(--pink); }
+        .theme-pink h3 { color: var(--pink); }
+        .theme-cyan { border-color: var(--cyan); }
+        .theme-cyan h3 { color: var(--cyan); }
+        .theme-green { border-color: var(--green); }
+        .theme-green h3 { color: var(--green); }
+        .theme-purple { border-color: var(--purple); }
+        .theme-purple h3 { color: var(--purple); }
+        .theme-orange { border-color: var(--orange); }
+        .theme-orange h3 { color: var(--orange); }
+        .theme-red { border-color: var(--red); }
+        .theme-red h3 { color: var(--red); }
+
+        /* Data Rows instead of Tables */
+        .sketch-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 20px;
+        }
+        .sketch-row::before {
+            content: '👉';
+            position: absolute;
+            left: -5px;
+            top: 2px;
+            font-size: 1rem;
+        }
+        .sketch-term {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--yellow);
+            margin-bottom: 2px;
+        }
+        .sketch-desc {
+            color: #dcdcdc;
+            font-size: 1.1rem;
+            padding-left: 10px;
+            border-left: 2px solid rgba(255,255,255,0.1);
+        }
+
+        /* Highlighter Style */
+        .highlighted { 
+            background: linear-gradient(104deg, rgba(241, 250, 140, 0) 0.9%, rgba(241, 250, 140, 0.4) 2.4%, rgba(241, 250, 140, 0.2) 5.8%, rgba(241, 250, 140, 0.5) 93%, rgba(241, 250, 140, 0.2) 96%, rgba(241, 250, 140, 0) 98%);
+            color: #fff;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(40, 42, 54, 0.9);
+            border: 2px solid #6272a4;
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: flex;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+        }
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #f8f8f2;
+            font-family: 'Kalam', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        .action-btn:hover { background: rgba(255,255,255,0.1); color: var(--cyan); }
+        .action-btn.active { background: var(--yellow); color: #282a36; font-weight: bold; }
+
+        /* Sticky Notes */
+        .sticky-note {
+            position: absolute;
+            width: 250px;
+            min-height: 200px;
+            background: #f1fa8c;
+            color: #282a36;
+            padding: 15px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            border-radius: 2px 15px 2px 15px; /* Folded corner look */
+            cursor: grab;
+            z-index: 1000;
+            resize: both;
+            overflow: auto;
+        }
+        .sticky-note:active { cursor: grabbing; }
+        .note-header {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .note-btn { cursor: pointer; font-size: 1.1rem; }
+        .sticky-note textarea {
+            width: 100%; height: calc(100% - 30px); border: none; background: transparent; 
+            font-family: 'Patrick Hand', cursive; font-size: 1.3rem; color: inherit; 
+            resize: none; outline: none; line-height: 1.4;
+        }
+        .note-color-1 { background: #f1fa8c; } /* Yellow */
+        .note-color-2 { background: #ff79c6; color: #fff; } /* Pink */
+        .note-color-3 { background: #8be9fd; } /* Cyan */
+    </style>
+</head>
+<body>
+
+    <h1 class="header">🇮🇳 Indian Polity: The "Gotcha" Facts</h1>
+
+    <!-- Ultra Short Revision Sheet -->
+    <div class="quick-revision">
+        <div class="pin">📌</div>
+        <h2>⚡ 1-Minute Core Revision</h2>
+        <div class="quick-revision-grid">
+            <div class="quick-item"><span>Statutory vs Const:</span> Zonal Councils, CBI, Citizenship, LoP are Acts, NOT Const.</div>
+            <div class="quick-item"><span>Rules vs Const:</span> No-Confidence, Question Hour, PAC are House Rules.</div>
+            <div class="quick-item"><span>Convention vs Law:</span> PAC/Deputy Speaker from Opp, Zero Hour are Unwritten.</div>
+            <div class="quick-item"><span>SC Creations:</span> Basic Structure, Collegium, NOTA, Curative Petition.</div>
+            <div class="quick-item"><span>Never Defined/Used:</span> Budget, Federation, Basic Structure, Untouchability, Office of Profit.</div>
+        </div>
+    </div>
+
+    <!-- Dynamic Sketchnote Masonry Layout -->
+    <div class="masonry">
+        
+        <!-- Category 1: Statutory -->
+        <div class="sketch-card theme-pink">
+            <h3>📜 1. Statutory (Acts of Parliament)</h3>
+            <p class="subtitle">Constitution created the power; Parliament passed the specific Act.</p>
+            
+            <div class="sketch-row">
+                <div class="sketch-term">Zonal Councils</div>
+                <div class="sketch-desc">States Reorganisation Act, 1956 (Inter-State Council is Const. under Art 263).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Contingency Fund of India</div>
+                <div class="sketch-desc">Contingency Fund of India Act, 1950 (Art 267 only says Parliament "may" establish one).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Delimitation Commission</div>
+                <div class="sketch-desc">Delimitation Acts (Art 82 says Parliament enacts law after every census).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Inter-State Water Dispute Tribunals</div>
+                <div class="sketch-desc">Inter-State River Water Disputes Act, 1956 (Art 262 gave power).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Disqualification for 2+ yrs jail</div>
+                <div class="sketch-desc">Representation of the People Act, 1951.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Registration of Political Parties</div>
+                <div class="sketch-desc">Representation of the People Act, 1951.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Acquiring/Losing Citizenship</div>
+                <div class="sketch-desc">Citizenship Act, 1955.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Leader of the Opposition (LoP)</div>
+                <div class="sketch-desc">Salary and Allowances of Leaders of Opposition in Parliament Act, 1977.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Exemptions for "Office of Profit"</div>
+                <div class="sketch-desc">Parliament (Prevention of Disqualification) Act, 1959.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Punishment for Untouchability</div>
+                <div class="sketch-desc">Protection of Civil Rights Act, 1955 (Art 17 only abolishes practice).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Rules for National Flag/Anthem</div>
+                <div class="sketch-desc">Prevention of Insults to National Honour Act, 1971.</div>
+            </div>
+        </div>
+
+        <!-- Category 2: Rules -->
+        <div class="sketch-card theme-cyan">
+            <h3>🏛️ 2. Purely House Rules</h3>
+            <p class="subtitle">Lives entirely in the Lok Sabha/Rajya Sabha rulebooks.</p>
+            
+            <div class="sketch-row">
+                <div class="sketch-term">No-Confidence Motion</div>
+                <div class="sketch-desc">Rule 198 of the Lok Sabha Rules of Procedure.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Question Hour</div>
+                <div class="sketch-desc">Rules of Procedure of the Houses.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">The "Guillotine"</div>
+                <div class="sketch-desc">Rules of Procedure (Putting undiscussed demands to vote on last day).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Privilege Motion</div>
+                <div class="sketch-desc">Rules of Procedure (Though privileges are in Art 105).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Parliamentary Committees</div>
+                <div class="sketch-desc">Rules of Procedure of the Houses (PAC, Estimates, etc.).</div>
+            </div>
+        </div>
+
+        <!-- Category 3: Conventions -->
+        <div class="sketch-card theme-green">
+            <h3>🤝 3. Unwritten Conventions</h3>
+            <p class="subtitle">Traditions established over decades.</p>
+            
+            <div class="sketch-row">
+                <div class="sketch-term">PAC Chairman from Opposition</div>
+                <div class="sketch-desc">Parliamentary Convention (strictly since 1967).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Deputy Speaker from Opposition</div>
+                <div class="sketch-desc">Parliamentary Convention (post itself is in Art 93).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Zero Hour</div>
+                <div class="sketch-desc">Indian Parliamentary Convention (started 1962).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">The "Whip"</div>
+                <div class="sketch-desc">Parliamentary Convention (inherited from UK).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Governor outside home state</div>
+                <div class="sketch-desc">Political Convention (Sarkaria Comm. recommendation).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Resignation on Money Bill defeat</div>
+                <div class="sketch-desc">Parliamentary Convention (Signals loss of majority).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">President inviting largest party</div>
+                <div class="sketch-desc">Presidential Convention during hung assembly.</div>
+            </div>
+        </div>
+
+        <!-- Category 4: SC Inventions -->
+        <div class="sketch-card theme-purple">
+            <h3>⚖️ 4. Supreme Court Inventions</h3>
+            <p class="subtitle">Doctrines created purely by judicial interpretation.</p>
+            
+            <div class="sketch-row">
+                <div class="sketch-term">Basic Structure Doctrine</div>
+                <div class="sketch-desc">Kesavananda Bharati Judgment (1973).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Collegium System</div>
+                <div class="sketch-desc">Second and Third Judges Cases (1993, 1998).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Curative Petition</div>
+                <div class="sketch-desc">Rupa Ashok Hurra Case (2002) - Remedy after review petition.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">NOTA (None of the Above)</div>
+                <div class="sketch-desc">PUCL Case (2013).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Creamy Layer" in OBCs</div>
+                <div class="sketch-desc">Indra Sawhney Case (1992).</div>
+            </div>
+        </div>
+
+        <!-- Category 5: Executive -->
+        <div class="sketch-card theme-orange">
+            <h3>✒️ 5. Purely Executive Orders</h3>
+            <p class="subtitle">Zero Constitutional or Statutory backing.</p>
+            
+            <div class="sketch-row">
+                <div class="sketch-term">NITI Aayog</div>
+                <div class="sketch-desc">Cabinet Resolution (2015).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">National Development Council</div>
+                <div class="sketch-desc">Cabinet Resolution (1952).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Law Commission of India</div>
+                <div class="sketch-desc">Government Order (reconstituted every 3 years).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Central Bureau of Investigation</div>
+                <div class="sketch-desc">MHA Resolution (1963) (Powers drawn from DSPE Act, 1946).</div>
+            </div>
+        </div>
+
+        <!-- Category 6: Gotchas -->
+        <div class="sketch-card theme-red">
+            <h3>🚨 6. The "Gotcha" Facts</h3>
+            <p class="subtitle">Mentioned vs Defined vs Never Used. The biggest traps.</p>
+            
+            <div class="sketch-row">
+                <div class="sketch-term">Vice President's Salary</div>
+                <div class="sketch-desc">No salary fixed in Constitution. Drawn as ex-officio Chairman RS.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Office of Profit"</div>
+                <div class="sketch-desc">Mentioned as disqualification ground (Art 102/191), NEVER defined.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Contempt of Court"</div>
+                <div class="sketch-desc">SC/HC power given (Art 129/215), NEVER defined in Const. (Defined in Act of 1971).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">Number of Election Commissioners</div>
+                <div class="sketch-desc">Not specified. Left to the President (Art 324).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Budget"</div>
+                <div class="sketch-desc">Word NEVER used. It is "Annual Financial Statement" (Art 112).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Federation"</div>
+                <div class="sketch-desc">Word NEVER used. India is a "Union of States" (Art 1).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Basic Structure"</div>
+                <div class="sketch-desc">Phrase NEVER used in the Constitution.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Cabinet"</div>
+                <div class="sketch-desc">Not in original text. Added to Art 352 via 44th Amendment (1978).</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Minority"</div>
+                <div class="sketch-desc">Used in Arts 29/30, NEVER defined.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Untouchability"</div>
+                <div class="sketch-desc">Abolished in Art 17, NEVER defined.</div>
+            </div>
+            <div class="sketch-row">
+                <div class="sketch-term">"Martial Law"</div>
+                <div class="sketch-desc">Mentioned in Art 34, NEVER defined.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Interactive Action Bar -->
+    <div class="action-bar" id="actionBar">
+        <button class="action-btn" id="highlightBtn" onclick="toggleHighlight()">🖍️ Highlight</button>
+        <button class="action-btn" onclick="addNote()">📝 Add Note</button>
+        <button class="action-btn" onclick="saveBoard()">☁️ Save Board</button>
+    </div>
+
+    <script>
+        // --- 1. Highlighter Tool ---
+        let highlightMode = false;
+        function toggleHighlight() {
+            highlightMode = !highlightMode;
+            const btn = document.getElementById('highlightBtn');
+            if(highlightMode) {
+                btn.classList.add('active');
+                btn.innerHTML = '🖍️ Highlighting...';
+            } else {
+                btn.classList.remove('active');
+                btn.innerHTML = '🖍️ Highlight';
+            }
+        }
+
+        // Apply highlight on text selection
+        document.body.addEventListener('mouseup', function(e) {
+            if(!highlightMode) return;
+            if(e.target.closest('.action-bar') || e.target.closest('.sticky-note')) return;
+            
+            let selection = window.getSelection();
+            if(selection.rangeCount > 0 && !selection.isCollapsed) {
+                let range = selection.getRangeAt(0);
+                let span = document.createElement('span');
+                span.className = 'highlighted';
+                
+                // Remove highlight on click
+                span.onclick = function(ev) {
+                    if(highlightMode) {
+                        let parent = ev.target.parentNode;
+                        while(ev.target.firstChild) {
+                            parent.insertBefore(ev.target.firstChild, ev.target);
+                        }
+                        parent.removeChild(ev.target);
+                        ev.stopPropagation();
+                    }
+                };
+
+                try {
+                    range.surroundContents(span);
+                } catch(err) {
+                    console.log("Cross-element highlighting restricted in simple mode.");
+                }
+                selection.removeAllRanges();
+            }
+        });
+
+        // --- 2. Draggable Sticky Notes ---
+        function addNote() {
+            const note = document.createElement('div');
+            note.className = 'sticky-note note-color-1';
+            // Drop near center of viewport
+            note.style.top = (window.scrollY + window.innerHeight/2 - 100) + 'px';
+            note.style.left = (window.innerWidth / 2 - 125) + 'px';
+            
+            const header = document.createElement('div');
+            header.className = 'note-header';
+            
+            const colorBtn = document.createElement('span');
+            colorBtn.className = 'note-btn';
+            colorBtn.innerHTML = '🎨';
+            const colors = ['note-color-1', 'note-color-2', 'note-color-3'];
+            let cIdx = 0;
+            colorBtn.onclick = () => {
+                cIdx = (cIdx + 1) % colors.length;
+                note.className = 'sticky-note ' + colors[cIdx];
+            };
+
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'note-btn';
+            closeBtn.innerHTML = '✖';
+            closeBtn.onclick = () => note.remove();
+            
+            header.appendChild(colorBtn);
+            header.appendChild(closeBtn);
+
+            const ta = document.createElement('textarea');
+            ta.placeholder = 'Type revision note...';
+            
+            note.appendChild(header);
+            note.appendChild(ta);
+            document.body.appendChild(note);
+            
+            dragElement(note);
+        }
+
+        function dragElement(elmnt) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            elmnt.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                // Ignore if clicking inputs
+                if(e.target.tagName === 'TEXTAREA' || e.target.classList.contains('note-btn')) return;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+                
+                // Bring to front
+                document.querySelectorAll('.sticky-note').forEach(n => n.style.zIndex = 1000);
+                elmnt.style.zIndex = 1001;
+            }
+
+            function elementDrag(e) {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        // --- 3. Save / Clone Mechanism ---
+        function saveBoard() {
+            // Bake textarea values into HTML for static saving
+            document.querySelectorAll('.sticky-note').forEach(note => {
+                const ta = note.querySelector('textarea');
+                if(ta) {
+                    ta.innerHTML = ta.value; 
+                    ta.setAttribute('data-val', ta.value);
+                }
+            });
+
+            const clone = document.documentElement.cloneNode(true);
+            
+            // Remove UI elements from clone
+            const actionbar = clone.querySelector('#actionBar');
+            if(actionbar) actionbar.remove();
+
+            localStorage.setItem('polity_premium_sketchnote', clone.innerHTML);
+            alert('☁️ Premium Workspace Saved! Your highlights and notes are stored locally.');
+        }
+
+        // --- 4. Smart Hydration ---
+        window.onload = () => {
+            const savedDOM = localStorage.getItem('polity_premium_sketchnote');
+            if(savedDOM && confirm("Restore previous saved workspace?")) {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = savedDOM;
+                const savedBody = tempDiv.querySelector('body');
+                
+                if(savedBody) {
+                    const currentCards = document.querySelector('.masonry');
+                    const currentRev = document.querySelector('.quick-revision');
+                    const savedCards = savedBody.querySelector('.masonry');
+                    const savedRev = savedBody.querySelector('.quick-revision');
+                    
+                    if(currentCards && savedCards) currentCards.innerHTML = savedCards.innerHTML;
+                    if(currentRev && savedRev) currentRev.innerHTML = savedRev.innerHTML;
+
+                    // Re-instantiate sticky notes
+                    const savedNotes = savedBody.querySelectorAll('.sticky-note');
+                    savedNotes.forEach(noteData => {
+                        const note = document.createElement('div');
+                        note.className = noteData.className;
+                        note.style.cssText = noteData.style.cssText;
+                        note.innerHTML = noteData.innerHTML;
+                        
+                        const ta = note.querySelector('textarea');
+                        if(ta) ta.value = ta.getAttribute('data-val') || '';
+                        
+                        const closeBtn = note.querySelector('.note-btn:last-child');
+                        if(closeBtn) closeBtn.onclick = () => note.remove();
+                        
+                        const colorBtn = note.querySelector('.note-btn:first-child');
+                        const colors = ['note-color-1', 'note-color-2', 'note-color-3'];
+                        let cIdx = colors.findIndex(c => note.classList.contains(c)) || 0;
+                        if(colorBtn) colorBtn.onclick = () => {
+                            cIdx = (cIdx + 1) % colors.length;
+                            note.className = 'sticky-note ' + colors[cIdx];
+                        };
+
+                        document.body.appendChild(note);
+                        dragElement(note);
+                    });
+
+                    // Rebind highlight un-click
+                    document.querySelectorAll('.highlighted').forEach(span => {
+                        span.onclick = function(ev) {
+                            if(highlightMode) {
+                                let parent = ev.target.parentNode;
+                                while(ev.target.firstChild) parent.insertBefore(ev.target.firstChild, ev.target);
+                                parent.removeChild(ev.target);
+                                ev.stopPropagation();
+                            }
+                        };
+                    });
+                }
+            }
+        };
+    </script>
+</body>
+</html>
