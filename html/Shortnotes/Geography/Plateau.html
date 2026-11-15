@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Peninsular Plateau Sketchnote</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&amp;family=Patrick+Hand&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #1a1a1a;
@@ -95,8 +96,11 @@
     .mini-note-delete {
         background: var(--orange); color: white; border: none; border-radius: 50%;
         width: 18px; height: 18px; font-size: 10px; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
+        display: none; align-items: center; justify-content: center;
     }
+    .mini-note:hover .mini-note-delete,
+    .mini-note:focus-within .mini-note-delete { display: flex; }
+
     .mini-note-input {
         width: 100%; height: 100%; flex-grow: 1; background: transparent;
         border: none; padding: 8px; color: inherit; font-family: inherit;
@@ -105,10 +109,11 @@
 
     /* User Highlights */
     .user-highlight {
-        /* Defaults, overriden dynamically by JS */
         background-color: rgba(255, 235, 59, 0.8); color: #000;
-        border-radius: 3px; padding: 0 2px;
+        border-radius: 3px; padding: 0 2px; cursor: pointer;
+        transition: opacity 0.2s;
     }
+    .highlight-mode .user-highlight:hover { opacity: 0.6; }
 
     /* Status Alert */
     #upload-status {
@@ -145,19 +150,22 @@
     .hl-orange { color: var(--orange); font-weight: bold; }
   </style>
 </head>
-<body class="">
+<body>
 
   <!-- Workspace Interactive Actions -->
+  <div class="action-bar">
+      <button class="action-btn" id="toggle-note-mode">📝 ADD NOTES</button>
+      
+      <div class="highlight-tools">
+          <button class="action-btn" id="toggle-highlight-mode">🖍️ HIGHLIGHT</button>
+          <input type="color" id="highlight-color" value="#ffeb3b" title="Pick Highlight Color">
+      </div>
+
+      <button class="action-btn action-btn-save" id="save-github-btn" style="display: none;">☁️ SAVE TO GITHUB</button>
+  </div>
   
-  
-  <div id="upload-status" style="display: block; border-color: rgb(0, 168, 255); color: rgb(255, 255, 255);">Packaging document...</div>
-  <div id="notes-container"><div class="mini-note" id="note_1794714449214" style="left: 7.9875px; top: 2942.95px; width: 148px; height: 69px; background-color: rgb(119, 61, 255);">
-              <div class="note-header">
-                  <input type="color" class="note-color-picker" value="#ffeb3b" title="Note Color">
-                  
-              </div>
-              <textarea class="mini-note-input" placeholder="Jot a note...">Ranapratap Sagar</textarea>
-          </div></div>
+  <div id="upload-status">Processing...</div>
+  <div id="notes-container"></div>
 
   <h1>🏞️ Peninsular Plateau</h1>
 
@@ -177,7 +185,7 @@
       <div class="rev-item"><span>Highest Peak (Meghalaya):</span> Shillong (1,961 m)</div>
       <div class="rev-item"><span>Highest Peak (Karnataka):</span> Mulangiri (1,913 m)</div>
       <div class="rev-item"><span>Coal Hub:</span> Gondwana rocks (Chotanagpur)</div>
-      <div class="rev-item"><span>Black Soil:</span> Malwa &amp; Maharashtra (Lava origin)</div>
+      <div class="rev-item"><span>Black Soil:</span> Malwa & Maharashtra (Lava origin)</div>
     </div>
   </div>
 
@@ -189,7 +197,7 @@
         <li>Base coincides with <span class="hl-yellow">North India Plain</span>, Apex at <span class="hl-yellow">Kanniyakumari</span>.</li>
         <li>One of the <span class="hl-yellow">oldest landforms</span>, highly stable shield block.</li>
         <li>Little structural change, never submerged (mostly).</li>
-        <li>Aggregation of smaller plateaus, hill ranges, river basins &amp; valleys.</li>
+        <li>Aggregation of smaller plateaus, hill ranges, river basins & valleys.</li>
       </ul>
     </div>
 
@@ -224,7 +232,7 @@
         <li>Borders: Yamuna (N), Madhya Bharat (W), Vindhyan Scarp (E/SE), Malwa (S).</li>
         <li>Made of <span class="hl-yellow">'Bundelkhand gneiss'</span> (granite/gneiss).</li>
         <li>Elevation: <span class="hl-green">300-600 m</span>; Slopes down to <span class="hl-blue">Yamuna</span>.</li>
-        <li>Spread over 5 UP dists &amp; 4 MP dists.</li>
+        <li>Spread over 5 UP dists & 4 MP dists.</li>
         <li>Characterized by <span class="hl-orange">Senile topography</span>, undulating, unfit for cultivation.</li>
         <li>Rivers: <span class="hl-blue">Betwa, Dhasan, Ken</span>.</li>
       </ul>
@@ -235,10 +243,10 @@
       <h3 style="color: var(--yellow);">Malwa Plateau</h3>
       <ul>
         <li>Triangle: Vindhyan Hills (base), Aravali (W), Madhya Bharat (N), Bundelkhand (E).</li>
-        <li>2 Drainages: <span class="hl-blue">Arabian Sea</span> (Narmada, Tapi, Mahi) &amp; <span class="hl-blue">Bay of Bengal</span> (Chambal, Betwa).</li>
+        <li>2 Drainages: <span class="hl-blue">Arabian Sea</span> (Narmada, Tapi, Mahi) & <span class="hl-blue">Bay of Bengal</span> (Chambal, Betwa).</li>
         <li>North drained by Chambal, Kali, Sindh, Parbati, Ken, Betwa.</li>
-        <li>Composed of <span class="hl-orange">extensive lava flow</span> &amp; covered in <span class="hl-yellow">Black Soils</span>.</li>
-        <li>Slope towards North (<span class="hl-green">600m to &lt;500m</span>); Chambal ravines in North.</li>
+        <li>Composed of <span class="hl-orange">extensive lava flow</span> & covered in <span class="hl-yellow">Black Soils</span>.</li>
+        <li>Slope towards North (<span class="hl-green">600m to <500m</span>); Chambal ravines in North.</li>
       </ul>
     </div>
 
@@ -251,7 +259,7 @@
         <li>Rocks: Limestones/Sandstones (West), Granite (East).</li>
         <li>Acts as <span class="hl-blue">Water Divide</span> between Son (N) and Mahanadi (S).</li>
         <li>Elevation: <span class="hl-green">150 - 1,200 m</span>. Horizontal strata = no major disturbance.</li>
-        <li>Bhanrer &amp; Kaimur near trough-axis.</li>
+        <li>Bhanrer & Kaimur near trough-axis.</li>
       </ul>
     </div>
 
@@ -336,7 +344,7 @@
         <li>The <span class="hl-yellow">only plain</span> worth the name in the Peninsular plateau.</li>
         <li>Saucer-shaped depression drained by upper <span class="hl-blue">Mahanadi</span>.</li>
         <li>Between Maikala Range and Odisha hills.</li>
-        <li>Horizontal beds of <span class="hl-yellow">limestone &amp; shales</span>.</li>
+        <li>Horizontal beds of <span class="hl-yellow">limestone & shales</span>.</li>
         <li>Named after 36 forts of Haithaivanshi Rajputs.</li>
         <li>Elevation: <span class="hl-green">250m (E) to 330m (W)</span>.</li>
       </ul>
@@ -347,7 +355,7 @@
   <!-- Advanced Interactive Workspace Script -->
   <script>
       const PAGE_ID = 'plateau'; 
-      const FILE_NAME = 'plateau.html'; // Must match your repo file name exactly
+      const FILE_NAME = 'plateau.html'; 
       
       const CONFIG = { githubOwner: "pp-luffy", githubRepo: "CA" };
 
@@ -362,10 +370,34 @@
       let isHighlightMode = false;
       let notesData = JSON.parse(localStorage.getItem(`upsc_notes_${PAGE_ID}`) || '[]');
 
-      // Load locally saved sticky notes
+      // SMART HYDRATION: Pick up notes that are hardcoded into HTML from GitHub
+      function hydrateFromDOM() {
+          const staticNotes = document.querySelectorAll('#notes-container .mini-note');
+          let modified = false;
+          
+          staticNotes.forEach(noteEl => {
+              const id = noteEl.id;
+              if (!notesData.find(n => n.id === id)) {
+                  const left = noteEl.style.left;
+                  const top = noteEl.style.top;
+                  const width = noteEl.style.width;
+                  const height = noteEl.style.height;
+                  const bg = noteEl.style.backgroundColor || '#ffeb3b';
+                  const textarea = noteEl.querySelector('textarea');
+                  const text = textarea ? (textarea.value || textarea.innerHTML) : '';
+                  
+                  notesData.push({ id, left, top, width, height, bg, text });
+                  modified = true;
+              }
+          });
+          
+          if (modified) saveLocal();
+      }
+
       function renderExistingNotes() {
-          notesContainer.innerHTML = '';
-          notesData.forEach(note => createNoteElement(note));
+          hydrateFromDOM(); 
+          notesContainer.innerHTML = ''; 
+          notesData.forEach(note => createNoteElement(note)); 
           updateSaveButtonVisibility();
       }
 
@@ -397,8 +429,23 @@
           toggleNoteModeBtn.innerText = '📝 ADD NOTES';
       });
 
-      // Add Note on Click
+      // Interactive Click Logic (Add Note & Undo Highlight)
       document.body.addEventListener('click', (e) => {
+          // UNDO HIGHLIGHT LOGIC
+          if (isHighlightMode && e.target.classList.contains('user-highlight')) {
+              e.preventDefault();
+              e.stopPropagation();
+              const mark = e.target;
+              const parent = mark.parentNode;
+              while (mark.firstChild) {
+                  parent.insertBefore(mark.firstChild, mark);
+              }
+              parent.removeChild(mark);
+              updateSaveButtonVisibility(true); 
+              return;
+          }
+          
+          // ADD NOTE LOGIC
           if (!isNoteMode) return;
           if (e.target.closest('.mini-note') || e.target.closest('.action-bar')) return;
 
@@ -416,10 +463,10 @@
           saveLocal();
           createNoteElement(newNote, true);
           
-          toggleNoteModeBtn.click(); // Auto turn off
+          toggleNoteModeBtn.click(); 
       });
 
-      // Highlight Text Selection Logic (With Contrast Checker)
+      // Text Selection Highlighting Logic
       document.addEventListener('mouseup', () => {
           if (!isHighlightMode) return;
           
@@ -428,13 +475,10 @@
           
           const hexColor = highlightColorInput.value;
           
-          // Calculate Brightness/Luminance to determine text color
           const r = parseInt(hexColor.slice(1, 3), 16);
           const g = parseInt(hexColor.slice(3, 5), 16);
           const b = parseInt(hexColor.slice(5, 7), 16);
           const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-          
-          // If background is very dark, make text white so it's readable
           const textColor = luminance > 0.5 ? '#000000' : '#ffffff';
           
           try {
@@ -445,9 +489,9 @@
               mark.style.color = textColor;
               
               range.surroundContents(mark);
-              updateSaveButtonVisibility(true); // Alert UI that DOM has changed
+              updateSaveButtonVisibility(true); 
           } catch (err) {
-              console.log("Cannot highlight across multiple HTML block boundaries.");
+              console.log("Cannot highlight across HTML block boundaries.");
           }
           
           selection.removeAllRanges();
@@ -490,6 +534,7 @@
               notesData = notesData.filter(n => n.id !== data.id);
               saveLocal();
               noteDiv.remove();
+              updateSaveButtonVisibility(true); 
           });
           
           notesContainer.appendChild(noteDiv);
@@ -540,13 +585,12 @@
 
       function updateSaveButtonVisibility(forceShow = false) {
           if (notesData.length > 0 || forceShow) {
-              saveGithubBtn.style.display = 'inline-flex';
+              saveGithubBtn.style.display = 'inline-block';
           } else {
               saveGithubBtn.style.display = 'none';
           }
       }
 
-      // Github Sync Logic (ONLY triggered when explicitly clicking the button)
       function getGithubRepoDetails() {
           let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
           if (window.location.hostname.includes('github.io')) {
@@ -567,6 +611,7 @@
           }
       }
 
+      // --- BULLETPROOF CLONE-SAVE TO GITHUB ---
       saveGithubBtn.addEventListener('click', async function() {
           const token = localStorage.getItem('upsc_gh_token');
           if (!token) return alert("GitHub token not found! Configure your token in the main Hub dashboard.");
@@ -576,44 +621,18 @@
           showStatus('Packaging document...');
 
           try {
-              // Convert textareas to static HTML for saving
-              document.querySelectorAll('.mini-note-input').forEach(ta => { ta.innerHTML = ta.value; });
+              const docClone = document.documentElement.cloneNode(true);
               
-              // Hide action bar from save
-              const actionBarClone = document.querySelector('.action-bar').cloneNode(true);
-              document.querySelector('.action-bar').remove();
-              
-              // Remove delete buttons before save so they don't break static viewing
-              const originalNotesHtml = notesContainer.innerHTML;
-              notesContainer.innerHTML = notesContainer.innerHTML.replace(/<button class="mini-note-delete"[^>]*>✖<\/button>/g, '');
-
-              const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-
-              // Restore DOM for user
-              notesContainer.innerHTML = originalNotesHtml;
-              document.body.prepend(actionBarClone);
-              
-              // Re-bind listeners on clone
-              document.getElementById('toggle-note-mode').addEventListener('click', function(e) {
-                  e.stopPropagation(); isNoteMode = !isNoteMode; isHighlightMode = false;
-                  document.body.classList.toggle('add-note-mode', isNoteMode);
-                  document.body.classList.remove('highlight-mode');
-                  this.classList.toggle('active', isNoteMode);
-                  document.getElementById('toggle-highlight-mode').classList.remove('active');
-                  this.innerText = isNoteMode ? '❌ CANCEL NOTES' : '📝 ADD NOTES';
-              });
-              document.getElementById('toggle-highlight-mode').addEventListener('click', function(e) {
-                  e.stopPropagation(); isHighlightMode = !isHighlightMode; isNoteMode = false;
-                  document.body.classList.toggle('highlight-mode', isHighlightMode);
-                  document.body.classList.remove('add-note-mode');
-                  this.classList.toggle('active', isHighlightMode);
-                  document.getElementById('toggle-note-mode').classList.remove('active');
-                  document.getElementById('toggle-note-mode').innerText = '📝 ADD NOTES';
+              docClone.querySelectorAll('.mini-note-input').forEach(ta => { 
+                  ta.innerHTML = ta.value; 
               });
               
-              const restoredBtn = document.getElementById('save-github-btn');
-              restoredBtn.innerText = '⏳ SAVING...';
-              restoredBtn.disabled = true;
+              const actionBarClone = docClone.querySelector('.action-bar');
+              if(actionBarClone) actionBarClone.remove();
+              
+              docClone.querySelectorAll('.mini-note-delete').forEach(btn => btn.remove());
+
+              const fullHtml = "<!DOCTYPE html>\n" + docClone.outerHTML;
 
               showStatus('Connecting to Mainframe...');
               const utf8Bytes = new TextEncoder().encode(fullHtml);
@@ -641,22 +660,20 @@
 
               if (putResponse.ok) {
                   showStatus('✅ Sync Successful! Data burned into file.');
-                  restoredBtn.innerText = '☁️ SAVED';
-                  setTimeout(() => { restoredBtn.innerText = '☁️ SAVE TO GITHUB'; restoredBtn.disabled = false; }, 2000);
+                  this.innerText = '☁️ SAVED';
+                  setTimeout(() => { this.innerText = '☁️ SAVE TO GITHUB'; this.disabled = false; }, 2000);
               } else {
                   throw new Error((await putResponse.json()).message);
               }
           } catch (error) {
               console.error(error);
               showStatus(`❌ Error: ${error.message}`, true);
-              const restoredBtn = document.getElementById('save-github-btn');
-              restoredBtn.innerText = '☁️ SAVE TO GITHUB';
-              restoredBtn.disabled = false;
+              this.innerText = '☁️ SAVE TO GITHUB';
+              this.disabled = false;
           }
       });
 
       renderExistingNotes();
   </script>
-
-
-</body></html>
+</body>
+</html>
