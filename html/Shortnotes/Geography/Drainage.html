@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drainage System of India - Complete Sketchnote</title>
+    <title>Drainage System of India - Structured Sketchnote</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,15 +11,14 @@
     
     <style>
         :root {
-            --bg-dark: #1a1a1a;
+            --bg-dark: #121212;
             --text-light: #e0e0e0;
-            --card-bg: #222222;
+            --card-bg: #1e1e1e;
             --tag-geo: #ff6b6b;
             --tag-himalaya: #4ecdc4;
             --tag-peninsular: #ffe66d;
             --tag-concept: #c780e8;
-            --border-color: #444;
-            --highlight-color: #ffd700;
+            --border-color: #333;
             --note-bg: #f9e79f;
             --note-text: #2c3e50;
         }
@@ -31,7 +30,7 @@
             margin: 0;
             padding: 0;
             position: relative;
-            font-size: 1rem;
+            font-size: 1.1rem;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -45,143 +44,170 @@
         .action-bar {
             position: sticky;
             top: 0;
-            background: #111;
-            padding: 8px 15px;
+            background: #0a0a0a;
+            padding: 10px 20px;
             display: flex;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            gap: 15px;
             z-index: 1000;
-            border-bottom: 1px dashed #444;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border-bottom: 2px solid #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
         }
         .btn {
-            background: transparent;
+            background: #222;
             color: #fff;
             border: 1px solid #555;
-            padding: 5px 12px;
+            padding: 6px 16px;
             border-radius: 6px;
             font-family: 'Kalam', cursive;
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .btn:hover { background: #333; transform: scale(1.02); }
-        .btn.active { background: var(--highlight-color); color: #000; border-color: var(--highlight-color); }
+        .btn:hover { background: #333; border-color: #777; transform: translateY(-2px); }
+        .btn.active { background: #444; border-color: #fff; box-shadow: 0 0 8px rgba(255,255,255,0.2); }
+        
+        .highlight-wrapper {
+            display: flex;
+            align-items: center;
+            background: #222;
+            border: 1px solid #555;
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .highlight-wrapper .btn { border: none; background: transparent; padding: 4px 12px; }
+        .highlight-wrapper .btn:hover { transform: none; background: #333; }
+        .highlight-wrapper .btn.active { background: #444; }
+        #highlightColor {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            padding: 0 5px;
+        }
 
         /* Header section */
-        .header { text-align: center; padding: 25px 15px 15px; }
-        .header h1 { font-size: 2.5rem; text-shadow: 2px 2px 4px #000; color: #fff; margin-bottom: 5px; }
+        .header { text-align: center; padding: 30px 20px 20px; }
+        .header h1 { font-size: 2.8rem; text-shadow: 2px 2px 4px #000; color: #fff; margin-bottom: 5px; border-bottom: 2px dashed #444; display: inline-block; padding-bottom: 10px; }
 
-        /* Top Image Gallery */
+        /* Top Image Gallery (Fixed relative paths for local viewing) */
         .top-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            padding: 10px 20px 25px;
-            max-width: 1300px;
-            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px 40px;
+            max-width: 1400px;
+            margin: 0 auto 30px auto;
         }
-        .top-gallery img {
-            height: 120px;
+        .gallery-item {
+            background: var(--card-bg);
+            padding: 10px;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            border: 2px solid var(--border-color);
-            object-fit: cover;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
-            background: #111;
         }
-        .top-gallery img:hover {
-            transform: scale(1.05);
-            border-color: var(--tag-himalaya);
+        .gallery-item:hover { transform: translateY(-5px); border-color: #666; }
+        .gallery-item img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #111;
+            margin-bottom: 10px;
+        }
+        .gallery-item span {
+            font-family: 'Kalam', cursive;
+            font-size: 1.2rem;
+            color: #ccc;
         }
 
         /* Ultra-Short Revision Sheet */
         .revision-sheet {
-            max-width: 1300px;
-            margin: 0 auto 25px auto;
-            padding: 15px;
-            background: #1e1e1e;
-            border: 1px solid #444;
-            border-radius: 8px;
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.02);
+            max-width: 1400px;
+            margin: 0 auto 40px auto;
+            padding: 25px;
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 10px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
         .revision-sheet h2 {
-            text-align: center; color: var(--tag-peninsular); border-bottom: 1px dashed #555; padding-bottom: 5px; margin-bottom: 10px; font-size: 1.5rem;
+            text-align: center; color: var(--tag-peninsular); border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 20px; font-size: 1.8rem;
         }
         .rev-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 0.9rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; font-size: 1rem;
         }
         .rev-item {
-            background: #2a2a2a; padding: 8px; border-radius: 4px; border-left: 4px solid var(--tag-himalaya);
+            background: #222; padding: 15px; border-radius: 6px; border-left: 5px solid var(--tag-himalaya);
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
         }
-        .rev-item strong { display: block; font-family: 'Kalam'; font-size: 1.1rem; color: var(--tag-geo); margin-bottom: 3px;}
+        .rev-item strong { display: block; font-family: 'Kalam'; font-size: 1.2rem; color: var(--tag-geo); margin-bottom: 5px; border-bottom: 1px dashed #444; padding-bottom: 4px; }
 
-        /* Canvas / Sketchnote Grid */
+        /* Canvas / Sketchnote Grid (Strictly structured, no random tilts) */
         .canvas {
-            display: flex; flex-wrap: wrap; gap: 15px; padding: 15px; justify-content: center; max-width: 1400px; margin: 0 auto; align-items: stretch;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 20px 40px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: stretch;
         }
 
-        /* Polaroid Cards - Tightened to reduce blank space */
+        /* Professional Cards */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            width: 320px;
-            padding: 12px 12px 25px 12px;
-            box-shadow: 4px 6px 12px rgba(0,0,0,0.5);
+            border-radius: 8px;
+            padding: 20px 20px 35px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             position: relative;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
         }
-        .card:nth-child(even) { transform: rotate(1deg); }
-        .card:nth-child(odd) { transform: rotate(-1deg); }
-        .card:nth-child(3n) { transform: rotate(0.5deg); }
-        .card:hover { transform: scale(1.02) rotate(0deg); z-index: 10; box-shadow: 6px 8px 15px rgba(0,0,0,0.8); }
+        .card:hover { transform: translateY(-4px); z-index: 10; box-shadow: 0 8px 20px rgba(0,0,0,0.6); border-color: #555; }
 
-        /* Compact Image & Text Placeholders */
+        /* Placeholder boxes */
         .card-img-text {
             width: 100%;
-            min-height: 50px;
+            min-height: 60px;
             background: #111;
-            border: 2px dashed #444;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            padding: 5px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            padding: 10px;
             box-sizing: border-box;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             font-family: 'Kalam', cursive;
-            color: #888;
-            font-size: 1rem;
+            color: #999;
+            font-size: 1.1rem;
         }
-        
-        .card-img-actual {
-            width: 100%;
-            height: 90px;
-            background: #111;
-            border: 1px solid #444;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-        .card-img-actual img { width: 100%; height: 100%; object-fit: cover; }
 
         .card-title {
-            font-size: 1.3rem; color: #fff; border-bottom: 1px solid #333; padding-bottom: 3px; margin-bottom: 8px;
+            font-size: 1.5rem; color: #fff; border-bottom: 2px solid #333; padding-bottom: 5px; margin-bottom: 15px;
         }
         
-        .card-body { font-size: 0.95rem; line-height: 1.25; flex-grow: 1; }
-        .card-body ul { padding-left: 18px; margin: 0; }
-        .card-body li { margin-bottom: 4px; }
-        .card-body p { margin-top: 0; margin-bottom: 6px; }
+        .card-body { font-size: 1.05rem; line-height: 1.4; flex-grow: 1; }
+        .card-body ul { padding-left: 22px; margin: 0; }
+        .card-body li { margin-bottom: 8px; }
+        .card-body p { margin-top: 0; margin-bottom: 10px; }
+        .card-body strong { color: #fff; font-family: 'Kalam', cursive; font-size: 1.15rem; letter-spacing: 0.5px; }
 
         /* Tag Indicators */
         .tag {
-            position: absolute; bottom: 6px; right: -6px; padding: 2px 8px; font-family: 'Kalam'; font-size: 0.85rem; font-weight: bold; color: #111; transform: rotate(-3deg); box-shadow: 1px 1px 4px rgba(0,0,0,0.5); border-radius: 2px;
+            position: absolute; bottom: 0; right: 0; padding: 4px 12px; font-family: 'Kalam'; font-size: 0.9rem; font-weight: bold; color: #111; border-top-left-radius: 8px; border-bottom-right-radius: 8px;
         }
         .tag-concept { background: var(--tag-concept); }
         .tag-geo { background: var(--tag-geo); }
@@ -189,20 +215,25 @@
         .tag-peninsular { background: var(--tag-peninsular); }
 
         /* Interactive Elements */
-        .highlighted { background-color: var(--highlight-color); color: #000; cursor: pointer; border-radius: 2px; padding: 0 1px; }
+        .highlighted { color: #000; cursor: pointer; border-radius: 3px; padding: 0 3px; font-weight: bold; }
 
+        /* Highly Structured Sticky Notes */
         .sticky-note {
-            position: absolute; width: 180px; min-height: 120px; background: var(--note-bg); color: var(--note-text); padding: 8px; box-shadow: 2px 4px 10px rgba(0,0,0,0.5); font-family: 'Patrick Hand', cursive; resize: both; overflow: auto; z-index: 500; border: 1px solid rgba(0,0,0,0.1);
+            position: absolute; width: 220px; min-height: 160px; background: var(--note-bg); color: var(--note-text); padding: 0; box-shadow: 5px 8px 20px rgba(0,0,0,0.6); font-family: 'Patrick Hand', cursive; resize: both; overflow: hidden; z-index: 500; border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; display: flex; flex-direction: column;
         }
-        .sticky-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 4px; cursor: move; }
-        .sticky-colors { display: flex; gap: 4px; }
-        .color-dot { width: 10px; height: 10px; border-radius: 50%; cursor: pointer; border: 1px solid #999; }
-        .close-btn { cursor: pointer; font-weight: bold; font-size: 0.9rem; }
-        .sticky-content { outline: none; min-height: 80px; font-size: 0.9rem; line-height: 1.2; }
+        .sticky-header {
+            display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.05); padding: 8px 12px; border-bottom: 1px solid rgba(0,0,0,0.1); cursor: grab;
+        }
+        .sticky-header:active { cursor: grabbing; }
+        .sticky-colors { display: flex; gap: 6px; }
+        .color-dot { width: 14px; height: 14px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(0,0,0,0.3); transition: transform 0.2s; }
+        .color-dot:hover { transform: scale(1.2); }
+        .close-btn { cursor: pointer; font-weight: bold; font-size: 1.1rem; color: rgba(0,0,0,0.5); }
+        .close-btn:hover { color: #000; }
+        .sticky-content { outline: none; padding: 12px; font-size: 1.05rem; line-height: 1.4; flex-grow: 1; overflow-y: auto; }
 
         @media (max-width: 768px) {
-            .canvas { flex-direction: column; align-items: center; }
-            .card { width: 95%; }
+            .canvas, .top-gallery { grid-template-columns: 1fr; padding: 15px; }
         }
     </style>
 </head>
@@ -210,9 +241,12 @@
 
     <!-- Action Bar -->
     <div class="action-bar" id="actionBar">
-        <button class="btn" id="addNoteBtn">📝 ADD NOTES</button>
-        <button class="btn" id="highlightBtn">🖍️ HIGHLIGHT</button>
-        <button class="btn" id="saveBtn">☁️ SAVE</button>
+        <button class="btn" id="addNoteBtn">📝 ADD NOTE</button>
+        <div class="highlight-wrapper">
+            <button class="btn" id="highlightBtn">🖍️ HIGHLIGHT</button>
+            <input type="color" id="highlightColor" value="#ffd700" title="Choose Highlight Color">
+        </div>
+        <button class="btn" id="saveBtn">☁️ SAVE BOARD</button>
     </div>
 
     <!-- Header -->
@@ -220,321 +254,336 @@
         <h1>Drainage System of India</h1>
     </div>
 
-    <!-- Top Image Gallery -->
+    <!-- Top Image Gallery (Using relative local paths as requested) -->
     <div class="top-gallery">
-        <img src="/images/ganga.jpg" alt="Ganga River" onerror="this.style.display='none'">
-        <img src="/images/gangaOrigin.jpg" alt="Ganga Origin" onerror="this.style.display='none'">
-        <img src="/images/indus.jpg" alt="Indus River" onerror="this.style.display='none'">
-        <img src="/images/brahmaputra.jpg" alt="Brahmaputra River" onerror="this.style.display='none'">
-        <img src="/images/peninsularRiver.jpg" alt="Peninsular Rivers" onerror="this.style.display='none'">
+        <div class="gallery-item">
+            <img src="./images/ganga.jpg" alt="Ganga River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>ganga.jpg</text></svg>'">
+            <span>Ganga River System</span>
+        </div>
+        <div class="gallery-item">
+            <img src="./images/gangaOrigin.jpg" alt="Ganga Origin" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>gangaOrigin.jpg</text></svg>'">
+            <span>Origin of Ganga</span>
+        </div>
+        <div class="gallery-item">
+            <img src="./images/indus.jpg" alt="Indus River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>indus.jpg</text></svg>'">
+            <span>Indus River System</span>
+        </div>
+        <div class="gallery-item">
+            <img src="./images/brahmaputra.jpg" alt="Brahmaputra River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>brahmaputra.jpg</text></svg>'">
+            <span>Brahmaputra Basin</span>
+        </div>
+        <div class="gallery-item">
+            <img src="./images/peninsularRiver.jpg" alt="Peninsular Rivers" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>peninsularRiver.jpg</text></svg>'">
+            <span>Peninsular Rivers</span>
+        </div>
     </div>
 
     <!-- Ultra-Short Revision Sheet -->
     <div class="revision-sheet">
-        <h2>⚡ Quick Revision Sheet ⚡</h2>
+        <h2>⚡ Core Exam Revision Grid ⚡</h2>
         <div class="rev-grid">
-            <div class="rev-item"><strong>Himalayan Rivers</strong> Perennial (snow & rain). V-shaped valleys (youth), ox-bow lakes, deltas (plains). Indus, Ganga, Brahmaputra.</div>
-            <div class="rev-item"><strong>Peninsular Rivers</strong> Non-perennial. Fixed course, no meanders. Older than Himalayan. Western Ghats = water divide.</div>
-            <div class="rev-item"><strong>West Flowing</strong> Narmada (largest) & Tapi. Flow in rift valleys (Vindhya/Satpura). Amarkantak & Betul origins.</div>
-            <div class="rev-item"><strong>East Flowing</strong> Mahanadi, Godavari (Dakshin Ganga), Krishna, Kaveri. Drain into Bay of Bengal.</div>
-            <div class="rev-item"><strong>Patterns</strong> Dendritic (Tree), Trellis (Folds/90°), Parallel (Steep slope), Rectangular (Faults/Joints), Radial (Dome), Centripetal (Depression).</div>
-            <div class="rev-item"><strong>Tectonics</strong> Folding = Flexible crust (Mountains, Anticline/Syncline). Faulting = Brittle crust (Earthquakes).</div>
+            <div class="rev-item"><strong>Himalayan Rivers</strong> Perennial (snow & rain). Create V-shaped valleys (youth), ox-bow lakes & deltas (plains). Key: Indus, Ganga, Brahmaputra.</div>
+            <div class="rev-item"><strong>Peninsular Rivers</strong> Non-perennial/seasonal. Fixed courses, no meanders. Older than Himalayan. Western Ghats acts as the main water divide.</div>
+            <div class="rev-item"><strong>West Flowing Drainages</strong> Narmada (largest) & Tapi. Flow in rift valleys between Vindhya & Satpura. Amarkantak & Betul origins.</div>
+            <div class="rev-item"><strong>East Flowing Drainages</strong> Mahanadi, Godavari (Dakshin Ganga), Krishna, Kaveri. Drain into Bay of Bengal forming major deltas.</div>
+            <div class="rev-item"><strong>Drainage Patterns</strong> Dendritic (Tree), Trellis (Folds/90°), Parallel (Steep slope), Rectangular (Faults/Joints), Radial (Dome/Volcano), Centripetal (Depression/Lake).</div>
+            <div class="rev-item"><strong>Tectonic Forces</strong> Folding = Flexible crust (Mountains, Anticlines & Synclines). Faulting = Brittle crust breaks (Earthquakes & Rift Valleys).</div>
         </div>
     </div>
 
-    <!-- Main Sketchnote Canvas -->
+    <!-- Main Sketchnote Structured Canvas -->
     <div class="canvas">
         
-        <!-- Topic 1: Drainage -->
+        <!-- Topic 1 -->
         <div class="card">
             <div class="card-img-text">💦 Channels & Networks</div>
             <h3 class="card-title">Drainage & Drainage Pattern</h3>
             <div class="card-body">
-                <p><strong>Drainage:</strong> Flow of water through well-defined channels. Network of channels = drainage system.</p>
-                <p><strong>Drainage Pattern:</strong> System of flow of surface water mainly through rivers and basins.</p>
+                <p><strong>Drainage:</strong> Flow of water through well-defined channels. The network of these channels is called a drainage system.</p>
+                <p><strong>Drainage Pattern:</strong> The spatial system of surface water flow.</p>
                 <ul>
-                    <li>Depends on: slope of land, geological structure, volume of water, and velocity of water.</li>
+                    <li>Depends heavily on: slope of land, geological structure, volume of water, and velocity.</li>
                 </ul>
             </div>
-            <div class="tag tag-concept">Concepts</div>
+            <div class="tag tag-concept">Fundamentals</div>
         </div>
 
-        <!-- Topic 2: Dendritic -->
+        <!-- Topic 2 -->
         <div class="card">
             <div class="card-img-text">🌳 Tree Roots Branching</div>
             <h3 class="card-title">Dendritic Pattern</h3>
             <div class="card-body">
                 <ul>
                     <li>Most common form; resembles branching tree roots.</li>
-                    <li>Develops where channel follows terrain slope.</li>
-                    <li>Rock beneath has no particular structure; eroded equally in all directions.</li>
-                    <li>Tributaries join at <strong>acute angles (&lt;90°)</strong>.</li>
-                    <li><strong>Ex:</strong> Northern plains rivers (Indus, Ganga, Brahmaputra).</li>
+                    <li>Develops where channel strictly follows the terrain slope.</li>
+                    <li>Sub-surface rock has no particular structure; eroded equally in all directions.</li>
+                    <li>Tributaries join main stream at <strong>acute angles (&lt;90°)</strong>.</li>
+                    <li><strong>Example:</strong> Northern plains rivers (Indus, Ganga, Brahmaputra).</li>
                 </ul>
             </div>
             <div class="tag tag-geo">Geo-Pattern</div>
         </div>
 
-        <!-- Topic 3: Parallel -->
+        <!-- Topic 3 -->
         <div class="card">
             <div class="card-img-text">⏸️ Elongated Slopes</div>
             <h3 class="card-title">Parallel Pattern</h3>
             <div class="card-body">
                 <ul>
-                    <li>Develops in regions of parallel, elongated landforms with pronounced surface slope.</li>
-                    <li>Tributary streams stretch out in parallel-like fashion following the slope.</li>
-                    <li><strong>Ex:</strong> Rivers originating in Western Ghats (Godavari, Kaveri, Krishna, Tungabhadra).</li>
+                    <li>Develops in regions of parallel, elongated landforms.</li>
+                    <li>Requires a pronounced surface slope.</li>
+                    <li>Tributary streams stretch out in a parallel-like fashion along the slope.</li>
+                    <li><strong>Example:</strong> Rivers originating in Western Ghats (Godavari, Kaveri, Krishna, Tungabhadra).</li>
                 </ul>
             </div>
             <div class="tag tag-geo">Geo-Pattern</div>
         </div>
 
-        <!-- Topic 4: Trellis -->
+        <!-- Topic 4 -->
         <div class="card">
             <div class="card-img-text">📐 Folded Topography (90°)</div>
             <h3 class="card-title">Trellis Pattern</h3>
             <div class="card-body">
                 <ul>
-                    <li>Develops in folded topography where hard & soft rocks exist parallel.</li>
-                    <li>Down-turned folds (synclines) form valleys for main channel.</li>
-                    <li>Primary tributaries flow parallel; secondary join them at <strong>right angles</strong>.</li>
-                    <li><strong>Ex:</strong> Upper part of Himalayan region (Indus, Ganga, Brahmaputra).</li>
+                    <li>Develops in folded topography where hard & soft rocks alternate parallel to each other.</li>
+                    <li>Down-turned folds (synclines) form valleys for the main channel.</li>
+                    <li>Primary tributaries flow parallel; secondary join them at <strong>right angles (90°)</strong>.</li>
+                    <li><strong>Example:</strong> Upper part of Himalayan region.</li>
                 </ul>
             </div>
             <div class="tag tag-geo">Geo-Pattern</div>
         </div>
 
-        <!-- Topic 5: Rectangular -->
+        <!-- Topic 5 -->
         <div class="card">
             <div class="card-img-text">🪨 Faulted & Jointed Terrain</div>
             <h3 class="card-title">Rectangular Pattern</h3>
             <div class="card-body">
                 <ul>
-                    <li>Found in regions that have undergone faulting.</li>
-                    <li>Develops on strongly joined rocky terrain.</li>
+                    <li>Found in regions that have undergone geological faulting.</li>
+                    <li>Develops on strongly joined, brittle rocky terrain.</li>
                     <li>Streams follow paths of least resistance (weakest exposed rock).</li>
                     <li>Tributary streams make sharp bends, entering main stream at <strong>high angles</strong>.</li>
-                    <li><strong>Ex:</strong> Vindhya mountain range streams (Chambal, Betwa, Ken).</li>
+                    <li><strong>Example:</strong> Vindhya mountain range streams (Chambal, Betwa, Ken).</li>
                 </ul>
             </div>
             <div class="tag tag-geo">Geo-Pattern</div>
         </div>
 
-        <!-- Topic 6: Folding & Faulting -->
+        <!-- Topic 6 -->
         <div class="card">
             <div class="card-img-text">⚠️ Compression Forces</div>
             <h3 class="card-title">Folding and Faulting</h3>
             <div class="card-body">
-                <p>Earth's crust pushed together via compression.</p>
+                <p>Occurs when Earth's crust is pushed together via compression forces.</p>
                 <ul>
-                    <li><strong>Folding:</strong> Crust bends away from flat surface. Flexible material. Forms mountains.
+                    <li><strong>Folding:</strong> Crust bends away from a flat surface (flexible material). Forms mountains.
                         <ul>
                             <li>Bend upward = Anticline</li>
                             <li>Bend downward = Syncline</li>
                         </ul>
                     </li>
-                    <li><strong>Faulting:</strong> Crust completely breaks & slides. Brittle material. Causes earthquakes.</li>
+                    <li><strong>Faulting:</strong> Crust completely breaks and slides past each other (brittle material). Causes earthquakes.</li>
                 </ul>
             </div>
             <div class="tag tag-concept">Tectonics</div>
         </div>
 
-        <!-- Topic 7: Radial -->
+        <!-- Topic 7 -->
         <div class="card">
             <div class="card-img-text">🌋 Outward from Center</div>
             <h3 class="card-title">Radial Pattern</h3>
             <div class="card-body">
                 <ul>
                     <li>Develops around a central elevated point.</li>
-                    <li>Common to conically shaped features like volcanoes or hills.</li>
-                    <li>Rivers originate from the hill and flow in all directions.</li>
-                    <li><strong>Ex:</strong> Rivers from Amarkantak range (Narmada and Son - tributary of Ganga).</li>
+                    <li>Common to conically shaped features such as volcanoes or domes.</li>
+                    <li>Rivers originate from the peak and flow outward in all directions.</li>
+                    <li><strong>Example:</strong> Rivers from Amarkantak range (Narmada and Son - tributary of Ganga).</li>
                 </ul>
             </div>
             <div class="tag tag-geo">Geo-Pattern</div>
         </div>
 
-        <!-- Topic 8: Centripetal -->
+        <!-- Topic 8 -->
         <div class="card">
             <div class="card-img-text">🎯 Inward to Depression</div>
             <h3 class="card-title">Centripetal Pattern</h3>
             <div class="card-body">
                 <ul>
-                    <li>Opposite of radial; streams flow toward a central depression.</li>
-                    <li>During wet periods, streams feed ephemeral lakes.</li>
-                    <li>Lakes evaporate in dry periods.</li>
+                    <li>Exact opposite of radial; streams flow inward toward a central depression.</li>
+                    <li>During wet portions of the year, streams feed ephemeral lakes.</li>
+                    <li>Lakes evaporate away during dry periods.</li>
                     <li>Salt dissolved in water precipitates, creating <strong>salt flats</strong>.</li>
-                    <li><strong>Ex:</strong> Loktak lake in Manipur.</li>
+                    <li><strong>Example:</strong> Loktak lake in Manipur.</li>
                 </ul>
             </div>
             <div class="tag tag-geo">Geo-Pattern</div>
         </div>
 
-        <!-- Topic 9: Himalayan System -->
+        <!-- Topic 9 -->
         <div class="card">
             <div class="card-img-text">🏔️ Melting Snow & Rain</div>
             <h3 class="card-title">Himalayan Drainage System</h3>
             <div class="card-body">
                 <ul>
-                    <li>Fed by melting snow and precipitation; hence <strong>perennial</strong>.</li>
-                    <li><strong>Mountain course:</strong> Form V-shaped valleys, rapids, and waterfalls.</li>
-                    <li><strong>Plains course (Depositional):</strong> Form flat valleys, ox-bow lakes, flood plains, braided channels, and deltas near river mouth.</li>
+                    <li>Rivers fed by both melting snow and precipitation; highly <strong>perennial</strong>.</li>
+                    <li><strong>Mountain course (Youth):</strong> Form V-shaped valleys, rapids, and steep waterfalls.</li>
+                    <li><strong>Plains course (Mature/Old):</strong> Form depositional features like flat valleys, ox-bow lakes, flood plains, braided channels, and massive deltas near the mouth.</li>
                 </ul>
             </div>
             <div class="tag tag-himalaya">Himalayan</div>
         </div>
 
-        <!-- Topic 10: Indus -->
+        <!-- Topic 10 -->
         <div class="card">
-            <div class="card-img-actual"><img src="/images/indus.jpg" alt="Indus" onerror="this.style.display='none'"></div>
+            <div class="card-img-text">🌍 Singi Khamban</div>
             <h3 class="card-title">Indus River System</h3>
             <div class="card-body">
                 <ul>
-                    <li>One of the largest basins worldwide. Westernmost Himalayan river, aka <strong>Sindhu</strong>.</li>
-                    <li><strong>Origin:</strong> Glacier near Bokhar Chu (Kailash range, Tibet). Known as <em>'Singi Khamban'</em> (Lion’s mouth).</li>
-                    <li>Flows in India only through Leh district (Ladakh UT).</li>
-                    <li><strong>Tributaries:</strong> Sutlej, Ravi, Jhelum, <strong>Chenab</strong> (largest tributary), Beas.</li>
+                    <li>One of the largest river basins of the world. Westernmost Himalayan river, known as <strong>Sindhu</strong>.</li>
+                    <li><strong>Origin:</strong> Glacier near Bokhar Chu in Tibetan Kailash range. Known in Tibet as <em>'Singi Khamban'</em> (Lion’s mouth).</li>
+                    <li>Flows in India exclusively through Leh district (Ladakh UT).</li>
+                    <li><strong>Key Tributaries:</strong> Sutlej, Ravi, Jhelum, <strong>Chenab</strong> (largest tributary), Beas.</li>
                 </ul>
             </div>
             <div class="tag tag-himalaya">Himalayan</div>
         </div>
 
-        <!-- Topic 11: Ganga -->
+        <!-- Topic 11 -->
         <div class="card">
-            <div class="card-img-actual"><img src="/images/gangaOrigin.jpg" alt="Ganga Origin" onerror="this.style.display='none'"></div>
+            <div class="card-img-text">🌊 Devprayag Confluence</div>
             <h3 class="card-title">Ganga River System</h3>
             <div class="card-body">
                 <ul>
-                    <li><strong>Origin:</strong> Gangotri glacier near Gaumukh (3,900m, UK) as Bhagirathi.</li>
+                    <li><strong>Origin:</strong> Gangotri glacier near Gaumukh (3,900m, Uttarakhand) as Bhagirathi.</li>
                     <li><strong>Devprayag:</strong> Bhagirathi meets Alaknanda = Ganga. Enters plains at Haridwar.</li>
-                    <li>States: UK, UP, Bihar, WB. Into Bay of Bengal (Sagar Island).</li>
-                    <li><strong>Right Bank Tribs:</strong> Son, Yamuna (westernmost, longest, from Yamunotri).</li>
+                    <li>Flows via UK, UP, Bihar, WB into Bay of Bengal near Sagar Island.</li>
+                    <li><strong>Right Bank Tribs:</strong> Son, Yamuna (westernmost, longest, source: Yamunotri).</li>
                     <li><strong>Left Bank Tribs:</strong> Ramganga, Gomati, Ghaghara, Gandak, Kosi, Mahananda.</li>
                 </ul>
             </div>
             <div class="tag tag-himalaya">Himalayan</div>
         </div>
 
-        <!-- Topic 12: Brahmaputra -->
+        <!-- Topic 12 -->
         <div class="card">
-            <div class="card-img-actual"><img src="/images/brahmaputra.jpg" alt="Brahmaputra" onerror="this.style.display='none'"></div>
+            <div class="card-img-text">🌀 The Purifier</div>
             <h3 class="card-title">Brahmaputra River System</h3>
             <div class="card-body">
                 <ul>
                     <li><strong>Origin:</strong> Chemayungdung glacier (Kailash range) near Mansarovar lake.</li>
-                    <li><strong>Tibet:</strong> Tsangpo ('the purifier').</li>
-                    <li>Emerges as Siang/Dihang; enters India west of Sadiya (Arunachal Pradesh).</li>
+                    <li><strong>Tibet Name:</strong> Tsangpo (meaning 'the purifier').</li>
+                    <li>Emerges from foothills as Siang/Dihang; enters India west of Sadiya (Arunachal Pradesh).</li>
                     <li><strong>Left Bank Tribs:</strong> Dibang/Sikang, Lohit, Burhi Dihing, Dhansari.</li>
                     <li><strong>Right Bank Tribs:</strong> Subansiri, Kameng, Manas, Sankosh.</li>
-                    <li>Merges with Padma in BD, falls in Bay of Bengal.</li>
+                    <li>Merges with river Padma in Bangladesh.</li>
                 </ul>
             </div>
             <div class="tag tag-himalaya">Himalayan</div>
         </div>
 
-        <!-- Topic 13: Peninsular System -->
+        <!-- Topic 13 -->
         <div class="card">
-            <div class="card-img-actual"><img src="/images/peninsularRiver.jpg" alt="Peninsular" onerror="this.style.display='none'"></div>
+            <div class="card-img-text">🕰️ Ancient Courses</div>
             <h3 class="card-title">Peninsular Drainage System</h3>
             <div class="card-body">
                 <ul>
-                    <li>Characterised by fixed course, absence of meanders, and nonperennial flow.</li>
-                    <li>Older than the Himalayan drainage system.</li>
-                    <li><strong>Water Divide:</strong> Western Ghats running close to west coast.</li>
+                    <li>Geologically older than the Himalayan drainage system.</li>
+                    <li>Characterised by fixed courses, absence of meanders, and nonperennial (seasonal) flow.</li>
+                    <li><strong>Primary Water Divide:</strong> Western Ghats running close to west coast.</li>
                     <li>Most major rivers (Mahanadi, Godavari, Krishna, Kaveri) flow West to East.</li>
-                    <li><strong>Exceptions:</strong> Narmada and Tapi (Westward).</li>
+                    <li><strong>Exceptions:</strong> Narmada and Tapi flow Westward.</li>
                 </ul>
             </div>
             <div class="tag tag-peninsular">Peninsular</div>
         </div>
 
-        <!-- Topic 14: Narmada -->
+        <!-- Topic 14 -->
         <div class="card">
             <div class="card-img-text">⬅️ West Flowing (Rift)</div>
-            <h3 class="card-title">Narmada</h3>
+            <h3 class="card-title">Narmada River</h3>
             <div class="card-body">
                 <ul>
-                    <li>Largest west flowing river of peninsular region.</li>
-                    <li>Flows through a rift valley between Vindhya (north) and Satpura Range (south).</li>
+                    <li>Largest west flowing river of the peninsular region.</li>
+                    <li>Flows exclusively through a rift valley between Vindhya (north) and Satpura Range (south).</li>
                     <li><strong>Origin:</strong> Maikala range near Amarkantak (MP).</li>
-                    <li><strong>Tribs:</strong> Hiran, Orsang, Barna, Kolar.</li>
-                    <li>Basin: MP, Maha, Gujarat. Hosts Sardar Sarovar Project.</li>
+                    <li><strong>Tributaries:</strong> Hiran, Orsang, Barna, Kolar.</li>
+                    <li>Basin spans MP, Maharashtra, and Gujarat. Hosts the Sardar Sarovar Project.</li>
                 </ul>
             </div>
             <div class="tag tag-peninsular">Peninsular</div>
         </div>
 
-        <!-- Topic 15: Tapi -->
+        <!-- Topic 15 -->
         <div class="card">
-            <div class="card-img-text">⬅️ West Flowing (Parallel)</div>
-            <h3 class="card-title">Tapi</h3>
+            <div class="card-img-text">⬅️ Parallel Rift</div>
+            <h3 class="card-title">Tapi River</h3>
             <div class="card-body">
                 <ul>
-                    <li>Another important westward flowing river.</li>
-                    <li><strong>Origin:</strong> Betul district of Madhya Pradesh in Satpura ranges.</li>
-                    <li>Flows in a rift valley parallel to the Narmada but is much shorter in length.</li>
-                    <li>Basin covers parts of Madhya Pradesh, Gujarat, and Maharashtra.</li>
+                    <li>Another crucial westward flowing river.</li>
+                    <li><strong>Origin:</strong> Betul district of Madhya Pradesh in the Satpura ranges.</li>
+                    <li>Flows in a rift valley strictly parallel to the Narmada but is much shorter in length.</li>
+                    <li>Basin comprehensively covers parts of MP, Gujarat, and Maharashtra.</li>
                 </ul>
             </div>
             <div class="tag tag-peninsular">Peninsular</div>
         </div>
 
-        <!-- Topic 16: Mahanadi -->
+        <!-- Topic 16 -->
         <div class="card">
             <div class="card-img-text">➡️ East to Bay of Bengal</div>
-            <h3 class="card-title">Mahanadi</h3>
+            <h3 class="card-title">Mahanadi River</h3>
             <div class="card-body">
                 <ul>
-                    <li><strong>Origin:</strong> Raipur district (Chhattisgarh), runs through Odisha to BoB.</li>
-                    <li>Basin: 53% in MP & CG, 47% in Odisha.</li>
-                    <li><strong>Tribs:</strong> Seonath, Hasdeo, Mand, Ib, Jonking, Tel.</li>
-                    <li>Bounded by Central India hills (N), Eastern Ghats (S, E), Maikala range (W).</li>
+                    <li><strong>Origin:</strong> Rises in Raipur district (Chhattisgarh), runs through Odisha to discharge in Bay of Bengal.</li>
+                    <li><strong>Basin Share:</strong> 53% lies in MP & Chhattisgarh, 47% lies in Odisha.</li>
+                    <li><strong>Tributaries:</strong> Seonath, Hasdeo, Mand, Ib, Jonking, and Tel rivers.</li>
+                    <li>Geographically bounded by Central India hills (N), Eastern Ghats (S, E), and Maikala range (W).</li>
                 </ul>
             </div>
             <div class="tag tag-peninsular">Peninsular</div>
         </div>
 
-        <!-- Topic 17: Godavari -->
+        <!-- Topic 17 -->
         <div class="card">
-            <div class="card-img-text">👑 "Dakshin Ganga"</div>
-            <h3 class="card-title">Godavari</h3>
+            <div class="card-img-text">👑 Dakshin Ganga</div>
+            <h3 class="card-title">Godavari River</h3>
             <div class="card-body">
                 <ul>
-                    <li>Largest Peninsular river system.</li>
-                    <li><strong>Origin:</strong> Nasik district of Maharashtra. Discharges to BoB.</li>
-                    <li>Tributaries run through: Maha, MP, CG, Odisha, AP.</li>
-                    <li><strong>Principal Tribs:</strong> Penganga, Indravati, Pranhita, Manjra.</li>
+                    <li>The largest Peninsular river system, proudly called "Dakshin Ganga".</li>
+                    <li><strong>Origin:</strong> Rises in Nasik district of Maharashtra.</li>
+                    <li>Tributary network runs through Maharashtra, MP, Chhattisgarh, Odisha, and AP.</li>
+                    <li><strong>Principal Tributaries:</strong> Penganga, Indravati, Pranhita, and Manjra.</li>
                 </ul>
             </div>
             <div class="tag tag-peninsular">Peninsular</div>
         </div>
 
-        <!-- Topic 18: Krishna -->
+        <!-- Topic 18 -->
         <div class="card">
             <div class="card-img-text">🌊 2nd Largest East-Flowing</div>
-            <h3 class="card-title">Krishna</h3>
+            <h3 class="card-title">Krishna River</h3>
             <div class="card-body">
                 <ul>
-                    <li>Second largest east flowing Peninsular river.</li>
-                    <li><strong>Origin:</strong> Near Mahabaleshwar in Sahyadri.</li>
-                    <li><strong>Major Tribs:</strong> Koyna, Tungbhadra, Bhima.</li>
-                    <li>Flows through: Maharashtra, Karnataka, Telangana, and Andhra Pradesh before BoB.</li>
+                    <li>The second largest east flowing Peninsular river.</li>
+                    <li><strong>Origin:</strong> Rises near Mahabaleshwar in Sahyadri.</li>
+                    <li><strong>Major Tributaries:</strong> Koyna, Tungbhadra, and Bhima.</li>
+                    <li>Flows through four major states: Maharashtra, Karnataka, Telangana, and Andhra Pradesh before Bay of Bengal.</li>
                 </ul>
             </div>
             <div class="tag tag-peninsular">Peninsular</div>
         </div>
 
-        <!-- Topic 19: Kaveri -->
+        <!-- Topic 19 -->
         <div class="card">
-            <div class="card-img-text">🛕 Sacred Southern River</div>
-            <h3 class="card-title">Kaveri</h3>
+            <div class="card-img-text">🛕 Sacred Southern Waters</div>
+            <h3 class="card-title">Kaveri River</h3>
             <div class="card-body">
                 <ul>
-                    <li><strong>Origin:</strong> Brahmagiri hills of Kodagu district (Karnataka).</li>
-                    <li>Sacred river of southern India.</li>
-                    <li><strong>Tribs:</strong> Arkavathi, Hemavathi, Bhavani, Kabini, Amravati.</li>
-                    <li>Flows southeasterly through Karnataka, Kerala, Tamil Nadu.</li>
-                    <li>Drains into Bay of Bengal through Pondicherry.</li>
+                    <li><strong>Origin:</strong> Rises in Brahmagiri hills of Kodagu district (Karnataka).</li>
+                    <li>Considered a highly sacred river of southern India.</li>
+                    <li><strong>Important Tributaries:</strong> Arkavathi, Hemavathi, Bhavani, Kabini, and Amravati.</li>
+                    <li>Flows southeasterly through Karnataka, Kerala, Tamil Nadu, draining via Pondicherry.</li>
                 </ul>
             </div>
             <div class="tag tag-peninsular">Peninsular</div>
@@ -542,18 +591,12 @@
 
     </div>
 
-    <!-- Script for Interaction -->
+    <!-- Script for Advanced Interaction -->
     <script>
-        // DOM Hydration
-        document.addEventListener('DOMContentLoaded', () => {
-            if(!localStorage.getItem('sketchnoteData')) {
-                console.log('DOM ready, hydrating base components...');
-            }
-        });
-
-        // Highlighter Logic
+        // Highlighter Custom Color Logic
         let highlightMode = false;
         const highlightBtn = document.getElementById('highlightBtn');
+        const highlightColorPicker = document.getElementById('highlightColor');
         
         highlightBtn.addEventListener('click', () => {
             highlightMode = !highlightMode;
@@ -569,6 +612,9 @@
                 let range = selection.getRangeAt(0);
                 let span = document.createElement('span');
                 span.className = 'highlighted';
+                span.style.backgroundColor = highlightColorPicker.value;
+                
+                // Click to remove highlight
                 span.onclick = function(e) {
                     if(!highlightMode) {
                         let parent = this.parentNode;
@@ -576,20 +622,33 @@
                         parent.removeChild(this);
                     }
                 };
-                try { range.surroundContents(span); } catch(e) { console.log('Selection crosses node boundaries'); }
+                
+                try { 
+                    range.surroundContents(span); 
+                } catch(e) { 
+                    console.log('Selection crosses node boundaries. Please select text within a single block.'); 
+                }
                 selection.removeAllRanges();
             }
         });
 
-        // Sticky Notes Logic
+        // Structured Sticky Notes Logic
         const addNoteBtn = document.getElementById('addNoteBtn');
+        let noteCounter = 0; // Helps stack notes structurally
+
         addNoteBtn.addEventListener('click', createStickyNote);
 
         function createStickyNote() {
             const note = document.createElement('div');
             note.className = 'sticky-note';
-            note.style.top = (window.scrollY + 100) + 'px';
-            note.style.left = (window.innerWidth / 2 - 90) + 'px';
+            
+            // Calculate a structured spawn point (Cascading from top-right of viewport)
+            const baseX = window.innerWidth > 400 ? window.innerWidth - 260 : 20;
+            const baseY = window.scrollY + 100;
+            const offset = (noteCounter % 5) * 30; // Stacks up to 5 notes neatly before resetting offset
+            
+            note.style.left = (baseX - offset) + 'px';
+            note.style.top = (baseY + offset) + 'px';
             
             note.innerHTML = `
                 <div class="sticky-header">
@@ -597,13 +656,15 @@
                         <div class="color-dot" style="background:#f9e79f" onclick="changeNoteColor(this, '#f9e79f', '#2c3e50')"></div>
                         <div class="color-dot" style="background:#aed6f1" onclick="changeNoteColor(this, '#aed6f1', '#154360')"></div>
                         <div class="color-dot" style="background:#f5b7b1" onclick="changeNoteColor(this, '#f5b7b1', '#641e16')"></div>
+                        <div class="color-dot" style="background:#d5f5e3" onclick="changeNoteColor(this, '#d5f5e3', '#145a32')"></div>
                     </div>
-                    <div class="close-btn" onclick="this.parentElement.parentElement.remove()">X</div>
+                    <div class="close-btn" onclick="this.parentElement.parentElement.remove()" title="Delete Note">✕</div>
                 </div>
-                <div class="sticky-content" contenteditable="true">Tap to edit...</div>
+                <div class="sticky-content" contenteditable="true">Type your custom note here...</div>
             `;
             document.body.appendChild(note);
             dragElement(note);
+            noteCounter++;
         }
 
         window.changeNoteColor = function(el, bgColor, textColor) {
@@ -626,6 +687,7 @@
                 document.onmouseup = closeDragElement;
                 document.onmousemove = elementDrag;
                 
+                // Bring to front logic
                 let notes = document.querySelectorAll('.sticky-note');
                 notes.forEach(n => n.style.zIndex = 500);
                 elmnt.style.zIndex = 501;
@@ -648,19 +710,23 @@
             }
         }
 
-        // Clone Save Logic (Safely export)
+        // Clone Save Logic (Safely export modified DOM)
         const saveBtn = document.getElementById('saveBtn');
         saveBtn.addEventListener('click', () => {
             const docClone = document.documentElement.cloneNode(true);
+            
+            // Clean UI states
             const cloneHighlightBtn = docClone.querySelector('#highlightBtn');
             if(cloneHighlightBtn) cloneHighlightBtn.classList.remove('active');
             docClone.querySelector('body').style.cursor = 'default';
+            
+            // Output
             const htmlString = '<!DOCTYPE html>\n' + docClone.outerHTML;
             const blob = new Blob([htmlString], {type: 'text/html'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'drainage-sketchnote-complete.html';
+            a.download = 'Drainage_System_Sketchnote_Final.html';
             a.click();
             URL.revokeObjectURL(url);
         });
