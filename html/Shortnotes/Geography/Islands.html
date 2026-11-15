@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Islands of India — OPSC ASO Complete Sketchnote Visual Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-canvas: #1a1a1a;
+      --bg-card: #232323;
+      --bg-card-alt: #272522;
+      --text-primary: #f0f0f0;
+      --text-muted: #c9c9c9;
+      --border-chalk: rgba(240, 240, 240, 0.35);
+      --accent-yellow: #ffd54f;
+      --accent-cyan: #4dd0e1;
+      --accent-coral: #ff8a65;
+      --accent-mint: #81c784;
+      --accent-lavender: #ba68c8;
+      --accent-pink: #f06292;
+      --accent-amber: #ffb74d;
+      --accent-sky: #64b5f6;
+      --shadow-polaroid: 0 10px 24px rgba(0, 0, 0, 0.65), 0 2px 6px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      position: relative;
+      margin: 0;
+      padding: 0 0 90px 0;
+      background-color: var(--bg-canvas);
+      background-image:
+        radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 24px 24px, 96px 96px, 96px 96px;
+      color: var(--text-primary);
+      font-family: 'Patrick Hand', cursive, sans-serif;
+      font-size: 18px;
+      line-height: 1.48;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body.highlight-mode {
+      cursor: text;
+    }
+
+    body.highlight-mode .sketchnote-board *::selection {
+      background: #ffd54f;
+      color: #111111;
+    }
+
+    h1, h2, h3, h4, .hand-title {
+      font-family: 'Kalam', cursive, sans-serif;
+      margin: 0;
+      letter-spacing: 0.3px;
+    }
+
+    /* Interactive Workspace Action Bar */
+    .workspace-toolbar {
+      position: sticky;
+      top: 12px;
+      z-index: 9999;
+      max-width: 1180px;
+      margin: 12px auto 0 auto;
+      padding: 10px 18px;
+      background: rgba(28, 28, 30, 0.94);
+      backdrop-filter: blur(8px);
+      border: 2px dashed rgba(255, 213, 79, 0.55);
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .toolbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Kalam', cursive;
+      font-size: 1.05rem;
+      color: var(--accent-yellow);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ws-btn {
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 7px 14px;
+      border-radius: 10px;
+      border: 2px solid #f0f0f0;
+      background: #2b2b2b;
+      color: #f0f0f0;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ws-btn:hover {
+      transform: translateY(-2px) rotate(-0.5deg);
+      background: #383838;
+    }
+
+    .ws-btn:active {
+      transform: translateY(1px);
+    }
+
+    .ws-btn.btn-note {
+      border-color: var(--accent-yellow);
+      color: var(--accent-yellow);
+    }
+
+    .ws-btn.btn-highlight {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .ws-btn.btn-highlight.active {
+      background: var(--accent-cyan);
+      color: #111111;
+      box-shadow: 0 0 14px rgba(77, 208, 225, 0.5);
+    }
+
+    .ws-btn.btn-save {
+      border-color: var(--accent-mint);
+      color: var(--accent-mint);
+    }
+
+    .hl-palette {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      background: #1f1f1f;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .hl-swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .hl-swatch:hover,
+    .hl-swatch.selected {
+      transform: scale(1.2);
+      border-color: #ffffff;
+    }
+
+    .ws-status {
+      font-size: 0.92rem;
+      color: var(--accent-mint);
+      min-width: 140px;
+      text-align: right;
+    }
+
+    /* Main Canvas Container */
+    .sketchnote-board {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px 22px 40px 22px;
+    }
+
+    /* Hero Header */
+    .board-header {
+      text-align: center;
+      position: relative;
+      margin: 10px auto 26px auto;
+      padding: 24px 28px 22px 28px;
+      max-width: 1080px;
+      background: #222222;
+      border: 2.5px solid #f0f0f0;
+      border-radius: 18px 22px 16px 24px;
+      box-shadow: var(--shadow-polaroid);
+      transform: rotate(-0.35deg);
+    }
+
+    .board-header::before {
+      content: "OPSC ASO • INDIAN GEOGRAPHY & STRATEGIC AFFAIRS";
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%) rotate(0.6deg);
+      background: var(--accent-yellow);
+      color: #161616;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 2px 16px;
+      border-radius: 6px;
+      border: 2px solid #161616;
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+    }
+
+    .board-header h1 {
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      color: #ffffff;
+      text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.75);
+      line-height: 1.15;
+    }
+
+    .board-header h1 span {
+      color: var(--accent-cyan);
+      text-decoration: underline wavy var(--accent-yellow);
+      text-underline-offset: 6px;
+    }
+
+    .board-subtitle {
+      margin: 10px 0 0 0;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+    }
+
+    /* Top Attached Visual Frame (/images/islands.jpg) */
+    .hero-image-showcase {
+      max-width: 960px;
+      margin: 0 auto 32px auto;
+      background: #262626;
+      padding: 14px 14px 18px 14px;
+      border: 2px solid rgba(240, 240, 240, 0.65);
+      border-radius: 12px 16px 14px 10px;
+      box-shadow: var(--shadow-polaroid);
+      transform: rotate(0.4deg);
+      position: relative;
+      text-align: center;
+    }
+
+    .tape-strip {
+      position: absolute;
+      top: -13px;
+      width: 110px;
+      height: 26px;
+      background: rgba(255, 213, 79, 0.32);
+      border-left: 1px dashed rgba(255, 255, 255, 0.35);
+      border-right: 1px dashed rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(2px);
+      z-index: 3;
+    }
+
+    .tape-left {
+      left: 28px;
+      transform: rotate(-6deg);
+    }
+
+    .tape-right {
+      right: 28px;
+      transform: rotate(5deg);
+    }
+
+    .hero-image-showcase img {
+      display: block;
+      width: 100%;
+      max-height: 460px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #141414;
+      border: 1.5px dashed rgba(240, 240, 240, 0.3);
+    }
+
+    .hero-image-caption {
+      margin-top: 10px;
+      font-family: 'Kalam', cursive;
+      font-size: 1.05rem;
+      color: var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* Step 2: Ultra-Short Quick Revision Sheet */
+    .quick-revision-sheet {
+      background: linear-gradient(145deg, #24221d 0%, #1e2426 100%);
+      border: 2.5px dashed var(--accent-yellow);
+      border-radius: 18px;
+      padding: 22px 24px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-polaroid);
+      position: relative;
+    }
+
+    .revision-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 2px dashed rgba(255, 213, 79, 0.35);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+
+    .revision-header h2 {
+      font-size: 1.65rem;
+      color: var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .revision-badge {
+      background: var(--accent-coral);
+      color: #141414;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 3px 12px;
+      border-radius: 20px;
+      transform: rotate(-1.5deg);
+    }
+
+    .revision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .rev-pill {
+      background: rgba(26, 26, 26, 0.85);
+      border: 1.5px solid rgba(240, 240, 240, 0.22);
+      border-left: 5px solid var(--accent-cyan);
+      border-radius: 10px;
+      padding: 10px 13px;
+    }
+
+    .rev-pill:nth-child(2) { border-left-color: var(--accent-mint); }
+    .rev-pill:nth-child(3) { border-left-color: var(--accent-coral); }
+    .rev-pill:nth-child(4) { border-left-color: var(--accent-yellow); }
+    .rev-pill:nth-child(5) { border-left-color: var(--accent-lavender); }
+    .rev-pill:nth-child(6) { border-left-color: var(--accent-sky); }
+    .rev-pill:nth-child(7) { border-left-color: var(--accent-pink); }
+    .rev-pill:nth-child(8) { border-left-color: var(--accent-amber); }
+
+    .rev-pill strong {
+      display: block;
+      font-family: 'Kalam', cursive;
+      font-size: 1.05rem;
+      color: var(--accent-yellow);
+      margin-bottom: 3px;
+    }
+
+    .rev-pill span {
+      font-size: 0.96rem;
+      color: #e8e8e8;
+    }
+
+    /* Polaroid Sketchnote Grid */
+    .cards-masonry {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 460px) {
+      .cards-masonry {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sketch-card {
+      background: var(--bg-card);
+      border: 2px solid rgba(240, 240, 240, 0.42);
+      border-radius: 14px 18px 15px 12px;
+      padding: 26px 22px 22px 22px;
+      box-shadow: var(--shadow-polaroid);
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sketch-card:hover {
+      transform: rotate(0deg) translateY(-3px) !important;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8);
+      z-index: 5;
+    }
+
+    .tilt-left-1 { transform: rotate(-0.65deg); }
+    .tilt-right-1 { transform: rotate(0.6deg); }
+    .tilt-left-2 { transform: rotate(-0.45deg); }
+    .tilt-right-2 { transform: rotate(0.75deg); }
+
+    .card-dashed {
+      border-style: dashed;
+      background: var(--bg-card-alt);
+    }
+
+    /* Angled Category Tag Indicators */
+    .card-tag {
+      position: absolute;
+      top: -14px;
+      right: 18px;
+      padding: 3px 13px;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: #141414;
+      border: 2px solid #141414;
+      border-radius: 6px;
+      transform: rotate(2.2deg);
+      box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.65);
+      letter-spacing: 0.4px;
+    }
+
+    .tag-geo { background: var(--accent-cyan); transform: rotate(-2deg); }
+    .tag-dist { background: var(--accent-sky); transform: rotate(2.4deg); }
+    .tag-channel { background: var(--accent-yellow); transform: rotate(-1.8deg); }
+    .tag-andaman { background: var(--accent-mint); transform: rotate(2deg); }
+    .tag-lakshadweep { background: var(--accent-coral); transform: rotate(-2.3deg); }
+    .tag-strategy { background: var(--accent-lavender); color: #ffffff; transform: rotate(1.9deg); }
+    .tag-bio { background: #66bb6a; transform: rotate(-2.1deg); }
+    .tag-econ { background: var(--accent-amber); transform: rotate(2.2deg); }
+    .tag-env { background: var(--accent-pink); color: #ffffff; transform: rotate(-1.7deg); }
+    .tag-scheme { background: #4fc3f7; transform: rotate(2.1deg); }
+    .tag-wayforward { background: #aed581; transform: rotate(-2deg); }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed rgba(240, 240, 240, 0.22);
+    }
+
+    .doodle-icon {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-header h3 {
+      font-size: 1.48rem;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    .card-lead {
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3.5px solid var(--accent-yellow);
+      padding: 8px 12px;
+      border-radius: 0 8px 8px 0;
+      margin: 0 0 14px 0;
+      color: #f5f5f5;
+    }
+
+    .sub-heading {
+      font-family: 'Kalam', cursive;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin: 14px 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sub-heading.amber { color: var(--accent-amber); }
+    .sub-heading.mint { color: var(--accent-mint); }
+    .sub-heading.coral { color: var(--accent-coral); }
+    .sub-heading.pink { color: var(--accent-pink); }
+
+    ul.sketch-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px 0;
+    }
+
+    ul.sketch-list > li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 8px;
+    }
+
+    ul.sketch-list > li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent-yellow);
+      font-size: 0.95rem;
+    }
+
+    ul.sub-list {
+      list-style: none;
+      padding-left: 16px;
+      margin: 5px 0 4px 0;
+      border-left: 1.5px dashed rgba(240, 240, 240, 0.25);
+    }
+
+    ul.sub-list li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 5px;
+      font-size: 0.97rem;
+      color: #e4e4e4;
+    }
+
+    ul.sub-list li::before {
+      content: "↳";
+      position: absolute;
+      left: 0;
+      color: var(--accent-cyan);
+    }
+
+    .key-term {
+      color: var(--accent-yellow);
+      font-weight: 700;
+    }
+
+    .key-term-cyan {
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    .key-term-mint {
+      color: var(--accent-mint);
+      font-weight: 700;
+    }
+
+    .key-term-coral {
+      color: var(--accent-coral);
+      font-weight: 700;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 12px 0;
+    }
+
+    .sketch-chip {
+      background: #171717;
+      border: 1.5px dashed var(--accent-mint);
+      color: var(--accent-mint);
+      padding: 3px 11px;
+      border-radius: 16px;
+      font-family: 'Kalam', cursive;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .sketch-chip.coral {
+      border-color: var(--accent-coral);
+      color: var(--accent-coral);
+    }
+
+    .card-takeaway {
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: rgba(129, 199, 132, 0.1);
+      border: 1.5px dashed rgba(129, 199, 132, 0.45);
+      border-radius: 10px;
+      font-size: 0.97rem;
+      color: #e8f5e9;
+    }
+
+    /* Wide Span Cards for Rich Sections */
+    .span-wide {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 900px) {
+      .span-wide {
+        grid-column: span 1;
+      }
+    }
+
+    .two-col-inner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .mini-box {
+      background: rgba(20, 20, 20, 0.65);
+      border: 1.5px solid rgba(240, 240, 240, 0.16);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    /* Text Highlighter Styling */
+    mark.sketchnote-highlight {
+      padding: 1px 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      transition: opacity 0.15s ease;
+    }
+
+    mark.sketchnote-highlight:hover {
+      opacity: 0.82;
+      outline: 1.5px dashed #ffffff;
+    }
+
+    /* Draggable & Resizable Sticky Notes */
+    .sticky-note {
+      position: absolute;
+      width: 240px;
+      min-width: 180px;
+      min-height: 150px;
+      background: #fff59d;
+      color: #1a1a1a;
+      border: 2px solid #1a1a1a;
+      border-radius: 6px 6px 18px 6px;
+      box-shadow: 6px 8px 20px rgba(0, 0, 0, 0.72);
+      z-index: 5000;
+      display: flex;
+      flex-direction: column;
+      resize: both;
+      overflow: auto;
+      transform: rotate(-1deg);
+    }
+
+    .sticky-note-header {
+      background: rgba(0, 0, 0, 0.12);
+      padding: 5px 8px;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      user-select: none;
+      border-bottom: 1.5px dashed rgba(0, 0, 0, 0.25);
+    }
+
+    .sticky-note-header:active {
+      cursor: grabbing;
+    }
+
+    .note-colors {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .note-color-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid #1a1a1a;
+      cursor: pointer;
+    }
+
+    .note-delete-btn {
+      background: #1a1a1a;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .note-delete-btn:hover {
+      background: #d32f2f;
+    }
+
+    .sticky-note-body {
+      flex: 1;
+      padding: 10px 12px;
+      font-family: 'Patrick Hand', cursive, sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.38;
+      color: inherit;
+      outline: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .sticky-note-body:empty::before {
+      content: "Jot down your OPSC ASO revision note here...";
+      opacity: 0.55;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive Workspace Action Bar -->
+  <div class="workspace-toolbar" data-workspace-ui="true">
+    <div class="toolbar-brand">
+      <span>✏️ SKETCHNOTE WORKSPACE</span>
+    </div>
+    <div class="toolbar-actions">
+      <button type="button" class="ws-btn btn-note" id="btnAddNote">📝 ADD NOTES</button>
+      <button type="button" class="ws-btn btn-highlight" id="btnToggleHighlight">🖍️ HIGHLIGHT</button>
+      <div class="hl-palette" title="Highlighter Color">
+        <span class="hl-swatch selected" data-hl-color="#ffd54f" style="background:#ffd54f;" title="Chalk Yellow"></span>
+        <span class="hl-swatch" data-hl-color="#4dd0e1" style="background:#4dd0e1;" title="Lagoon Cyan"></span>
+        <span class="hl-swatch" data-hl-color="#81c784" style="background:#81c784;" title="Mangrove Mint"></span>
+        <span class="hl-swatch" data-hl-color="#f06292" style="background:#f06292;" title="Coral Pink"></span>
+        <span class="hl-swatch" data-hl-color="#7e57c2" style="background:#7e57c2;" title="Deep Indigo"></span>
+      </div>
+      <button type="button" class="ws-btn btn-save" id="btnCloneSave">☁️ SAVE</button>
+    </div>
+    <div class="ws-status" id="wsStatus">Ready • Click highlight to undo</div>
+  </div>
+
+  <!-- Main Sketchnote Visual Canvas -->
+  <main class="sketchnote-board" id="sketchnoteBoard">
+
+    <!-- Header -->
+    <header class="board-header">
+      <h1>ISLANDS OF INDIA: <span>Complete Visual Board</span></h1>
+      <p class="board-subtitle">Geography • Channels &amp; Straits • Andaman &amp; Nicobar • Lakshadweep • IOR Strategy • Biodiversity • Economy • Environment &amp; Schemes</p>
+    </header>
+
+    <!-- Attached Top Visual (/images/islands.jpg) -->
+    <figure class="hero-image-showcase">
+      <div class="tape-strip tape-left"></div>
+      <div class="tape-strip tape-right"></div>
+      <img src="/images/islands.jpg" alt="Islands of India Visual Reference Map" />
+      <figcaption class="hero-image-caption">
+        <span>🗺️ Visual Reference: Islands of India (Bay of Bengal &amp; Arabian Sea)</span>
+      </figcaption>
+    </figure>
+
+    <!-- Step 2: Ultra-Short Quick Revision Sheet -->
+    <section class="quick-revision-sheet" aria-label="Ultra-Short Quick Revision Sheet">
+      <div class="revision-header">
+        <h2>⚡ ULTRA-SHORT QUICK REVISION SHEET (RAPID-FIRE FACTS)</h2>
+        <span class="revision-badge">EXAM SNAPSHOT • ZERO OMISSIONS</span>
+      </div>
+      <div class="revision-grid">
+        <div class="rev-pill">
+          <strong>1. Two Major Island Groups</strong>
+          <span><b>Andaman &amp; Nicobar</b> (Bay of Bengal, SE) &bull; <b>Lakshadweep</b> (Arabian Sea, SW off Kerala).</span>
+        </div>
+        <div class="rev-pill">
+          <strong>2. Island Origin Types</strong>
+          <span><b>Coral:</b> Lakshadweep &bull; <b>Continental:</b> Andaman (continental shelf) &bull; <b>Volcanic:</b> Barren Island.</span>
+        </div>
+        <div class="rev-pill">
+          <strong>3. Crucial Channels (N → S)</strong>
+          <span><b>Duncan Passage:</b> South &amp; Little Andaman &bull; <b>10° Channel:</b> Andaman &amp; Nicobar &bull; <b>9° Channel:</b> Minicoy &amp; Lakshadweep &bull; <b>8° Channel:</b> Minicoy &amp; Maldives.</span>
+        </div>
+        <div class="rev-pill">
+          <strong>4. Andaman &amp; Nicobar Numbers</strong>
+          <span><b>~572</b> islands, islets &amp; rocks (N–S direction) &bull; Capital: <b>Port Blair</b> &bull; Largest in Nicobar: <b>Great Nicobar</b>.</span>
+        </div>
+        <div class="rev-pill">
+          <strong>5. A&amp;N Landmarks &amp; Tribes</strong>
+          <span><b>Barren Island:</b> Only active volcano in India &bull; <b>Indira Point</b> (Great Nicobar): Southernmost point of India &bull; Tribes: <b>Jarawa, Sentinelese, Onge, Shompen</b>.</span>
+        </div>
+        <div class="rev-pill">
+          <strong>6. Lakshadweep Core Facts</strong>
+          <span><b>Smallest UT of India</b> &bull; Capital: <b>Kavaratti</b> &bull; Major Islands: <b>Minicoy, Agatti, Kavaratti</b> &bull; Surrounded by shallow <b>lagoons</b> &amp; coral reefs.</span>
+        </div>
+        <div class="rev-pill">
+          <strong>7. Strategic &amp; Disaster Hooks</strong>
+          <span>Expands <b>EEZ</b> &amp; protects <b>SLOCs</b> &bull; Near <b>Strait of Malacca</b> &bull; Supports <b>Act East Policy</b> &amp; Indo-Pacific &bull; Hit by <b>2004 Tsunami</b>.</span>
+        </div>
+        <div class="rev-pill">
+          <strong>8. Key Govt Schemes &amp; Rules</strong>
+          <span><b>IDP / Integrated Island Management Plan</b> &bull; <b>SAGAR</b> &bull; <b>Blue Economy Initiatives</b> &bull; <b>CRZ Policies</b> &bull; <b>IPZ (Island Protection Zone)</b> rules.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Topic Cards Grid -->
+    <section class="cards-masonry">
+
+      <!-- Card 1: Meaning and Classification of Islands -->
+      <article class="sketch-card tilt-left-1">
+        <span class="card-tag tag-geo">01 • BASICS &amp; ORIGIN</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#4dd0e1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 28 Q12 24 20 28 T36 28" />
+            <path d="M6 33 Q14 30 22 33 T34 33" />
+            <path d="M10 26 C12 16, 28 16, 30 26" fill="rgba(77,208,225,0.18)" />
+            <path d="M22 18 L25 9 M25 9 L20 11 M25 9 L29 12" stroke="#81c784" />
+          </svg>
+          <h3>Meaning &amp; Classification of Islands</h3>
+        </div>
+        <p class="card-lead"><span class="key-term">Meaning:</span> Islands are land areas completely surrounded by water.</p>
+
+        <div class="sub-heading">Two Major Island Groups of India</div>
+        <ul class="sketch-list">
+          <li><span class="key-term-cyan">Andaman and Nicobar Islands</span> — located in the <b>Bay of Bengal</b>.</li>
+          <li><span class="key-term-coral">Lakshadweep Islands</span> — located in the <b>Arabian Sea</b>.</li>
+        </ul>
+
+        <div class="sub-heading amber">Classification Based on Origin</div>
+        <ul class="sketch-list">
+          <li><span class="key-term">Coral Islands:</span> Formed from coral deposits (e.g., <b>Lakshadweep</b>).</li>
+          <li><span class="key-term">Continental Islands:</span> Parts of the continental shelf (e.g., <b>Andaman Islands</b>).</li>
+          <li><span class="key-term">Volcanic Islands:</span> Created by volcanic activity (e.g., <b>Barren Island</b>).</li>
+        </ul>
+      </article>
+
+      <!-- Card 2: Geographical Distribution of Islands of India -->
+      <article class="sketch-card card-dashed tilt-right-1">
+        <span class="card-tag tag-dist">02 • DISTRIBUTION</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#64b5f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="20" cy="20" r="15" />
+            <polygon points="20,9 23,20 20,31 17,20" fill="rgba(100,181,246,0.25)" />
+            <line x1="9" y1="20" x2="31" y2="20" />
+          </svg>
+          <h3>Geographical Distribution of Islands of India</h3>
+        </div>
+        <p class="card-lead">The Islands of India are distributed in <b>two major water bodies</b>:</p>
+
+        <div class="sub-heading">1. Islands in Bay of Bengal</div>
+        <ul class="sketch-list">
+          <li><span class="key-term-cyan">Andaman and Nicobar Islands</span></li>
+          <li>Located to the <b>southeast of mainland India</b>.</li>
+          <li>Separated internally by important waterways:
+            <ul class="sub-list">
+              <li><span class="key-term">Ten Degree Channel</span> – separates Andaman and Nicobar Islands.</li>
+              <li><span class="key-term">Duncan Passage</span> – lies between South Andaman and Little Andaman Islands.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="sub-heading coral">2. Islands in Arabian Sea</div>
+        <ul class="sketch-list">
+          <li><span class="key-term-coral">Lakshadweep Islands</span></li>
+          <li>Located off the <b>southwest coast of India (Kerala)</b>.</li>
+        </ul>
+      </article>
+
+      <!-- Card 3: Important Channels and Straits -->
+      <article class="sketch-card tilt-left-2">
+        <span class="card-tag tag-channel">03 • CHANNELS &amp; STRAITS</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#ffd54f" stroke-width="2.2" stroke-linecap="round">
+            <path d="M5 12 Q13 9 20 12 T35 12" />
+            <path d="M5 20 Q13 17 20 20 T35 20" stroke="#4dd0e1" />
+            <path d="M5 28 Q13 25 20 28 T35 28" />
+          </svg>
+          <h3>Important Channels &amp; Straits</h3>
+        </div>
+        <ul class="sketch-list">
+          <li><span class="key-term">Ten Degree Channel:</span> Divides <b>Andaman Islands</b> from <b>Nicobar Islands</b>; named after <b>10° latitude</b>.</li>
+          <li><span class="key-term">Duncan Passage:</span> Separates <b>South Andaman</b> and <b>Little Andaman</b> Islands.</li>
+          <li><span class="key-term-cyan">Nine Degree Channel:</span> Separates <b>Minicoy Island</b> from the rest of <b>Lakshadweep</b>; acts as a <b>major shipping route</b>.</li>
+          <li><span class="key-term-coral">Eight Degree Channel:</span> Lies between <b>Minicoy (India)</b> and <b>Maldives</b>; forms part of the <b>international maritime boundary</b>.</li>
+        </ul>
+      </article>
+
+      <!-- Card 4: Andaman and Nicobar Islands – Features & Facts -->
+      <article class="sketch-card card-dashed tilt-right-2 span-wide">
+        <span class="card-tag tag-andaman">04 • BAY OF BENGAL GROUP</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#81c784" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="10,32 20,12 30,32" fill="rgba(129,199,132,0.2)" />
+            <path d="M17,12 Q20,6 24,10" stroke="#ff8a65" />
+            <circle cx="26" cy="7" r="2" fill="#ffd54f" stroke="none" />
+          </svg>
+          <h3>Andaman and Nicobar Islands – Features &amp; Facts</h3>
+        </div>
+        <p class="card-lead">Located in the <b>Bay of Bengal</b>, to the <b>southeast of mainland India</b>. Extends in a <b>north–south direction</b> and consists of about <span class="key-term">572 islands, islets, and rocks</span>, though only a few are inhabited. &bull; <span class="key-term-mint">Capital: Port Blair</span></p>
+
+        <div class="two-col-inner">
+          <div class="mini-box">
+            <div class="sub-heading mint">Major Islands</div>
+            <ul class="sketch-list">
+              <li><span class="key-term">Great Nicobar</span> – the <b>largest island</b> in the Nicobar group.</li>
+              <li><span class="key-term">Little Andaman</span> – located <b>south of South Andaman</b>.</li>
+              <li><span class="key-term">Car Nicobar</span> – one of the <b>northernmost Nicobar islands</b>.</li>
+            </ul>
+
+            <div class="sub-heading amber">Key Landmarks &amp; Features</div>
+            <ul class="sketch-list">
+              <li><span class="key-term-coral">Barren Island:</span> The <b>only active volcano in India</b>, located in this island group.</li>
+              <li><span class="key-term">Indira Point:</span> Located on <b>Great Nicobar Island</b>; it is the <b>southernmost point of India</b>.</li>
+            </ul>
+          </div>
+
+          <div class="mini-box">
+            <div class="sub-heading coral">Tribal Communities</div>
+            <p style="margin:0 0 8px 0; font-size:0.98rem;">Home to several indigenous tribes, many of whom are protected and have limited outside contact:</p>
+            <div class="chip-row">
+              <span class="sketch-chip">Jarawa</span>
+              <span class="sketch-chip">Sentinelese</span>
+              <span class="sketch-chip">Onge</span>
+              <span class="sketch-chip">Shompen</span>
+            </div>
+            <div class="card-takeaway">
+              <strong>Significance:</strong> Ecologically rich, with <b>dense tropical forests</b> and <b>diverse marine life</b>, making them important for both <b>biodiversity</b> and <b>strategic purposes</b>.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5: Lakshadweep Islands – Feature & Important Facts -->
+      <article class="sketch-card tilt-left-1">
+        <span class="card-tag tag-lakshadweep">05 • ARABIAN SEA GROUP</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#ff8a65" stroke-width="2.2" stroke-linecap="round">
+            <path d="M8 24 C8 14, 32 14, 32 24 C32 30, 8 30, 8 24 Z" fill="rgba(255,138,101,0.18)" />
+            <ellipse cx="20" cy="24" rx="6" ry="3" stroke="#4dd0e1" />
+          </svg>
+          <h3>Lakshadweep Islands – Features &amp; Important Facts</h3>
+        </div>
+        <p class="card-lead">Located in the <b>Arabian Sea</b>, off the <b>southwest coast of India</b>. Of <span class="key-term-coral">coral origin</span>, formed by the accumulation of coral reefs over time, and known for their unique marine ecosystem.</p>
+
+        <ul class="sketch-list">
+          <li><span class="key-term">Administrative Status:</span> <b>Smallest Union Territory of India</b>.</li>
+          <li><span class="key-term-cyan">Capital:</span> <b>Kavaratti</b>.</li>
+        </ul>
+
+        <div class="sub-heading coral">Major Islands</div>
+        <div class="chip-row">
+          <span class="sketch-chip coral">Minicoy</span>
+          <span class="sketch-chip coral">Agatti</span>
+          <span class="sketch-chip coral">Kavaratti</span>
+        </div>
+
+        <div class="sub-heading">Key Features</div>
+        <ul class="sketch-list">
+          <li><span class="key-term">Lagoons:</span> Surrounded by lagoons, which are <b>shallow water bodies formed between coral reefs and the shore</b>.</li>
+          <li><span class="key-term">Coral Reefs:</span> Rich coral reefs support diverse marine biodiversity, making Lakshadweep ecologically significant.</li>
+        </ul>
+        <div class="card-takeaway">
+          <strong>Core Importance:</strong> Vital for <b>fisheries</b>, <b>tourism</b>, and <b>marine conservation</b>.
+        </div>
+      </article>
+
+      <!-- Card 6: Strategic Importance of Islands of India in IOR -->
+      <article class="sketch-card card-dashed tilt-right-1 span-wide">
+        <span class="card-tag tag-strategy">06 • GEOPOLITICS &amp; IOR</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#ba68c8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 5 L33 11 V21 C33 28 27 33 20 36 C13 33 7 28 7 21 V11 Z" fill="rgba(186,104,200,0.2)" />
+            <circle cx="20" cy="20" r="4" stroke="#ffd54f" />
+          </svg>
+          <h3>Strategic Importance of Islands of India in Indian Ocean Region (IOR)</h3>
+        </div>
+        <p class="card-lead">The Islands of India, especially the <b>Andaman and Nicobar Islands</b> and <b>Lakshadweep Islands</b>, play a crucial role in India’s security and economic strategy:</p>
+
+        <div class="two-col-inner">
+          <ul class="sketch-list">
+            <li><span class="key-term">Importance in the Indian Ocean Region (IOR):</span> Located in the IOR, these islands help India <b>expand its maritime influence</b>, and increase India’s <b>Exclusive Economic Zone (EEZ)</b> and access to marine resources.</li>
+            <li><span class="key-term-cyan">Maritime Security:</span> Act as the <b>first line of defence</b> against threats from the sea; help protect <b>Sea Lines of Communication (SLOCs)</b>, which are vital for trade and energy supply.</li>
+            <li><span class="key-term-mint">Surveillance and Naval Presence:</span> Provide bases for <b>naval operations, air surveillance, and monitoring of ocean activities</b>; enable India to track movement of ships and foreign naval forces in the region.</li>
+          </ul>
+          <ul class="sketch-list">
+            <li><span class="key-term-coral">Malacca Strait Proximity:</span> Located close to the <b>Strait of Malacca</b>, one of the busiest trade routes in the world; a significant portion of global trade passes through this strait, making the islands strategically vital.</li>
+            <li><span class="key-term">Role in Indo-Pacific Strategy:</span> Support India’s <b>Act East Policy</b> and <b>Indo-Pacific vision</b>; help project power and maintain balance in the region amid growing geopolitical competition.</li>
+            <li><span class="key-term-cyan">Blue Economy and Trade Routes:</span> Promote <b>Blue Economy</b> through fisheries, shipping, and marine resources; support development of <b>ports and trade infrastructure</b>, boosting economic growth.</li>
+          </ul>
+        </div>
+        <div class="card-takeaway">
+          <strong>Strategic Verdict:</strong> Overall, the strategic location of Indian islands makes them critical for <b>national security</b>, <b>economic development</b>, and <b>global maritime connectivity</b>.
+        </div>
+      </article>
+
+      <!-- Card 7: Biodiversity of Indian Islands – Flora, Fauna & Ecosystem -->
+      <article class="sketch-card tilt-left-2">
+        <span class="card-tag tag-bio">07 • ECOLOGY &amp; BIODIVERSITY</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#66bb6a" stroke-width="2.2" stroke-linecap="round">
+            <path d="M20 34 V14" />
+            <path d="M20 22 C12 22 10 14 16 11 C20 9 20 14 20 14" fill="rgba(102,187,106,0.2)" />
+            <path d="M20 19 C28 19 30 11 24 8 C20 6 20 12 20 12" fill="rgba(102,187,106,0.2)" />
+          </svg>
+          <h3>Biodiversity of Indian Islands – Flora, Fauna &amp; Ecosystem</h3>
+        </div>
+        <ul class="sketch-list">
+          <li><span class="key-term-coral">Coral Reefs:</span> Found mainly in <b>Lakshadweep</b> and parts of <b>Andaman</b>; they support marine life and protect coastlines.</li>
+          <li><span class="key-term-mint">Mangroves:</span> Present in <b>Andaman and Nicobar Islands</b>; they act as <b>natural barriers against storms and tsunamis</b>.</li>
+          <li><span class="key-term-mint">Tropical Rainforests:</span> Dense forests in <b>Andaman and Nicobar Islands</b> host diverse plant and animal species.</li>
+          <li><span class="key-term">Endemic Flora and Fauna:</span> Many species found here are <b>unique</b> and not seen anywhere else in the world.</li>
+          <li><span class="key-term-cyan">Marine Biodiversity:</span> Includes <b>fish, sea turtles, corals, and other ocean species</b>, making these islands biodiversity hotspots.</li>
+          <li><span class="key-term">Biosphere Reserves &amp; Protected Areas:</span> Areas like the <b>Great Nicobar Biosphere Reserve</b> help conserve ecosystems and wildlife.</li>
+        </ul>
+        <div class="card-takeaway">
+          <strong>Ecological Role:</strong> These features make Indian islands crucial for <b>ecological balance</b> and <b>environmental sustainability</b>.
+        </div>
+      </article>
+
+      <!-- Card 8: Economic Importance of Islands of India -->
+      <article class="sketch-card card-dashed tilt-right-2">
+        <span class="card-tag tag-econ">08 • ECONOMY &amp; LIVELIHOODS</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#ffb74d" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="20" cy="20" r="13" fill="rgba(255,183,77,0.16)" />
+            <path d="M16 14 H24 M16 18 H24 M17 14 C22 14 22 21 16 21 L23 27" />
+          </svg>
+          <h3>Economic Importance of Islands of India</h3>
+        </div>
+        <p class="card-lead">The Islands of India contribute significantly to the country’s economy through multiple sectors:</p>
+        <ul class="sketch-list">
+          <li><span class="key-term">Tourism:</span> Popular for <b>beaches, coral reefs, and eco-tourism</b>, attracting both domestic and international tourists.</li>
+          <li><span class="key-term-cyan">Fisheries:</span> Rich marine resources support fishing and livelihoods of local communities.</li>
+          <li><span class="key-term-mint">Coconut Cultivation:</span> Especially important in <b>Lakshadweep</b>, contributing to local income and industries.</li>
+          <li><span class="key-term">Shipping and Logistics:</span> Strategic location helps in <b>maritime trade, port development, and connectivity</b>.</li>
+          <li><span class="key-term-coral">Renewable Energy Potential:</span> High potential for <b>solar, wind, and ocean energy</b> due to geographic location.</li>
+        </ul>
+        <div class="card-takeaway">
+          <strong>Growth Impact:</strong> These economic activities make the islands important for <b>sustainable development</b> and <b>regional growth</b>.
+        </div>
+      </article>
+
+      <!-- Card 9: Environmental Issues in Islands of India -->
+      <article class="sketch-card tilt-left-1">
+        <span class="card-tag tag-env">09 • FRAGILE THREATS</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#f06292" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="20,6 35,32 5,32" fill="rgba(240,98,146,0.2)" />
+            <line x1="20" y1="15" x2="20" y2="23" stroke="#ffd54f" />
+            <circle cx="20" cy="27.5" r="1.3" fill="#ffd54f" stroke="none" />
+          </svg>
+          <h3>Environmental Issues in Islands of India</h3>
+        </div>
+        <p class="card-lead">The Islands of India face several environmental challenges due to their fragile ecosystems:</p>
+        <ul class="sketch-list">
+          <li><span class="key-term-coral">Coral Bleaching:</span> Rising sea temperatures damage coral reefs, especially in <b>Lakshadweep</b>.</li>
+          <li><span class="key-term">Coastal Erosion:</span> Continuous wave action leads to loss of shoreline and land.</li>
+          <li><span class="key-term-cyan">Climate Change &amp; Sea-Level Rise:</span> Low-lying islands are at risk of <b>submergence and habitat loss</b>.</li>
+          <li><span class="key-term-coral">Tsunami Vulnerability:</span> Prone to natural disasters, as seen during the <b>2004 tsunami</b>.</li>
+          <li><span class="key-term">Deforestation:</span> Development activities threaten forest cover, especially in <b>Andaman and Nicobar Islands</b>.</li>
+          <li><span class="key-term">Tourism &amp; Infrastructure Pressure:</span> Unplanned tourism and construction harm ecosystems and biodiversity.</li>
+        </ul>
+        <div class="card-takeaway">
+          <strong>Key Imperative:</strong> These challenges highlight the need for <b>sustainable and eco-friendly development strategies</b>.
+        </div>
+      </article>
+
+      <!-- Card 10: Government Schemes for Island Development in India -->
+      <article class="sketch-card card-dashed tilt-right-1">
+        <span class="card-tag tag-scheme">10 • GOVT INITIATIVES</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#4fc3f7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="14" width="24" height="19" rx="2" fill="rgba(79,195,247,0.18)" />
+            <polygon points="6,14 20,6 34,14" />
+            <line x1="14" y1="20" x2="14" y2="28" />
+            <line x1="20" y1="20" x2="20" y2="28" />
+            <line x1="26" y1="20" x2="26" y2="28" />
+          </svg>
+          <h3>Government Schemes for Island Development in India</h3>
+        </div>
+        <ul class="sketch-list">
+          <li><span class="key-term">Island Development Programme / Integrated Island Management Plan:</span> Focuses on balanced development and conservation of fragile island ecosystems, ensuring sustainable use of resources and protection of biodiversity.</li>
+          <li><span class="key-term-cyan">SAGAR (Security and Growth for All in the Region):</span> A strategic vision to enhance <b>maritime security</b>, <b>regional cooperation</b>, and <b>economic growth</b> in the Indian Ocean Region.</li>
+          <li><span class="key-term-mint">Blue Economy Initiatives:</span> Aim at sustainable use of ocean resources like <b>fisheries, tourism, offshore energy, and marine trade</b> for economic development.</li>
+          <li><span class="key-term">Coastal Regulation Zone (CRZ) Policies:</span> Regulate coastal development while protecting sensitive ecosystems like <b>coral reefs and mangroves</b>; include restrictions and planned development zones.</li>
+          <li><span class="key-term-coral">Sustainable Tourism Projects:</span> Promote eco-tourism with minimal environmental impact, supported by policies like <b>Island Protection Zone (IPZ)</b> rules for controlled development.</li>
+        </ul>
+        <div class="card-takeaway">
+          <strong>Policy Objective:</strong> Balance <b>development</b>, <b>environmental protection</b>, and <b>strategic interests</b> of India’s island regions.
+        </div>
+      </article>
+
+      <!-- Card 11: Way Forward for Sustainable Development of Indian Islands -->
+      <article class="sketch-card tilt-left-2 span-wide">
+        <span class="card-tag tag-wayforward">11 • WAY FORWARD</span>
+        <div class="card-header">
+          <svg class="doodle-icon" viewBox="0 0 40 40" fill="none" stroke="#aed581" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="20" x2="33" y2="20" />
+            <polyline points="24,11 33,20 24,29" />
+            <circle cx="11" cy="20" r="3" fill="#ffd54f" stroke="none" />
+          </svg>
+          <h3>Way Forward for Sustainable Development of Indian Islands</h3>
+        </div>
+        <p class="card-lead">To ensure sustainable development of the Islands of India, a balanced and long-term approach is required:</p>
+        <div class="two-col-inner">
+          <ul class="sketch-list">
+            <li><span class="key-term-mint">Sustainable Island Development:</span> Focus on <b>eco-friendly infrastructure</b> and limit over-exploitation of natural resources.</li>
+            <li><span class="key-term">Ecological Conservation:</span> Protect <b>coral reefs, mangroves, and forests</b> through strict environmental regulations.</li>
+            <li><span class="key-term-cyan">Disaster-Resilient Infrastructure:</span> Build <b>climate-resilient systems</b> to tackle cyclones, tsunamis, and sea-level rise.</li>
+          </ul>
+          <ul class="sketch-list">
+            <li><span class="key-term-cyan">Marine Ecosystem Protection:</span> Promote <b>sustainable fishing</b> and conserve marine biodiversity hotspots.</li>
+            <li><span class="key-term-coral">Balanced Tourism Development:</span> Encourage <b>eco-tourism</b> instead of mass tourism to reduce environmental pressure.</li>
+            <li><span class="key-term">Strengthening Maritime Security:</span> Enhance <b>naval presence and surveillance</b> to secure vital sea routes and strategic interests.</li>
+          </ul>
+        </div>
+        <div class="card-takeaway">
+          <strong>Concluding Roadmap:</strong> A balanced strategy combining <b>development</b>, <b>security</b>, and <b>environmental sustainability</b> is essential for the future of India’s island territories.
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'opsc_aso_islands_sketchnote_v1';
+      let highlightMode = false;
+      let activeHighlightColor = '#ffd54f';
+      let noteCounter = 1;
+
+      const NOTE_COLORS = [
+        { bg: '#fff59d', fg: '#1a1a1a', name: 'Yellow' },
+        { bg: '#80deea', fg: '#111111', name: 'Cyan' },
+        { bg: '#f48fb1', fg: '#111111', name: 'Pink' },
+        { bg: '#a5d6a7', fg: '#111111', name: 'Mint' },
+        { bg: '#ffcc80', fg: '#111111', name: 'Orange' }
+      ];
+
+      function updateStatus(msg) {
+        const statusEl = document.getElementById('wsStatus');
+        if (statusEl) {
+          statusEl.textContent = msg;
+        }
+      }
+
+      /* Auto-contrast text color calculator based on WCAG relative luminance */
+      function getContrastTextColor(hexColor) {
+        let hex = (hexColor || '#ffd54f').replace('#', '').trim();
+        if (hex.length === 3) {
+          hex = hex.split('').map(c => c + c).join('');
+        }
+        const r = parseInt(hex.substr(0, 2), 16) / 255;
+        const g = parseInt(hex.substr(2, 2), 16) / 255;
+        const b = parseInt(hex.substr(4, 2), 16) / 255;
+        const toLinear = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+        const lum = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+        return lum > 0.42 ? '#111111' : '#ffffff';
+      }
+
+      /* Persist current board + sticky notes state to localStorage */
+      function saveToLocalStorage() {
+        try {
+          const board = document.getElementById('sketchnoteBoard');
+          const notes = Array.from(document.querySelectorAll('.sticky-note')).map(note => {
+            const body = note.querySelector('.sticky-note-body');
+            return {
+              id: note.dataset.noteId || ('note_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6)),
+              left: note.style.left || '80px',
+              top: note.style.top || '220px',
+              width: note.style.width || '240px',
+              height: note.style.height || '165px',
+              bg: note.dataset.bg || '#fff59d',
+              text: body ? body.innerText : ''
+            };
+          });
+          const payload = {
+            boardHTML: board ? board.innerHTML : '',
+            notes: notes
+          };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (err) {
+          // Graceful fallback if storage quota or sandboxed iframe blocks localStorage
+        }
+      }
+
+      /* Attach drag, color-picker, delete, resize, and input listeners to a sticky note */
+      function bindStickyNoteEvents(noteEl) {
+        const header = noteEl.querySelector('.sticky-note-header');
+        const body = noteEl.querySelector('.sticky-note-body');
+        const delBtn = noteEl.querySelector('.note-delete-btn');
+        const dots = noteEl.querySelectorAll('.note-color-dot');
+
+        // Color swatches
+        dots.forEach(dot => {
+          dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const bg = dot.dataset.bg;
+            const fg = getContrastTextColor(bg);
+            noteEl.style.backgroundColor = bg;
+            noteEl.style.color = fg;
+            noteEl.dataset.bg = bg;
+            saveToLocalStorage();
+          });
+        });
+
+        // Delete button
+        if (delBtn) {
+          delBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            noteEl.remove();
+            saveToLocalStorage();
+            updateStatus('Sticky note removed');
+          });
+        }
+
+        // Content edits
+        if (body) {
+          body.addEventListener('input', () => {
+            saveToLocalStorage();
+          });
+        }
+
+        // Resize observer
+        if (window.ResizeObserver) {
+          const ro = new ResizeObserver(() => {
+            saveToLocalStorage();
+          });
+          ro.observe(noteEl);
+        }
+
+        // Dragging logic
+        if (header) {
+          let isDragging = false;
+          let startX = 0, startY = 0, origLeft = 0, origTop = 0;
+
+          header.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.note-color-dot') || e.target.closest('.note-delete-btn')) return;
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            origLeft = parseInt(noteEl.style.left, 10) || noteEl.offsetLeft;
+            origTop = parseInt(noteEl.style.top, 10) || noteEl.offsetTop;
+            noteEl.style.zIndex = 6000;
+            e.preventDefault();
+          });
+
+          window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            noteEl.style.left = Math.max(8, origLeft + dx) + 'px';
+            noteEl.style.top = Math.max(60, origTop + dy) + 'px';
+          });
+
+          window.addEventListener('mouseup', () => {
+            if (isDragging) {
+              isDragging = false;
+              noteEl.style.zIndex = 5000;
+              saveToLocalStorage();
+            }
+          });
+        }
+      }
+
+      /* Build a sticky note DOM element */
+      function createStickyNoteElement(opts = {}) {
+        const id = opts.id || ('note_' + Date.now() + '_' + (noteCounter++));
+        const bg = opts.bg || '#fff59d';
+        const fg = getContrastTextColor(bg);
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.dataset.noteId = id;
+        note.dataset.bg = bg;
+        note.style.left = opts.left || (60 + ((noteCounter * 28) % 240)) + 'px';
+        note.style.top = opts.top || (window.scrollY + 140) + 'px';
+        note.style.width = opts.width || '240px';
+        note.style.height = opts.height || '165px';
+        note.style.backgroundColor = bg;
+        note.style.color = fg;
+
+        const dotsHtml = NOTE_COLORS.map(c =>
+          `<span class="note-color-dot" data-bg="${c.bg}" style="background:${c.bg};" title="${c.name}"></span>`
+        ).join('');
+
+        note.innerHTML = `
+          <div class="sticky-note-header" data-note-chrome="true">
+            <div class="note-colors">${dotsHtml}</div>
+            <button type="button" class="note-delete-btn" title="Delete note">✕</button>
+          </div>
+          <div class="sticky-note-body" contenteditable="true"></div>
+        `;
+
+        const bodyEl = note.querySelector('.sticky-note-body');
+        if (opts.text) {
+          bodyEl.innerText = opts.text;
+        }
+
+        document.body.appendChild(note);
+        bindStickyNoteEvents(note);
+        return note;
+      }
+
+      /* Highlight selected text inside the sketchnote board */
+      function applySelectionHighlight() {
+        const selection = window.getSelection();
+        if (!selection || selection.isCollapsed || selection.rangeCount === 0) return false;
+
+        const range = selection.getRangeAt(0);
+        const board = document.getElementById('sketchnoteBoard');
+        if (!board || !board.contains(range.commonAncestorContainer)) return false;
+
+        const selectedText = range.toString();
+        if (!selectedText || !selectedText.trim()) return false;
+
+        const mark = document.createElement('mark');
+        mark.className = 'sketchnote-highlight';
+        mark.style.backgroundColor = activeHighlightColor;
+        mark.style.color = getContrastTextColor(activeHighlightColor);
+        mark.title = 'Click to undo highlight';
+
+        try {
+          range.surroundContents(mark);
+        } catch (e) {
+          const fragment = range.extractContents();
+          mark.appendChild(fragment);
+          range.insertNode(mark);
+        }
+
+        selection.removeAllRanges();
+        saveToLocalStorage();
+        updateStatus('Highlighted! Click highlight to undo');
+        return true;
+      }
+
+      /* Undo highlight on click */
+      function bindHighlightUndoDelegate() {
+        const board = document.getElementById('sketchnoteBoard');
+        if (!board) return;
+
+        board.addEventListener('click', (e) => {
+          const mark = e.target.closest('mark.sketchnote-highlight');
+          if (!mark) return;
+          e.stopPropagation();
+          const parent = mark.parentNode;
+          while (mark.firstChild) {
+            parent.insertBefore(mark.firstChild, mark);
+          }
+          parent.removeChild(mark);
+          parent.normalize();
+          saveToLocalStorage();
+          updateStatus('Highlight undone');
+        });
+
+        board.addEventListener('mouseup', () => {
+          if (highlightMode) {
+            applySelectionHighlight();
+          }
+        });
+      }
+
+      /* Smart Hydration: Load from localStorage if available; otherwise hydrate static DOM notes/highlights */
+      function smartHydrate() {
+        let hydratedFromStorage = false;
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && parsed.boardHTML) {
+              const board = document.getElementById('sketchnoteBoard');
+              board.innerHTML = parsed.boardHTML;
+              hydratedFromStorage = true;
+            }
+            if (parsed && Array.isArray(parsed.notes) && parsed.notes.length > 0) {
+              document.querySelectorAll('.sticky-note').forEach(n => n.remove());
+              parsed.notes.forEach(n => createStickyNoteElement(n));
+              hydratedFromStorage = true;
+            }
+          }
+        } catch (err) {
+          hydratedFromStorage = false;
+        }
+
+        // If localStorage was empty, hydrate any static sticky notes already present in the DOM
+        if (!hydratedFromStorage) {
+          const existingDomNotes = document.querySelectorAll('.sticky-note');
+          existingDomNotes.forEach(noteEl => {
+            // Re-inject header chrome if stripped during a previous Clone-Save
+            if (!noteEl.querySelector('.sticky-note-header')) {
+              const dotsHtml = NOTE_COLORS.map(c =>
+                `<span class="note-color-dot" data-bg="${c.bg}" style="background:${c.bg};" title="${c.name}"></span>`
+              ).join('');
+              const headerDiv = document.createElement('div');
+              headerDiv.className = 'sticky-note-header';
+              headerDiv.dataset.noteChrome = 'true';
+              headerDiv.innerHTML = `<div class="note-colors">${dotsHtml}</div><button type="button" class="note-delete-btn" title="Delete note">✕</button>`;
+              noteEl.insertBefore(headerDiv, noteEl.firstChild);
+            }
+            const bodyEl = noteEl.querySelector('.sticky-note-body');
+            if (bodyEl) bodyEl.setAttribute('contenteditable', 'true');
+            bindStickyNoteEvents(noteEl);
+          });
+        }
+      }
+
+      /* Clone-Save Mechanism: Clones documentElement, strips UI/buttons, syncs note values, and downloads clean HTML */
+      function cloneAndSaveBoard() {
+        saveToLocalStorage();
+
+        const clone = document.documentElement.cloneNode(true);
+
+        // Sync live sticky note positions, sizes, colors, and text into the cloned DOM
+        const liveNotes = document.querySelectorAll('.sticky-note');
+        const clonedNotes = clone.querySelectorAll('.sticky-note');
+        liveNotes.forEach((liveNote, idx) => {
+          const clonedNote = clonedNotes[idx];
+          if (!clonedNote) return;
+          clonedNote.style.left = liveNote.style.left;
+          clonedNote.style.top = liveNote.style.top;
+          clonedNote.style.width = liveNote.style.width;
+          clonedNote.style.height = liveNote.style.height;
+          clonedNote.style.backgroundColor = liveNote.style.backgroundColor;
+          clonedNote.style.color = liveNote.style.color;
+          clonedNote.dataset.bg = liveNote.dataset.bg || '#fff59d';
+
+          const liveBody = liveNote.querySelector('.sticky-note-body');
+          const clonedBody = clonedNote.querySelector('.sticky-note-body');
+          if (liveBody && clonedBody) {
+            clonedBody.innerText = liveBody.innerText;
+            clonedBody.removeAttribute('contenteditable');
+          }
+        });
+
+        // Remove workspace toolbar and transient note controls from the clone so exported DOM stays clean
+        clone.querySelectorAll('[data-workspace-ui="true"], [data-note-chrome="true"]').forEach(el => el.remove());
+        clone.body.classList.remove('highlight-mode');
+
+        const serializedHTML = '<!DOCTYPE html>\n' + clone.outerHTML;
+        const blob = new Blob([serializedHTML], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Islands_of_India_Sketchnote.html';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+        updateStatus('Saved snapshot (.html)!');
+      }
+
+      /* Initialize Workspace Controls */
+      document.addEventListener('DOMContentLoaded', () => {
+        smartHydrate();
+        bindHighlightUndoDelegate();
+
+        const btnAddNote = document.getElementById('btnAddNote');
+        const btnToggleHighlight = document.getElementById('btnToggleHighlight');
+        const btnCloneSave = document.getElementById('btnCloneSave');
+        const swatches = document.querySelectorAll('.hl-swatch');
+
+        if (btnAddNote) {
+          btnAddNote.addEventListener('click', () => {
+            const note = createStickyNoteElement();
+            const body = note.querySelector('.sticky-note-body');
+            if (body) body.focus();
+            saveToLocalStorage();
+            updateStatus('Added draggable sticky note');
+          });
+        }
+
+        if (btnToggleHighlight) {
+          btnToggleHighlight.addEventListener('click', () => {
+            // If user already highlighted text before clicking the button, highlight immediately
+            const appliedNow = applySelectionHighlight();
+            if (!appliedNow) {
+              highlightMode = !highlightMode;
+              btnToggleHighlight.classList.toggle('active', highlightMode);
+              document.body.classList.toggle('highlight-mode', highlightMode);
+              updateStatus(highlightMode ? 'Highlighter ON: Select text' : 'Highlighter OFF');
+            }
+          });
+        }
+
+        swatches.forEach(swatch => {
+          swatch.addEventListener('click', () => {
+            swatches.forEach(s => s.classList.remove('selected'));
+            swatch.classList.add('selected');
+            activeHighlightColor = swatch.dataset.hlColor || '#ffd54f';
+            if (!highlightMode && btnToggleHighlight) {
+              highlightMode = true;
+              btnToggleHighlight.classList.add('active');
+              document.body.classList.add('highlight-mode');
+            }
+            updateStatus('Highlighter color updated');
+          });
+        });
+
+        if (btnCloneSave) {
+          btnCloneSave.addEventListener('click', cloneAndSaveBoard);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
