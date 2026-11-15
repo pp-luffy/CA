@@ -1,747 +1,624 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Coastline Sketchnote</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #1a1a1a;
-            color: #f0f0f0;
-            font-family: 'Patrick Hand', cursive;
-            margin: 0;
-            padding: 30px;
-            box-sizing: border-box;
-            line-height: 1.5;
-            position: relative; /* Needed for absolute positioning of notes */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indian Coastline Sketchnote</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1a1a;
+      --text: #f0f0f0;
+      --green: #4cd137;
+      --blue: #00a8ff;
+      --yellow: #ffeb3b;
+      --gold: #e1b12c;
+      --purple: #9c88ff;
+      --orange: #e84118;
+      --card-bg: #2a2a2a;
+    }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Patrick Hand', cursive;
+      margin: 0;
+      padding: 30px;
+      line-height: 1.5;
+      position: relative; 
+    }
+    
+    h1, h2, h3 { font-family: 'Kalam', cursive; text-align: center; margin-top: 0; }
+    h1 { font-size: 3.5rem; color: var(--yellow); text-shadow: 2px 2px 5px #000; letter-spacing: 2px; margin-bottom: 10px; }
 
-        h1, h2, h3 {
-            font-family: 'Kalam', cursive;
-            margin-top: 0;
-        }
+    /* --- ADVANCED WORKSPACE CSS --- */
+    .action-bar {
+        position: fixed; top: 20px; right: 20px; z-index: 2000;
+        display: flex; gap: 10px; background: rgba(15, 23, 42, 0.9);
+        padding: 10px 15px; border-radius: 12px; border: 1px solid var(--blue);
+        backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+    .action-btn {
+        background: transparent; color: var(--blue); border: 1px solid var(--blue);
+        padding: 8px 12px; border-radius: 6px; font-family: 'Orbitron', sans-serif, 'Kalam', cursive;
+        font-size: 0.9rem; font-weight: bold; cursor: pointer; transition: all 0.3s;
+    }
+    .action-btn:hover, .action-btn.active {
+        background: rgba(0, 168, 255, 0.2); box-shadow: 0 0 10px rgba(0, 168, 255, 0.4);
+    }
+    
+    /* Highlight Tool Group */
+    .highlight-tools {
+        display: flex; align-items: center; gap: 8px;
+        background: rgba(0,0,0,0.3); border-radius: 6px;
+        border: 1px solid var(--blue); padding-right: 10px;
+    }
+    .highlight-tools .action-btn { border: none; }
+    #highlight-color {
+        border: none; padding: 0; width: 24px; height: 24px; 
+        border-radius: 50%; cursor: pointer; background: transparent;
+    }
+    #highlight-color::-webkit-color-swatch-wrapper { padding: 0; }
+    #highlight-color::-webkit-color-swatch { border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; }
 
-        .header-container {
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
+    .action-btn-save { color: var(--green); border-color: var(--green); }
+    .action-btn-save:hover { background: rgba(76, 209, 55, 0.2); box-shadow: 0 0 10px rgba(76, 209, 55, 0.4); }
 
-        .title {
-            font-size: 3.5rem;
-            color: #ffeb3b;
-            text-shadow: 2px 2px 5px #000;
-            letter-spacing: 2px;
-        }
+    body.add-note-mode { cursor: crosshair !important; }
+    body.highlight-mode { cursor: text !important; }
 
-        /* Top Action Bar for Notes */
-        .action-bar {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-            background: rgba(15, 23, 42, 0.85);
-            padding: 10px 15px;
-            border-radius: 12px;
-            border: 1px solid #00a8ff;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
+    /* Draggable, Resizable Mini Notes */
+    .mini-note {
+        position: absolute; background: var(--yellow); color: #1a1a1a;
+        border-radius: 10px; font-family: 'Kalam', cursive; font-size: 1.1rem;
+        box-shadow: 3px 3px 12px rgba(0,0,0,0.6);
+        width: 220px; height: 160px; z-index: 500;
+        resize: both; overflow: hidden;
+        display: flex; flex-direction: column;
+        border: 2px solid var(--gold);
+    }
+    .mini-note:focus-within { z-index: 501; box-shadow: 0 0 15px rgba(0, 168, 255, 0.5); }
+    
+    .note-header {
+        background: rgba(0,0,0,0.1); padding: 4px 8px;
+        display: flex; justify-content: space-between; align-items: center;
+        cursor: grab; border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .note-header:active { cursor: grabbing; }
+    
+    .note-color-picker {
+        border: none; padding: 0; width: 22px; height: 22px;
+        border-radius: 50%; cursor: pointer; background: transparent;
+    }
+    .note-color-picker::-webkit-color-swatch-wrapper { padding: 0; }
+    .note-color-picker::-webkit-color-swatch { border: 1px solid rgba(0,0,0,0.2); border-radius: 50%; }
+    
+    .mini-note-delete {
+        background: var(--orange); color: white; border: none; border-radius: 50%;
+        width: 18px; height: 18px; font-size: 10px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .mini-note-input {
+        width: 100%; height: 100%; flex-grow: 1; background: transparent;
+        border: none; padding: 8px; color: inherit; font-family: inherit;
+        font-size: inherit; outline: none; resize: none;
+    }
 
-        .action-btn {
-            background: transparent;
-            color: #00a8ff;
-            border: 1px solid #00a8ff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-family: 'Orbitron', sans-serif, 'Kalam', cursive; /* Fallback */
-            font-size: 0.9rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+    /* User Highlights */
+    .user-highlight {
+        background-color: rgba(255, 235, 59, 0.8); color: #000;
+        border-radius: 3px; padding: 0 2px;
+    }
 
-        .action-btn:hover, .action-btn.active {
-            background: rgba(0, 168, 255, 0.2);
-            box-shadow: 0 0 10px rgba(0, 168, 255, 0.4);
-        }
-        
-        .action-btn-save {
-            color: #4cd137;
-            border-color: #4cd137;
-        }
-        .action-btn-save:hover {
-            background: rgba(76, 209, 55, 0.2);
-            box-shadow: 0 0 10px rgba(76, 209, 55, 0.4);
-        }
+    /* Status Alert */
+    #upload-status {
+        position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+        background: rgba(0,0,0,0.9); color: #fff; padding: 10px 20px;
+        border-radius: 8px; border: 1px solid var(--blue); z-index: 3000; display: none;
+    }
 
-        body.add-note-mode {
-            cursor: crosshair !important;
-        }
+    /* --- SKETCHNOTE CONTENT CSS --- */
+    .sketchnote-img-container { text-align: center; margin: 30px auto 50px auto; }
+    .sketchnote-img-container img { max-width: 100%; height: auto; border-radius: 8px; border: 3px solid #444; box-shadow: 8px 8px 15px rgba(0,0,0,0.6); transform: rotate(-1deg); transition: transform 0.3s ease, border-color 0.3s ease; }
+    .sketchnote-img-container img:hover { transform: scale(1.02) rotate(0deg); border-color: var(--blue); }
+    
+    .revision-sheet { background: linear-gradient(135deg, #222, #333); border: 2px dashed var(--blue); border-radius: 10px; padding: 25px; margin: 0 auto 40px auto; max-width: 900px; box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5); }
+    .revision-sheet h2 { color: var(--blue); margin-bottom: 20px; font-size: 2.2rem; text-transform: uppercase; }
+    .rev-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+    .rev-badge { background: #2a2a2a; border-left: 5px solid var(--yellow); padding: 10px 18px; border-radius: 8px; font-size: 1.2rem; box-shadow: 3px 3px 8px rgba(0,0,0,0.4); display: flex; align-items: center; }
+    .highlight { color: var(--yellow); font-weight: bold; }
+    .highlight-green { color: var(--green); font-weight: bold; }
+    .highlight-blue { color: var(--blue); font-weight: bold; }
+    
+    .masonry-container { column-count: 3; column-gap: 25px; }
+    @media (max-width: 1200px) { .masonry-container { column-count: 2; } }
+    @media (max-width: 800px) { .masonry-container { column-count: 1; } }
+    
+    .card { background: var(--card-bg); border-radius: 12px; padding: 25px; margin-bottom: 25px; break-inside: avoid; box-shadow: 5px 5px 15px rgba(0,0,0,0.6); border: 2px solid #333; transition: transform 0.3s ease; position: relative; }
+    .card:hover { transform: scale(1.02) rotate(-1deg); border-color: #555; z-index: 10; }
+    .card h3 { font-size: 2rem; margin-bottom: 15px; border-bottom: 2px solid #444; padding-bottom: 5px; }
+    .tag { position: absolute; top: -12px; right: -10px; padding: 6px 18px; border-radius: 20px; font-size: 1rem; font-weight: bold; transform: rotate(4deg); box-shadow: 3px 3px 8px rgba(0,0,0,0.5); font-family: 'Kalam', cursive; }
+    .tag-geo { background: var(--green); color: #1a1a1a; } 
+    .tag-concept { background: var(--purple); color: #fff; } 
+    .tag-east { background: var(--blue); color: #fff; } 
+    .tag-west { background: var(--orange); color: #fff; } 
+    .tag-econ { background: var(--gold); color: #1a1a1a; }
+    
+    ul { padding-left: 20px; margin-top: 10px; }
+    li { margin-bottom: 12px; font-size: 1.25rem; }
 
-        /* Floating Mini Notes */
-        .mini-note {
-            position: absolute;
-            background: #ffeb3b;
-            color: #1a1a1a;
-            padding: 10px 15px;
-            border-radius: 2px 15px 15px 15px;
-            font-family: 'Kalam', cursive;
-            font-size: 1.1rem;
-            box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
-            max-width: 250px;
-            z-index: 500;
-            transform: rotate(-2deg);
-            border-left: 4px solid #e1b12c;
-            transition: transform 0.2s;
-        }
-        .mini-note:hover {
-            transform: scale(1.05) rotate(0deg);
-            z-index: 501;
-        }
-        
-        .mini-note-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px dashed #1a1a1a;
-            color: #1a1a1a;
-            font-family: 'Kalam', cursive;
-            font-size: 1.1rem;
-            outline: none;
-            resize: vertical;
-        }
-        
-        .mini-note-delete {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #e84118;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 10px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-        .mini-note:hover .mini-note-delete {
-            display: flex;
-        }
-
-        /* Custom Image Container */
-        .sketchnote-img-container {
-            text-align: center;
-            margin: 30px auto 50px auto;
-        }
-
-        .sketchnote-img-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 3px solid #444;
-            box-shadow: 8px 8px 15px rgba(0,0,0,0.6);
-            transform: rotate(-1deg);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .sketchnote-img-container img:hover {
-            transform: scale(1.02) rotate(0deg);
-            border-color: #00a8ff;
-        }
-
-        /* Quick Revision Sheet */
-        .revision-sheet {
-            background: #222;
-            border: 3px dashed #00a8ff;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 40px;
-            box-shadow: 8px 8px 20px rgba(0,0,0,0.6);
-        }
-
-        .revision-sheet h2 {
-            color: #00a8ff;
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .revision-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .rev-badge {
-            background: #2a2a2a;
-            border-left: 5px solid #ffeb3b;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            box-shadow: 3px 3px 8px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-        }
-
-        .highlight {
-            color: #ffeb3b;
-            font-weight: bold;
-        }
-
-        .highlight-green {
-            color: #4cd137;
-            font-weight: bold;
-        }
-        
-        .highlight-blue {
-            color: #00a8ff;
-            font-weight: bold;
-        }
-
-        /* Masonry Grid Layout */
-        .masonry-container {
-            column-count: 3;
-            column-gap: 25px;
-        }
-
-        @media (max-width: 1200px) {
-            .masonry-container { column-count: 2; }
-        }
-        @media (max-width: 800px) {
-            .masonry-container { column-count: 1; }
-        }
-
-        .card {
-            background: #252525;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            break-inside: avoid;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
-            border: 2px solid #333;
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: scale(1.02) rotate(-1deg);
-            border-color: #555;
-            z-index: 10;
-        }
-
-        .card h3 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #444;
-            padding-bottom: 5px;
-        }
-
-        .tag {
-            position: absolute;
-            top: -12px;
-            right: -10px;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            transform: rotate(4deg);
-            box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
-            font-family: 'Kalam', cursive;
-        }
-
-        .tag-geo { background: #4cd137; color: #1a1a1a; } /* Green */
-        .tag-concept { background: #9c88ff; color: #fff; } /* Purple */
-        .tag-east { background: #00a8ff; color: #fff; } /* Blue */
-        .tag-west { background: #e84118; color: #fff; } /* Orange */
-        .tag-econ { background: #e1b12c; color: #1a1a1a; } /* Yellow */
-
-        ul {
-            padding-left: 20px;
-            margin-top: 10px;
-        }
-
-        li {
-            margin-bottom: 12px;
-            font-size: 1.25rem;
-        }
-
-        /* Status Overlay */
-        #upload-status {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.9);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 1px solid #00a8ff;
-            z-index: 2000;
-            display: none;
-            font-family: 'Orbitron', sans-serif, sans-serif;
-            text-align: center;
-        }
-
-    </style>
+  </style>
 </head>
 <body>
 
-    <!-- Action Bar for Notes -->
-    <div class="action-bar">
-        <button class="action-btn" id="toggle-note-mode">📝 ADD NOTES</button>
-        <button class="action-btn action-btn-save" id="save-github-btn" style="display: none;">☁️ SAVE TO GITHUB</button>
+  <!-- Workspace Interactive Actions -->
+  <div class="action-bar">
+      <button class="action-btn" id="toggle-note-mode">📝 ADD NOTES</button>
+      
+      <div class="highlight-tools">
+          <button class="action-btn" id="toggle-highlight-mode">🖍️ HIGHLIGHT</button>
+          <input type="color" id="highlight-color" value="#ffeb3b" title="Pick Highlight Color">
+      </div>
+
+      <button class="action-btn action-btn-save" id="save-github-btn" style="display: none;">☁️ SAVE TO GITHUB</button>
+  </div>
+  
+  <div id="upload-status">Processing...</div>
+  <div id="notes-container"></div>
+
+  <h1>🌊 Coastlines & Coastal Plains of India</h1>
+
+  <!-- Image Block -->
+  <div class="sketchnote-img-container">
+      <img src="./images/coastal.jpg" onerror="this.onerror=null; this.src='./images/coastal.jpeg';" alt="Coastal Plains Map">
+  </div>
+
+  <!-- Ultra-Short Revision Sheet -->
+  <div class="revision-sheet">
+    <h2>⚡ Quick Revision Core Facts</h2>
+    <div class="rev-grid">
+      <div class="rev-badge">Length: <span class="highlight">&nbsp;7516.6 Km</span>&nbsp;(6100 Mainland + 1197 Islands)</div>
+      <div class="rev-badge">States/UTs: <span class="highlight">&nbsp;13</span></div>
+      <div class="rev-badge">Origin: <span class="highlight">&nbsp;Faulting of Gondwanaland</span>&nbsp;(Cretaceous)</div>
+      <div class="rev-badge">East Plains Avg Width: <span class="highlight">&nbsp;120 Km</span></div>
+      <div class="rev-badge">West Plains Avg Width: <span class="highlight">&nbsp;65 Km</span></div>
+      <div class="rev-badge">Emergence: <span class="highlight">&nbsp;Coramandal (TN) & Malabar (Kerala)</span></div>
+      <div class="rev-badge">Submergence: <span class="highlight">&nbsp;Konkan (MH & Goa)</span></div>
+      <div class="rev-badge">Largest Lake: <span class="highlight">&nbsp;Chilka (780-1144 sq km)</span></div>
+      <div class="rev-badge">Largest Backwater: <span class="highlight">&nbsp;Vembanad (75 Km long)</span></div>
+      <div class="rev-badge">Highest Waterfall: <span class="highlight">&nbsp;Gersoppa/Jog (271m)</span></div>
+      <div class="rev-badge">Highest Volcanic Peak: <span class="highlight">&nbsp;Mt. Girnar (1117m)</span></div>
+      <div class="rev-badge">Key Sand Mineral: <span class="highlight">&nbsp;Monazite (Kerala)</span></div>
+    </div>
+  </div>
+
+  <div class="masonry-container">
+    
+    <div class="card">
+        <div class="tag tag-geo">Geography</div>
+        <h3 style="color: #ffeb3b;">Indian Coastline</h3>
+        <ul>
+            <li>Total length: <span class="highlight">7516.6 Km</span> (6100 km mainland + 1197 km islands)</li>
+            <li>Touches <span class="highlight">13 States and UTs</span>.</li>
+            <li>Formation: Result of <span class="highlight-green">faulting of Gondwanaland</span> during the Cretaceous period (Continental Drift).</li>
+            <li>Harbours: Straight & regular coast. <span class="highlight">Lacks many natural harbours</span> (unlike indented European coastlines).</li>
+            <li>The Bay of Bengal & Arabian Sea formed during the Cretaceous or early Tertiary period after Gondwanaland disintegration.</li>
+        </ul>
     </div>
 
-    <div id="upload-status">Processing...</div>
-
-    <!-- Container where dynamic notes will be appended -->
-    <div id="notes-container"></div>
-
-    <div class="header-container">
-        <h1 class="title">🌊 Coastlines & Coastal Plains of India</h1>
+    <div class="card">
+        <div class="tag tag-concept">Geology</div>
+        <h3 style="color: #9c88ff;">Emergence & Submergence</h3>
+        <ul>
+            <li><span class="highlight">Emergence:</span> Formed by uplift of land or lowering of sea level. Features: Bars, spits, lagoons, salt marshes, beaches, sea cliffs, arches.</li>
+            <li><span class="highlight">Submergence:</span> Exact opposite. Formed by sinking land/rising sea.</li>
+            <li><span class="highlight-blue">East Coast (Tamil Nadu):</span> Coast of Emergence.</li>
+            <li><span class="highlight-blue">West Coast:</span> Mixed. Northern part is submerged (due to faulting). Southern (Kerala) is emergent.</li>
+            <li><span class="highlight">Coramandal Coast (TN):</span> Emergence</li>
+            <li><span class="highlight">Malabar Coast (Kerala):</span> Emergence</li>
+            <li><span class="highlight">Konkan Coast (MH & Goa):</span> Submergence</li>
+        </ul>
     </div>
 
-    <!-- Image Block -->
-    <div class="sketchnote-img-container">
-        <img src="./images/coastal.jpg" onerror="this.onerror=null; this.src='./images/coastal.jpeg';" alt="Coastal Plains Map">
+    <div class="card">
+        <div class="tag tag-east">East Coast</div>
+        <h3 style="color: #00a8ff;">East Coast & Eastern Plains</h3>
+        <ul>
+            <li>Lies between Eastern Ghats & Bay of Bengal.</li>
+            <li>Extends from <span class="highlight">Subarnarekha river / Ganga delta</span> to Kanniyakumari.</li>
+            <li>Extensive plains: Average width of <span class="highlight">120 km</span>.</li>
+            <li>Marked by large river deltas: <span class="highlight-green">Mahanadi, Godavari, Krishna, Cauvery</span>.</li>
+            <li>Features: Chilka lake, Pulicat lake (lagoon).</li>
+            <li>Northern region (Mahanadi to Krishna) = <span class="highlight">Northern Circars</span>.</li>
+            <li>Southern region (Krishna to Cauvery) = <span class="highlight">Carnatic</span>.</li>
+        </ul>
     </div>
 
-    <!-- ⚡ ULTRA-SHORT REVISION SHEET -->
-    <div class="revision-sheet">
-        <h2>⚡ Quick Revision Core Facts</h2>
-        <div class="revision-grid">
-            <div class="rev-badge">Length: <span class="highlight">&nbsp;7516.6 Km</span>&nbsp;(6100 Mainland + 1197 Islands)</div>
-            <div class="rev-badge">States/UTs: <span class="highlight">&nbsp;13</span></div>
-            <div class="rev-badge">Origin: <span class="highlight">&nbsp;Faulting of Gondwanaland</span>&nbsp;(Cretaceous)</div>
-            <div class="rev-badge">East Plains Avg Width: <span class="highlight">&nbsp;120 Km</span></div>
-            <div class="rev-badge">West Plains Avg Width: <span class="highlight">&nbsp;65 Km</span></div>
-            <div class="rev-badge">Emergence: <span class="highlight">&nbsp;Coramandal (TN) & Malabar (Kerala)</span></div>
-            <div class="rev-badge">Submergence: <span class="highlight">&nbsp;Konkan (MH & Goa)</span></div>
-            <div class="rev-badge">Largest Lake: <span class="highlight">&nbsp;Chilka (780-1144 sq km)</span></div>
-            <div class="rev-badge">Largest Backwater: <span class="highlight">&nbsp;Vembanad (75 Km long)</span></div>
-            <div class="rev-badge">Highest Waterfall: <span class="highlight">&nbsp;Gersoppa/Jog (271m)</span></div>
-            <div class="rev-badge">Highest Volcanic Peak: <span class="highlight">&nbsp;Mt. Girnar (1117m)</span></div>
-            <div class="rev-badge">Key Sand Mineral: <span class="highlight">&nbsp;Monazite (Kerala)</span></div>
-        </div>
+    <div class="card">
+        <div class="tag tag-east">East Coast</div>
+        <h3 style="color: #00a8ff;">Utkal, Andhra & TN Plains</h3>
+        <ul>
+            <li><span class="highlight">Utkal Plain (Odisha):</span> Mahanadi delta. Features <span class="highlight">Chilka Lake</span> (biggest in country, 780 sq km winter - 1144 sq km monsoon). Low hills to the south.</li>
+            <li><span class="highlight">Andhra Plain:</span> South of Utkal to Pulicat Lake (barred by <span class="highlight-green">Sriharikota Island - ISRO</span>). Godavari & Krishna deltas merged here.</li>
+            <li>Delta advanced 35 km into sea recently -> <span class="highlight">Kolleru Lake</span> is now far inland! Lacks good harbours except Vishakhapatnam & Machilipatnam.</li>
+            <li><span class="highlight">Tamil Nadu Plain:</span> Pulicat to KK (675 km long). Cauvery delta is <span class="highlight">130 km wide</span> ("granary of South India").</li>
+            <li><span class="highlight">Coramandal Coast / Payan Ghat:</span> False Divi Point (AP/Krishna Delta) to Kanyakumari.</li>
+        </ul>
     </div>
 
-    <!-- 🗺️ MASONRY SKETCHNOTE CANVAS -->
-    <div class="masonry-container">
-
-        <!-- Card 1 -->
-        <div class="card">
-            <div class="tag tag-geo">Geography</div>
-            <h3 style="color: #ffeb3b;">Indian Coastline</h3>
-            <ul>
-                <li>Total length: <span class="highlight">7516.6 Km</span> (6100 km mainland + 1197 km islands)</li>
-                <li>Touches <span class="highlight">13 States and UTs</span>.</li>
-                <li>Formation: Result of <span class="highlight-green">faulting of Gondwanaland</span> during the Cretaceous period (Continental Drift).</li>
-                <li>Harbours: Straight & regular coast. <span class="highlight">Lacks many natural harbours</span> (unlike indented European coastlines).</li>
-                <li>The Bay of Bengal & Arabian Sea formed during the Cretaceous or early Tertiary period after Gondwanaland disintegration.</li>
-            </ul>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card">
-            <div class="tag tag-concept">Geology</div>
-            <h3 style="color: #9c88ff;">Emergence & Submergence</h3>
-            <ul>
-                <li><span class="highlight">Emergence:</span> Formed by uplift of land or lowering of sea level. Features: Bars, spits, lagoons, salt marshes, beaches, sea cliffs, arches.</li>
-                <li><span class="highlight">Submergence:</span> Exact opposite. Formed by sinking land/rising sea.</li>
-                <li><span class="highlight-blue">East Coast (Tamil Nadu):</span> Coast of Emergence.</li>
-                <li><span class="highlight-blue">West Coast:</span> Mixed. Northern part is submerged (due to faulting). Southern (Kerala) is emergent.</li>
-                <li><span class="highlight">Coramandal Coast (TN):</span> Emergence</li>
-                <li><span class="highlight">Malabar Coast (Kerala):</span> Emergence</li>
-                <li><span class="highlight">Konkan Coast (MH & Goa):</span> Submergence</li>
-            </ul>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card">
-            <div class="tag tag-east">East Coast</div>
-            <h3 style="color: #00a8ff;">East Coast & Eastern Plains</h3>
-            <ul>
-                <li>Lies between Eastern Ghats & Bay of Bengal.</li>
-                <li>Extends from <span class="highlight">Subarnarekha river / Ganga delta</span> to Kanniyakumari.</li>
-                <li>Extensive plains: Average width of <span class="highlight">120 km</span>.</li>
-                <li>Marked by large river deltas: <span class="highlight-green">Mahanadi, Godavari, Krishna, Cauvery</span>.</li>
-                <li>Features: Chilka lake, Pulicat lake (lagoon).</li>
-                <li>Northern region (Mahanadi to Krishna) = <span class="highlight">Northern Circars</span>.</li>
-                <li>Southern region (Krishna to Cauvery) = <span class="highlight">Carnatic</span>.</li>
-            </ul>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="card">
-            <div class="tag tag-east">East Coast</div>
-            <h3 style="color: #00a8ff;">Utkal, Andhra & TN Plains</h3>
-            <ul>
-                <li><span class="highlight">Utkal Plain (Odisha):</span> Mahanadi delta. Features <span class="highlight">Chilka Lake</span> (biggest in country, 780 sq km winter - 1144 sq km monsoon). Low hills to the south.</li>
-                <li><span class="highlight">Andhra Plain:</span> South of Utkal to Pulicat Lake (barred by <span class="highlight-green">Sriharikota Island - ISRO</span>). Godavari & Krishna deltas merged here.</li>
-                <li>Delta advanced 35 km into sea recently -> <span class="highlight">Kolleru Lake</span> is now far inland! Lacks good harbours except Vishakhapatnam & Machilipatnam.</li>
-                <li><span class="highlight">Tamil Nadu Plain:</span> Pulicat to KK (675 km long). Cauvery delta is <span class="highlight">130 km wide</span> ("granary of South India").</li>
-                <li><span class="highlight">Coramandal Coast / Payan Ghat:</span> False Divi Point (AP/Krishna Delta) to Kanyakumari.</li>
-            </ul>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="card">
-            <div class="tag tag-west">West Coast</div>
-            <h3 style="color: #e84118;">West Coast & Western Plains</h3>
-            <ul>
-                <li>Extends from <span class="highlight">Rann of Kachchh / Gulf of Cambay</span> to Cape Comorin (KK).</li>
-                <li>Narrow plains: Average width of <span class="highlight">65 km</span>.</li>
-                <li>Made of alluvium from short Western Ghats streams.</li>
-                <li>Dotted with coves (small bays), creeks, and estuaries (<span class="highlight">Narmada and Tapi</span> are major).</li>
-                <li>Regional divisions: <span class="highlight">Konkan</span> (MH & Goa), <span class="highlight">Karnataka</span>, <span class="highlight">Kerala / Malabar</span>.</li>
-            </ul>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="card">
-            <div class="tag tag-west">West Coast</div>
-            <h3 style="color: #e84118;">Gujarat, Kutch & Kathiawar</h3>
-            <ul>
-                <li><span class="highlight">Kutch & Kathiawar:</span> Extension of Peninsular plateau (Kathiawar = Deccan Lava, Kutch = Tertiary rocks), now levelled down.</li>
-                <li><span class="highlight">Kutch Peninsula:</span> Former island filled by Indus River sediment. Now arid/semi-arid.</li>
-                <li><span class="highlight">Rann of Kutch:</span> Great Rann (salt-soaked, North) & Little Rann (South/SE).</li>
-                <li><span class="highlight">Kathiawar:</span> Mandav Hills (radial drainage). <span class="highlight">Mt. Girnar (1117m)</span> highest point, volcanic. Gir Range has dense forests, home of <span class="highlight-green">Gir lion</span>.</li>
-                <li><span class="highlight">Gujarat Plain:</span> East of Kachchh. Rivers: Narmada, Tapi, Mahi, Sabarmati. East is fertile; coast has windblown loess (sand heaps).</li>
-            </ul>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="card">
-            <div class="tag tag-west">West Coast</div>
-            <h3 style="color: #e84118;">Konkan & Karnataka Plains</h3>
-            <ul>
-                <li><span class="highlight">Konkan Plain:</span> Daman to Goa (50-80 km wide). Marine erosion features: cliffs, shoals, reefs.</li>
-                <li><span class="highlight-blue">Thane Creek (Mumbai)</span> provides excellent natural harbour.</li>
-                <li><span class="highlight">Karnataka Coastal Plain:</span> Goa to Mangalore (30-50 km wide, max 70 km). Marked marine topography.</li>
-                <li>Steep streams make waterfalls: Sharavati river creates <span class="highlight">Gersoppa (Jog) Falls (271m)</span>. *(Trivia: Angel falls 979m (highest), Tugela 948m (second)).*</li>
-            </ul>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="card">
-            <div class="tag tag-west">West Coast</div>
-            <h3 style="color: #e84118;">Kerala / Malabar Plain</h3>
-            <ul>
-                <li>Mangalore to Kanniyakumari. Wider than Karnataka plain, low-lying.</li>
-                <li>Famous for lakes, lagoons, spits, and <span class="highlight-green">backwaters (Kayals)</span> - shallow lagoons parallel to the coastline.</li>
-                <li><span class="highlight">Vembanad Lake:</span> Largest backwater, 75 km long and 5-10 km wide.</li>
-                <li>Gives rise to a <span class="highlight">55 km long spit</span>.</li>
-            </ul>
-        </div>
-
-        <!-- Card 9 -->
-        <div class="card">
-            <div class="tag tag-econ">Economy</div>
-            <h3 style="color: #e1b12c;">Economic Significance</h3>
-            <ul>
-                <li><span class="highlight-green">Agriculture:</span> Fertile soils (Rice is the main crop). Coconut trees grow abundantly along the coast.</li>
-                <li><span class="highlight-blue">Trade:</span> Coast dotted with big/small ports for commerce. Fishing is a major occupation.</li>
-                <li><span class="highlight">Minerals & Energy:</span> Sedimentary rocks contain mineral oil (<span class="highlight-green">KG Basin</span>).</li>
-                <li><span class="highlight">Nuclear Power:</span> Kerala coast sands contain huge deposits of <span class="highlight-blue">MONAZITE</span>.</li>
-                <li><span class="highlight">Salt:</span> Low-lying areas of Gujarat produce large amounts of salt.</li>
-                <li><span class="highlight">Tourism:</span> Kerala backwaters and Goa beaches are major international tourist destinations.</li>
-            </ul>
-        </div>
-
+    <div class="card">
+        <div class="tag tag-west">West Coast</div>
+        <h3 style="color: #e84118;">West Coast & Western Plains</h3>
+        <ul>
+            <li>Extends from <span class="highlight">Rann of Kachchh / Gulf of Cambay</span> to Cape Comorin (KK).</li>
+            <li>Narrow plains: Average width of <span class="highlight">65 km</span>.</li>
+            <li>Made of alluvium from short Western Ghats streams.</li>
+            <li>Dotted with coves (small bays), creeks, and estuaries (<span class="highlight">Narmada and Tapi</span> are major).</li>
+            <li>Regional divisions: <span class="highlight">Konkan</span> (MH & Goa), <span class="highlight">Karnataka</span>, <span class="highlight">Kerala / Malabar</span>.</li>
+        </ul>
     </div>
 
-    <!-- Script for interactive notes and Github upload -->
-    <script>
-        const PAGE_ID = 'coastline'; // Unique ID for this page's notes in localStorage
-        
-        // Config for GitHub (Match this with your Hub)
-        const CONFIG = { 
-            githubOwner: "pp-luffy", 
-            githubRepo: "CA" 
-        };
+    <div class="card">
+        <div class="tag tag-west">West Coast</div>
+        <h3 style="color: #e84118;">Gujarat, Kutch & Kathiawar</h3>
+        <ul>
+            <li><span class="highlight">Kutch & Kathiawar:</span> Extension of Peninsular plateau (Kathiawar = Deccan Lava, Kutch = Tertiary rocks), now levelled down.</li>
+            <li><span class="highlight">Kutch Peninsula:</span> Former island filled by Indus River sediment. Now arid/semi-arid.</li>
+            <li><span class="highlight">Rann of Kutch:</span> Great Rann (salt-soaked, North) & Little Rann (South/SE).</li>
+            <li><span class="highlight">Kathiawar:</span> Mandav Hills (radial drainage). <span class="highlight">Mt. Girnar (1117m)</span> highest point, volcanic. Gir Range has dense forests, home of <span class="highlight-green">Gir lion</span>.</li>
+            <li><span class="highlight">Gujarat Plain:</span> East of Kachchh. Rivers: Narmada, Tapi, Mahi, Sabarmati. East is fertile; coast has windblown loess (sand heaps).</li>
+        </ul>
+    </div>
 
-        const toggleNoteModeBtn = document.getElementById('toggle-note-mode');
-        const saveGithubBtn = document.getElementById('save-github-btn');
-        const notesContainer = document.getElementById('notes-container');
-        const uploadStatus = document.getElementById('upload-status');
-        
-        let isNoteMode = false;
-        let notesData = JSON.parse(localStorage.getItem(`upsc_notes_${PAGE_ID}`) || '[]');
+    <div class="card">
+        <div class="tag tag-west">West Coast</div>
+        <h3 style="color: #e84118;">Konkan & Karnataka Plains</h3>
+        <ul>
+            <li><span class="highlight">Konkan Plain:</span> Daman to Goa (50-80 km wide). Marine erosion features: cliffs, shoals, reefs.</li>
+            <li><span class="highlight-blue">Thane Creek (Mumbai)</span> provides excellent natural harbour.</li>
+            <li><span class="highlight">Karnataka Coastal Plain:</span> Goa to Mangalore (30-50 km wide, max 70 km). Marked marine topography.</li>
+            <li>Steep streams make waterfalls: Sharavati river creates <span class="highlight">Gersoppa (Jog) Falls (271m)</span>. *(Trivia: Angel falls 979m (highest), Tugela 948m (second)).*</li>
+        </ul>
+    </div>
 
-        // Initialize existing notes on load
-        function renderExistingNotes() {
-            notesContainer.innerHTML = '';
-            notesData.forEach(note => createNoteElement(note.id, note.x, note.y, note.text));
-            updateSaveButtonVisibility();
-        }
+    <div class="card">
+        <div class="tag tag-west">West Coast</div>
+        <h3 style="color: #e84118;">Kerala / Malabar Plain</h3>
+        <ul>
+            <li>Mangalore to Kanniyakumari. Wider than Karnataka plain, low-lying.</li>
+            <li>Famous for lakes, lagoons, spits, and <span class="highlight-green">backwaters (Kayals)</span> - shallow lagoons parallel to the coastline.</li>
+            <li><span class="highlight">Vembanad Lake:</span> Largest backwater, 75 km long and 5-10 km wide.</li>
+            <li>Gives rise to a <span class="highlight">55 km long spit</span>.</li>
+        </ul>
+    </div>
 
-        // Toggle Note Mode
-        toggleNoteModeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            isNoteMode = !isNoteMode;
-            
-            if (isNoteMode) {
-                document.body.classList.add('add-note-mode');
-                toggleNoteModeBtn.classList.add('active');
-                toggleNoteModeBtn.innerText = '❌ CANCEL ADDING';
-            } else {
-                document.body.classList.remove('add-note-mode');
-                toggleNoteModeBtn.classList.remove('active');
-                toggleNoteModeBtn.innerText = '📝 ADD NOTES';
-            }
-        });
+    <div class="card">
+        <div class="tag tag-econ">Economy</div>
+        <h3 style="color: #e1b12c;">Economic Significance</h3>
+        <ul>
+            <li><span class="highlight-green">Agriculture:</span> Fertile soils (Rice is the main crop). Coconut trees grow abundantly along the coast.</li>
+            <li><span class="highlight-blue">Trade:</span> Coast dotted with big/small ports for commerce. Fishing is a major occupation.</li>
+            <li><span class="highlight">Minerals & Energy:</span> Sedimentary rocks contain mineral oil (<span class="highlight-green">KG Basin</span>).</li>
+            <li><span class="highlight">Nuclear Power:</span> Kerala coast sands contain huge deposits of <span class="highlight-blue">MONAZITE</span>.</li>
+            <li><span class="highlight">Salt:</span> Low-lying areas of Gujarat produce large amounts of salt.</li>
+            <li><span class="highlight">Tourism:</span> Kerala backwaters and Goa beaches are major international tourist destinations.</li>
+        </ul>
+    </div>
 
-        // Click anywhere on body to add a note (if in mode)
-        document.body.addEventListener('click', (e) => {
-            if (!isNoteMode) return;
-            
-            // Prevent clicking inside existing notes or the action bar from making new notes
-            if (e.target.closest('.mini-note') || e.target.closest('.action-bar')) return;
+  </div>
 
-            // Calculate percentage position so it scales on different screens
-            const xPercent = (e.pageX / document.documentElement.scrollWidth) * 100;
-            const yPercent = (e.pageY / document.documentElement.scrollHeight) * 100;
-            
-            const newNote = {
-                id: 'note_' + Date.now(),
-                x: xPercent,
-                y: yPercent,
-                text: ''
-            };
-            
-            notesData.push(newNote);
-            saveLocal();
-            
-            createNoteElement(newNote.id, newNote.x, newNote.y, newNote.text, true);
-            
-            // Automatically turn off mode after placing one
-            document.body.classList.remove('add-note-mode');
-            toggleNoteModeBtn.classList.remove('active');
-            toggleNoteModeBtn.innerText = '📝 ADD NOTES';
-            isNoteMode = false;
-        });
+  <!-- Advanced Interactive Workspace Script -->
+  <script>
+      const PAGE_ID = 'coastline'; 
+      const FILE_NAME = 'coastline.html'; 
+      
+      const CONFIG = { githubOwner: "pp-luffy", githubRepo: "CA" };
 
-        // DOM Element Creation
-        function createNoteElement(id, xPercent, yPercent, text, focus = false) {
-            const noteDiv = document.createElement('div');
-            noteDiv.className = 'mini-note';
-            noteDiv.id = id;
-            noteDiv.style.left = `${xPercent}%`;
-            noteDiv.style.top = `${yPercent}%`;
-            
-            noteDiv.innerHTML = `
-                <button class="mini-note-delete" title="Delete">✖</button>
-                <textarea class="mini-note-input" rows="2" placeholder="Jot a note...">${text}</textarea>
-            `;
-            
-            const textarea = noteDiv.querySelector('textarea');
-            const deleteBtn = noteDiv.querySelector('.mini-note-delete');
-            
-            // Auto-resize textarea
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-                
-                // Update array
-                const index = notesData.findIndex(n => n.id === id);
-                if (index > -1) {
-                    notesData[index].text = this.value;
-                    saveLocal();
-                }
-            });
+      const toggleNoteModeBtn = document.getElementById('toggle-note-mode');
+      const toggleHighlightModeBtn = document.getElementById('toggle-highlight-mode');
+      const highlightColorInput = document.getElementById('highlight-color');
+      const saveGithubBtn = document.getElementById('save-github-btn');
+      const notesContainer = document.getElementById('notes-container');
+      const uploadStatus = document.getElementById('upload-status');
+      
+      let isNoteMode = false;
+      let isHighlightMode = false;
+      let notesData = JSON.parse(localStorage.getItem(`upsc_notes_${PAGE_ID}`) || '[]');
 
-            // Trigger initial resize if text exists
-            if(text) {
-                setTimeout(() => {
-                    textarea.style.height = 'auto';
-                    textarea.style.height = (textarea.scrollHeight) + 'px';
-                }, 10);
-            }
+      // Load locally saved sticky notes
+      function renderExistingNotes() {
+          notesContainer.innerHTML = '';
+          notesData.forEach(note => createNoteElement(note));
+          updateSaveButtonVisibility();
+      }
 
-            // Delete functionality
-            deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                notesData = notesData.filter(n => n.id !== id);
-                saveLocal();
-                noteDiv.remove();
-            });
-            
-            notesContainer.appendChild(noteDiv);
-            
-            if (focus) {
-                textarea.focus();
-            }
-        }
+      // Toggles
+      toggleNoteModeBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          isNoteMode = !isNoteMode;
+          isHighlightMode = false; 
+          
+          document.body.classList.toggle('add-note-mode', isNoteMode);
+          document.body.classList.remove('highlight-mode');
+          
+          this.classList.toggle('active', isNoteMode);
+          toggleHighlightModeBtn.classList.remove('active');
+          
+          this.innerText = isNoteMode ? '❌ CANCEL NOTES' : '📝 ADD NOTES';
+      });
 
-        // Local Storage
-        function saveLocal() {
-            localStorage.setItem(`upsc_notes_${PAGE_ID}`, JSON.stringify(notesData));
-            updateSaveButtonVisibility();
-        }
+      toggleHighlightModeBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          isHighlightMode = !isHighlightMode;
+          isNoteMode = false; 
+          
+          document.body.classList.toggle('highlight-mode', isHighlightMode);
+          document.body.classList.remove('add-note-mode');
+          
+          this.classList.toggle('active', isHighlightMode);
+          toggleNoteModeBtn.classList.remove('active');
+          toggleNoteModeBtn.innerText = '📝 ADD NOTES';
+      });
 
-        function updateSaveButtonVisibility() {
-            if (notesData.length > 0) {
-                saveGithubBtn.style.display = 'inline-block';
-            } else {
-                saveGithubBtn.style.display = 'none';
-            }
-        }
+      // Add Note on Click
+      document.body.addEventListener('click', (e) => {
+          if (!isNoteMode) return;
+          if (e.target.closest('.mini-note') || e.target.closest('.action-bar')) return;
 
-        // Helper to get Github details matching your hub
-        function getGithubRepoDetails() {
-            let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
-            if (window.location.hostname.includes('github.io')) {
-                owner = window.location.hostname.split('.')[0];
-                const pathParts = window.location.pathname.split('/').filter(p => p);
-                if (pathParts.length > 0) repo = pathParts[0];
-            }
-            return { owner, repo };
-        }
+          const newNote = {
+              id: 'note_' + Date.now(),
+              left: `${(e.pageX / document.documentElement.scrollWidth) * 100}%`,
+              top: `${(e.pageY / document.documentElement.scrollHeight) * 100}%`,
+              width: '220px',
+              height: '160px',
+              bg: '#ffeb3b',
+              text: ''
+          };
+          
+          notesData.push(newNote);
+          saveLocal();
+          createNoteElement(newNote, true);
+          
+          toggleNoteModeBtn.click(); // Auto turn off
+      });
 
-        function showStatus(message, isError = false) {
-            uploadStatus.innerText = message;
-            uploadStatus.style.display = 'block';
-            uploadStatus.style.borderColor = isError ? '#e84118' : '#00a8ff';
-            uploadStatus.style.color = isError ? '#e84118' : '#fff';
-            
-            if (!isError && message.includes('Success')) {
-                setTimeout(() => {
-                    uploadStatus.style.display = 'none';
-                }, 3000);
-            }
-        }
+      // Highlight Text Selection Logic (With Contrast Checker)
+      document.addEventListener('mouseup', () => {
+          if (!isHighlightMode) return;
+          
+          const selection = window.getSelection();
+          if (!selection.rangeCount || selection.isCollapsed) return;
+          
+          const hexColor = highlightColorInput.value;
+          
+          // Calculate Brightness/Luminance to determine text color
+          const r = parseInt(hexColor.slice(1, 3), 16);
+          const g = parseInt(hexColor.slice(3, 5), 16);
+          const b = parseInt(hexColor.slice(5, 7), 16);
+          const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+          
+          // If background is very dark, make text white so it's readable
+          const textColor = luminance > 0.5 ? '#000000' : '#ffffff';
+          
+          try {
+              const range = selection.getRangeAt(0);
+              const mark = document.createElement('mark');
+              mark.className = 'user-highlight';
+              mark.style.backgroundColor = hexColor;
+              mark.style.color = textColor;
+              
+              range.surroundContents(mark);
+              updateSaveButtonVisibility(true); // Alert UI that DOM has changed
+          } catch (err) {
+              console.log("Cannot highlight across multiple HTML block boundaries.");
+          }
+          
+          selection.removeAllRanges();
+      });
 
-        // GitHub Bulk Save Logic
-        saveGithubBtn.addEventListener('click', async () => {
-            const token = localStorage.getItem('upsc_gh_token');
-            
-            if (!token) {
-                alert("GitHub token not found! Please upload a file via the Hub Dashboard first to configure your token locally.");
-                return;
-            }
+      // Note DOM Creation
+      function createNoteElement(data, focus = false) {
+          const noteDiv = document.createElement('div');
+          noteDiv.className = 'mini-note';
+          noteDiv.id = data.id;
+          noteDiv.style.left = data.left;
+          noteDiv.style.top = data.top;
+          noteDiv.style.width = data.width || '220px';
+          noteDiv.style.height = data.height || '160px';
+          noteDiv.style.backgroundColor = data.bg || '#ffeb3b';
+          
+          noteDiv.innerHTML = `
+              <div class="note-header">
+                  <input type="color" class="note-color-picker" value="${data.bg || '#ffeb3b'}" title="Note Color">
+                  <button class="mini-note-delete" title="Delete">✖</button>
+              </div>
+              <textarea class="mini-note-input" placeholder="Jot a note...">${data.text}</textarea>
+          `;
+          
+          const textarea = noteDiv.querySelector('textarea');
+          const colorPicker = noteDiv.querySelector('.note-color-picker');
+          
+          textarea.addEventListener('input', () => updateNoteData(data.id, { text: textarea.value }));
+          
+          colorPicker.addEventListener('input', (e) => {
+              noteDiv.style.backgroundColor = e.target.value;
+              updateNoteData(data.id, { bg: e.target.value });
+          });
+          
+          new ResizeObserver(() => {
+              updateNoteData(data.id, { width: noteDiv.style.width, height: noteDiv.style.height });
+          }).observe(noteDiv);
 
-            if (notesData.length === 0) return;
+          noteDiv.querySelector('.mini-note-delete').addEventListener('click', () => {
+              notesData = notesData.filter(n => n.id !== data.id);
+              saveLocal();
+              noteDiv.remove();
+          });
+          
+          notesContainer.appendChild(noteDiv);
+          if (focus) textarea.focus();
+      }
 
-            saveGithubBtn.innerText = '⏳ SAVING...';
-            saveGithubBtn.disabled = true;
-            showStatus('Preparing document for upload...');
+      function updateNoteData(id, changes) {
+          const idx = notesData.findIndex(n => n.id === id);
+          if (idx > -1) {
+              notesData[idx] = { ...notesData[idx], ...changes };
+              saveLocal();
+          }
+      }
 
-            try {
-                // 1. Temporarily remove the action bar and container from DOM so they don't get saved into the static HTML
-                const actionBarClone = document.querySelector('.action-bar').cloneNode(true);
-                document.querySelector('.action-bar').remove();
-                
-                // Hide inputs, convert them to static text inside the note divs for the final HTML
-                const staticNotesHtml = notesContainer.innerHTML.replace(/<textarea[^>]*>/g, '<div>').replace(/<\/textarea>/g, '</div>').replace(/<button[^>]*>✖<\/button>/g, '');
-                
-                const originalNotesHtml = notesContainer.innerHTML;
-                notesContainer.innerHTML = staticNotesHtml;
+      // Dragging Logic
+      let draggedNote = null, offsetX = 0, offsetY = 0;
+      
+      document.addEventListener('mousedown', (e) => {
+          if (e.target.closest('.note-header') && !e.target.closest('input') && !e.target.closest('button')) {
+              draggedNote = e.target.closest('.mini-note');
+              const rect = draggedNote.getBoundingClientRect();
+              offsetX = e.clientX - rect.left;
+              offsetY = e.clientY - rect.top;
+          }
+      });
+      
+      document.addEventListener('mousemove', (e) => {
+          if (draggedNote) {
+              const newLeft = e.clientX + window.scrollX - offsetX;
+              const newTop = e.clientY + window.scrollY - offsetY;
+              draggedNote.style.left = `${newLeft}px`;
+              draggedNote.style.top = `${newTop}px`;
+          }
+      });
+      
+      document.addEventListener('mouseup', () => {
+          if (draggedNote) {
+              updateNoteData(draggedNote.id, { left: draggedNote.style.left, top: draggedNote.style.top });
+              draggedNote = null;
+          }
+      });
 
-                // 2. Grab the full HTML of the page
-                const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      // Storage
+      function saveLocal() {
+          localStorage.setItem(`upsc_notes_${PAGE_ID}`, JSON.stringify(notesData));
+          updateSaveButtonVisibility();
+      }
 
-                // 3. Restore the DOM for the user locally
-                notesContainer.innerHTML = originalNotesHtml;
-                document.body.prepend(actionBarClone);
-                // Re-bind listeners for the restored clone
-                document.getElementById('toggle-note-mode').addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    isNoteMode = !isNoteMode;
-                    const btn = document.getElementById('toggle-note-mode');
-                    if (isNoteMode) {
-                        document.body.classList.add('add-note-mode');
-                        btn.classList.add('active');
-                        btn.innerText = '❌ CANCEL ADDING';
-                    } else {
-                        document.body.classList.remove('add-note-mode');
-                        btn.classList.remove('active');
-                        btn.innerText = '📝 ADD NOTES';
-                    }
-                });
-                
-                // Keep the button disabled state matching
-                const newSaveBtn = document.getElementById('save-github-btn');
-                newSaveBtn.innerText = '⏳ SAVING...';
-                newSaveBtn.disabled = true;
+      function updateSaveButtonVisibility(forceShow = false) {
+          if (notesData.length > 0 || forceShow) {
+              saveGithubBtn.style.display = 'inline-flex';
+          } else {
+              saveGithubBtn.style.display = 'none';
+          }
+      }
 
-                // 4. Upload to GitHub
-                showStatus('Connecting to Mainframe...');
-                
-                // Encode for API
-                const utf8Bytes = new TextEncoder().encode(fullHtml);
-                const base64Content = btoa(String.fromCharCode(...utf8Bytes));
+      // Github Sync Logic (ONLY triggered when explicitly clicking the button)
+      function getGithubRepoDetails() {
+          let owner = CONFIG.githubOwner, repo = CONFIG.githubRepo;
+          if (window.location.hostname.includes('github.io')) {
+              owner = window.location.hostname.split('.')[0];
+              const pathParts = window.location.pathname.split('/').filter(p => p);
+              if (pathParts.length > 0) repo = pathParts[0];
+          }
+          return { owner, repo };
+      }
 
-                const { owner, repo } = getGithubRepoDetails();
-                
-                // Extract current filename from URL (e.g., 'coastline.html')
-                let filename = window.location.pathname.split('/').pop() || 'coastline.html';
-                // Assumes this file is in html/Shortnotes/Geography or similar. Adjust path as needed for your structure.
-                // For safety, you might want to hardcode the exact path to overwrite the existing file.
-                // Assuming it's in a known directory based on your Hub structure:
-                const path = `html/Shortnotes/Geography/${filename}`; 
-                
-                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+      function showStatus(message, isError = false) {
+          uploadStatus.innerText = message;
+          uploadStatus.style.display = 'block';
+          uploadStatus.style.borderColor = isError ? '#e84118' : '#00a8ff';
+          uploadStatus.style.color = isError ? '#e84118' : '#fff';
+          if (!isError && message.includes('Success')) {
+              setTimeout(() => { uploadStatus.style.display = 'none'; }, 3000);
+          }
+      }
 
-                // We need to get the file's current SHA to update it
-                showStatus('Checking file status...');
-                const getResponse = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${token}` }
-                });
-                
-                let sha = null;
-                if (getResponse.ok) {
-                    const fileData = await getResponse.json();
-                    sha = fileData.sha;
-                }
+      saveGithubBtn.addEventListener('click', async function() {
+          const token = localStorage.getItem('upsc_gh_token');
+          if (!token) return alert("GitHub token not found! Configure your token in the main Hub dashboard.");
 
-                showStatus('Overwriting file with new notes...');
-                const bodyData = {
-                    message: `Update ${filename} with new sticky notes`,
-                    content: base64Content
-                };
-                if (sha) bodyData.sha = sha; // Include SHA if file already exists
+          this.innerText = '⏳ SAVING...';
+          this.disabled = true;
+          showStatus('Packaging document...');
 
-                const putResponse = await fetch(apiUrl, {
-                    method: 'PUT',
-                    headers: { 
-                        'Authorization': `token ${token}`, 
-                        'Content-Type': 'application/json' 
-                    },
-                    body: JSON.stringify(bodyData)
-                });
+          try {
+              // Convert textareas to static HTML for saving
+              document.querySelectorAll('.mini-note-input').forEach(ta => { ta.innerHTML = ta.value; });
+              
+              // Hide action bar from save
+              const actionBarClone = document.querySelector('.action-bar').cloneNode(true);
+              document.querySelector('.action-bar').remove();
+              
+              // Remove delete buttons before save so they don't break static viewing
+              const originalNotesHtml = notesContainer.innerHTML;
+              notesContainer.innerHTML = notesContainer.innerHTML.replace(/<button class="mini-note-delete"[^>]*>✖<\/button>/g, '');
 
-                if (putResponse.ok) {
-                    showStatus('✅ Sync Successful! Notes permanently attached.');
-                    newSaveBtn.innerText = '☁️ SAVED';
-                    setTimeout(() => {
-                        newSaveBtn.innerText = '☁️ SAVE TO GITHUB';
-                        newSaveBtn.disabled = false;
-                    }, 2000);
-                } else {
-                    const errData = await putResponse.json();
-                    throw new Error(errData.message);
-                }
+              const fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
-            } catch (error) {
-                console.error(error);
-                showStatus(`❌ Error: ${error.message}`, true);
-                const restoredBtn = document.getElementById('save-github-btn');
-                restoredBtn.innerText = '☁️ SAVE TO GITHUB';
-                restoredBtn.disabled = false;
-            }
-        });
+              // Restore DOM for user
+              notesContainer.innerHTML = originalNotesHtml;
+              document.body.prepend(actionBarClone);
+              
+              // Re-bind listeners on clone
+              document.getElementById('toggle-note-mode').addEventListener('click', function(e) {
+                  e.stopPropagation(); isNoteMode = !isNoteMode; isHighlightMode = false;
+                  document.body.classList.toggle('add-note-mode', isNoteMode);
+                  document.body.classList.remove('highlight-mode');
+                  this.classList.toggle('active', isNoteMode);
+                  document.getElementById('toggle-highlight-mode').classList.remove('active');
+                  this.innerText = isNoteMode ? '❌ CANCEL NOTES' : '📝 ADD NOTES';
+              });
+              document.getElementById('toggle-highlight-mode').addEventListener('click', function(e) {
+                  e.stopPropagation(); isHighlightMode = !isHighlightMode; isNoteMode = false;
+                  document.body.classList.toggle('highlight-mode', isHighlightMode);
+                  document.body.classList.remove('add-note-mode');
+                  this.classList.toggle('active', isHighlightMode);
+                  document.getElementById('toggle-note-mode').classList.remove('active');
+                  document.getElementById('toggle-note-mode').innerText = '📝 ADD NOTES';
+              });
+              
+              const restoredBtn = document.getElementById('save-github-btn');
+              restoredBtn.innerText = '⏳ SAVING...';
+              restoredBtn.disabled = true;
 
-        // Init
-        renderExistingNotes();
-    </script>
+              showStatus('Connecting to Mainframe...');
+              const utf8Bytes = new TextEncoder().encode(fullHtml);
+              const base64Content = btoa(String.fromCharCode(...utf8Bytes));
+              
+              const { owner, repo } = getGithubRepoDetails();
+              let filename = window.location.pathname.split('/').pop() || FILE_NAME;
+              const path = `html/Shortnotes/Geography/${filename}`; 
+              const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+              const getResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } });
+              let sha = null;
+              if (getResponse.ok) sha = (await getResponse.json()).sha;
+
+              showStatus('Overwriting remote file...');
+              const putResponse = await fetch(apiUrl, {
+                  method: 'PUT',
+                  headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                      message: `Add notes and highlights to ${filename}`,
+                      content: base64Content,
+                      sha: sha
+                  })
+              });
+
+              if (putResponse.ok) {
+                  showStatus('✅ Sync Successful! Data burned into file.');
+                  restoredBtn.innerText = '☁️ SAVED';
+                  setTimeout(() => { restoredBtn.innerText = '☁️ SAVE TO GITHUB'; restoredBtn.disabled = false; }, 2000);
+              } else {
+                  throw new Error((await putResponse.json()).message);
+              }
+          } catch (error) {
+              console.error(error);
+              showStatus(`❌ Error: ${error.message}`, true);
+              const restoredBtn = document.getElementById('save-github-btn');
+              restoredBtn.innerText = '☁️ SAVE TO GITHUB';
+              restoredBtn.disabled = false;
+          }
+      });
+
+      renderExistingNotes();
+  </script>
 </body>
 </html>
