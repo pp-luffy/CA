@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hill Ranges of the Peninsular Plateau</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&amp;family=Patrick+Hand&amp;display=swap" rel="stylesheet">
   <style>
     body { background-color: #1a1a1a; color: #f0f0f0; font-family: 'Patrick Hand', cursive; margin: 0; padding: 40px; box-sizing: border-box; line-height: 1.6; position: relative; }
     h1, h2, h3, h4 { font-family: 'Kalam', cursive; }
@@ -56,31 +55,40 @@
     .masonry-grid { column-count: 3; column-gap: 30px; }
     @media (max-width: 1200px) { .masonry-grid { column-count: 2; } }
     @media (max-width: 800px) { .masonry-grid { column-count: 1; } }
-    .card { background-color: #252525; border-radius: 12px; padding: 25px; margin-bottom: 30px; break-inside: avoid; border: 2px solid #333; position: relative; transition: transform 0.3s ease; }
-    .card:hover { transform: scale(1.02) rotate(-1deg); border-color: #555; z-index: 10; }
+    .card { background-color: #252525; border-radius: 12px; padding: 25px; margin-bottom: 30px; break-inside: avoid; border: 2px solid #333; position: relative; }
+    .card:hover { border-color: #555; }
     .card h3 { font-size: 2.2rem; margin-top: 0; margin-bottom: 15px; border-bottom: 2px solid #444; padding-bottom: 10px; }
     .card ul { padding-left: 20px; margin: 0; } .card li { margin-bottom: 10px; font-size: 1.2rem; }
-    .tag { position: absolute; top: -15px; right: -15px; padding: 8px 20px; border-radius: 25px; font-family: 'Kalam', cursive; font-size: 1.2rem; font-weight: bold; transform: rotate(5deg); box-shadow: 3px 3px 10px rgba(0,0,0,0.5); }
+    .tag { position: absolute; top: -15px; right: -15px; padding: 8px 20px; border-radius: 25px; font-family: 'Kalam', cursive; font-size: 1.2rem; transform: rotate(5deg); }
     .tag.env { background-color: #4cd137; color: #1a1a1a; } .tag.infra { background-color: #00a8ff; color: #1a1a1a; } .tag.govt { background-color: #e1b12c; color: #1a1a1a; } .tag.tech { background-color: #9c88ff; color: #1a1a1a; } .tag.culture { background-color: #e84118; color: #f0f0f0; }
     .hl-yellow { color: #ffeb3b; font-weight: bold; } .hl-green { color: #4cd137; font-weight: bold; } .hl-blue { color: #00a8ff; font-weight: bold; } .hl-orange { color: #e84118; font-weight: bold; } .hl-purple { color: #9c88ff; font-weight: bold; }
   </style>
 </head>
-<body>
+<body class="">
 
   <!-- Workspace Interactive Actions -->
-  <div class="action-bar">
-      <button class="action-btn" id="toggle-note-mode">📝 ADD NOTES</button>
-      
-      <div class="highlight-tools">
-          <button class="action-btn" id="toggle-highlight-mode">🖍️ HIGHLIGHT</button>
-          <input type="color" id="highlight-color" value="#ffeb3b" title="Pick Highlight Color">
-      </div>
-
-      <button class="action-btn action-btn-save" id="save-github-btn" style="display: none;">☁️ SAVE TO GITHUB</button>
-  </div>
   
-  <div id="upload-status">Processing...</div>
-  <div id="notes-container"></div>
+  
+  <div id="upload-status" style="display: block; border-color: rgb(0, 168, 255); color: rgb(255, 255, 255);">Packaging document...</div>
+  <div id="notes-container"><div class="mini-note" id="note_1794720829886" style="left: 530.913px; top: 2537.7px; width: 145px; height: 59px; background-color: rgb(61, 255, 242);">
+              <div class="note-header">
+                  <input type="color" class="note-color-picker" value="#ffeb3b" title="Note Color" wfd-id="id1">
+                  
+              </div>
+              <textarea class="mini-note-input" placeholder="Jot a note...">Part of W. Ghats</textarea>
+          </div><div class="mini-note" id="note_1794720865195" style="left: 518.925px; top: 2999.65px; width: 144px; height: 61px; background-color: rgb(61, 255, 190);">
+              <div class="note-header">
+                  <input type="color" class="note-color-picker" value="#ffeb3b" title="Note Color">
+                  
+              </div>
+              <textarea class="mini-note-input" placeholder="Jot a note...">Part of W. Ghats</textarea>
+          </div><div class="mini-note" id="note_1794720977362" style="left: 67.5871%; top: 42.2601%; width: 145px; height: 61px; background-color: rgb(61, 255, 190);">
+              <div class="note-header">
+                  <input type="color" class="note-color-picker" value="#ffeb3b" title="Note Color">
+                  
+              </div>
+              <textarea class="mini-note-input" placeholder="Jot a note...">Part of W. Ghats</textarea>
+          </div></div>
 
   <div class="main-header">
       <h1>⛰️ Hill Ranges of the Peninsular Plateau</h1>
@@ -92,7 +100,7 @@
   </div>
 
   <div class="revision-sheet">
-      <h2>⚡ Quick Revision: Core Facts & Highest Peaks</h2>
+      <h2>⚡ Quick Revision: Core Facts &amp; Highest Peaks</h2>
       <div class="revision-grid">
           <div class="rev-item"><strong>Aravali:</strong> Guru Sikhar (1,722m) @ Mt. Abu</div>
           <div class="rev-item"><strong>Satpura:</strong> Dhupgarh (1,350m) @ Mahadev Hills</div>
@@ -103,11 +111,11 @@
           <div class="rev-item blue"><strong>South India (Highest):</strong> Anai Mudi (2,695m)</div>
           <div class="rev-item orange"><strong>East Ghats (Maliya):</strong> Mahendra Giri (1,501m)</div>
           <div class="rev-item orange"><strong>East Ghats (Madugula):</strong> Jindhagada (1,690m), Arma Konda (1,680m)</div>
-          <div class="rev-item purple"><strong>Palghat Gap:</strong> Rift Valley connecting TN & Kerala</div>
+          <div class="rev-item purple"><strong>Palghat Gap:</strong> Rift Valley connecting TN &amp; Kerala</div>
           <div class="rev-item green"><strong>Aravali Age:</strong> Archaean Era (Oldest Fold Mtn)</div>
           <div class="rev-item green"><strong>Vindhyan Rock:</strong> Ancient Sedimentary (Horizontally bedded)</div>
           <div class="rev-item green"><strong>West Ghats (North) Rock:</strong> Deccan Lavas (Basalt)</div>
-          <div class="rev-item green"><strong>West Ghats (Mid) Rock:</strong> Granites & Gneisses</div>
+          <div class="rev-item green"><strong>West Ghats (Mid) Rock:</strong> Granites &amp; Gneisses</div>
       </div>
   </div>
 
@@ -129,11 +137,11 @@
           <ul>
               <li>Alignment: <span class="hl-yellow">NE to SW direction</span>.</li>
               <li>Extent: ~800 km between <span class="hl-blue">Delhi and Palanpur (Gujarat)</span>.</li>
-              <li>Age & Type: <span class="hl-green">Oldest fold mountains</span> in India (and world). Formed in <span class="hl-yellow">Archaean Era</span>. Now highly weathered <span class="hl-orange">relict mountains</span>.</li>
-              <li>Topography: Continuous range south of Ajmer (rises to 900m). Discontinuous/detached ridges in Haryana & Delhi. Buried under Ganga alluvium up to <span class="hl-blue">Haridwar</span>.</li>
+              <li>Age &amp; Type: <span class="hl-green">Oldest fold mountains</span> in India (and world). Formed in <span class="hl-yellow">Archaean Era</span>. Now highly weathered <span class="hl-orange">relict mountains</span>.</li>
+              <li>Topography: Continuous range south of Ajmer (rises to 900m). Discontinuous/detached ridges in Haryana &amp; Delhi. Buried under Ganga alluvium up to <span class="hl-blue">Haridwar</span>.</li>
               <li>Extensions (Theories): To <span class="hl-blue">Lakshadweep</span> via Gulf of Khambhat, and into AP/Karnataka.</li>
-              <li>Elevation: Generally 400-600m. SW extremity rises >1,000m.</li>
-              <li>Peaks & Passes: <span class="hl-purple">Guru Sikhar (1,722m)</span> in Mt. Abu (separated by Banas valley). Passes: <span class="hl-orange">Pipli Ghat, Dewair, Desuri</span>.</li>
+              <li>Elevation: Generally 400-600m. SW extremity rises &gt;1,000m.</li>
+              <li>Peaks &amp; Passes: <span class="hl-purple">Guru Sikhar (1,722m)</span> in Mt. Abu (separated by Banas valley). Passes: <span class="hl-orange">Pipli Ghat, Dewair, Desuri</span>.</li>
           </ul>
       </div>
 
@@ -142,7 +150,7 @@
           <h3 style="color: #00a8ff;">The Vindhyan Range</h3>
           <ul>
               <li>Location: North of <span class="hl-blue">Narmada Valley</span>. Forms an <span class="hl-yellow">escarpment</span> flanking the Narmada-Son Trough.</li>
-              <li>Extent: East-west direction from <span class="hl-blue">Jobat (Gujarat) to Sasaram (Bihar)</span> for >1,200 km.</li>
+              <li>Extent: East-west direction from <span class="hl-blue">Jobat (Gujarat) to Sasaram (Bihar)</span> for &gt;1,200 km.</li>
               <li>Elevation: 300 to 650 m.</li>
               <li>Geology: Composed of horizontally bedded <span class="hl-green">ancient sedimentary rocks</span>.</li>
               <li>Eastern Extensions: <span class="hl-purple">Bharner and Kaimur hills</span>.</li>
@@ -181,7 +189,7 @@
               <li>Geology: Horizontal sheets of <span class="hl-green">Deccan lavas (Deccan Traps)</span>.</li>
               <li>Average Height: 1,200 m.</li>
               <li>Peaks: <span class="hl-purple">Kalasubai (1,646m)</span>, <span class="hl-purple">Salher (1,567m)</span>, <span class="hl-purple">Mahabaleshwar (1,438m)</span>, <span class="hl-purple">Harishchandragarh (1,424m)</span>.</li>
-              <li>Passes: <span class="hl-orange">Thal ghat</span> & <span class="hl-orange">Bhor ghat</span> (Connect Konkan Plains to Deccan Plateau).</li>
+              <li>Passes: <span class="hl-orange">Thal ghat</span> &amp; <span class="hl-orange">Bhor ghat</span> (Connect Konkan Plains to Deccan Plateau).</li>
           </ul>
       </div>
 
@@ -193,7 +201,7 @@
               <li>Geology: <span class="hl-green">Granites and gneisses</span>.</li>
               <li>Features: Dense forests, western scarp dissected by headward erosion. Avg height 1200m.</li>
               <li>Peaks: <span class="hl-purple">Vavul Mala (2,339m)</span>, <span class="hl-purple">Kudremukh (1,892m)</span>, <span class="hl-purple">Pashpagiri (1,714m)</span>.</li>
-              <li><span class="hl-yellow">Nilgiri Hills:</span> Trijunction of KA, KL, TN. Rises >2,000m. <span class="hl-orange">Junction of Western & Eastern Ghats</span>. Peaks: <span class="hl-purple">Doda Betta (2,637m)</span>, <span class="hl-purple">Makurti (2,554m)</span>.</li>
+              <li><span class="hl-yellow">Nilgiri Hills:</span> Trijunction of KA, KL, TN. Rises &gt;2,000m. <span class="hl-orange">Junction of Western &amp; Eastern Ghats</span>. Peaks: <span class="hl-purple">Doda Betta (2,637m)</span>, <span class="hl-purple">Makurti (2,554m)</span>.</li>
           </ul>
       </div>
 
@@ -216,7 +224,7 @@
           <div class="tag tech">Eastern Ghats</div>
           <h3 style="color: #9c88ff;">The Eastern Ghats</h3>
           <ul>
-              <li>Parallel to east coast. Extent: <span class="hl-blue">Mahanadi (Odisha) to Vagai (TN)</span>. Almost disappear between Godavari & Krishna.</li>
+              <li>Parallel to east coast. Extent: <span class="hl-blue">Mahanadi (Odisha) to Vagai (TN)</span>. Almost disappear between Godavari &amp; Krishna.</li>
               <li>Structure: Highly broken, detached hills. <span class="hl-orange">No structural unity or continuity</span>.</li>
               <li><span class="hl-yellow">Northern Part (Mahanadi to Godavari):</span> True mountain character. 
                   <br>- <span class="hl-green">Maliya Range:</span> 900-1200m. Peak: <span class="hl-purple">Mahendra Giri (1,501m)</span>.
@@ -231,7 +239,7 @@
 
       <div class="card">
           <div class="tag culture">Significance</div>
-          <h3 style="color: #e84118;">Economic & Geographic Importance</h3>
+          <h3 style="color: #e84118;">Economic &amp; Geographic Importance</h3>
           <ul>
               <li><span class="hl-yellow">Minerals:</span> Huge deposits of iron, manganese, copper, bauxite, chromium, mica, gold.</li>
               <li><span class="hl-yellow">Coal:</span> <span class="hl-orange">98% of India's Gondwana coal</span> is here.</li>
@@ -242,7 +250,7 @@
                   <br>- Low-lying areas: <span class="hl-blue">Rice</span>.
               </li>
               <li><span class="hl-green">Forests:</span> Highland forests provide diverse products.</li>
-              <li><span class="hl-blue">Hydropower & Irrigation:</span> Rivers from Western Ghats.</li>
+              <li><span class="hl-blue">Hydropower &amp; Irrigation:</span> Rivers from Western Ghats.</li>
               <li><span class="hl-purple">Tourism:</span> Hill resorts like Ooty, Panchmarhi, Kodaikanal, Mahabaleshwar, Khandala, Mount Abu.</li>
           </ul>
       </div>
@@ -559,5 +567,6 @@
 
       renderExistingNotes();
   </script>
-</body>
-</html>
+
+
+</body></html>
