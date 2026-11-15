@@ -56,11 +56,11 @@
     .masonry-grid { column-count: 3; column-gap: 30px; }
     @media (max-width: 1200px) { .masonry-grid { column-count: 2; } }
     @media (max-width: 800px) { .masonry-grid { column-count: 1; } }
-    .card { background-color: #252525; border-radius: 12px; padding: 25px; margin-bottom: 30px; break-inside: avoid; border: 2px solid #333; position: relative; }
-    .card:hover { border-color: #555; }
+    .card { background-color: #252525; border-radius: 12px; padding: 25px; margin-bottom: 30px; break-inside: avoid; border: 2px solid #333; position: relative; transition: transform 0.3s ease; }
+    .card:hover { transform: scale(1.02) rotate(-1deg); border-color: #555; z-index: 10; }
     .card h3 { font-size: 2.2rem; margin-top: 0; margin-bottom: 15px; border-bottom: 2px solid #444; padding-bottom: 10px; }
     .card ul { padding-left: 20px; margin: 0; } .card li { margin-bottom: 10px; font-size: 1.2rem; }
-    .tag { position: absolute; top: -15px; right: -15px; padding: 8px 20px; border-radius: 25px; font-family: 'Kalam', cursive; font-size: 1.2rem; transform: rotate(5deg); }
+    .tag { position: absolute; top: -15px; right: -15px; padding: 8px 20px; border-radius: 25px; font-family: 'Kalam', cursive; font-size: 1.2rem; font-weight: bold; transform: rotate(5deg); box-shadow: 3px 3px 10px rgba(0,0,0,0.5); }
     .tag.env { background-color: #4cd137; color: #1a1a1a; } .tag.infra { background-color: #00a8ff; color: #1a1a1a; } .tag.govt { background-color: #e1b12c; color: #1a1a1a; } .tag.tech { background-color: #9c88ff; color: #1a1a1a; } .tag.culture { background-color: #e84118; color: #f0f0f0; }
     .hl-yellow { color: #ffeb3b; font-weight: bold; } .hl-green { color: #4cd137; font-weight: bold; } .hl-blue { color: #00a8ff; font-weight: bold; } .hl-orange { color: #e84118; font-weight: bold; } .hl-purple { color: #9c88ff; font-weight: bold; }
   </style>
