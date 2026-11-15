@@ -96,7 +96,7 @@
         .header { text-align: center; padding: 30px 20px 20px; }
         .header h1 { font-size: 2.8rem; text-shadow: 2px 2px 4px #000; color: #fff; margin-bottom: 5px; border-bottom: 2px dashed #444; display: inline-block; padding-bottom: 10px; }
 
-        /* Top Image Gallery (Fixed relative paths for local viewing) */
+        /* Top Image Gallery */
         .top-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -115,6 +115,11 @@
             transition: transform 0.3s ease;
         }
         .gallery-item:hover { transform: translateY(-5px); border-color: #666; }
+        .gallery-item a {
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
         .gallery-item img {
             width: 100%;
             height: 140px;
@@ -122,11 +127,14 @@
             border-radius: 4px;
             background: #111;
             margin-bottom: 10px;
+            transition: opacity 0.2s;
         }
+        .gallery-item a:hover img { opacity: 0.85; }
         .gallery-item span {
             font-family: 'Kalam', cursive;
             font-size: 1.2rem;
             color: #ccc;
+            display: block;
         }
 
         /* Ultra-Short Revision Sheet */
@@ -151,7 +159,7 @@
         }
         .rev-item strong { display: block; font-family: 'Kalam'; font-size: 1.2rem; color: var(--tag-geo); margin-bottom: 5px; border-bottom: 1px dashed #444; padding-bottom: 4px; }
 
-        /* Canvas / Sketchnote Grid (Strictly structured, no random tilts) */
+        /* Canvas / Sketchnote Grid (Strictly structured) */
         .canvas {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -254,26 +262,36 @@
         <h1>Drainage System of India</h1>
     </div>
 
-    <!-- Top Image Gallery (Using relative local paths as requested) -->
+    <!-- Top Image Gallery -->
     <div class="top-gallery">
         <div class="gallery-item">
-            <img src="./images/ganga.jpg" alt="Ganga River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>ganga.jpg</text></svg>'">
+            <a href="./images/ganga.jpg" target="_blank" title="Click to open image in new tab">
+                <img src="./images/ganga.jpg" alt="Ganga River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>ganga.jpg</text></svg>'">
+            </a>
             <span>Ganga River System</span>
         </div>
         <div class="gallery-item">
-            <img src="./images/gangaOrigin.jpg" alt="Ganga Origin" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>gangaOrigin.jpg</text></svg>'">
+            <a href="./images/gangaOrigin.jpg" target="_blank" title="Click to open image in new tab">
+                <img src="./images/gangaOrigin.jpg" alt="Ganga Origin" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>gangaOrigin.jpg</text></svg>'">
+            </a>
             <span>Origin of Ganga</span>
         </div>
         <div class="gallery-item">
-            <img src="./images/indus.jpg" alt="Indus River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>indus.jpg</text></svg>'">
+            <a href="./images/indus.jpg" target="_blank" title="Click to open image in new tab">
+                <img src="./images/indus.jpg" alt="Indus River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>indus.jpg</text></svg>'">
+            </a>
             <span>Indus River System</span>
         </div>
         <div class="gallery-item">
-            <img src="./images/brahmaputra.jpg" alt="Brahmaputra River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>brahmaputra.jpg</text></svg>'">
+            <a href="./images/brahmaputra.jpg" target="_blank" title="Click to open image in new tab">
+                <img src="./images/brahmaputra.jpg" alt="Brahmaputra River" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>brahmaputra.jpg</text></svg>'">
+            </a>
             <span>Brahmaputra Basin</span>
         </div>
         <div class="gallery-item">
-            <img src="./images/peninsularRiver.jpg" alt="Peninsular Rivers" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>peninsularRiver.jpg</text></svg>'">
+            <a href="./images/peninsularRiver.jpg" target="_blank" title="Click to open image in new tab">
+                <img src="./images/peninsularRiver.jpg" alt="Peninsular Rivers" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'140\'><rect width=\'100%\' height=\'100%\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'>peninsularRiver.jpg</text></svg>'">
+            </a>
             <span>Peninsular Rivers</span>
         </div>
     </div>
