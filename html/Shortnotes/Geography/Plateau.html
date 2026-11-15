@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Peninsular Plateau Sketchnote</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&amp;family=Patrick+Hand&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #1a1a1a;
@@ -106,10 +105,10 @@
 
     /* User Highlights */
     .user-highlight {
+        /* Defaults, overriden dynamically by JS */
         background-color: rgba(255, 235, 59, 0.8); color: #000;
-        border-radius: 3px; padding: 0 2px; cursor: pointer;
+        border-radius: 3px; padding: 0 2px;
     }
-    .highlight-mode .user-highlight:hover { opacity: 0.7; }
 
     /* Status Alert */
     #upload-status {
@@ -146,22 +145,19 @@
     .hl-orange { color: var(--orange); font-weight: bold; }
   </style>
 </head>
-<body>
+<body class="">
 
   <!-- Workspace Interactive Actions -->
-  <div class="action-bar">
-      <button class="action-btn" id="toggle-note-mode">📝 ADD NOTES</button>
-      
-      <div class="highlight-tools">
-          <button class="action-btn" id="toggle-highlight-mode">🖍️ HIGHLIGHT</button>
-          <input type="color" id="highlight-color" value="#ffeb3b" title="Pick Highlight Color">
-      </div>
-
-      <button class="action-btn action-btn-save" id="save-github-btn" style="display: none;">☁️ SAVE TO GITHUB</button>
-  </div>
   
-  <div id="upload-status">Processing...</div>
-  <div id="notes-container"></div>
+  
+  <div id="upload-status" style="display: block; border-color: rgb(0, 168, 255); color: rgb(255, 255, 255);">Packaging document...</div>
+  <div id="notes-container"><div class="mini-note" id="note_1794714449214" style="left: 7.9875px; top: 2942.95px; width: 148px; height: 69px; background-color: rgb(119, 61, 255);">
+              <div class="note-header">
+                  <input type="color" class="note-color-picker" value="#ffeb3b" title="Note Color">
+                  
+              </div>
+              <textarea class="mini-note-input" placeholder="Jot a note...">Ranapratap Sagar</textarea>
+          </div></div>
 
   <h1>🏞️ Peninsular Plateau</h1>
 
@@ -181,7 +177,7 @@
       <div class="rev-item"><span>Highest Peak (Meghalaya):</span> Shillong (1,961 m)</div>
       <div class="rev-item"><span>Highest Peak (Karnataka):</span> Mulangiri (1,913 m)</div>
       <div class="rev-item"><span>Coal Hub:</span> Gondwana rocks (Chotanagpur)</div>
-      <div class="rev-item"><span>Black Soil:</span> Malwa & Maharashtra (Lava origin)</div>
+      <div class="rev-item"><span>Black Soil:</span> Malwa &amp; Maharashtra (Lava origin)</div>
     </div>
   </div>
 
@@ -193,7 +189,7 @@
         <li>Base coincides with <span class="hl-yellow">North India Plain</span>, Apex at <span class="hl-yellow">Kanniyakumari</span>.</li>
         <li>One of the <span class="hl-yellow">oldest landforms</span>, highly stable shield block.</li>
         <li>Little structural change, never submerged (mostly).</li>
-        <li>Aggregation of smaller plateaus, hill ranges, river basins & valleys.</li>
+        <li>Aggregation of smaller plateaus, hill ranges, river basins &amp; valleys.</li>
       </ul>
     </div>
 
@@ -228,7 +224,7 @@
         <li>Borders: Yamuna (N), Madhya Bharat (W), Vindhyan Scarp (E/SE), Malwa (S).</li>
         <li>Made of <span class="hl-yellow">'Bundelkhand gneiss'</span> (granite/gneiss).</li>
         <li>Elevation: <span class="hl-green">300-600 m</span>; Slopes down to <span class="hl-blue">Yamuna</span>.</li>
-        <li>Spread over 5 UP dists & 4 MP dists.</li>
+        <li>Spread over 5 UP dists &amp; 4 MP dists.</li>
         <li>Characterized by <span class="hl-orange">Senile topography</span>, undulating, unfit for cultivation.</li>
         <li>Rivers: <span class="hl-blue">Betwa, Dhasan, Ken</span>.</li>
       </ul>
@@ -239,10 +235,10 @@
       <h3 style="color: var(--yellow);">Malwa Plateau</h3>
       <ul>
         <li>Triangle: Vindhyan Hills (base), Aravali (W), Madhya Bharat (N), Bundelkhand (E).</li>
-        <li>2 Drainages: <span class="hl-blue">Arabian Sea</span> (Narmada, Tapi, Mahi) & <span class="hl-blue">Bay of Bengal</span> (Chambal, Betwa).</li>
+        <li>2 Drainages: <span class="hl-blue">Arabian Sea</span> (Narmada, Tapi, Mahi) &amp; <span class="hl-blue">Bay of Bengal</span> (Chambal, Betwa).</li>
         <li>North drained by Chambal, Kali, Sindh, Parbati, Ken, Betwa.</li>
-        <li>Composed of <span class="hl-orange">extensive lava flow</span> & covered in <span class="hl-yellow">Black Soils</span>.</li>
-        <li>Slope towards North (<span class="hl-green">600m to <500m</span>); Chambal ravines in North.</li>
+        <li>Composed of <span class="hl-orange">extensive lava flow</span> &amp; covered in <span class="hl-yellow">Black Soils</span>.</li>
+        <li>Slope towards North (<span class="hl-green">600m to &lt;500m</span>); Chambal ravines in North.</li>
       </ul>
     </div>
 
@@ -255,7 +251,7 @@
         <li>Rocks: Limestones/Sandstones (West), Granite (East).</li>
         <li>Acts as <span class="hl-blue">Water Divide</span> between Son (N) and Mahanadi (S).</li>
         <li>Elevation: <span class="hl-green">150 - 1,200 m</span>. Horizontal strata = no major disturbance.</li>
-        <li>Bhanrer & Kaimur near trough-axis.</li>
+        <li>Bhanrer &amp; Kaimur near trough-axis.</li>
       </ul>
     </div>
 
@@ -340,7 +336,7 @@
         <li>The <span class="hl-yellow">only plain</span> worth the name in the Peninsular plateau.</li>
         <li>Saucer-shaped depression drained by upper <span class="hl-blue">Mahanadi</span>.</li>
         <li>Between Maikala Range and Odisha hills.</li>
-        <li>Horizontal beds of <span class="hl-yellow">limestone & shales</span>.</li>
+        <li>Horizontal beds of <span class="hl-yellow">limestone &amp; shales</span>.</li>
         <li>Named after 36 forts of Haithaivanshi Rajputs.</li>
         <li>Elevation: <span class="hl-green">250m (E) to 330m (W)</span>.</li>
       </ul>
@@ -401,21 +397,8 @@
           toggleNoteModeBtn.innerText = '📝 ADD NOTES';
       });
 
-      // Add Note & Undo Highlight Logic
+      // Add Note on Click
       document.body.addEventListener('click', (e) => {
-          if (isHighlightMode && e.target.classList.contains('user-highlight')) {
-              e.preventDefault();
-              e.stopPropagation();
-              const mark = e.target;
-              const parent = mark.parentNode;
-              while (mark.firstChild) {
-                  parent.insertBefore(mark.firstChild, mark);
-              }
-              parent.removeChild(mark);
-              updateSaveButtonVisibility(true); 
-              return;
-          }
-
           if (!isNoteMode) return;
           if (e.target.closest('.mini-note') || e.target.closest('.action-bar')) return;
 
@@ -674,5 +657,6 @@
 
       renderExistingNotes();
   </script>
-</body>
-</html>
+
+
+</body></html>
