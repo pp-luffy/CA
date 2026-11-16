@@ -111,7 +111,7 @@
   .quick-item:nth-child(4n) { border-left-color: var(--yellow); }
   .quick-item span { color: #fff; font-weight: bold; margin-right: 5px; }
 
-  /* CSS Grid Masonry (From File 1) */
+  /* CSS Grid Masonry (For Tables/Comparisons) */
   .masonry-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -120,7 +120,7 @@
     margin-bottom: 30px;
   }
   
-  /* Polaroid Cards (File 1) */
+  /* Polaroid Cards (For Tables) */
   .card {
     background: #252525;
     border: 1px solid #333;
@@ -145,8 +145,7 @@
     border-bottom: 2px dashed #555;
     padding-bottom: 8px;
   }
-  
-  /* Column Masonry (From File 2) */
+  /* CSS Column Masonry (For Lists/Gotchas) */
   .masonry {
     column-count: 3;
     column-gap: 25px;
@@ -155,7 +154,7 @@
   @media (max-width: 1100px) { .masonry { column-count: 2; } }
   @media (max-width: 768px) { .masonry { column-count: 1; } }
 
-  /* Sketch Cards (File 2) */
+  /* Sketch Cards (For Lists) */
   .sketch-card {
     background-color: #181a1f;
     border: 3px solid;
@@ -291,7 +290,6 @@
     padding-left: 10px;
     border-left: 2px solid rgba(255,255,255,0.1);
   }
-
   /* Interactive Highlighter */
   .highlighted { 
     background: linear-gradient(104deg, rgba(241, 250, 140, 0) 0.9%, rgba(241, 250, 140, 0.4) 2.4%, rgba(241, 250, 140, 0.2) 5.8%, rgba(241, 250, 140, 0.5) 93%, rgba(241, 250, 140, 0.2) 96%, rgba(241, 250, 140, 0) 98%);
@@ -374,12 +372,11 @@
     <span style="font-size: 0.45em; color: var(--cyan); display: block; margin-top: -15px;">& The "Gotcha" Facts</span>
   </h1>
 
-  <!-- ULTRA-SHORT REVISION SECTION (COMBINED) -->
+  <!-- ULTRA-SHORT REVISION SECTION (COMBINED FULL) -->
   <div class="quick-revision">
     <div class="pin">📌</div>
     <h2>⚡ THE CORE MEMORY VAULT & 1-Minute Revision ⚡</h2>
     <div class="quick-grid">
-      <!-- From File 1 -->
       <div class="quick-item"><span class="highlight">Art 123 / 213:</span> Pres / Gov Ordinance Power</div>
       <div class="quick-item"><span class="highlight">Art 108:</span> Joint Sitting (Applicable for Ordinary/Fin I bills ONLY)</div>
       <div class="quick-item"><span class="highlight">Art 110:</span> Money Bill (LS Exclusive, RS 14-day delay max)</div>
@@ -393,17 +390,16 @@
       <div class="quick-item"><span class="highlight">Citizens ONLY FRs:</span> Art 15, 16, 19, 29, 30.</div>
       <div class="quick-item"><span class="highlight">Anti-Defection:</span> Nominated disqualified if joining <span class="hl-red">AFTER 6 months</span>.</div>
       <div class="quick-item"><span class="highlight">Martial Law (Art 34):</span> Suspends ordinary law & courts.</div>
-      <div class="quick-item"><span class="highlight">Kihoto Hollohan:</span> 10th Schedule decisions subject to Judicial Review!</div>
-      <!-- From File 2 -->
+      <div class="quick-item"><span class="highlight">Kihoto Hollohan (1992):</span> 10th Schedule decisions subject to Judicial Review!</div>
       <div class="quick-item"><span>Statutory vs Const:</span> Zonal Councils, CBI, Citizenship, LoP are Acts, NOT Const.</div>
       <div class="quick-item"><span>Rules vs Const:</span> No-Confidence, Question Hour, PAC are House Rules.</div>
       <div class="quick-item"><span>Convention vs Law:</span> PAC/Deputy Speaker from Opp, Zero Hour are Unwritten.</div>
       <div class="quick-item"><span>SC Creations:</span> Basic Structure, Collegium, NOTA, Curative Petition.</div>
-      <div class="quick-item"><span>Never Defined:</span> Budget, Federation, Basic Structure, Untouchability, Office of Profit.</div>
+      <div class="quick-item"><span>Never Defined/Used:</span> Budget, Federation, Basic Structure, Untouchability, Office of Profit.</div>
     </div>
   </div>
 
-  <!-- COMPARISON & FACTUAL GRID (FROM FILE 1) -->
+  <!-- COMPARISON & FACTUAL GRID (FROM FILE 1 - FULLY RESTORED) -->
   <div class="masonry-grid">
     
     <!-- President vs Governor -->
@@ -412,9 +408,9 @@
       <h3 class="card-title color-govt">👑 Exec Powers: Pres vs. Gov</h3>
       <table>
         <tr><th class="color-govt">Feature</th><th class="color-govt">President (Union)</th><th class="color-govt">Governor (State)</th></tr>
-        <tr><td><b>Death Sentence</b></td><td><span class="highlight">Can pardon</span>, commute, remit, suspend</td><td>Cannot pardon</td></tr>
+        <tr><td><b>Death Sentence</b></td><td><span class="highlight">Can pardon</span>, commute, remit, suspend</td><td>Cannot pardon (only suspend, remit, commute)</td></tr>
         <tr><td><b>Court Martial</b></td><td><span class="highlight">Can pardon</span></td><td>No power</td></tr>
-        <tr><td><b>Ordinance</b></td><td><span class="highlight">Art 123</span> (Union/Concurrent)</td><td><span class="highlight">Art 213</span> (State/Concurrent)</td></tr>
+        <tr><td><b>Ordinance</b></td><td><span class="highlight">Art 123</span> (Union/Concurrent list)</td><td><span class="highlight">Art 213</span> (State/Concurrent list)</td></tr>
         <tr><td><b>Discretionary</b></td><td>Situational (e.g., hung parl)</td><td>Explicit (<span class="highlight">Art 200</span>: reserve bill)</td></tr>
       </table>
     </div>
@@ -425,8 +421,9 @@
       <h3 class="card-title color-govt">🤝 PM vs. CM</h3>
       <table>
         <tr><th class="color-govt">Feature</th><th class="color-govt">Prime Minister</th><th class="color-govt">Chief Minister</th></tr>
-        <tr><td><b>Const. Duty</b></td><td><span class="highlight">Art 78:</span> Comms decisions to Pres</td><td><span class="highlight">Art 167:</span> Comms decisions to Gov</td></tr>
-        <tr><td><b>Forums</b></td><td>Chair: Inter-State Council</td><td>Vice-Chair: Zonal Councils</td></tr>
+        <tr><td><b>Const. Duty</b></td><td><span class="highlight">Art 78:</span> Comms cabinet decisions to Pres</td><td><span class="highlight">Art 167:</span> Comms cabinet decisions to Gov</td></tr>
+        <tr><td><b>Inter-State Forums</b></td><td>Chair: Inter-State Council & NITI Aayog</td><td>Vice-Chair: Zonal Councils (by rotation)</td></tr>
+        <tr><td><b>Nat. Development</b></td><td>Chair: National Integration Council</td><td>Member: National Integration Council</td></tr>
       </table>
     </div>
 
@@ -438,8 +435,8 @@
         <tr><th class="color-parliament">Feature</th><th class="color-parliament">Lok Sabha (Lower)</th><th class="color-parliament">Rajya Sabha (Upper)</th></tr>
         <tr><td><b>Money Bills</b></td><td><span class="highlight">Exclusive:</span> Intro & Finalize</td><td>Cannot intro. Max delay <span class="highlight">14 days</span></td></tr>
         <tr><td><b>Govt Survival</b></td><td>Can pass <span class="hl-red">No-Confidence</span></td><td>Cannot pass No-Confidence</td></tr>
-        <tr><td><b>Exclusive</b></td><td>None</td><td><span class="highlight">Art 249 & 312</span></td></tr>
-        <tr><td><b>VP Removal</b></td><td>Simple majority to agree</td><td><span class="highlight">Must originate here</span></td></tr>
+        <tr><td><b>Exclusive Powers</b></td><td>None</td><td><span class="highlight">Art 249:</span> Law on State List<br><span class="highlight">Art 312:</span> New All-India Svc</td></tr>
+        <tr><td><b>VP Removal</b></td><td>Simple majority to agree</td><td><span class="highlight">Must originate here</span> (Req. Effective Maj)</td></tr>
       </table>
     </div>
 
@@ -449,20 +446,21 @@
       <h3 class="card-title color-parliament">🏛️ Assembly vs. Council</h3>
       <table>
         <tr><th class="color-parliament">Feature</th><th class="color-parliament">Leg. Assembly</th><th class="color-parliament">Leg. Council</th></tr>
-        <tr><td><b>Create/Abolish</b></td><td>Permanent body</td><td>Parl can create/abolish (<span class="highlight">Art 169</span>)</td></tr>
-        <tr><td><b>Ordinary Bills</b></td><td><span class="highlight">Final authority</span></td><td>Max delay <span class="highlight">4 months</span></td></tr>
+        <tr><td><b>Creation/Abolish</b></td><td>Permanent body</td><td>Parl can create/abolish (<span class="highlight">Art 169</span>) via Assm. Res.</td></tr>
+        <tr><td><b>Ordinary Bills</b></td><td><span class="highlight">Final authority</span></td><td>Max delay <span class="highlight">4 months</span> (3m 1st time + 1m 2nd)</td></tr>
         <tr><td><b>Joint Sitting</b></td><td><span class="hl-red">Does not exist</span></td><td>N/A (Assembly prevails)</td></tr>
+        <tr><td><b>Money Bills</b></td><td>Absolute power</td><td>Delay max <span class="highlight">14 days</span></td></tr>
       </table>
     </div>
-
     <!-- SC vs HC -->
     <div class="card" style="border-left: 5px solid #e84118;">
       <div class="tag bg-judiciary">Judiciary</div>
       <h3 class="card-title color-judiciary">⚖️ Supreme Ct vs High Ct</h3>
       <table>
         <tr><th class="color-judiciary">Feature</th><th class="color-judiciary">Supreme Court (Art 124)</th><th class="color-judiciary">High Court (Art 214)</th></tr>
-        <tr><td><b>Writ Juris.</b></td><td><span class="highlight">Art 32:</span> Only Fund. Rights</td><td><span class="highlight">Art 226:</span> FRs + other rights (Wider)</td></tr>
+        <tr><td><b>Writ Juris.</b></td><td><span class="highlight">Art 32:</span> Only Fund. Rights</td><td><span class="highlight">Art 226:</span> FRs + other legal rights (Wider scope)</td></tr>
         <tr><td><b>Advisory</b></td><td><span class="highlight">Art 143:</span> Can advise Pres</td><td>No advisory jurisdiction</td></tr>
+        <tr><td><b>Superintendence</b></td><td>Judicial/admin via appeals</td><td><span class="highlight">Art 227:</span> Over all courts/tribunals in territory</td></tr>
         <tr><td><b>Retirement Age</b></td><td><span class="highlight">65 years</span></td><td><span class="highlight">62 years</span></td></tr>
       </table>
     </div>
@@ -472,15 +470,135 @@
       <div class="tag bg-law">Votes</div>
       <h3 class="card-title color-law">🗳️ Parliamentary Majorities</h3>
       <ul>
-        <li><span class="highlight">Simple Majority:</span> >50% present & voting.</li>
-        <li><span class="highlight">Absolute Majority:</span> >50% of Total Membership.</li>
-        <li><span class="highlight">Effective Majority:</span> >50% of Effective Strength. <i>(VP in RS, Speaker)</i></li>
-        <li><span class="highlight">Special Maj (Art 368):</span> 2/3rd present & voting + Absolute Maj.</li>
-        <li><span class="highlight">Special Maj (Art 61):</span> 2/3rd of TOTAL Membership. <i>(<span class="hl-red">Impeaching President ONLY</span>)</i></li>
+        <li><span class="highlight">Simple Majority:</span> >50% present & voting. <i>(Ordinary bills, Money bills, No-Confidence, President's Rule)</i>.</li>
+        <li><span class="highlight">Absolute Majority:</span> >50% of Total Membership. <i>(Form government)</i>.</li>
+        <li><span class="highlight">Effective Majority:</span> >50% of Effective Strength [Total - Vacancies]. <i>(Removal of VP in RS, Speaker, Dy Speaker)</i>.</li>
+        <li><span class="highlight">Special Maj (Art 368):</span> 2/3rd present & voting + Absolute Maj. <i>(Const. Amend, SC/HC judge removal)</i>.</li>
+        <li><span class="highlight">Special Maj (Art 61):</span> 2/3rd of TOTAL Membership. <i>(<span class="hl-red">Impeaching President ONLY</span>)</i>.</li>
       </ul>
     </div>
 
-    <!-- Legislative Bills Comparison (WIDE) -->
+    <!-- Government Funds -->
+    <div class="card" style="border-left: 5px solid #4cd137;">
+      <div class="tag bg-funds">Funds</div>
+      <h3 class="card-title color-funds">💰 Government Funds</h3>
+      <ul>
+        <li><span class="highlight">Consolidated (Art 266):</span> All revenues/loans. <span class="hl-red">Parl approval mandatory</span> to withdraw a single rupee.</li>
+        <li><span class="highlight">Public Account (Art 266):</span> PF, judicial deposits, savings. <span class="hl-green">Executive action</span> (No parl approval needed).</li>
+        <li><span class="highlight">Contingency (Art 267):</span> <span class="highlight">₹30,000 cr</span> for emergencies. Held by Fin Sec for the Pres. Needs <span class="hl-blue">post-facto</span> parl approval.</li>
+      </ul>
+    </div>
+
+    <!-- Veto Powers & Sessions -->
+    <div class="card" style="border-left: 5px solid #e1b12c;">
+      <div class="tag bg-govt">Sessions</div>
+      <h3 class="card-title color-govt">⏳ Veto Powers & Sessions</h3>
+      <ul>
+        <li><b>Adjournment:</b> Suspends sitting (<span class="hl-blue">Done by Presiding Officer</span>).</li>
+        <li><b>Prorogation:</b> Ends the session (<span class="hl-blue">Done by Pres/Gov</span>).</li>
+        <li><b>Dissolution:</b> Ends LS/Assembly life (<span class="hl-blue">Done by Pres/Gov</span>).</li>
+        <li><b>Veto Exceptions:</b> 
+          <ul>
+            <li>President has <span class="hl-red">no pocket veto</span> for Const. Amendments.</li>
+            <li>Governor <span class="hl-red">cannot pocket veto</span> a bill; must act ASAP or reserve for President (<span class="highlight">Art 200</span>).</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Oaths and Resignations -->
+    <div class="card" style="border-left: 5px solid #e84118;">
+      <div class="tag bg-judiciary">Facts</div>
+      <h3 class="card-title color-judiciary">✍️ Oaths & Resignations</h3>
+      <table>
+        <tr><th class="color-judiciary">Post</th><th class="color-judiciary">Oath By</th><th class="color-judiciary">Resigns To</th></tr>
+        <tr><td><b>President</b></td><td>CJI</td><td><span class="highlight">Vice-President</span> (VP informs LS Speaker)</td></tr>
+        <tr><td><b>Vice-President</b></td><td>President</td><td><span class="highlight">President</span></td></tr>
+        <tr><td><b>LS Speaker</b></td><td><span class="hl-red">NO separate oath</span></td><td><span class="highlight">Deputy Speaker</span></td></tr>
+        <tr><td><b>Governor</b></td><td>CJ of HC</td><td><span class="highlight">President</span></td></tr>
+        <tr><td><b>SC Judge</b></td><td>President</td><td><span class="highlight">President</span></td></tr>
+      </table>
+    </div>
+
+    <!-- Table of Precedence -->
+    <div class="card" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">Ranks</div>
+      <h3 class="card-title color-parliament">🎖️ Table of Precedence (Top 7)</h3>
+      <ol>
+        <li><span class="highlight">President</span></li>
+        <li><span class="highlight">Vice-President</span></li>
+        <li><span class="highlight">Prime Minister</span></li>
+        <li><span class="highlight">Governors</span> (within their respective states)</li>
+        <li><span class="highlight">Former Presidents</span> <br><i>(5A. Deputy Prime Minister)</i></li>
+        <li><span class="highlight">CJI & Speaker of Lok Sabha</span></li>
+        <li><span class="highlight">Cabinet Ministers</span>, Chief Ministers, Vice-Chair NITI, Former PMs, LoP</li>
+      </ol>
+    </div>
+
+    <!-- Fundamental Rights -->
+    <div class="card" style="border-left: 5px solid #ff6b81;">
+      <div class="tag bg-rights">Rights</div>
+      <h3 class="card-title color-rights">🛡️ Fundamental Rights: Citizens vs. Foreigners</h3>
+      <ul>
+        <li>
+          <span class="hl-red">ONLY to Indian Citizens:</span><br>
+          <span class="highlight" style="font-size: 1.5rem; display: block; margin: 10px 0; padding: 10px; background: #333; border-radius: 5px; text-align: center;">Articles 15, 16, 19, 29, 30</span>
+        </li>
+        <li>
+          <span class="hl-green">BOTH Citizens & Foreigners</span> (Except enemy aliens):<br>
+          <span style="font-size: 1.2rem; display: block; margin-top: 10px;">Articles 14, 20, 21, 21A, 22, 23, 24, 25, 26, 27, 28</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Panchayati Raj -->
+    <div class="card" style="border-left: 5px solid #1dd1a1;">
+      <div class="tag bg-panchayat">Local</div>
+      <h3 class="card-title color-panchayat">🏡 Panchayati Raj (73rd Amend)</h3>
+      <h4 class="hl-green" style="margin-bottom: 5px;">✅ Compulsory (Mandatory):</h4>
+      <ul style="margin-top:0;">
+        <li>Establishing Gram Sabha</li>
+        <li>3-tier system <span class="hl-purple">(< 20L pop can skip middle tier)</span></li>
+        <li>Direct elections at all levels</li>
+        <li><span class="highlight">Min Age: 21 years</span></li>
+        <li>Reservation: SC/ST (proportionate) & Women <span class="highlight">(Min 33% or 1/3rd)</span></li>
+        <li>Est. State Election Comm. & State Finance Comm.</li>
+      </ul>
+      <h4 class="hl-blue" style="margin-bottom: 5px;">🤷 Voluntary (Discretionary):</h4>
+      <ul style="margin-top:0;">
+        <li>Voting rights to MPs/MLAs in Panchayats</li>
+        <li>Reservation for <span class="highlight">OBCs</span></li>
+        <li>Financial powers to levy taxes, tolls, fees</li>
+      </ul>
+    </div>
+
+    <!-- Martial Law vs Emergency -->
+    <div class="card" style="border-left: 5px solid #ff9f43;">
+      <div class="tag bg-emergency">Crisis</div>
+      <h3 class="card-title color-emergency">🚨 Martial Law vs Nat. Emergency</h3>
+      <table>
+        <tr><th class="color-emergency">Feature</th><th class="color-emergency">Martial Law (Art 34)</th><th class="color-emergency">National Emergency (Art 352)</th></tr>
+        <tr><td><b>Impact</b></td><td>Only Fundamental Rights</td><td>FRs, Centre-State relations, revenues, legislative powers</td></tr>
+        <tr><td><b>Govt Status</b></td><td><span class="hl-red">Suspends ordinary law & courts</span></td><td><span class="hl-green">Ordinary govt & courts continue</span></td></tr>
+        <tr><td><b>Reason</b></td><td>Restore order/rebellion</td><td>War, External Aggression, Armed Rebellion</td></tr>
+        <tr><td><b>Area</b></td><td>Specific localized area</td><td>Entire country or any specific part</td></tr>
+      </table>
+    </div>
+
+    <!-- Anti-Defection Law -->
+    <div class="card" style="border-left: 5px solid #00a8ff;">
+      <div class="tag bg-law">10th Sch</div>
+      <h3 class="card-title color-law">⚖️ Anti-Defection Law "Gotchas"</h3>
+      <ul>
+        <li><b>The Nominated Member Trap:</b> Disqualified if they join a party <span class="highlight">AFTER 6 months</span> of taking seat. <i>(They are safe if they join within first 6 months)</i>.</li>
+        <li><b>The Independent Member Trap:</b> Disqualified if they join ANY political party <span class="hl-red">at ANY time</span> after election.</li>
+        <li><b>The Merger Exception:</b> Disqualification bypassed if <span class="highlight">2/3rd of legislative members</span> agree to merge with another party.</li>
+        <li><b>Deciding Authority:</b> The Presiding Officer (Speaker/Chairman).<br>
+        <span class="hl-purple">🔥 Kihoto Hollohan case (1992):</span> Decision is NOT immune; it is <span class="highlight">subject to Judicial Review!</span></li>
+      </ul>
+    </div>
+
+    <!-- Legislative Bills Comparison -->
     <div class="card card-wide" style="border-left: 5px solid #00a8ff;">
       <div class="tag bg-law">Bills</div>
       <h3 class="card-title color-law">📜 Legislative Bills Master Matrix</h3>
@@ -492,91 +610,106 @@
           <th class="color-law">Joint Sitting</th>
           <th class="color-law">President's Final Action</th>
         </tr>
-        <tr><td><b>Ordinary</b></td><td>Either House</td><td>Not required</td><td><span class="hl-green">Yes (Art 108)</span></td><td>Assent, Withhold, or Return</td></tr>
-        <tr><td><b>Money (Art 110)</b></td><td><span class="highlight">Lok Sabha only</span></td><td>Mandatory</td><td><span class="hl-red">No</span></td><td>Assent or Withhold (<span class="hl-red">Cannot return</span>)</td></tr>
-        <tr><td><b>Financial I</b></td><td><span class="highlight">Lok Sabha only</span></td><td>Mandatory</td><td><span class="hl-green">Yes</span></td><td>Assent, Withhold, or Return</td></tr>
-        <tr><td><b>Financial II</b></td><td>Either House</td><td>Needed before consideration</td><td><span class="hl-green">Yes</span></td><td>Assent, Withhold, or Return</td></tr>
-        <tr><td><b>Const (Art 368)</b></td><td>Either House</td><td>Not required</td><td><span class="hl-red">No</span></td><td><span class="highlight">Must Assent</span> (24th Amend)</td></tr>
+        <tr>
+          <td><b>Ordinary</b></td><td>Either House</td><td>Not required</td><td><span class="hl-green">Yes (Art 108)</span></td><td>Assent, Withhold, or Return (once)</td>
+        </tr>
+        <tr>
+          <td><b>Money (Art 110)</b></td><td><span class="highlight">Lok Sabha only</span></td><td>Mandatory</td><td><span class="hl-red">No (LS is final)</span></td><td>Assent or Withhold (<span class="hl-red">Cannot return</span>)</td>
+        </tr>
+        <tr>
+          <td><b>Financial I (Art 117-1)</b></td><td><span class="highlight">Lok Sabha only</span></td><td>Mandatory</td><td><span class="hl-green">Yes</span></td><td>Assent, Withhold, or Return</td>
+        </tr>
+        <tr>
+          <td><b>Financial II (Art 117-3)</b></td><td>Either House</td><td>Needed before consideration</td><td><span class="hl-green">Yes</span></td><td>Assent, Withhold, or Return</td>
+        </tr>
+        <tr>
+          <td><b>Constitutional (Art 368)</b></td><td>Either House</td><td>Not required</td><td><span class="hl-red">No</span></td><td><span class="highlight">Must Assent</span> (24th Amendment)</td>
+        </tr>
       </table>
     </div>
 
-    <!-- Government Funds -->
-    <div class="card" style="border-left: 5px solid #4cd137;">
-      <div class="tag bg-funds">Funds</div>
-      <h3 class="card-title color-funds">💰 Government Funds</h3>
-      <ul>
-        <li><span class="highlight">Consolidated:</span> All revenues. <span class="hl-red">Parl approval mandatory</span> to withdraw.</li>
-        <li><span class="highlight">Public Account:</span> PF, deposits. <span class="hl-green">Executive action</span> (No parl approval).</li>
-        <li><span class="highlight">Contingency:</span> <span class="highlight">₹30,000 cr</span> for emergencies. Held by Fin Sec. Needs <span class="hl-blue">post-facto</span> approval.</li>
-      </ul>
-    </div>
-
-    <!-- Financial Committees Master Matrix (WIDE) -->
+    <!-- Financial Committees Master Matrix -->
     <div class="card card-wide" style="border-left: 5px solid #9c88ff;">
       <div class="tag bg-parliament">Committees</div>
-      <h3 class="card-title color-parliament">💰 Financial Committees of Parliament</h3>
+      <h3 class="card-title color-parliament">💰 Financial Committees of Parliament (Annual)</h3>
       <p style="font-size:1.2rem; border: 1px solid #ffeb3b; padding:10px; border-radius:5px; background:rgba(255,235,59,0.1);">
-        <span class="hl-red">⚠️ UNIVERSAL RULE:</span> A Minister is <b>NOT</b> eligible to be elected or nominated to Financial Committees or DRSCs.
+        <span class="hl-red">⚠️ UNIVERSAL RULE:</span> A Minister is <b>NOT</b> eligible to be elected or nominated as a member of any Financial Committee or DRSC. Their recommendations are advisory, not binding.
       </p>
       <table>
         <tr>
           <th class="color-parliament">Committee</th>
           <th class="color-parliament">Members & Composition</th>
           <th class="color-parliament">Chairman</th>
-          <th class="color-parliament">Reporting</th>
+          <th class="color-parliament">Core Function & Reporting</th>
         </tr>
         <tr>
-          <td><b>Estimates</b></td>
-          <td><span class="highlight">30 (All from LS, 0 RS)</span></td>
-          <td>Apptd by Speaker. <span class="hl-green">Ruling Party</span></td>
-          <td><b>Lok Sabha</b></td>
+          <td><b>Estimates Committee</b></td>
+          <td><span class="highlight">30 (All 30 from LS, 0 RS)</span><br><i>Largest committee</i></td>
+          <td>Apptd by Speaker.<br><span class="hl-green">Invariably Ruling Party</span></td>
+          <td>Examines budget estimates to suggest economies.<br>Report to: <b>Lok Sabha</b></td>
         </tr>
         <tr>
           <td><b>Public Accounts (PAC)</b></td>
           <td><b>22</b> (15 LS + 7 RS)</td>
-          <td>Apptd by Speaker. <span class="hl-red">Always Opposition</span></td>
-          <td><b>LS Speaker</b></td>
+          <td>Apptd by Speaker.<br><span class="hl-red">Always Opposition</span> <i>(since 1967)</i></td>
+          <td>Examines CAG audit reports (appropriation/finance).<br>Report to: <b>LS Speaker</b></td>
         </tr>
         <tr>
-          <td><b>Public Undertakings</b></td>
+          <td><b>Public Undertakings (CoPU)</b></td>
           <td><b>22</b> (15 LS + 7 RS)</td>
-          <td>Apptd by Speaker. <span class="hl-blue">Must be from LS</span></td>
-          <td><b>Parliament</b></td>
+          <td>Apptd by Speaker.<br><span class="hl-blue">Must strictly be from LS</span></td>
+          <td>Examines reports/CAG on PSUs.<br>Report to: <b>Parliament</b></td>
         </tr>
       </table>
     </div>
 
-    <!-- Fundamental Rights -->
-    <div class="card" style="border-left: 5px solid #ff6b81;">
-      <div class="tag bg-rights">Rights</div>
-      <h3 class="card-title color-rights">🛡️ FRs: Citizens vs Foreigners</h3>
-      <ul>
-        <li><span class="hl-red">ONLY to Indian Citizens:</span><br>
-          <span class="highlight" style="display: block; margin: 5px 0; padding: 5px; background: #333; text-align: center;">Art 15, 16, 19, 29, 30</span>
-        </li>
-        <li><span class="hl-green">BOTH Citizens & Foreigners:</span><br>
-          <span style="display: block; margin-top: 5px;">Art 14, 20, 21, 21A, 22, 23, 24, 25, 26, 27, 28</span>
-        </li>
-      </ul>
+    <!-- DRSCs and Presiding Officer Committees -->
+    <div class="card card-wide" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">Committees</div>
+      <h3 class="card-title color-parliament">🏛️ DRSCs & "Gotcha" Committees</h3>
+      
+      <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        <div style="flex: 1; min-width: 300px;">
+          <h4 class="color-parliament">Departmentally Related Standing Committees (DRSCs)</h4>
+          <ul>
+            <li><b>Total:</b> <span class="highlight">24 Committees</span> (16 under LS Speaker, 8 under RS Chairman).</li>
+            <li><b>Composition:</b> <span class="highlight">31 members each</span> (21 from LS + 10 from RS).</li>
+            <li><b>Leadership:</b> Appointed by presiding officer of the respective House.</li>
+            <li><b>Reporting:</b> Submit reports to <span class="hl-green">both Houses simultaneously</span>.</li>
+            <li><b>Task:</b> Heavy lifting—examine bills, demands for grants, annual reports.</li>
+          </ul>
+        </div>
+        <div style="flex: 1; min-width: 300px;">
+          <h4 class="color-parliament">Presiding Officer Chaired (Ex-Officio)</h4>
+          <ul>
+            <li><span class="highlight">Business Advisory:</span> Regulates timetable. (LS: 15, RS: 11)</li>
+            <li><span class="highlight">Rules Committee:</span> Procedure/conduct matters. (LS: 15, RS: 16)</li>
+            <li><span class="highlight">General Purposes:</span> Affairs not covered elsewhere. (Presiding officers, panel, party leaders)</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <!-- Anti-Defection Law -->
-    <div class="card" style="border-left: 5px solid #00a8ff;">
-      <div class="tag bg-law">10th Sch</div>
-      <h3 class="card-title color-law">⚖️ Anti-Defection "Gotchas"</h3>
-      <ul>
-        <li><b>Nominated:</b> Disqualified if they join a party <span class="highlight">AFTER 6 months</span>.</li>
-        <li><b>Independent:</b> Disqualified if they join <span class="hl-red">at ANY time</span>.</li>
-        <li><b>Merger Exception:</b> Safe if <span class="highlight">2/3rd members</span> agree to merge.</li>
-        <li><span class="hl-purple">🔥 Kihoto Hollohan (1992):</span> Decision is <span class="highlight">subject to Judicial Review!</span></li>
-      </ul>
+    <!-- Other High Yield Committees -->
+    <div class="card card-wide" style="border-left: 5px solid #9c88ff;">
+      <div class="tag bg-parliament">Committees</div>
+      <h3 class="card-title color-parliament">🎯 Other High-Yield Examination Committees</h3>
+      <table>
+        <tr><th class="color-parliament">Committee</th><th class="color-parliament">Members (LS / RS)</th><th class="color-parliament">Key Responsibility</th></tr>
+        <tr><td><b>On Petitions</b></td><td>15 LS / 10 RS</td><td>Examines petitions on bills / matters of public importance.</td></tr>
+        <tr><td><b>Privileges</b></td><td>15 LS / 10 RS</td><td>Semi-judicial. Examines breach of privilege cases.</td></tr>
+        <tr><td><b>Ethics</b></td><td>15 LS / 10 RS</td><td>Enforces MP code of conduct. <span class="hl-purple">(RS created first in 1997; LS in 2000)</span>.</td></tr>
+        <tr><td><b>Subordinate Legislation</b></td><td><span class="highlight">15 LS / 15 RS</span></td><td>Checks executive's delegated rule-making powers.</td></tr>
+        <tr><td><b>Govt Assurances</b></td><td>15 LS / 10 RS</td><td>Tracks promises/undertakings given by Ministers on the floor.</td></tr>
+        <tr><td><b>Absence of Members</b></td><td><span class="highlight">15 (Lok Sabha ONLY)</span></td><td>Considers leave apps. <span class="hl-red">RS whole house deals with it.</span></td></tr>
+      </table>
     </div>
   </div>
 
-  <!-- THE GOTCHAS MASONRY LAYOUT (FROM FILE 2) -->
+  <!-- THE GOTCHAS MASONRY LAYOUT (FROM FILE 2 - FULLY RESTORED) -->
   <div class="masonry">
         
-    <!-- Statutory -->
+    <!-- Category 1: Statutory -->
     <div class="sketch-card theme-pink">
         <h3>📜 1. Statutory (Acts of Parliament)</h3>
         <p class="subtitle">Constitution created the power; Parliament passed the specific Act.</p>
@@ -587,15 +720,23 @@
         </div>
         <div class="sketch-row">
             <div class="sketch-term">Contingency Fund of India</div>
-            <div class="sketch-desc">Contingency Fund of India Act, 1950.</div>
+            <div class="sketch-desc">Contingency Fund of India Act, 1950 (Art 267 only says Parliament "may" establish one).</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">Delimitation Commission</div>
-            <div class="sketch-desc">Delimitation Acts.</div>
+            <div class="sketch-desc">Delimitation Acts (Art 82 says Parliament enacts law after every census).</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">Inter-State Water Dispute Tribunals</div>
-            <div class="sketch-desc">Inter-State River Water Disputes Act, 1956.</div>
+            <div class="sketch-desc">Inter-State River Water Disputes Act, 1956 (Art 262 gave power).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Disqualification for 2+ yrs jail</div>
+            <div class="sketch-desc">Representation of the People Act, 1951.</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Registration of Political Parties</div>
+            <div class="sketch-desc">Representation of the People Act, 1951.</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">Acquiring/Losing Citizenship</div>
@@ -603,15 +744,23 @@
         </div>
         <div class="sketch-row">
             <div class="sketch-term">Leader of the Opposition (LoP)</div>
-            <div class="sketch-desc">Salary and Allowances of Leaders of Opposition Act, 1977.</div>
+            <div class="sketch-desc">Salary and Allowances of Leaders of Opposition in Parliament Act, 1977.</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Exemptions for "Office of Profit"</div>
+            <div class="sketch-desc">Parliament (Prevention of Disqualification) Act, 1959.</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">Punishment for Untouchability</div>
             <div class="sketch-desc">Protection of Civil Rights Act, 1955 (Art 17 only abolishes practice).</div>
         </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Rules for National Flag/Anthem</div>
+            <div class="sketch-desc">Prevention of Insults to National Honour Act, 1971.</div>
+        </div>
     </div>
 
-    <!-- Rules -->
+    <!-- Category 2: Rules -->
     <div class="sketch-card theme-cyan">
         <h3>🏛️ 2. Purely House Rules</h3>
         <p class="subtitle">Lives entirely in the Lok Sabha/Rajya Sabha rulebooks.</p>
@@ -621,8 +770,16 @@
             <div class="sketch-desc">Rule 198 of the Lok Sabha Rules of Procedure.</div>
         </div>
         <div class="sketch-row">
-            <div class="sketch-term">Question Hour & Guillotine</div>
+            <div class="sketch-term">Question Hour</div>
             <div class="sketch-desc">Rules of Procedure of the Houses.</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">The "Guillotine"</div>
+            <div class="sketch-desc">Rules of Procedure (Putting undiscussed demands to vote on last day).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Privilege Motion</div>
+            <div class="sketch-desc">Rules of Procedure (Though privileges are in Art 105).</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">Parliamentary Committees</div>
@@ -630,7 +787,7 @@
         </div>
     </div>
 
-    <!-- Conventions -->
+    <!-- Category 3: Conventions -->
     <div class="sketch-card theme-green">
         <h3>🤝 3. Unwritten Conventions</h3>
         <p class="subtitle">Traditions established over decades.</p>
@@ -640,12 +797,24 @@
             <div class="sketch-desc">Parliamentary Convention (strictly since 1967).</div>
         </div>
         <div class="sketch-row">
+            <div class="sketch-term">Deputy Speaker from Opposition</div>
+            <div class="sketch-desc">Parliamentary Convention (post itself is in Art 93).</div>
+        </div>
+        <div class="sketch-row">
             <div class="sketch-term">Zero Hour</div>
             <div class="sketch-desc">Indian Parliamentary Convention (started 1962).</div>
         </div>
         <div class="sketch-row">
+            <div class="sketch-term">The "Whip"</div>
+            <div class="sketch-desc">Parliamentary Convention (inherited from UK).</div>
+        </div>
+        <div class="sketch-row">
             <div class="sketch-term">Governor outside home state</div>
             <div class="sketch-desc">Political Convention (Sarkaria Comm. recommendation).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Resignation on Money Bill defeat</div>
+            <div class="sketch-desc">Parliamentary Convention (Signals loss of majority).</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">President inviting largest party</div>
@@ -653,7 +822,7 @@
         </div>
     </div>
 
-    <!-- SC Inventions -->
+    <!-- Category 4: SC Inventions -->
     <div class="sketch-card theme-purple">
         <h3>⚖️ 4. Supreme Court Inventions</h3>
         <p class="subtitle">Doctrines created purely by judicial interpretation.</p>
@@ -674,11 +843,38 @@
             <div class="sketch-term">NOTA (None of the Above)</div>
             <div class="sketch-desc">PUCL Case (2013).</div>
         </div>
+        <div class="sketch-row">
+            <div class="sketch-term">"Creamy Layer" in OBCs</div>
+            <div class="sketch-desc">Indra Sawhney Case (1992).</div>
+        </div>
     </div>
 
-    <!-- Gotchas -->
+    <!-- Category 5: Executive -->
+    <div class="sketch-card theme-orange">
+        <h3>✒️ 5. Purely Executive Orders</h3>
+        <p class="subtitle">Zero Constitutional or Statutory backing.</p>
+        
+        <div class="sketch-row">
+            <div class="sketch-term">NITI Aayog</div>
+            <div class="sketch-desc">Cabinet Resolution (2015).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">National Development Council</div>
+            <div class="sketch-desc">Cabinet Resolution (1952).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Law Commission of India</div>
+            <div class="sketch-desc">Government Order (reconstituted every 3 years).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Central Bureau of Investigation</div>
+            <div class="sketch-desc">MHA Resolution (1963) (Powers drawn from DSPE Act, 1946).</div>
+        </div>
+    </div>
+
+    <!-- Category 6: Gotchas -->
     <div class="sketch-card theme-red">
-        <h3>🚨 5. The "Gotcha" Facts</h3>
+        <h3>🚨 6. The "Gotcha" Facts</h3>
         <p class="subtitle">Mentioned vs Defined vs Never Used. The biggest traps.</p>
         
         <div class="sketch-row">
@@ -686,39 +882,158 @@
             <div class="sketch-desc">No salary fixed in Constitution. Drawn as ex-officio Chairman RS.</div>
         </div>
         <div class="sketch-row">
-            <div class="sketch-term">"Office of Profit" & "Untouchability"</div>
-            <div class="sketch-desc">Mentioned as disqualification/abolished, NEVER defined in Const.</div>
+            <div class="sketch-term">"Office of Profit"</div>
+            <div class="sketch-desc">Mentioned as disqualification ground (Art 102/191), NEVER defined.</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">"Contempt of Court"</div>
-            <div class="sketch-desc">SC/HC power given (Art 129/215), NEVER defined in Const.</div>
+            <div class="sketch-desc">SC/HC power given (Art 129/215), NEVER defined in Const. (Defined in Act of 1971).</div>
         </div>
         <div class="sketch-row">
-            <div class="sketch-term">"Budget" & "Federation"</div>
-            <div class="sketch-desc">Words NEVER used. It is "Annual Financial Statement" & "Union of States".</div>
+            <div class="sketch-term">Number of Election Commissioners</div>
+            <div class="sketch-desc">Not specified. Left to the President (Art 324).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">"Budget"</div>
+            <div class="sketch-desc">Word NEVER used. It is "Annual Financial Statement" (Art 112).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">"Federation"</div>
+            <div class="sketch-desc">Word NEVER used. India is a "Union of States" (Art 1).</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">"Basic Structure"</div>
+            <div class="sketch-desc">Phrase NEVER used in the Constitution.</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">"Cabinet"</div>
             <div class="sketch-desc">Not in original text. Added to Art 352 via 44th Amendment (1978).</div>
         </div>
+        <div class="sketch-row">
+            <div class="sketch-term">"Minority"</div>
+            <div class="sketch-desc">Used in Arts 29/30, NEVER defined.</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">"Untouchability"</div>
+            <div class="sketch-desc">Abolished in Art 17, NEVER defined.</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">"Martial Law"</div>
+            <div class="sketch-desc">Mentioned in Art 34, NEVER defined.</div>
+        </div>
     </div>
-
-    <!-- Left to Parliament -->
+    <!-- Category 7: Left to Parliament -->
     <div class="sketch-card theme-yellow">
-        <h3>🏛️ 6. Left to Parliament</h3>
-        <p class="subtitle">Explicitly delegated law-making.</p>
+        <h3>🏛️ 7. What the Constitution Left to Parliament</h3>
+        <p class="subtitle">Matters where the Constitution explicitly delegated law-making to Parliament.</p>
         
         <div class="sketch-row">
+            <div class="sketch-term">States & Territories (Arts 2 & 3)</div>
+            <div class="sketch-desc">Admission, formation, or altering boundaries. 👉 Various Reorganisation Acts (e.g., States Reorganisation Act, 1956)</div>
+        </div>
+        <div class="sketch-row">
             <div class="sketch-term">Citizenship (Art 11)</div>
-            <div class="sketch-desc">Complete regulation after Jan 26, 1950.</div>
+            <div class="sketch-desc">Complete regulation after Jan 26, 1950. 👉 The Citizenship Act, 1955</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Preventive Detention (Art 22(7))</div>
+            <div class="sketch-desc">Maximum period & procedures. 👉 National Security Act, 1980 (NSA); COFEPOSA, 1974</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">Armed Forces Rights (Art 33)</div>
-            <div class="sketch-desc">Restricting fundamental rights for discipline.</div>
+            <div class="sketch-desc">Restricting fundamental rights for discipline. 👉 Army Act, 1950; Navy Act, 1957</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Fundamental Right Penalties (Art 35)</div>
+            <div class="sketch-desc">Criminalizing untouchability & trafficking. 👉 Protection of Civil Rights Act, 1955</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Executive Emoluments (Arts 59(3) & 158(3))</div>
+            <div class="sketch-desc">Salaries of President and Governors. 👉 President's Emoluments and Pension Act, 1951</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Presidential Elections (Art 71(3))</div>
+            <div class="sketch-desc">Regulating election matters. 👉 Presidential & Vice-Presidential Elections Act, 1952</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Ministers' Salaries (Arts 75(6) & 164(5))</div>
+            <div class="sketch-desc">Union and State Ministers' pay. 👉 Salaries and Allowances of Ministers Act, 1952</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Delimitation (Arts 82 & 170(3))</div>
+            <div class="sketch-desc">Readjusting constituencies after census. 👉 Delimitation Act, 2002</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Rajya Sabha Tenure (Art 83)</div>
+            <div class="sketch-desc">Duration and retirement rotation. 👉 Representation of the People Act, 1951</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Legislators' Qualifications (Arts 84(c) & 191(1)(e))</div>
+            <div class="sketch-desc">Additional criteria for MPs/MLAs. 👉 Representation of the People Act, 1951</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Presiding Officers' Salaries (Arts 97 & 186)</div>
+            <div class="sketch-desc">Pay for Speaker, Chairman, etc. 👉 Salaries and Allowances of Officers of Parliament Act, 1953</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Legislative Privileges (Arts 105 & 194)</div>
+            <div class="sketch-desc">Powers and immunities. 👉 (Governed largely by rules, no comprehensive Act)</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Legislators' Salaries (Arts 106 & 195)</div>
+            <div class="sketch-desc">Salaries of MPs and MLAs. 👉 Salary, Allowances and Pension of Members of Parliament Act, 1954</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Official Language (Arts 120 & 343)</div>
+            <div class="sketch-desc">Continuation of English for Union. 👉 Official Languages Act, 1963</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Supreme Court Strength (Art 124(1))</div>
+            <div class="sketch-desc">Increasing SC judges beyond original 7. 👉 Supreme Court (Number of Judges) Act, 1956</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Judges' Service Conditions (Arts 125 & 221)</div>
+            <div class="sketch-desc">Privileges/leave for SC & HC judges. 👉 Supreme Court Judges Act, 1958</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Supreme Court Jurisdiction (Arts 135 & 138)</div>
+            <div class="sketch-desc">Enlarging appellate powers. 👉 Supreme Court (Enlargement of Criminal Appellate Jurisdiction) Act, 1970</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">CAG Duties (Art 149)</div>
+            <div class="sketch-desc">Powers and service conditions of CAG. 👉 CAG's Duties, Powers and Conditions of Service Act, 1971</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">High Courts for UTs (Art 241)</div>
+            <div class="sketch-desc">Constitution of UT High Courts. 👉 Delhi High Court Act, 1966</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Inter-State Water Disputes (Art 262)</div>
+            <div class="sketch-desc">Adjudication of river disputes. 👉 Inter-State River Water Disputes Act, 1956</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Consolidated Funds (Art 283)</div>
+            <div class="sketch-desc">Custody/withdrawal of money. 👉 Contingency Fund of India Act, 1950</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Trade & Commerce (Art 302)</div>
+            <div class="sketch-desc">Restrictions in public interest. 👉 Essential Commodities Act, 1955</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">All India Services (Art 312)</div>
+            <div class="sketch-desc">Creation and regulation of recruitment. 👉 All India Services Act, 1951</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Election Commission (Art 324(2))</div>
+            <div class="sketch-desc">Number and tenure of Commissioners. 👉 CEC and other ECs Act, 2023</div>
+        </div>
+        <div class="sketch-row">
+            <div class="sketch-term">Elections to Legislatures (Art 327)</div>
+            <div class="sketch-desc">Electoral rolls and delimitation. 👉 Representation of the People Acts (1950 & 1951)</div>
         </div>
         <div class="sketch-row">
             <div class="sketch-term">SC/ST Lists (Arts 341(2) & 342(2))</div>
-            <div class="sketch-desc">Inclusion or exclusion from lists.</div>
+            <div class="sketch-desc">Inclusion or exclusion from lists. 👉 Various Constitution Order (Amendment) Acts</div>
         </div>
     </div>
 
