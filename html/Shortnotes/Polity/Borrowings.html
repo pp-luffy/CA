@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowed Features of the Indian Constitution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --text-light: #f0f0f0;
+            --highlight: rgba(255, 215, 0, 0.3);
+            --highlight-text: #ffe066;
+            --card-bg: #2a2a2a;
+            --accent-1: #ff6b6b;
+            --accent-2: #4ecdc4;
+            --accent-3: #ffe66d;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Kalam', cursive;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .title-font {
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            border-bottom: 2px dashed #555;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: var(--accent-3);
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        /* ActionBar */
+        .action-bar {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #333;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.6);
+            border: 1px solid #555;
+        }
+        .action-bar button {
+            background: #444;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .action-bar button:hover {
+            background: #666;
+        }
+        .active-btn {
+            background: var(--accent-2) !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
+
+        /* Ultra-Short Revision Sheet */
+        .revision-sheet {
+            background: linear-gradient(135deg, #111, #222);
+            margin: 20px auto;
+            width: 90%;
+            max-width: 1200px;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid var(--accent-2);
+            box-shadow: 0px 5px 15px rgba(78, 205, 196, 0.2);
+        }
+        .revision-sheet h2 {
+            color: var(--accent-2);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .quick-item {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-3);
+            font-size: 1.1rem;
+        }
+        .quick-item strong {
+            color: var(--accent-1);
+        }
+
+        /* Masonry Grid / Polaroid Scatter */
+        .masonry-container {
+            column-count: 3;
+            column-gap: 25px;
+            padding: 30px;
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        @media (max-width: 1100px) { .masonry-container { column-count: 2; } }
+        @media (max-width: 768px) { .masonry-container { column-count: 1; } }
+
+        .polaroid-card {
+            background-color: var(--card-bg);
+            border: 1px solid #444;
+            border-radius: 4px 4px 15px 15px;
+            padding: 20px 20px 30px;
+            margin-bottom: 25px;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease;
+        }
+        .polaroid-card:nth-child(even) { transform: rotate(1.5deg); }
+        .polaroid-card:nth-child(3n) { transform: rotate(-2deg); }
+        
+        .polaroid-card:hover {
+            transform: scale(1.03) rotate(0deg);
+            z-index: 10;
+            box-shadow: 8px 8px 25px rgba(0,0,0,0.8);
+        }
+
+        .card-header {
+            font-size: 1.8rem;
+            color: var(--accent-3);
+            border-bottom: 2px dotted #666;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        .points-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 1.25rem;
+            line-height: 1.6;
+        }
+
+        .points-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+        }
+
+        .points-list li::before {
+            content: '📌';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 1.1rem;
+        }
+        
+        .hl-text {
+            color: var(--highlight-text);
+            font-weight: bold;
+        }
+
+        /* Sticky Notes */
+        .sticky-note {
+            position: absolute;
+            width: 200px;
+            min-height: 150px;
+            background: #feff9c;
+            color: #222;
+            padding: 15px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3rem;
+            resize: both;
+            overflow: auto;
+            cursor: move;
+            z-index: 500;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+        }
+        .sticky-note:focus-within { z-index: 510; }
+        .sticky-note textarea {
+            width: 100%;
+            height: 80%;
+            background: transparent;
+            border: none;
+            resize: none;
+            outline: none;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: #111;
+            margin-top: 10px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+        .color-picker {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            cursor: pointer;
+            border: none;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            border-radius: 50%;
+            background: none;
+        }
+
+        /* Custom Highlight styling applied via JS */
+        .user-highlight {
+            background-color: var(--highlight);
+            color: #fff;
+            border-radius: 3px;
+            padding: 0 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Action Bar -->
+    <div class="action-bar" id="actionBar">
+        <button id="addNoteBtn" onclick="addStickyNote()">📝 ADD NOTE</button>
+        <button id="highlightBtn" onclick="toggleHighlightMode()">🖍️ HIGHLIGHT: OFF</button>
+        <button id="saveBtn" onclick="saveBoard()">☁️ SAVE</button>
+    </div>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>🇮🇳 Sources of the Indian Constitution</h1>
+        <p style="font-size: 1.3rem; color: #aaa;">Visual Interactive Study Board</p>
+    </div>
+
+    <!-- Ultra-Short Revision Sheet -->
+    <div class="revision-sheet">
+        <h2 class="title-font">⚡ Quick Revision Core Facts</h2>
+        <div class="quick-grid">
+            <div class="quick-item"><strong>UK:</strong> Parliament, Rule of Law, Single Citizen</div>
+            <div class="quick-item"><strong>US:</strong> Fundamental Rights, Judicial Independence</div>
+            <div class="quick-item"><strong>Ireland:</strong> DPSP, Prez Election</div>
+            <div class="quick-item"><strong>Canada:</strong> Strong Centre, Residuary Powers</div>
+            <div class="quick-item"><strong>Gov of India 1935:</strong> Federal Scheme, Governor</div>
+            <div class="quick-item"><strong>Australia:</strong> Concurrent List, Joint Sitting</div>
+            <div class="quick-item"><strong>Germany:</strong> Emergency Rights Suspension</div>
+            <div class="quick-item"><strong>USSR:</strong> Fundamental Duties, Justice</div>
+            <div class="quick-item"><strong>France:</strong> Republic, Liberty/Equality</div>
+            <div class="quick-item"><strong>S. Africa:</strong> Amendment, Rajya Sabha Polls</div>
+            <div class="quick-item"><strong>Japan:</strong> Procedure Est. by Law</div>
+        </div>
+    </div>
+
+    <!-- Detailed Polaroid Masonry Layout -->
+    <div class="masonry-container">
+        
+        <!-- Source 1 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">📜 Government of India Act, 1935</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Federal scheme</span></li>
+                <li>Office of <span class="hl-text">Governor</span></li>
+                <li>Judiciary framework</li>
+                <li><span class="hl-text">Public Service Commissions</span></li>
+                <li>Emergency provisions</li>
+                <li>Administrative details</li>
+            </ul>
+        </div>
+
+        <!-- Source 2 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇬🇧 United Kingdom (Britain)</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Parliamentary government</span></li>
+                <li>Rule of Law</li>
+                <li>Legislative procedure</li>
+                <li><span class="hl-text">Single citizenship</span></li>
+                <li>Cabinet system</li>
+                <li>Prerogative writs</li>
+                <li>Parliamentary privileges</li>
+                <li><span class="hl-text">Bicameralism</span></li>
+            </ul>
+        </div>
+
+        <!-- Source 3 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇺🇸 United States</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Fundamental Rights</span></li>
+                <li>Independence of judiciary</li>
+                <li><span class="hl-text">Judicial review</span></li>
+                <li>Impeachment of the President</li>
+                <li>Removal of Supreme Court and High Court judges</li>
+                <li>Post of Vice-President</li>
+            </ul>
+        </div>
+
+        <!-- Source 4 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇮🇪 Ireland</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Directive Principles of State Policy (DPSP)</span></li>
+                <li>Nomination of members to <span class="hl-text">Rajya Sabha</span></li>
+                <li>Method of <span class="hl-text">election of the President</span></li>
+            </ul>
+        </div>
+
+        <!-- Source 5 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇨🇦 Canada</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Federation with a strong Centre</span></li>
+                <li>Vesting of <span class="hl-text">residuary powers</span> in the Centre</li>
+                <li>Appointment of state governors by the Centre</li>
+                <li><span class="hl-text">Advisory jurisdiction</span> of the Supreme Court</li>
+            </ul>
+        </div>
+
+        <!-- Source 6 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇦🇺 Australia</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Concurrent List</span></li>
+                <li>Freedom of trade, commerce and intercourse</li>
+                <li><span class="hl-text">Joint sitting</span> of the two Houses of Parliament</li>
+            </ul>
+        </div>
+
+        <!-- Source 7 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇩🇪 Germany (Weimar)</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Suspension of Fundamental Rights</span> during an Emergency.</li>
+            </ul>
+        </div>
+
+        <!-- Source 8 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇷🇺 USSR (Russia)</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Fundamental Duties</span></li>
+                <li>The ideal of <span class="hl-text">justice</span> (social, economic, and political) in the Preamble.</li>
+            </ul>
+        </div>
+
+        <!-- Source 9 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇫🇷 France</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Republic</span></li>
+                <li>Ideals of <span class="hl-text">Liberty, Equality, and Fraternity</span> in the Preamble.</li>
+            </ul>
+        </div>
+
+        <!-- Source 10 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇿🇦 South Africa</h2>
+            <ul class="points-list">
+                <li>Procedure for <span class="hl-text">amendment</span> of the Constitution.</li>
+                <li>Election of members of <span class="hl-text">Rajya Sabha</span>.</li>
+            </ul>
+        </div>
+
+        <!-- Source 11 -->
+        <div class="polaroid-card">
+            <h2 class="card-header title-font">🇯🇵 Japan</h2>
+            <ul class="points-list">
+                <li><span class="hl-text">Procedure established by Law</span>.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Scripts for Interactive Workspace -->
+    <script>
+        // SMART HYDRATION 
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedDOM = localStorage.getItem('sketchnote_board_state');
+            if (savedDOM) {
+                // Restore body inner html safely excluding the action bar script overhead
+                // (For simplicity in this standalone file, we use a basic hydration if present)
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = savedDOM;
+                
+                // Re-inject sticky notes
+                const notes = tempDiv.querySelectorAll('.sticky-note');
+                notes.forEach(note => {
+                    document.body.appendChild(note.cloneNode(true));
+                });
+                
+                // Re-inject user highlights by replacing container HTML
+                const savedMasonry = tempDiv.querySelector('.masonry-container');
+                if (savedMasonry) {
+                    document.querySelector('.masonry-container').innerHTML = savedMasonry.innerHTML;
+                }
+                
+                rebindStickyEvents();
+            }
+        });
+
+        // 📝 STICKY NOTES LOGIC
+        function addStickyNote() {
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            note.style.top = (window.scrollY + 100) + 'px';
+            note.style.left = (window.innerWidth / 2 - 100) + 'px';
+            
+            note.innerHTML = `
+                <input type="color" class="color-picker" value="#feff9c" onchange="changeNoteColor(this)">
+                <span class="close-btn" onclick="this.parentElement.remove()">✖</span>
+                <textarea placeholder="Write a note..."></textarea>
+            `;
+            
+            document.body.appendChild(note);
+            makeDraggable(note);
+        }
+
+        function changeNoteColor(inputElement) {
+            inputElement.parentElement.style.background = inputElement.value;
+            // Adjust text color for contrast if needed
+            const hex = inputElement.value.replace('#', '');
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+            const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+            inputElement.parentElement.style.color = (yiq >= 128) ? 'black' : 'white';
+            inputElement.nextElementSibling.nextElementSibling.style.color = (yiq >= 128) ? 'black' : 'white';
+        }
+
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            element.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                if(e.target.tagName.toLowerCase() === 'textarea' || e.target.tagName.toLowerCase() === 'input') return;
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        function rebindStickyEvents() {
+            document.querySelectorAll('.sticky-note').forEach(note => {
+                makeDraggable(note);
+                // Ensure textareas preserve their values from DOM text (which cloning handles if set via JS, but we'll bind oninput just in case)
+                const ta = note.querySelector('textarea');
+                if(ta) {
+                    ta.addEventListener('input', function() {
+                        this.innerHTML = this.value; 
+                    });
+                }
+            });
+        }
+
+        // 🖍️ HIGHLIGHT LOGIC
+        let highlightMode = false;
+        const highlightBtn = document.getElementById('highlightBtn');
+
+        function toggleHighlightMode() {
+            highlightMode = !highlightMode;
+            if (highlightMode) {
+                highlightBtn.innerText = "🖍️ HIGHLIGHT: ON";
+                highlightBtn.classList.add('active-btn');
+                document.body.style.cursor = 'text';
+            } else {
+                highlightBtn.innerText = "🖍️ HIGHLIGHT: OFF";
+                highlightBtn.classList.remove('active-btn');
+                document.body.style.cursor = 'default';
+            }
+        }
+
+        document.addEventListener('mouseup', () => {
+            if (!highlightMode) return;
+            const selection = window.getSelection();
+            if (selection.toString().trim() !== '') {
+                try {
+                    const range = selection.getRangeAt(0);
+                    const span = document.createElement('span');
+                    span.className = 'user-highlight';
+                    // Allow undoing highlight by clicking it
+                    span.onclick = function() {
+                        if(highlightMode) {
+                            const parent = this.parentNode;
+                            while(this.firstChild) {
+                                parent.insertBefore(this.firstChild, this);
+                            }
+                            parent.removeChild(this);
+                        }
+                    };
+                    range.surroundContents(span);
+                    selection.removeAllRanges();
+                } catch(e) {
+                    console.log("Highlighting across multiple blocks is restricted.");
+                }
+            }
+        });
+
+        // Re-bind undo highlight for loaded DOM
+        document.addEventListener('click', (e) => {
+            if (highlightMode && e.target.classList.contains('user-highlight')) {
+                const el = e.target;
+                const parent = el.parentNode;
+                while(el.firstChild) {
+                    parent.insertBefore(el.firstChild, el);
+                }
+                parent.removeChild(el);
+            }
+        });
+
+        // ☁️ CLONE-SAVE LOGIC
+        function saveBoard() {
+            // Update textareas inline HTML so it clones properly
+            document.querySelectorAll('textarea').forEach(ta => {
+                ta.innerHTML = ta.value;
+            });
+            
+            // Clone DOM safely
+            const cloneNode = document.documentElement.cloneNode(true);
+            
+            // Remove Action bar from clone to prevent UI duplication if exported
+            const actionBarClone = cloneNode.querySelector('.action-bar');
+            if(actionBarClone) actionBarClone.remove();
+
+            // Save to local storage
+            localStorage.setItem('sketchnote_board_state', document.body.innerHTML);
+            
+            const btn = document.getElementById('saveBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "✔️ SAVED!";
+            btn.style.background = "#4ecdc4";
+            btn.style.color = "#000";
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "#444";
+                btn.style.color = "#fff";
+            }, 2000);
+            
+            // Optionally, download as HTML file for strict GitHub clone capability
+            /*
+            const blob = new Blob(['<!DOCTYPE html>\n' + cloneNode.outerHTML], {type: 'text/html'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'Visual_Notes_Constitution.html';
+            a.click();
+            */
+        }
+    </script>
+</body>
+</html>
