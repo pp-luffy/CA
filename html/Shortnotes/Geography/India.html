@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Geography Complete Revision Board</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #262626;
+            --text-light: #f0f0f0;
+            --accent-yellow: #ffeb3b;
+            --accent-green: #81c784;
+            --accent-blue: #64b5f6;
+            --accent-pink: #f06292;
+            --border-color: #555;
+            --font-head: 'Kalam', cursive;
+            --font-body: 'Patrick Hand', cursive;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Action Bar */
+        #action-bar {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 9999;
+            background: rgba(30, 30, 30, 0.9);
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .action-btn {
+            background: #333;
+            color: var(--text-light);
+            border: 2px solid var(--border-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-family: var(--font-head);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: #444;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.active {
+            background: var(--accent-yellow);
+            color: #000;
+            border-color: #000;
+        }
+
+        /* Container */
+        #board-container {
+            padding: 60px 30px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Ultra-Short Revision Header */
+        .revision-header {
+            background: linear-gradient(135deg, #182e3a, #262626);
+            border: 3px solid var(--accent-blue);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 25px 35px;
+            margin-bottom: 40px;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.6);
+        }
+
+        .revision-header h1 {
+            font-family: var(--font-head);
+            color: var(--accent-blue);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .quick-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            font-size: 1.15rem;
+        }
+
+        .quick-facts div {
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 15px;
+        }
+
+        /* Masonry Grid */
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 25px;
+        }
+
+        @media (max-width: 1100px) { .masonry-grid { column-count: 2; } }
+        @media (max-width: 768px) { .masonry-grid { column-count: 1; } }
+
+        /* Polaroid / Sketchnote Cards */
+        .card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 2px 8px 3px 6px / 6px 3px 8px 2px;
+            padding: 20px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            box-shadow: 4px 6px 0px rgba(0,0,0,0.5);
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.01) rotate(-0.5deg);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            border-radius: 2px;
+        }
+
+        .card h2 {
+            font-family: var(--font-head);
+            font-size: 1.6rem;
+            margin-top: 0;
+            border-bottom: 2px dashed #444;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 .icon {
+            font-size: 1.8rem;
+        }
+
+        .sketch-list {
+            list-style: none;
+            padding-left: 5px;
+        }
+
+        .sketch-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .sketch-list li::before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            color: var(--accent-pink);
+            font-size: 0.9rem;
+            top: 2px;
+        }
+
+        .sub-list {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .sub-list li::before {
+            content: '•';
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            left: -15px;
+        }
+
+        /* Highlights */
+        .hl-green { color: var(--accent-green); font-weight: bold; }
+        .hl-blue { color: var(--accent-blue); font-weight: bold; }
+        .hl-pink { color: var(--accent-pink); font-weight: bold; }
+        .hl-yellow { color: var(--accent-yellow); font-weight: bold; }
+
+        .highlighted-text {
+            background-color: var(--accent-yellow);
+            color: #000 !important;
+            padding: 0 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            font-weight: bold;
+        }
+
+        /* Sticky Notes */
+        .sticky-note {
+            position: absolute;
+            width: 220px;
+            min-height: 120px;
+            background: var(--accent-yellow);
+            color: #111;
+            padding: 10px;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.6);
+            font-family: var(--font-body);
+            border-radius: 2px 15px 2px 25px / 25px 2px 15px 2px;
+            z-index: 1000;
+            resize: both;
+            overflow: auto;
+        }
+
+        .sticky-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed rgba(0,0,0,0.3);
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            cursor: grab;
+        }
+        
+        .sticky-header:active {
+            cursor: grabbing;
+        }
+
+        .color-picker {
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            border: none;
+            padding: 0;
+            background: transparent;
+            border-radius: 50%;
+        }
+
+        .delete-sticky {
+            background: none;
+            border: none;
+            color: #d32f2f;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+        }
+
+        .note-content {
+            outline: none;
+            font-size: 1.15rem;
+            line-height: 1.4;
+            min-height: 80px;
+        }
+
+        /* Tables */
+        .sketch-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        .sketch-table th, .sketch-table td {
+            border: 1px solid var(--border-color);
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .sketch-table th {
+            background: rgba(255,255,255,0.05);
+            font-family: var(--font-head);
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Action Bar -->
+    <div id="action-bar">
+        <button id="add-note-btn" class="action-btn">📝 ADD NOTES</button>
+        <button id="highlight-btn" class="action-btn">🖍️ HIGHLIGHT</button>
+        <button id="save-btn" class="action-btn">☁️ SAVE DOM</button>
+    </div>
+
+    <!-- Main Workspace -->
+    <div id="board-container">
+        
+        <!-- Ultra-Short Quick Revision Sheet -->
+        <div class="revision-header">
+            <h1>⚡ Indian Geography Quick Revision ⚡</h1>
+            <div class="quick-facts">
+                <div>
+                    <b>🧭 Core Lines:</b> <span class="hl-yellow">Tropic of Cancer (8 States)</span>, intersects IST (5 States) in Chhattisgarh. Mahi river cuts Cancer twice!
+                </div>
+                <div>
+                    <b>📊 Extremes (States):</b><br>
+                    <i>Area:</i> RJ (Max) / Goa (Min).<br>
+                    <i>Pop:</i> UP (Max) / Sikkim (Min).<br>
+                    <i>Forest:</i> MP (Max Area), MZ (Max %).
+                </div>
+                <div>
+                    <b>🗺️ Borders:</b> <span class="hl-pink">UP touches 8 States + 1 UT</span>. Sonbhadra (UP) touches 4 states. 5 States are strictly Landlocked.
+                </div>
+                <div>
+                    <b>🌊 Coastline:</b> 7,516.6 km. <span class="hl-blue">Gujarat (Max State)</span>, A&N (Max UT), Goa (Min State).
+                </div>
+                <div>
+                    <b>🤝 Neighbors (Bachpan MBA):</b> BD > CN > PK > NP > MY > BH > AF. Sikkim, WB, Arunachal touch 3 nations each.
+                </div>
+                <div>
+                    <b>📍 N/S/E/W Extremes:</b> Indira Col (N), Indira Point (S), Kibithu (E), Guhar Moti (W).
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Sketchnote Grid (Zero Omission) -->
+        <div class="masonry-grid">
+
+            <!-- Card 1: Geographic Lines -->
+            <div class="card" style="border-color: var(--accent-yellow);">
+                <h2 style="color: var(--accent-yellow);"><span class="icon">🧭</span> 1. Critical Geographic Lines</h2>
+                <ul class="sketch-list">
+                    <li><b>Tropic of Cancer (23.5° N):</b> Passes through <span class="hl-yellow">8 States (W to E)</span>:
+                        <ul class="sub-list">
+                            <li>Gujarat, Rajasthan, MP, Chhattisgarh, Jharkhand, West Bengal, Tripura, Mizoram.</li>
+                            <li><span class="hl-green">Mahi River</span> cuts the line twice.</li>
+                            <li><span class="hl-pink">Ranchi (JH)</span> is the closest capital city.</li>
+                        </ul>
+                    </li>
+                    <li><b>Indian Standard Time (82.5° E):</b> Passes through <span class="hl-blue">5 States (N to S)</span>:
+                        <ul class="sub-list">
+                            <li>UP, MP, Chhattisgarh, Odisha, Andhra Pradesh.</li>
+                            <li><span class="hl-pink">Mirzapur (UP)</span> is the reference point.</li>
+                            <li>Intersection: IST & Tropic of Cancer meet in <span class="hl-green">Koriya dist, Chhattisgarh</span>.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 2: State Size & Demographics -->
+            <div class="card" style="border-color: var(--accent-green);">
+                <h2 style="color: var(--accent-green);"><span class="icon">📊</span> 2. State Size & Demographics</h2>
+                <table class="sketch-table">
+                    <tr><th>Category</th><th>Largest / Max</th><th>Smallest / Min</th></tr>
+                    <tr><td><b>Area</b></td><td>Rajasthan</td><td>Goa</td></tr>
+                    <tr><td><b>Population</b></td><td>Uttar Pradesh</td><td>Sikkim</td></tr>
+                    <tr><td><b>Forest Cover (Area)</b></td><td>Madhya Pradesh</td><td>Haryana</td></tr>
+                    <tr><td><b>Forest Cover (%)</b></td><td><span class="hl-green">Mizoram (84.53%)</span></td><td>Haryana</td></tr>
+                </table>
+            </div>
+
+            <!-- Card 3: Domestic Boundaries -->
+            <div class="card" style="border-color: var(--accent-pink);">
+                <h2 style="color: var(--accent-pink);"><span class="icon">🗺️</span> 3. State Boundaries (Domestic)</h2>
+                <ul class="sketch-list">
+                    <li><b>Max Bordering State:</b> <span class="hl-pink">Uttar Pradesh</span> (Touches 8 States + Delhi UT). <i>States: UK, HP, HR, RJ, MP, CG, BR, JH.</i></li>
+                    <li><b>Min Bordering States:</b>
+                        <ul class="sub-list">
+                            <li><span class="hl-yellow">Sikkim:</span> Touches only West Bengal.</li>
+                            <li><span class="hl-yellow">Meghalaya:</span> Touches only Assam.</li>
+                        </ul>
+                    </li>
+                    <li><b>Landlocked States (5):</b> MP, Chhattisgarh, Jharkhand, Telangana, Haryana. <i>(Note: Delhi & Chandigarh are UTs).</i></li>
+                    <li><b>Niche District Fact:</b> <span class="hl-green">Sonbhadra (UP)</span> is the ONLY district touching 4 states (MP, CG, JH, BR).</li>
+                    <li><b>Niche State Facts:</b>
+                        <ul class="sub-list">
+                            <li><span class="hl-blue">Tripura:</span> Bordered by Bangladesh on 3 sides (N, S, W).</li>
+                            <li><span class="hl-blue">Assam:</span> Borders ALL other 6 "Seven Sister" states + West Bengal.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 4: Coastline Profile -->
+            <div class="card" style="border-color: var(--accent-blue);">
+                <h2 style="color: var(--accent-blue);"><span class="icon">🌊</span> 4. Coastline Profile</h2>
+                <ul class="sketch-list">
+                    <li><b>Total Coastline:</b> <span class="hl-blue">7,516.6 km</span> (Mainland: 5,422.6 km + Islands: 2,094 km).</li>
+                    <li><b>Coastal entities:</b> 9 States and 4 UTs.</li>
+                    <li><b>Maximums:</b>
+                        <ul class="sub-list">
+                            <li><i>State:</i> <span class="hl-green">Gujarat (~1,214 km)</span> > Andhra Pradesh > Tamil Nadu.</li>
+                            <li><i>UT:</i> <span class="hl-green">Andaman & Nicobar (~1,962 km)</span>.</li>
+                        </ul>
+                    </li>
+                    <li><b>Minimum:</b> <i>State:</i> Goa (~101 km).</li>
+                </ul>
+            </div>
+
+            <!-- Card 5: Neighbouring Countries -->
+            <div class="card" style="border-color: var(--accent-yellow);">
+                <h2 style="color: var(--accent-yellow);"><span class="icon">🤝</span> 5. Neighbouring Countries</h2>
+                <p><i>Mnemonic:</i> <b class="hl-yellow">Bachpan MBA</b> (BD, CN, PK, NP, MY, BH, AF)</p>
+                <table class="sketch-table" style="font-size: 0.9rem;">
+                    <tr><th>Country</th><th>Length</th><th>Touches (States/UTs)</th></tr>
+                    <tr><td><b>Bangladesh</b></td><td><span class="hl-green">4096.7 km</span></td><td>5 (WB, AS, ML, TR, MZ)</td></tr>
+                    <tr><td><b>China</b></td><td>3488 km</td><td>4+1 UT (HP, UK, SK, AR + Ladakh)</td></tr>
+                    <tr><td><b>Pakistan</b></td><td>3323 km</td><td>3+2 UTs (GJ, RJ, PB + J&K, Ladakh)</td></tr>
+                    <tr><td><b>Nepal</b></td><td>1751 km</td><td>5 (UK, UP, BR, WB, SK)</td></tr>
+                    <tr><td><b>Myanmar</b></td><td>1643 km</td><td>4 (AR, NL, MN, MZ)</td></tr>
+                    <tr><td><b>Bhutan</b></td><td>699 km</td><td>4 (SK, WB, AS, AR)</td></tr>
+                    <tr><td><b>Afghanistan</b></td><td>106 km</td><td>1 UT (Ladakh - PoK)</td></tr>
+                </table>
+                <p style="margin-top: 10px; font-weight: bold; border-top: 1px dashed var(--border-color); padding-top:10px;">States touching 3 Different Countries:</p>
+                <ul class="sub-list">
+                    <li><span class="hl-pink">Sikkim:</span> Nepal, Bhutan, China.</li>
+                    <li><span class="hl-pink">West Bengal:</span> Nepal, Bhutan, Bangladesh.</li>
+                    <li><span class="hl-pink">Arunachal Pradesh:</span> Bhutan, China, Myanmar.</li>
+                </ul>
+            </div>
+
+            <!-- Card 6: Extreme Points -->
+            <div class="card" style="border-color: var(--accent-pink);">
+                <h2 style="color: var(--accent-pink);"><span class="icon">📍</span> 6. Extreme Geographic Points</h2>
+                <ul class="sketch-list">
+                    <li><b>Northernmost:</b> <span class="hl-yellow">Indira Col</span> (Siachen Glacier, Ladakh).</li>
+                    <li><b>Southernmost (Overall):</b> <span class="hl-yellow">Indira Point</span> (Great Nicobar Island).</li>
+                    <li><b>Southernmost (Mainland):</b> <span class="hl-yellow">Kanyakumari / Cape Comorin</span> (Tamil Nadu).</li>
+                    <li><b>Easternmost:</b> <span class="hl-blue">Kibithu</span> (Anjaw district, Arunachal Pradesh).</li>
+                    <li><b>Westernmost:</b> <span class="hl-green">Guhar Moti</span> (Near Sir Creek, Kutch dist, Gujarat).</li>
+                </ul>
+            </div>
+
+            <!-- Card 7: Boundary Lines -->
+            <div class="card" style="border-color: var(--accent-green);">
+                <h2 style="color: var(--accent-green);"><span class="icon">✂️</span> 7. Major Boundary Lines</h2>
+                <table class="sketch-table" style="font-size: 0.95rem;">
+                    <tr><th>Line</th><th>Between</th><th>Fact</th></tr>
+                    <tr><td><b>McMahon</b></td><td>IN & CN</td><td>1914 Shimla Accord (AR/Tibet)</td></tr>
+                    <tr><td><b>Radcliffe</b></td><td>IN & PK</td><td>1947; Also IN-BD border</td></tr>
+                    <tr><td><b>Durand</b></td><td>PK & AF</td><td>1893 (Orig. Brit India/Afghan)</td></tr>
+                    <tr><td><b>Sir Creek</b></td><td>IN & PK</td><td>96km estuary in Rann of Kutch</td></tr>
+                    <tr><td><b>LoC</b></td><td>IN & PK</td><td>J&K Military line (1972 Simla)</td></tr>
+                    <tr><td><b>LAC</b></td><td>IN & CN</td><td>De facto border (Post 1962)</td></tr>
+                    <tr><td><b>49th //</b></td><td>US & CAN</td><td>Longest unfortified in world</td></tr>
+                    <tr><td><b>38th //</b></td><td>N & S KR</td><td>Heavily militarized post-WWII</td></tr>
+                </table>
+            </div>
+
+            <!-- Card 8A: Passes - J&K, Ladakh, HP -->
+            <div class="card" style="border-color: var(--accent-blue);">
+                <h2 style="color: var(--accent-blue);"><span class="icon">⛰️</span> 8A. Passes (NW Himalayas)</h2>
+                <ul class="sketch-list">
+                    <li><b>Mintaka (Karakoram):</b> Hunza-Xinjiang. <span class="hl-pink">Tri-junction (IN, CN, AF)</span>.</li>
+                    <li><b>Karakoram (Ladakh):</b> Ladakh-Xinjiang. Highest pass.</li>
+                    <li><b>Khardung La (Ladakh):</b> Leh-Shyok/Nubra. <span class="hl-blue">Gateway to Siachen (BRO HIMANK)</span>.</li>
+                    <li><b>Chang La (Ladakh):</b> Leh-Pangong Tso.</li>
+                    <li><b>Zoji La (Zanskar):</b> Srinagar-Kargil/Leh. <i>NH 1</i>.</li>
+                    <li><b>Pensi La (Zanskar):</b> Suru-Zanskar. Overlooks Drang Drung Glacier.</li>
+                    <li><b>Bara Lacha La (Zanskar, HP):</b> Lahaul-Leh. <i>Suraj Tal (Bhaga river source)</i>.</li>
+                    <li><b>Shipki La (Zanskar, HP):</b> HP-Tibet. <span class="hl-green">Sutlej River enters India</span>.</li>
+                    <li><b>Burzil (Great Him):</b> Srinagar-Gilgit (Closed 1947).</li>
+                    <li><b>Pir Panjal (J&K):</b> Kashmir-Rajouri. Mughal Road.</li>
+                    <li><b>Banihal (J&K):</b> Jammu-Srinagar. <i>NH 44 (Jawahar / Pir Panjal tunnels)</i>.</li>
+                    <li><b>Rohtang (Pir Panjal, HP):</b> Kullu-Lahaul/Spiti. <i>Atal Tunnel</i>.</li>
+                </ul>
+            </div>
+
+            <!-- Card 8B: Passes - UK, Sikkim, NE -->
+            <div class="card" style="border-color: var(--accent-yellow);">
+                <h2 style="color: var(--accent-yellow);"><span class="icon">🏔️</span> 8B. Passes (UK, SK, NE)</h2>
+                <ul class="sketch-list">
+                    <li><b>Lipulekh (Kumaon, UK):</b> UK-Tibet. <span class="hl-pink">Tri-junction (IN/CN/NP)</span>; Kailash Yatra.</li>
+                    <li><b>Nathu La (Sikkim):</b> Sikkim-Chumbi Valley. Reopened 2006.</li>
+                    <li><b>Jelep La (Sikkim):</b> Sikkim-Lhasa. Teesta river nearby.</li>
+                    <li><b>Bum La (Arunachal):</b> Tawang-Tibet. 14th Dalai Lama entered 1959.</li>
+                    <li><b>Bomdi La (Arunachal):</b> Tawang-Tezpur. Gateway to Tawang.</li>
+                    <li><b>Dihang (Arunachal):</b> AR-Mandalay (Myanmar).</li>
+                    <li><b>Diphu (Arunachal):</b> <span class="hl-pink">Tri-junction (IN, CN, MY)</span> on McMahon Line.</li>
+                </ul>
+            </div>
+
+            <!-- Card 8C: Peninsular Passes -->
+            <div class="card" style="border-color: var(--accent-pink);">
+                <h2 style="color: var(--accent-pink);"><span class="icon">🌴</span> 8C. Peninsular Passes (W. Ghats)</h2>
+                <ul class="sketch-list">
+                    <li><b>Thal Ghat (MH):</b> Mumbai-Nashik. <i>Mumbai-Kolkata rail/highway</i>.</li>
+                    <li><b>Bhor Ghat (MH):</b> Mumbai-Pune. <i>Oldest route to Deccan</i>.</li>
+                    <li><b>Pal Ghat (KL):</b> Palakkad (KL)-Coimbatore (TN). <span class="hl-blue">Gap between Nilgiri (N) and Anaimalai Hills (S)</span>.</li>
+                    <li><b>Shencottah (KL/TN):</b> Kollam (KL)-Madurai (TN). <i>Separates Cardamom Hills</i>.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripting for Workspace Interactivity -->
+    <script>
+        // 1. Tool States
+        let isHighlightMode = false;
+        const boardContainer = document.getElementById('board-container');
+        
+        // Buttons
+        const btnNote = document.getElementById('add-note-btn');
+        const btnHighlight = document.getElementById('highlight-btn');
+        const btnSave = document.getElementById('save-btn');
+
+        // 2. Hydration (Load saved state)
+        function loadState() {
+            const savedState = localStorage.getItem('upsc_indian_geo_sketchnote_data');
+            if (savedState) {
+                boardContainer.innerHTML = savedState;
+            }
+        }
+        
+        function saveState() {
+            localStorage.setItem('upsc_indian_geo_sketchnote_data', boardContainer.innerHTML);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadState);
+
+        // 3. Highlight Tool
+        btnHighlight.addEventListener('click', () => {
+            isHighlightMode = !isHighlightMode;
+            btnHighlight.classList.toggle('active', isHighlightMode);
+        });
+
+        // Apply Highlight
+        document.addEventListener('mouseup', () => {
+            if (!isHighlightMode) return;
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0 && !selection.isCollapsed) {
+                const range = selection.getRangeAt(0);
+                
+                let container = range.commonAncestorContainer;
+                if(container.nodeType !== 1) container = container.parentNode;
+                if(container.closest('.sticky-note') || container.closest('#action-bar')) {
+                    selection.removeAllRanges();
+                    return;
+                }
+
+                const span = document.createElement('span');
+                span.className = 'highlighted-text';
+                try {
+                    range.surroundContents(span);
+                    saveState();
+                } catch(e) {
+                    console.log("Complex selection spans multiple DOM nodes. Highlight a smaller continuous text block.");
+                }
+                selection.removeAllRanges();
+            }
+        });
+
+        // Remove Highlight (Undo)
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('highlighted-text')) {
+                const parent = e.target.parentNode;
+                while(e.target.firstChild) {
+                    parent.insertBefore(e.target.firstChild, e.target);
+                }
+                parent.removeChild(e.target);
+                saveState();
+            }
+        });
+
+        // 4. Sticky Notes Logic
+        btnNote.addEventListener('click', () => {
+            const note = document.createElement('div');
+            note.className = 'sticky-note';
+            
+            const top = window.scrollY + 100 + Math.random() * 100;
+            const left = window.scrollX + 100 + Math.random() * 100;
+            
+            note.style.top = top + 'px';
+            note.style.left = left + 'px';
+            note.style.backgroundColor = '#ffeb3b';
+
+            note.innerHTML = `
+                <div class="sticky-header">
+                    <input type="color" class="color-picker" value="#ffeb3b" title="Change Color">
+                    <button class="delete-sticky" title="Delete Note">X</button>
+                </div>
+                <div contenteditable="true" class="note-content">Jot down a quick mnemonic here...</div>
+            `;
+            boardContainer.appendChild(note);
+            saveState();
+        });
+
+        let draggedElement = null;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        document.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.sticky-header') && !e.target.classList.contains('color-picker') && !e.target.classList.contains('delete-sticky')) {
+                draggedElement = e.target.closest('.sticky-note');
+                const rect = draggedElement.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                draggedElement.style.zIndex = 1001;
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (draggedElement) {
+                draggedElement.style.left = (e.clientX + window.scrollX - offsetX) + 'px';
+                draggedElement.style.top = (e.clientY + window.scrollY - offsetY) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (draggedElement) {
+                draggedElement.style.zIndex = 1000;
+                draggedElement = null;
+                saveState();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-sticky')) {
+                e.target.closest('.sticky-note').remove();
+                saveState();
+            }
+        });
+
+        document.addEventListener('input', (e) => {
+            if (e.target.classList.contains('color-picker')) {
+                e.target.closest('.sticky-note').style.backgroundColor = e.target.value;
+                saveState();
+            }
+            if (e.target.classList.contains('note-content')) {
+                saveState();
+            }
+        });
+
+        // 5. Clone-Save functionality (Export DOM)
+        btnSave.addEventListener('click', () => {
+            const actionBar = document.getElementById('action-bar');
+            actionBar.style.display = 'none';
+            
+            const htmlClone = document.documentElement.cloneNode(true);
+            
+            actionBar.style.display = 'flex';
+
+            const cloneActionBar = htmlClone.querySelector('#action-bar');
+            if (cloneActionBar) cloneActionBar.remove();
+
+            const htmlContent = "<!DOCTYPE html>\\n" + htmlClone.outerHTML;
+            const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "Indian_Geography_Revision_Board.html";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
