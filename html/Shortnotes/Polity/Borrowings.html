@@ -11,6 +11,7 @@
             --text-light: #f0f0f0;
             --highlight: rgba(255, 215, 0, 0.3);
             --highlight-text: #ffe066;
+            --trick-letter: #ff3366; /* Vibrant pink/red for the trick letter */
             --card-bg: #2a2a2a;
             --accent-1: #ff6b6b;
             --accent-2: #4ecdc4;
@@ -195,6 +196,14 @@
             color: var(--highlight-text);
             font-weight: bold;
         }
+        
+        /* Trick Letter Styling */
+        .trick-letter {
+            color: var(--trick-letter);
+            font-weight: 900;
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
 
         /* Sticky Notes */
         .sticky-note {
@@ -298,12 +307,12 @@
             <h2 class="card-header title-font">📜 Government of India Act, 1935</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>J.P.E.G. A.F.</strong></div>
             <ul class="points-list">
-                <li>Judiciary framework</li>
-                <li><span class="hl-text">Public Service Commissions</span></li>
-                <li>Emergency provisions</li>
-                <li>Office of <span class="hl-text">Governor</span></li>
-                <li>Administrative details</li>
-                <li><span class="hl-text">Federal scheme</span></li>
+                <li><span class="trick-letter">J</span>udiciary framework</li>
+                <li><span class="hl-text"><span class="trick-letter">P</span>ublic Service Commissions</span></li>
+                <li><span class="trick-letter">E</span>mergency provisions</li>
+                <li>Office of <span class="hl-text"><span class="trick-letter">G</span>overnor</span></li>
+                <li><span class="trick-letter">A</span>dministrative details</li>
+                <li><span class="hl-text"><span class="trick-letter">F</span>ederal scheme</span></li>
             </ul>
         </div>
 
@@ -312,14 +321,13 @@
             <h2 class="card-header title-font">🇬🇧 United Kingdom (Britain)</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>B.P.L. C.R.O.W.S.</strong></div>
             <ul class="points-list">
-                <li><span class="hl-text">Bicameralism</span></li>
-                <li><span class="hl-text">Parliamentary government</span></li>
-                <li>Parliamentary privileges</li>
-                <li>Legislative procedure</li>
-                <li>Cabinet system</li>
-                <li>Rule of Law</li>
-                <li>Prerogative writs</li>
-                <li><span class="hl-text">Single citizenship</span></li>
+                <li><span class="hl-text"><span class="trick-letter">B</span>icameralism</span></li>
+                <li><span class="hl-text"><span class="trick-letter">P</span>arliamentary government</span> (and <span class="trick-letter">P</span>arliamentary privileges)</li>
+                <li><span class="trick-letter">L</span>egislative procedure</li>
+                <li><span class="trick-letter">C</span>abinet system</li>
+                <li><span class="trick-letter">R</span>ule of Law</li>
+                <li>Prerogative <span class="trick-letter">W</span>rits</li>
+                <li><span class="hl-text"><span class="trick-letter">S</span>ingle citizenship</span></li>
             </ul>
         </div>
 
@@ -328,12 +336,12 @@
             <h2 class="card-header title-font">🇺🇸 United States</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>Judge files F.I.R. on V.I.P.</strong></div>
             <ul class="points-list">
-                <li><span class="hl-text">Judicial review</span></li>
-                <li><span class="hl-text">Fundamental Rights</span></li>
-                <li>Independence of judiciary</li>
-                <li>Removal of Supreme Court and High Court judges</li>
-                <li>Post of Vice-President</li>
-                <li>Impeachment of the President</li>
+                <li><span class="hl-text"><span class="trick-letter">J</span>udicial review</span></li>
+                <li><span class="hl-text"><span class="trick-letter">F</span>undamental Rights</span></li>
+                <li><span class="trick-letter">I</span>ndependence of judiciary</li>
+                <li><span class="trick-letter">R</span>emoval of Supreme Court and High Court judges</li>
+                <li>Post of <span class="trick-letter">V</span>ice-President</li>
+                <li><span class="trick-letter">I</span>mpeachment of the <span class="trick-letter">P</span>resident</li>
             </ul>
         </div>
 
@@ -342,9 +350,9 @@
             <h2 class="card-header title-font">🇮🇪 Ireland</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>E.N.D.</strong></div>
             <ul class="points-list">
-                <li>Method of <span class="hl-text">election of the President</span></li>
-                <li>Nomination of members to <span class="hl-text">Rajya Sabha</span></li>
-                <li><span class="hl-text">Directive Principles of State Policy (DPSP)</span></li>
+                <li>Method of <span class="hl-text"><span class="trick-letter">e</span>lection of the President</span></li>
+                <li><span class="trick-letter">N</span>omination of members to <span class="hl-text">Rajya Sabha</span></li>
+                <li><span class="hl-text"><span class="trick-letter">D</span>irective Principles of State Policy (DPSP)</span></li>
             </ul>
         </div>
 
@@ -353,10 +361,10 @@
             <h2 class="card-header title-font">🇨🇦 Canada</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>C.A.R.S.</strong></div>
             <ul class="points-list">
-                <li><span class="hl-text">Federation with a strong Centre</span></li>
-                <li><span class="hl-text">Advisory jurisdiction</span> of the Supreme Court</li>
-                <li>Vesting of <span class="hl-text">residuary powers</span> in the Centre</li>
-                <li>Appointment of state governors by the Centre</li>
+                <li><span class="hl-text">Federation with a strong <span class="trick-letter">C</span>entre</span></li>
+                <li><span class="hl-text"><span class="trick-letter">A</span>dvisory jurisdiction</span> of the Supreme Court</li>
+                <li>Vesting of <span class="hl-text"><span class="trick-letter">r</span>esiduary powers</span> in the Centre</li>
+                <li>Appointment of <span class="trick-letter">s</span>tate governors by the Centre</li>
             </ul>
         </div>
 
@@ -365,9 +373,9 @@
             <h2 class="card-header title-font">🇦🇺 Australia</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>J.F.C.</strong></div>
             <ul class="points-list">
-                <li><span class="hl-text">Joint sitting</span> of the two Houses of Parliament</li>
-                <li>Freedom of trade, commerce and intercourse</li>
-                <li><span class="hl-text">Concurrent List</span></li>
+                <li><span class="hl-text"><span class="trick-letter">J</span>oint sitting</span> of the two Houses of Parliament</li>
+                <li><span class="trick-letter">F</span>reedom of trade, commerce and intercourse</li>
+                <li><span class="hl-text"><span class="trick-letter">C</span>oncurrent List</span></li>
             </ul>
         </div>
 
@@ -376,7 +384,7 @@
             <h2 class="card-header title-font">🇩🇪 Germany (Weimar)</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>Suspension</strong></div>
             <ul class="points-list">
-                <li><span class="hl-text">Suspension of Fundamental Rights</span> during an Emergency.</li>
+                <li><span class="hl-text"><span class="trick-letter">S</span>uspension of Fundamental Rights</span> during an Emergency.</li>
             </ul>
         </div>
 
@@ -385,8 +393,8 @@
             <h2 class="card-header title-font">🇷🇺 USSR (Russia)</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>D.J.</strong></div>
             <ul class="points-list">
-                <li><span class="hl-text">Fundamental Duties</span></li>
-                <li>The ideal of <span class="hl-text">justice</span> (social, economic, and political) in the Preamble.</li>
+                <li><span class="hl-text">Fundamental <span class="trick-letter">D</span>uties</span></li>
+                <li>The ideal of <span class="hl-text"><span class="trick-letter">j</span>ustice</span> (social, economic, and political) in the Preamble.</li>
             </ul>
         </div>
 
@@ -395,8 +403,8 @@
             <h2 class="card-header title-font">🇫🇷 France</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>F.L.E.R. (Flair)</strong></div>
             <ul class="points-list">
-                <li>Ideals of <span class="hl-text">Liberty, Equality, and Fraternity</span> in the Preamble.</li>
-                <li><span class="hl-text">Republic</span></li>
+                <li>Ideals of <span class="hl-text"><span class="trick-letter">F</span>raternity, <span class="trick-letter">L</span>iberty, and <span class="trick-letter">E</span>quality</span> in the Preamble.</li>
+                <li><span class="hl-text"><span class="trick-letter">R</span>epublic</span></li>
             </ul>
         </div>
 
@@ -405,8 +413,8 @@
             <h2 class="card-header title-font">🇿🇦 South Africa</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>E.A.</strong></div>
             <ul class="points-list">
-                <li>Election of members of <span class="hl-text">Rajya Sabha</span>.</li>
-                <li>Procedure for <span class="hl-text">amendment</span> of the Constitution.</li>
+                <li><span class="trick-letter">E</span>lection of members of <span class="hl-text">Rajya Sabha</span>.</li>
+                <li>Procedure for <span class="hl-text"><span class="trick-letter">a</span>mendment</span> of the Constitution.</li>
             </ul>
         </div>
 
@@ -415,7 +423,7 @@
             <h2 class="card-header title-font">🇯🇵 Japan</h2>
             <div class="mnemonic-trick">💡 Cheat Code: <strong>Procedure</strong></div>
             <ul class="points-list">
-                <li><span class="hl-text">Procedure established by Law</span>.</li>
+                <li><span class="hl-text"><span class="trick-letter">P</span>rocedure established by Law</span>.</li>
             </ul>
         </div>
 
@@ -603,15 +611,6 @@
                 btn.style.background = "#444";
                 btn.style.color = "#fff";
             }, 2000);
-            
-            // Optionally, download as HTML file for strict GitHub clone capability
-            /*
-            const blob = new Blob(['<!DOCTYPE html>\n' + cloneNode.outerHTML], {type: 'text/html'});
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'Visual_Notes_Constitution.html';
-            a.click();
-            */
         }
     </script>
 </body>
