@@ -20,6 +20,7 @@
       --mint: #69db7c;
       --lavender: #b197fc;
       --orange: #ffa94d;
+      --formula: #ff5e7e;
     }
 
     * {
@@ -43,6 +44,16 @@
     h1, h2, h3, .hand-title {
       font-family: 'Kalam', cursive;
       margin-top: 0;
+    }
+
+    /* Code Formula Letter Highlight */
+    .ml {
+      color: var(--formula);
+      font-weight: 700;
+      font-family: 'Kalam', cursive;
+      font-size: 1.18em;
+      text-shadow: 0 0 8px rgba(255, 94, 126, 0.35);
+      letter-spacing: 0.3px;
     }
 
     /* Action Bar */
@@ -317,19 +328,14 @@
 
     .mnemonic-box {
       background: #171717;
-      border-left: 4px solid var(--yellow);
+      border-left: 4px solid var(--formula);
       padding: 10px 12px;
       border-radius: 8px;
       margin-bottom: 12px;
       font-family: 'Kalam', cursive;
-      font-size: 18px;
-      color: #fff;
+      font-size: 18.5px;
+      color: #f0f0f0;
     }
-
-    .card-mint .mnemonic-box { border-left-color: var(--mint); }
-    .card-cyan .mnemonic-box { border-left-color: var(--cyan); }
-    .card-coral .mnemonic-box { border-left-color: var(--coral); }
-    .card-lavender .mnemonic-box { border-left-color: var(--lavender); }
 
     .art-list {
       list-style: none;
@@ -362,6 +368,10 @@
     .badge-mint { color: var(--mint); }
     .badge-cyan { color: var(--cyan); }
     .badge-coral { color: var(--coral); }
+
+    .badge .ml {
+      font-size: 1.08em;
+    }
 
     .amend-tag {
       display: inline-block;
@@ -511,8 +521,8 @@
       <div class="quick-box">
         <h3>🧠 Master Mnemonics (At a Glance)</h3>
         <ul>
-          <li><strong>DPSPs (36–51):</strong> <em><strong>D</strong>elhi <strong>A</strong>lways <strong>W</strong>ants <strong>P</strong>erfect <strong>L</strong>awyers. <strong>P</strong>rofessionals <strong>W</strong>ho <strong>M</strong>aster <strong>L</strong>aw <strong>M</strong>anage <strong>C</strong>ourts. <strong>U</strong>sually <strong>C</strong>ases <strong>S</strong>ettle <strong>N</strong>icely, <strong>A</strong>nd <strong>E</strong>veryone <strong>M</strong>akes <strong>J</strong>ustice <strong>P</strong>ossible.</em></li>
-          <li><strong>Duties (a–k):</strong> <em><strong>C</strong>itizens <strong>F</strong>ight <strong>U</strong>nited, <strong>D</strong>efending <strong>B</strong>orders. <strong>C</strong>ountry <strong>E</strong>njoys <strong>S</strong>trong <strong>P</strong>rogress, <strong>E</strong>xcellence, <strong>E</strong>ducation.</em></li>
+          <li><strong>DPSPs (36–51):</strong> <em><span class="ml">D</span>elhi <span class="ml">A</span>lways <span class="ml">W</span>ants <span class="ml">P</span>erfect <span class="ml">L</span>awyers. <span class="ml">P</span>rofessionals <span class="ml">W</span>ho <span class="ml">M</span>aster <span class="ml">L</span>aw <span class="ml">M</span>anage <span class="ml">C</span>ourts. <span class="ml">U</span>sually <span class="ml">C</span>ases <span class="ml">S</span>ettle <span class="ml">N</span>icely, <span class="ml">A</span>nd <span class="ml">E</span>veryone <span class="ml">M</span>akes <span class="ml">J</span>ustice <span class="ml">P</span>ossible.</em></li>
+          <li><strong>Duties (a–k):</strong> <em><span class="ml">C</span>itizens <span class="ml">F</span>ight <span class="ml">U</span>nited, <span class="ml">D</span>efending <span class="ml">B</span>orders. <span class="ml">C</span>ountry <span class="ml">E</span>njoys <span class="ml">S</span>trong <span class="ml">P</span>rogress, <span class="ml">E</span>xcellence, <span class="ml">E</span>ducation.</em></li>
         </ul>
       </div>
     </div>
@@ -542,14 +552,14 @@
     <article class="polaroid-card card-coral">
       <h3 class="card-title">⚖️ Chunk 1: Foundation &amp; Justice (36–39A)</h3>
       <div class="mnemonic-box">
-        <strong>D</strong>elhi <strong>A</strong>lways <strong>W</strong>ants <strong>P</strong>erfect <strong>L</strong>awyers.
+        <span class="ml">D</span>elhi <span class="ml">A</span>lways <span class="ml">W</span>ants <span class="ml">P</span>erfect <span class="ml">L</span>awyers.
       </div>
       <ul class="art-list">
-        <li><span class="badge">36 (D)</span> <strong>Definition of State:</strong> Carries the same meaning as in Part III (Article 12).</li>
-        <li><span class="badge">37 (A)</span> <strong>Application of Principles:</strong> Non-justiciable (not enforceable by courts), yet fundamental in the governance of the country.</li>
-        <li><span class="badge">38 (W)</span> <strong>Welfare of People (Social Order):</strong> Secure social, economic &amp; political justice. Clause (2) directs State to minimise inequalities in income, status, facilities &amp; opportunities. <span class="amend-tag">44th (1978)</span></li>
+        <li><span class="badge">36 (<span class="ml">D</span>)</span> <strong><span class="ml">D</span>efinition of State:</strong> Carries the same meaning as in Part III (Article 12).</li>
+        <li><span class="badge">37 (<span class="ml">A</span>)</span> <strong><span class="ml">A</span>pplication of Principles:</strong> Non-justiciable (not enforceable by courts), yet fundamental in the governance of the country.</li>
+        <li><span class="badge">38 (<span class="ml">W</span>)</span> <strong><span class="ml">W</span>elfare of People (Social Order):</strong> Secure social, economic &amp; political justice. Clause (2) directs State to minimise inequalities in income, status, facilities &amp; opportunities. <span class="amend-tag">44th (1978)</span></li>
         <li>
-          <span class="badge">39 (P)</span> <strong>Certain Principles of Policy (6 Clauses):</strong>
+          <span class="badge">39 (<span class="ml">P</span>)</span> <strong>Certain <span class="ml">P</span>rinciples of Policy (6 Clauses):</strong>
           <div class="sub-clauses">
             <strong>(a)</strong> Adequate means of livelihood for all citizens<br />
             <strong>(b)</strong> Equitable distribution of material resources for common good<br />
@@ -559,7 +569,7 @@
             <strong>(f)</strong> Opportunities for healthy development of children <span class="amend-tag">42nd (1976)</span>
           </div>
         </li>
-        <li><span class="badge">39A (L)</span> <strong>Equal Justice &amp; Free Legal Aid:</strong> Ensure justice is not denied due to economic or other disabilities. <span class="amend-tag">42nd (1976)</span></li>
+        <li><span class="badge">39A (<span class="ml">L</span>)</span> <strong>Equal Justice &amp; Free <span class="ml">L</span>egal Aid:</strong> Ensure justice is not denied due to economic or other disabilities. <span class="amend-tag">42nd (1976)</span></li>
       </ul>
     </article>
 
@@ -567,15 +577,15 @@
     <article class="polaroid-card card-orange">
       <h3 class="card-title">🌾 Chunk 2: Villages &amp; Workers (40–43B)</h3>
       <div class="mnemonic-box">
-        <strong>P</strong>rofessionals <strong>W</strong>ho <strong>M</strong>aster <strong>L</strong>aw <strong>M</strong>anage <strong>C</strong>ourts.
+        <span class="ml">P</span>rofessionals <span class="ml">W</span>ho <span class="ml">M</span>aster <span class="ml">L</span>aw <span class="ml">M</span>anage <span class="ml">C</span>ourts.
       </div>
       <ul class="art-list">
-        <li><span class="badge">40 (P)</span> <strong>Village Panchayats:</strong> Organise village panchayats and endow them with powers to function as units of self-government.</li>
-        <li><span class="badge">41 (W)</span> <strong>Right to Work, Education &amp; Public Assistance:</strong> Within limits of economic capacity, in cases of unemployment, old age, sickness &amp; disablement.</li>
-        <li><span class="badge">42 (M)</span> <strong>Just &amp; Humane Work Conditions:</strong> Provisions for humane working conditions and <strong>maternity relief</strong>.</li>
-        <li><span class="badge">43 (L)</span> <strong>Living Wage &amp; Cottage Industries:</strong> Secure living wage, decent standard of life, and promote cottage industries in rural areas.</li>
-        <li><span class="badge">43A (M)</span> <strong>Workers' Participation in Management:</strong> Secure worker participation in management of industries. <span class="amend-tag">42nd (1976)</span></li>
-        <li><span class="badge">43B (C)</span> <strong>Co-operative Societies:</strong> Promote voluntary formation, autonomous functioning &amp; democratic control of co-operative societies. <span class="amend-tag">97th (2011)</span></li>
+        <li><span class="badge">40 (<span class="ml">P</span>)</span> <strong>Village <span class="ml">P</span>anchayats:</strong> Organise village panchayats and endow them with powers to function as units of self-government.</li>
+        <li><span class="badge">41 (<span class="ml">W</span>)</span> <strong>Right to <span class="ml">W</span>ork, Education &amp; Public Assistance:</strong> Within limits of economic capacity, in cases of unemployment, old age, sickness &amp; disablement.</li>
+        <li><span class="badge">42 (<span class="ml">M</span>)</span> <strong>Just &amp; Humane Work Conditions &amp; <span class="ml">M</span>aternity Relief:</strong> Provisions for humane working conditions and maternity relief.</li>
+        <li><span class="badge">43 (<span class="ml">L</span>)</span> <strong><span class="ml">L</span>iving Wage &amp; Cottage Industries:</strong> Secure living wage, decent standard of life, and promote cottage industries in rural areas.</li>
+        <li><span class="badge">43A (<span class="ml">M</span>)</span> <strong>Workers' Participation in <span class="ml">M</span>anagement:</strong> Secure worker participation in management of industries. <span class="amend-tag">42nd (1976)</span></li>
+        <li><span class="badge">43B (<span class="ml">C</span>)</span> <strong><span class="ml">C</span>o-operative Societies:</strong> Promote voluntary formation, autonomous functioning &amp; democratic control of co-operative societies. <span class="amend-tag">97th (2011)</span></li>
       </ul>
     </article>
 
@@ -583,13 +593,13 @@
     <article class="polaroid-card card-lavender">
       <h3 class="card-title">🤝 Chunk 3: Society &amp; Welfare (44–47)</h3>
       <div class="mnemonic-box">
-        <strong>U</strong>sually <strong>C</strong>ases <strong>S</strong>ettle <strong>N</strong>icely,
+        <span class="ml">U</span>sually <span class="ml">C</span>ases <span class="ml">S</span>ettle <span class="ml">N</span>icely,
       </div>
       <ul class="art-list">
-        <li><span class="badge">44 (U)</span> <strong>Uniform Civil Code (UCC):</strong> Endeavour to secure a Uniform Civil Code for all citizens throughout the territory of India.</li>
-        <li><span class="badge">45 (C)</span> <strong>Early Childhood Care &amp; Education:</strong> Provide early childhood care and education for all children until age <strong>6 years</strong> (6–14 yrs moved to Art. 21A). <span class="amend-tag">86th (2002)</span></li>
-        <li><span class="badge">46 (S)</span> <strong>SCs, STs &amp; Weaker Sections:</strong> Promote their educational and economic interests; protect them from social injustice and exploitation.</li>
-        <li><span class="badge">47 (N)</span> <strong>Nutrition, Standard of Living &amp; Public Health:</strong> Raise nutrition and public health levels; endeavour to prohibit intoxicating drinks &amp; drugs (except medicinal use).</li>
+        <li><span class="badge">44 (<span class="ml">U</span>)</span> <strong><span class="ml">U</span>niform Civil Code (UCC):</strong> Endeavour to secure a Uniform Civil Code for all citizens throughout the territory of India.</li>
+        <li><span class="badge">45 (<span class="ml">C</span>)</span> <strong>Early <span class="ml">C</span>hildhood Care &amp; Education:</strong> Provide early childhood care and education for all children until age <strong>6 years</strong> (6–14 yrs moved to Art. 21A). <span class="amend-tag">86th (2002)</span></li>
+        <li><span class="badge">46 (<span class="ml">S</span>)</span> <strong><span class="ml">S</span>Cs, STs &amp; Weaker Sections:</strong> Promote their educational and economic interests; protect them from social injustice and exploitation.</li>
+        <li><span class="badge">47 (<span class="ml">N</span>)</span> <strong><span class="ml">N</span>utrition, Standard of Living &amp; Public Health:</strong> Raise nutrition and public health levels; endeavour to prohibit intoxicating drinks &amp; drugs (except medicinal use).</li>
       </ul>
     </article>
 
@@ -597,14 +607,14 @@
     <article class="polaroid-card card-mint">
       <h3 class="card-title">🌍 Chunk 4: Nature, Heritage &amp; Peace (48–51)</h3>
       <div class="mnemonic-box">
-        <strong>A</strong>nd <strong>E</strong>veryone <strong>M</strong>akes <strong>J</strong>ustice <strong>P</strong>ossible.
+        <span class="ml">A</span>nd <span class="ml">E</span>veryone <span class="ml">M</span>akes <span class="ml">J</span>ustice <span class="ml">P</span>ossible.
       </div>
       <ul class="art-list">
-        <li><span class="badge badge-mint">48 (A)</span> <strong>Agriculture &amp; Animal Husbandry:</strong> Organise on modern, scientific lines; preserve &amp; improve breeds; prohibit slaughter of cows, calves, and other milch &amp; draught cattle.</li>
-        <li><span class="badge badge-mint">48A (E)</span> <strong>Environment, Forests &amp; Wildlife:</strong> Protect and improve the environment and safeguard forests and wildlife. <span class="amend-tag">42nd (1976)</span></li>
-        <li><span class="badge badge-mint">49 (M)</span> <strong>Protection of Monuments:</strong> Protect monuments, places &amp; objects of artistic or historic interest declared of national importance.</li>
-        <li><span class="badge badge-mint">50 (J)</span> <strong>Separation of Judiciary from Executive:</strong> Take steps to separate judiciary from executive in public services of the State.</li>
-        <li><span class="badge badge-mint">51 (P)</span> <strong>International Peace &amp; Security:</strong> Promote international peace, maintain just relations between nations, foster respect for international law &amp; treaty obligations, and encourage settlement of disputes by arbitration.</li>
+        <li><span class="badge badge-mint">48 (<span class="ml">A</span>)</span> <strong><span class="ml">A</span>griculture &amp; <span class="ml">A</span>nimal Husbandry:</strong> Organise on modern, scientific lines; preserve &amp; improve breeds; prohibit slaughter of cows, calves, and other milch &amp; draught cattle.</li>
+        <li><span class="badge badge-mint">48A (<span class="ml">E</span>)</span> <strong><span class="ml">E</span>nvironment, Forests &amp; Wildlife:</strong> Protect and improve the environment and safeguard forests and wildlife. <span class="amend-tag">42nd (1976)</span></li>
+        <li><span class="badge badge-mint">49 (<span class="ml">M</span>)</span> <strong>Protection of <span class="ml">M</span>onuments:</strong> Protect monuments, places &amp; objects of artistic or historic interest declared of national importance.</li>
+        <li><span class="badge badge-mint">50 (<span class="ml">J</span>)</span> <strong>Separation of <span class="ml">J</span>udiciary from Executive:</strong> Take steps to separate judiciary from executive in public services of the State.</li>
+        <li><span class="badge badge-mint">51 (<span class="ml">P</span>)</span> <strong>International <span class="ml">P</span>eace &amp; Security:</strong> Promote international peace, maintain just relations between nations, foster respect for international law &amp; treaty obligations, and encourage settlement of disputes by arbitration.</li>
       </ul>
     </article>
 
@@ -661,14 +671,14 @@
     <article class="polaroid-card card-cyan">
       <h3 class="card-title">🛡️ Duties Part 1: Clauses (a) to (e)</h3>
       <div class="mnemonic-box">
-        <strong>C</strong>itizens <strong>F</strong>ight <strong>U</strong>nited, <strong>D</strong>efending <strong>B</strong>orders.
+        <span class="ml">C</span>itizens <span class="ml">F</span>ight <span class="ml">U</span>nited, <span class="ml">D</span>efending <span class="ml">B</span>orders.
       </div>
       <ul class="art-list">
-        <li><span class="badge badge-cyan">(a) C</span> Abide by the <strong>Constitution</strong>; respect its ideals, institutions, National Flag &amp; National Anthem. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge badge-cyan">(b) F</span> Cherish &amp; follow the noble ideals that inspired the national <strong>Freedom</strong> struggle. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge badge-cyan">(c) U</span> Uphold and protect sovereignty, <strong>Unity</strong>, and integrity of India. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge badge-cyan">(d) D</span> <strong>Defend</strong> the country and render national service when called upon. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge badge-cyan">(e) B</span> Promote harmony &amp; common <strong>Brotherhood</strong>; renounce practices derogatory to the dignity of women. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(a) <span class="ml">C</span></span> Abide by the <strong><span class="ml">C</span>onstitution</strong>; respect its ideals, institutions, National Flag &amp; National Anthem. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(b) <span class="ml">F</span></span> Cherish &amp; follow the noble ideals that inspired the national <strong><span class="ml">F</span>reedom</strong> struggle. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(c) <span class="ml">U</span></span> Uphold and protect sovereignty, <strong><span class="ml">U</span>nity</strong>, and integrity of India. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(d) <span class="ml">D</span></span> <strong><span class="ml">D</span>efend</strong> the country and render national service when called upon. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(e) <span class="ml">B</span></span> Promote harmony &amp; common <strong><span class="ml">B</span>rotherhood</strong>; renounce practices derogatory to the dignity of women. <span class="amend-tag">42nd</span></li>
       </ul>
     </article>
 
@@ -676,15 +686,15 @@
     <article class="polaroid-card card-lavender">
       <h3 class="card-title">🌱 Duties Part 2: Clauses (f) to (k)</h3>
       <div class="mnemonic-box">
-        <strong>C</strong>ountry <strong>E</strong>njoys <strong>S</strong>trong <strong>P</strong>rogress, <strong>E</strong>xcellence, <strong>E</strong>ducation.
+        <span class="ml">C</span>ountry <span class="ml">E</span>njoys <span class="ml">S</span>trong <span class="ml">P</span>rogress, <span class="ml">E</span>xcellence, <span class="ml">E</span>ducation.
       </div>
       <ul class="art-list">
-        <li><span class="badge">(f) C</span> Value and preserve rich heritage of our composite <strong>Culture</strong>. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge">(g) E</span> Protect &amp; improve natural <strong>Environment</strong> (forests, lakes, rivers, wildlife) &amp; compassion for living creatures. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge">(h) S</span> Develop <strong>Scientific</strong> temper, humanism, and spirit of inquiry &amp; reform. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge">(i) P</span> Safeguard <strong>Public</strong> property and abjure violence. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge">(j) E</span> Strive towards <strong>Excellence</strong> in all spheres of individual &amp; collective activity. <span class="amend-tag">42nd</span></li>
-        <li><span class="badge badge-coral">(k) E</span> Parent/guardian duty to provide opportunities for <strong>Education</strong> to child/ward aged <strong>6–14 years</strong>. <span class="amend-tag">86th (2002)</span></li>
+        <li><span class="badge">(f) <span class="ml">C</span></span> Value and preserve rich heritage of our composite <strong><span class="ml">C</span>ulture</strong>. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge">(g) <span class="ml">E</span></span> Protect &amp; improve natural <strong><span class="ml">E</span>nvironment</strong> (forests, lakes, rivers, wildlife) &amp; compassion for living creatures. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge">(h) <span class="ml">S</span></span> Develop <strong><span class="ml">S</span>cientific</strong> temper, humanism, and spirit of inquiry &amp; reform. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge">(i) <span class="ml">P</span></span> Safeguard <strong><span class="ml">P</span>ublic</strong> property and abjure violence. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge">(j) <span class="ml">E</span></span> Strive towards <strong><span class="ml">E</span>xcellence</strong> in all spheres of individual &amp; collective activity. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-coral">(k) <span class="ml">E</span></span> Parent/guardian duty to provide opportunities for <strong><span class="ml">E</span>ducation</strong> to child/ward aged <strong>6–14 years</strong>. <span class="amend-tag">86th (2002)</span></li>
       </ul>
     </article>
 
@@ -708,7 +718,7 @@
         </li>
         <li>
           <strong>Quick Clause-Letter Anchors:</strong><br />
-          <strong>(a)</strong> Anthem | <strong>(d)</strong> Defend | <strong>(g)</strong> Green (Env) | <strong>(h)</strong> Humanism | <strong>(k)</strong> Kids' Edu (6–14)
+          <strong>(a)</strong> <span class="ml">A</span>nthem | <strong>(d)</strong> <span class="ml">D</span>efend | <strong>(g)</strong> <span class="ml">G</span>reen (Env) | <strong>(h)</strong> <span class="ml">H</span>umanism | <strong>(k)</strong> <span class="ml">K</span>ids' Edu (6–14)
         </li>
       </ul>
     </article>
