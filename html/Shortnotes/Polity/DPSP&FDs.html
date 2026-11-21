@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DPSPs & Fundamental Duties — Sketchnote Visual Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #1a1a1a;
+      --card-bg: #242424;
+      --card-border: #3a3a3a;
+      --text: #f0f0f0;
+      --muted: #b8b8b8;
+      --yellow: #ffe066;
+      --cyan: #66d9e8;
+      --coral: #ff8787;
+      --mint: #69db7c;
+      --lavender: #b197fc;
+      --orange: #ffa94d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      position: relative;
+      margin: 0;
+      padding: 82px 20px 60px;
+      background-color: var(--bg);
+      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: var(--text);
+      font-family: 'Patrick Hand', cursive;
+      font-size: 18px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, .hand-title {
+      font-family: 'Kalam', cursive;
+      margin-top: 0;
+    }
+
+    /* Action Bar */
+    .action-bar {
+      position: fixed;
+      top: 14px;
+      right: 18px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(26, 26, 26, 0.92);
+      border: 2px dashed #555;
+      border-radius: 14px;
+      padding: 8px 12px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .action-btn {
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.4px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 1.5px solid #555;
+      background: #2b2b2b;
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+      background: #383838;
+      border-color: var(--yellow);
+    }
+
+    .action-btn.active {
+      background: var(--yellow);
+      color: #111;
+      border-color: var(--yellow);
+    }
+
+    .hl-color-picker {
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      background: #2b2b2b;
+      color: var(--mint);
+      border: 1.5px solid var(--mint);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-family: 'Kalam', cursive;
+      font-size: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Header */
+    .board-header {
+      max-width: 1320px;
+      margin: 0 auto 26px;
+      text-align: center;
+      padding: 18px 20px;
+      border: 2.5px dashed var(--yellow);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 224, 102, 0.08), rgba(102, 217, 232, 0.06));
+    }
+
+    .board-header h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 4px;
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+    }
+
+    .board-header p {
+      margin: 0;
+      color: var(--cyan);
+      font-size: 19px;
+    }
+
+    /* Ultra-Short Revision Sheet */
+    .quick-sheet {
+      max-width: 1320px;
+      margin: 0 auto 34px;
+      background: #20232a;
+      border: 2.5px solid var(--cyan);
+      border-radius: 16px;
+      padding: 18px 22px;
+      box-shadow: 6px 6px 0 rgba(102, 217, 232, 0.18);
+      position: relative;
+    }
+
+    .quick-sheet-title {
+      display: inline-block;
+      background: var(--cyan);
+      color: #111;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 19px;
+      padding: 3px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      transform: rotate(-1deg);
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .quick-box {
+      background: #17191f;
+      border: 1.5px dashed #4a5568;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .quick-box h3 {
+      font-size: 19px;
+      margin-bottom: 6px;
+      color: var(--yellow);
+    }
+
+    .quick-box ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .quick-box li {
+      margin-bottom: 4px;
+      font-size: 16.5px;
+    }
+
+    /* Section Divider */
+    .section-banner {
+      max-width: 1320px;
+      margin: 34px auto 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-banner h2 {
+      margin: 0;
+      font-size: 28px;
+      color: var(--coral);
+      white-space: nowrap;
+    }
+
+    .section-banner.fd h2 {
+      color: var(--mint);
+    }
+
+    .section-banner .line {
+      flex: 1;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, #555 0, #555 8px, transparent 8px, transparent 14px);
+    }
+
+    /* Masonry / Polaroid Grid */
+    .masonry-grid {
+      max-width: 1320px;
+      margin: 0 auto;
+      column-count: 3;
+      column-gap: 22px;
+    }
+
+    @media (max-width: 1080px) {
+      .masonry-grid {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .masonry-grid {
+        column-count: 1;
+      }
+      body {
+        padding-top: 110px;
+      }
+      .action-bar {
+        left: 10px;
+        right: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+
+    .polaroid-card {
+      break-inside: avoid;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-bottom: 12px solid #2f2f2f;
+      border-radius: 14px;
+      padding: 20px 18px 18px;
+      margin-bottom: 24px;
+      position: relative;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
+      transition: transform 0.2s ease;
+    }
+
+    .polaroid-card:nth-child(odd) {
+      transform: rotate(-0.45deg);
+    }
+
+    .polaroid-card:nth-child(even) {
+      transform: rotate(0.45deg);
+    }
+
+    .polaroid-card:hover {
+      transform: rotate(0deg) translateY(-2px);
+    }
+
+    /* Washi tape effect */
+    .polaroid-card::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 84px;
+      height: 18px;
+      background: rgba(255, 224, 102, 0.35);
+      border-left: 2px dotted rgba(0, 0, 0, 0.25);
+      border-right: 2px dotted rgba(0, 0, 0, 0.25);
+      border-radius: 3px;
+    }
+
+    .card-cyan::before { background: rgba(102, 217, 232, 0.35); }
+    .card-coral::before { background: rgba(255, 135, 135, 0.35); }
+    .card-mint::before { background: rgba(105, 219, 124, 0.35); }
+    .card-lavender::before { background: rgba(177, 151, 252, 0.35); }
+    .card-orange::before { background: rgba(255, 169, 77, 0.35); }
+
+    .card-title {
+      font-family: 'Kalam', cursive;
+      font-size: 22px;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px dashed #444;
+      color: var(--yellow);
+    }
+
+    .card-cyan .card-title { color: var(--cyan); }
+    .card-coral .card-title { color: var(--coral); }
+    .card-mint .card-title { color: var(--mint); }
+    .card-lavender .card-title { color: var(--lavender); }
+    .card-orange .card-title { color: var(--orange); }
+
+    .mnemonic-box {
+      background: #171717;
+      border-left: 4px solid var(--yellow);
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-family: 'Kalam', cursive;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .card-mint .mnemonic-box { border-left-color: var(--mint); }
+    .card-cyan .mnemonic-box { border-left-color: var(--cyan); }
+    .card-coral .mnemonic-box { border-left-color: var(--coral); }
+    .card-lavender .mnemonic-box { border-left-color: var(--lavender); }
+
+    .art-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .art-list li {
+      padding: 7px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .art-list li:last-child {
+      border-bottom: none;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 1px 8px;
+      border-radius: 6px;
+      margin-right: 6px;
+      background: #333;
+      color: var(--yellow);
+      border: 1px solid #555;
+    }
+
+    .badge-mint { color: var(--mint); }
+    .badge-cyan { color: var(--cyan); }
+    .badge-coral { color: var(--coral); }
+
+    .amend-tag {
+      display: inline-block;
+      font-size: 13.5px;
+      padding: 0px 6px;
+      border-radius: 5px;
+      background: rgba(255, 135, 135, 0.16);
+      color: var(--coral);
+      border: 1px solid rgba(255, 135, 135, 0.45);
+      margin-left: 4px;
+    }
+
+    .hl-y { background: rgba(255, 224, 102, 0.2); color: var(--yellow); padding: 0 4px; border-radius: 4px; font-weight: 700; }
+    .hl-c { background: rgba(102, 217, 232, 0.18); color: var(--cyan); padding: 0 4px; border-radius: 4px; font-weight: 700; }
+    .hl-m { background: rgba(105, 219, 124, 0.18); color: var(--mint); padding: 0 4px; border-radius: 4px; font-weight: 700; }
+    .hl-l { background: rgba(177, 151, 252, 0.2); color: var(--lavender); padding: 0 4px; border-radius: 4px; font-weight: 700; }
+
+    .sub-clauses {
+      margin: 6px 0 2px 14px;
+      padding-left: 12px;
+      border-left: 2px dotted #555;
+      font-size: 16.5px;
+      color: #dcdcdc;
+    }
+
+    /* User Highlighter */
+    body.highlight-mode {
+      cursor: text;
+    }
+
+    .user-highlight {
+      padding: 0 3px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .user-highlight:hover {
+      opacity: 0.78;
+      text-decoration: line-through;
+    }
+
+    /* Sticky Notes */
+    .sticky-note {
+      position: absolute;
+      width: 230px;
+      min-width: 170px;
+      min-height: 140px;
+      background: #fff3a1;
+      color: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+      z-index: 5000;
+      display: flex;
+      flex-direction: column;
+      resize: both;
+      overflow: hidden;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .sticky-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      background: rgba(0, 0, 0, 0.12);
+      cursor: move;
+      user-select: none;
+    }
+
+    .sticky-colors {
+      display: flex;
+      gap: 5px;
+    }
+
+    .color-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+    }
+
+    .sticky-close {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #1a1a1a;
+      line-height: 1;
+    }
+
+    .sticky-body {
+      flex: 1;
+      padding: 10px;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 17px;
+      outline: none;
+      overflow-y: auto;
+      background: transparent;
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive Workspace Action Bar -->
+  <div class="action-bar" id="workspaceActionBar">
+    <button class="action-btn" id="btnAddNote" type="button">📝 ADD NOTES</button>
+    <button class="action-btn" id="btnHighlight" type="button">🖍️ HIGHLIGHT</button>
+    <input type="color" id="hlColor" class="hl-color-picker" value="#ffe066" title="Pick Highlighter Color" />
+    <button class="action-btn" id="btnSave" type="button">☁️ SAVE</button>
+  </div>
+  <div class="toast" id="toastMsg">Saved!</div>
+
+  <!-- Header -->
+  <header class="board-header">
+    <h1>⚖️ DPSPs (Part IV) &amp; Fundamental Duties (Part IVA)</h1>
+    <p>Complete Zero-Omission Visual Sketchnote Board + Memory Mnemonics</p>
+  </header>
+
+  <!-- ULTRA-SHORT QUICK REVISION SHEET -->
+  <section class="quick-sheet">
+    <div class="quick-sheet-title">⚡ ULTRA-SHORT QUICK REVISION SHEET</div>
+    <div class="quick-grid">
+      <div class="quick-box">
+        <h3>🏛️ DPSP Core (Part IV | Art. 36–51)</h3>
+        <ul>
+          <li><strong>Source:</strong> Ireland (via Spain) | <strong>Nature:</strong> Non-justiciable | <strong>Goal:</strong> Welfare State</li>
+          <li><strong>Amendments:</strong> <span class="hl-y">42nd (1976):</span> 39(f), 39A, 43A, 48A | <span class="hl-y">44th (1978):</span> 38(2) | <span class="hl-y">86th (2002):</span> 45 | <span class="hl-y">97th (2011):</span> 43B</li>
+          <li><strong>Outside Part IV:</strong> <strong>335</strong> (SC/ST), <strong>350A</strong> (Mother tongue), <strong>351</strong> (Hindi)</li>
+          <li><strong>Number Anchors:</strong> 44 = Uniform digits | 50 = 50–50 Judiciary/Exec | 51 = ₹51 Shagun for Peace</li>
+        </ul>
+      </div>
+
+      <div class="quick-box">
+        <h3>🇮🇳 Fundamental Duties Core (Part IVA | Art. 51A)</h3>
+        <ul>
+          <li><strong>Source:</strong> USSR (Japan = only major democracy) | <strong>Original 1950:</strong> Absent</li>
+          <li><strong>Nature:</strong> Non-justiciable | <strong>Scope:</strong> Indian Citizens ONLY (not foreigners)</li>
+          <li><strong>Amendments:</strong> <span class="hl-m">42nd (1976):</span> 10 duties (a–j) | <span class="hl-m">86th (2002):</span> 11th duty (k: 6–14 yrs edu)</li>
+          <li><strong>Committees:</strong> <strong>Swaran Singh (1976)</strong> (8 suggested; penalty &amp; tax rejected) | <strong>Verma (1999)</strong> (existing laws)</li>
+        </ul>
+      </div>
+
+      <div class="quick-box">
+        <h3>🧠 Master Mnemonics (At a Glance)</h3>
+        <ul>
+          <li><strong>DPSPs (36–51):</strong> <em><strong>D</strong>elhi <strong>A</strong>lways <strong>W</strong>ants <strong>P</strong>erfect <strong>L</strong>awyers. <strong>P</strong>rofessionals <strong>W</strong>ho <strong>M</strong>aster <strong>L</strong>aw <strong>M</strong>anage <strong>C</strong>ourts. <strong>U</strong>sually <strong>C</strong>ases <strong>S</strong>ettle <strong>N</strong>icely, <strong>A</strong>nd <strong>E</strong>veryone <strong>M</strong>akes <strong>J</strong>ustice <strong>P</strong>ossible.</em></li>
+          <li><strong>Duties (a–k):</strong> <em><strong>C</strong>itizens <strong>F</strong>ight <strong>U</strong>nited, <strong>D</strong>efending <strong>B</strong>orders. <strong>C</strong>ountry <strong>E</strong>njoys <strong>S</strong>trong <strong>P</strong>rogress, <strong>E</strong>xcellence, <strong>E</strong>ducation.</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: DPSPs -->
+  <div class="section-banner">
+    <h2>📜 PART IV: DIRECTIVE PRINCIPLES OF STATE POLICY (Art. 36–51)</h2>
+    <div class="line"></div>
+  </div>
+
+  <main class="masonry-grid">
+
+    <!-- Card 1: DPSP Basics -->
+    <article class="polaroid-card card-cyan">
+      <h3 class="card-title">📌 DPSP Fundamentals &amp; Quotes</h3>
+      <ul class="art-list">
+        <li><strong>Location:</strong> <span class="hl-c">Part IV, Articles 36 to 51</span></li>
+        <li><strong>Borrowed From:</strong> <strong>Irish Constitution (1937)</strong>, which in turn borrowed it from the <strong>Spanish Constitution</strong>.</li>
+        <li><strong>Resembles:</strong> <em>Instrument of Instructions</em> in the <strong>Government of India Act, 1935</strong> (noted by <strong>Dr. B.R. Ambedkar</strong>).</li>
+        <li><strong>Nature:</strong> <strong>Non-justiciable</strong> (not enforceable by courts, Art. 37), positive obligations on the State, aimed at establishing a <span class="hl-y">Welfare State</span> (social &amp; economic democracy).</li>
+        <li><strong>Key Quote:</strong> <strong>Granville Austin</strong> described Fundamental Rights and DPSPs together as the <span class="hl-c">"Conscience of the Constitution"</span>.</li>
+      </ul>
+    </article>
+
+    <!-- Card 2: Articles 36–39A -->
+    <article class="polaroid-card card-coral">
+      <h3 class="card-title">⚖️ Chunk 1: Foundation &amp; Justice (36–39A)</h3>
+      <div class="mnemonic-box">
+        <strong>D</strong>elhi <strong>A</strong>lways <strong>W</strong>ants <strong>P</strong>erfect <strong>L</strong>awyers.
+      </div>
+      <ul class="art-list">
+        <li><span class="badge">36 (D)</span> <strong>Definition of State:</strong> Carries the same meaning as in Part III (Article 12).</li>
+        <li><span class="badge">37 (A)</span> <strong>Application of Principles:</strong> Non-justiciable (not enforceable by courts), yet fundamental in the governance of the country.</li>
+        <li><span class="badge">38 (W)</span> <strong>Welfare of People (Social Order):</strong> Secure social, economic &amp; political justice. Clause (2) directs State to minimise inequalities in income, status, facilities &amp; opportunities. <span class="amend-tag">44th (1978)</span></li>
+        <li>
+          <span class="badge">39 (P)</span> <strong>Certain Principles of Policy (6 Clauses):</strong>
+          <div class="sub-clauses">
+            <strong>(a)</strong> Adequate means of livelihood for all citizens<br />
+            <strong>(b)</strong> Equitable distribution of material resources for common good<br />
+            <strong>(c)</strong> Prevention of concentration of wealth &amp; means of production<br />
+            <strong>(d)</strong> Equal pay for equal work for men and women<br />
+            <strong>(e)</strong> Health &amp; strength of workers and children against abuse<br />
+            <strong>(f)</strong> Opportunities for healthy development of children <span class="amend-tag">42nd (1976)</span>
+          </div>
+        </li>
+        <li><span class="badge">39A (L)</span> <strong>Equal Justice &amp; Free Legal Aid:</strong> Ensure justice is not denied due to economic or other disabilities. <span class="amend-tag">42nd (1976)</span></li>
+      </ul>
+    </article>
+
+    <!-- Card 3: Articles 40–43B -->
+    <article class="polaroid-card card-orange">
+      <h3 class="card-title">🌾 Chunk 2: Villages &amp; Workers (40–43B)</h3>
+      <div class="mnemonic-box">
+        <strong>P</strong>rofessionals <strong>W</strong>ho <strong>M</strong>aster <strong>L</strong>aw <strong>M</strong>anage <strong>C</strong>ourts.
+      </div>
+      <ul class="art-list">
+        <li><span class="badge">40 (P)</span> <strong>Village Panchayats:</strong> Organise village panchayats and endow them with powers to function as units of self-government.</li>
+        <li><span class="badge">41 (W)</span> <strong>Right to Work, Education &amp; Public Assistance:</strong> Within limits of economic capacity, in cases of unemployment, old age, sickness &amp; disablement.</li>
+        <li><span class="badge">42 (M)</span> <strong>Just &amp; Humane Work Conditions:</strong> Provisions for humane working conditions and <strong>maternity relief</strong>.</li>
+        <li><span class="badge">43 (L)</span> <strong>Living Wage &amp; Cottage Industries:</strong> Secure living wage, decent standard of life, and promote cottage industries in rural areas.</li>
+        <li><span class="badge">43A (M)</span> <strong>Workers' Participation in Management:</strong> Secure worker participation in management of industries. <span class="amend-tag">42nd (1976)</span></li>
+        <li><span class="badge">43B (C)</span> <strong>Co-operative Societies:</strong> Promote voluntary formation, autonomous functioning &amp; democratic control of co-operative societies. <span class="amend-tag">97th (2011)</span></li>
+      </ul>
+    </article>
+
+    <!-- Card 4: Articles 44–47 -->
+    <article class="polaroid-card card-lavender">
+      <h3 class="card-title">🤝 Chunk 3: Society &amp; Welfare (44–47)</h3>
+      <div class="mnemonic-box">
+        <strong>U</strong>sually <strong>C</strong>ases <strong>S</strong>ettle <strong>N</strong>icely,
+      </div>
+      <ul class="art-list">
+        <li><span class="badge">44 (U)</span> <strong>Uniform Civil Code (UCC):</strong> Endeavour to secure a Uniform Civil Code for all citizens throughout the territory of India.</li>
+        <li><span class="badge">45 (C)</span> <strong>Early Childhood Care &amp; Education:</strong> Provide early childhood care and education for all children until age <strong>6 years</strong> (6–14 yrs moved to Art. 21A). <span class="amend-tag">86th (2002)</span></li>
+        <li><span class="badge">46 (S)</span> <strong>SCs, STs &amp; Weaker Sections:</strong> Promote their educational and economic interests; protect them from social injustice and exploitation.</li>
+        <li><span class="badge">47 (N)</span> <strong>Nutrition, Standard of Living &amp; Public Health:</strong> Raise nutrition and public health levels; endeavour to prohibit intoxicating drinks &amp; drugs (except medicinal use).</li>
+      </ul>
+    </article>
+
+    <!-- Card 5: Articles 48–51 -->
+    <article class="polaroid-card card-mint">
+      <h3 class="card-title">🌍 Chunk 4: Nature, Heritage &amp; Peace (48–51)</h3>
+      <div class="mnemonic-box">
+        <strong>A</strong>nd <strong>E</strong>veryone <strong>M</strong>akes <strong>J</strong>ustice <strong>P</strong>ossible.
+      </div>
+      <ul class="art-list">
+        <li><span class="badge badge-mint">48 (A)</span> <strong>Agriculture &amp; Animal Husbandry:</strong> Organise on modern, scientific lines; preserve &amp; improve breeds; prohibit slaughter of cows, calves, and other milch &amp; draught cattle.</li>
+        <li><span class="badge badge-mint">48A (E)</span> <strong>Environment, Forests &amp; Wildlife:</strong> Protect and improve the environment and safeguard forests and wildlife. <span class="amend-tag">42nd (1976)</span></li>
+        <li><span class="badge badge-mint">49 (M)</span> <strong>Protection of Monuments:</strong> Protect monuments, places &amp; objects of artistic or historic interest declared of national importance.</li>
+        <li><span class="badge badge-mint">50 (J)</span> <strong>Separation of Judiciary from Executive:</strong> Take steps to separate judiciary from executive in public services of the State.</li>
+        <li><span class="badge badge-mint">51 (P)</span> <strong>International Peace &amp; Security:</strong> Promote international peace, maintain just relations between nations, foster respect for international law &amp; treaty obligations, and encourage settlement of disputes by arbitration.</li>
+      </ul>
+    </article>
+
+    <!-- Card 6: Classification, Amendments & Outside Part IV -->
+    <article class="polaroid-card">
+      <h3 class="card-title">🧩 Ideologies, Amendments &amp; Outside Part IV</h3>
+      <ul class="art-list">
+        <li>
+          <strong>Ideological Classification</strong> <em>(not in Constitution)</em>:<br />
+          • <span class="hl-y">Socialistic:</span> 38, 39, 39A, 41, 42, 43, 43A, 47<br />
+          • <span class="hl-m">Gandhian:</span> 40, 43, 43B, 46, 47, 48<br />
+          • <span class="hl-c">Liberal-Intellectual:</span> 44, 45, 48, 48A, 49, 50, 51
+        </li>
+        <li>
+          <strong>4 Key Amendments to DPSPs:</strong><br />
+          • <strong>42nd (1976):</strong> Added 39A, 43A, 48A; modified 39(f)<br />
+          • <strong>44th (1978):</strong> Added 38(2)<br />
+          • <strong>86th (2002):</strong> Substituted Art. 45 (below 6 yrs)<br />
+          • <strong>97th (2011):</strong> Added 43B (Co-operatives)
+        </li>
+        <li>
+          <strong>3 Directives Outside Part IV:</strong><br />
+          • <span class="badge">Art. 335</span> <em>(Part XVI)</em>: Claims of SCs/STs to services &amp; posts, consistent with administrative efficiency.<br />
+          • <span class="badge">Art. 350A</span> <em>(Part XVII)</em>: Instruction in <strong>mother-tongue</strong> at primary stage for linguistic minorities.<br />
+          • <span class="badge">Art. 351</span> <em>(Part XVII)</em>: Duty of Union to promote spread &amp; development of <strong>Hindi language</strong>.
+        </li>
+      </ul>
+    </article>
+
+  </main>
+
+  <!-- SECTION 2: FUNDAMENTAL DUTIES -->
+  <div class="section-banner fd">
+    <h2>🇮🇳 PART IVA: FUNDAMENTAL DUTIES (Article 51A: a to k)</h2>
+    <div class="line"></div>
+  </div>
+
+  <section class="masonry-grid">
+
+    <!-- Card 7: FD Basics -->
+    <article class="polaroid-card card-mint">
+      <h3 class="card-title">📌 Fundamental Duties Basics</h3>
+      <ul class="art-list">
+        <li><strong>Location:</strong> <span class="hl-m">Part IVA, Article 51A</span> (Clauses <strong>a</strong> to <strong>k</strong>).</li>
+        <li><strong>Original Constitution (1950):</strong> Did <strong>NOT</strong> contain Fundamental Duties.</li>
+        <li><strong>Borrowed From:</strong> <strong>USSR (Soviet) Constitution</strong> <em>(Note: Japan is the only major democratic country with citizen duties in its constitution)</em>.</li>
+        <li><strong>Added By:</strong> <span class="amend-tag">42nd Amendment (1976)</span> added <strong>10 duties (a–j)</strong>.</li>
+        <li><strong>11th Duty Added By:</strong> <span class="amend-tag">86th Amendment (2002)</span> added <strong>Clause (k)</strong> (education for 6–14 yrs).</li>
+        <li><strong>Scope &amp; Nature:</strong> Applicable <strong>only to Indian citizens</strong> (not foreigners); <strong>non-justiciable</strong>, though Parliament can enforce them via specific laws.</li>
+      </ul>
+    </article>
+
+    <!-- Card 8: Duties (a) to (e) -->
+    <article class="polaroid-card card-cyan">
+      <h3 class="card-title">🛡️ Duties Part 1: Clauses (a) to (e)</h3>
+      <div class="mnemonic-box">
+        <strong>C</strong>itizens <strong>F</strong>ight <strong>U</strong>nited, <strong>D</strong>efending <strong>B</strong>orders.
+      </div>
+      <ul class="art-list">
+        <li><span class="badge badge-cyan">(a) C</span> Abide by the <strong>Constitution</strong>; respect its ideals, institutions, National Flag &amp; National Anthem. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(b) F</span> Cherish &amp; follow the noble ideals that inspired the national <strong>Freedom</strong> struggle. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(c) U</span> Uphold and protect sovereignty, <strong>Unity</strong>, and integrity of India. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(d) D</span> <strong>Defend</strong> the country and render national service when called upon. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-cyan">(e) B</span> Promote harmony &amp; common <strong>Brotherhood</strong>; renounce practices derogatory to the dignity of women. <span class="amend-tag">42nd</span></li>
+      </ul>
+    </article>
+
+    <!-- Card 9: Duties (f) to (k) -->
+    <article class="polaroid-card card-lavender">
+      <h3 class="card-title">🌱 Duties Part 2: Clauses (f) to (k)</h3>
+      <div class="mnemonic-box">
+        <strong>C</strong>ountry <strong>E</strong>njoys <strong>S</strong>trong <strong>P</strong>rogress, <strong>E</strong>xcellence, <strong>E</strong>ducation.
+      </div>
+      <ul class="art-list">
+        <li><span class="badge">(f) C</span> Value and preserve rich heritage of our composite <strong>Culture</strong>. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge">(g) E</span> Protect &amp; improve natural <strong>Environment</strong> (forests, lakes, rivers, wildlife) &amp; compassion for living creatures. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge">(h) S</span> Develop <strong>Scientific</strong> temper, humanism, and spirit of inquiry &amp; reform. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge">(i) P</span> Safeguard <strong>Public</strong> property and abjure violence. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge">(j) E</span> Strive towards <strong>Excellence</strong> in all spheres of individual &amp; collective activity. <span class="amend-tag">42nd</span></li>
+        <li><span class="badge badge-coral">(k) E</span> Parent/guardian duty to provide opportunities for <strong>Education</strong> to child/ward aged <strong>6–14 years</strong>. <span class="amend-tag">86th (2002)</span></li>
+      </ul>
+    </article>
+
+    <!-- Card 10: Committees & Anchors -->
+    <article class="polaroid-card card-coral">
+      <h3 class="card-title">🏛️ Key Committees &amp; Clause Anchors</h3>
+      <ul class="art-list">
+        <li>
+          <strong>Swaran Singh Committee (1976):</strong><br />
+          Recommended adding Fundamental Duties during the Emergency. Suggested <strong>8 duties</strong> (42nd Amendment added <strong>10</strong>).<br />
+          <span class="hl-y">2 Rejected Recommendations:</span> (1) Parliament imposing penalties/punishment for non-compliance, (2) Duty to pay taxes.
+        </li>
+        <li>
+          <strong>Verma Committee (1999):</strong><br />
+          Identified existing legal provisions enforcing several duties:<br />
+          • <em>Prevention of Insults to National Honour Act (1971)</em><br />
+          • <em>Wildlife Protection Act (1972)</em><br />
+          • <em>Forest Conservation Act (1980)</em><br />
+          • <em>Protection of Civil Rights Act (1955)</em><br />
+          • <em>Representation of the People Act (1951)</em>
+        </li>
+        <li>
+          <strong>Quick Clause-Letter Anchors:</strong><br />
+          <strong>(a)</strong> Anthem | <strong>(d)</strong> Defend | <strong>(g)</strong> Green (Env) | <strong>(h)</strong> Humanism | <strong>(k)</strong> Kids' Edu (6–14)
+        </li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Container for persisted sticky notes -->
+  <div id="stickyContainer"></div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'dpsp_fd_sketchnote_state_v1';
+      const btnAddNote = document.getElementById('btnAddNote');
+      const btnHighlight = document.getElementById('btnHighlight');
+      const hlColorInput = document.getElementById('hlColor');
+      const btnSave = document.getElementById('btnSave');
+      const toastMsg = document.getElementById('toastMsg');
+      const stickyContainer = document.getElementById('stickyContainer');
+
+      let highlightMode = false;
+      const notePalette = ['#fff3a1', '#b8f2e6', '#ffd6e0', '#d0bfff', '#ffd8a8'];
+
+      function showToast(msg) {
+        toastMsg.textContent = msg;
+        toastMsg.classList.add('show');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => toastMsg.classList.remove('show'), 2200);
+      }
+
+      /* Auto-contrast helper for highlighter */
+      function getContrastColor(hex) {
+        const clean = hex.replace('#', '');
+        const r = parseInt(clean.substring(0, 2), 16);
+        const g = parseInt(clean.substring(2, 4), 16);
+        const b = parseInt(clean.substring(4, 6), 16);
+        const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+        return yiq >= 135 ? '#111111' : '#ffffff';
+      }
+
+      /* Sticky Note Creation & Behavior */
+      function attachStickyEvents(noteEl) {
+        const header = noteEl.querySelector('.sticky-header');
+        const closeBtn = noteEl.querySelector('.sticky-close');
+        const bodyEl = noteEl.querySelector('.sticky-body');
+        const dots = noteEl.querySelectorAll('.color-dot');
+
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        header.addEventListener('mousedown', (e) => {
+          if (e.target.classList.contains('color-dot') || e.target.classList.contains('sticky-close')) return;
+          isDragging = true;
+          const rect = noteEl.getBoundingClientRect();
+          offsetX = e.clientX - rect.left;
+          offsetY = e.clientY - rect.top;
+          noteEl.style.zIndex = 6000;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          noteEl.style.left = (e.pageX - offsetX) + 'px';
+          noteEl.style.top = (e.pageY - offsetY) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+          if (isDragging) {
+            isDragging = false;
+            saveToLocalStorage();
+          }
+        });
+
+        dots.forEach((dot) => {
+          dot.addEventListener('click', () => {
+            const bg = dot.getAttribute('data-color');
+            noteEl.style.backgroundColor = bg;
+            saveToLocalStorage();
+          });
+        });
+
+        closeBtn.addEventListener('click', () => {
+          noteEl.remove();
+          saveToLocalStorage();
+        });
+
+        bodyEl.addEventListener('input', saveToLocalStorage);
+      }
+
+      function createStickyNote(data = {}) {
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random() * 120)) + 'px';
+        note.style.top = data.top || (window.scrollY + 120 + Math.floor(Math.random() * 80)) + 'px';
+        if (data.width) note.style.width = data.width;
+        if (data.height) note.style.height = data.height;
+        note.style.backgroundColor = data.bg || notePalette[0];
+
+        const dotsHtml = notePalette
+          .map((c) => `<span class="color-dot" data-color="${c}" style="background:${c}"></span>`)
+          .join('');
+
+        note.innerHTML = `
+          <div class="sticky-header">
+            <div class="sticky-colors">${dotsHtml}</div>
+            <button class="sticky-close" type="button" title="Delete note">×</button>
+          </div>
+          <div class="sticky-body" contenteditable="true">${data.text || 'Write quick note...'}</div>
+        `;
+
+        stickyContainer.appendChild(note);
+        attachStickyEvents(note);
+        saveToLocalStorage();
+      }
+
+      btnAddNote.addEventListener('click', () => {
+        createStickyNote();
+        showToast('Sticky note added!');
+      });
+
+      /* Highlighter Tool + Click-to-Undo */
+      btnHighlight.addEventListener('click', () => {
+        highlightMode = !highlightMode;
+        btnHighlight.classList.toggle('active', highlightMode);
+        document.body.classList.toggle('highlight-mode', highlightMode);
+        showToast(highlightMode ? 'Highlight Mode ON — select text' : 'Highlight Mode OFF');
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!highlightMode) return;
+        const selection = window.getSelection();
+        if (!selection || selection.isCollapsed) return;
+
+        const range = selection.getRangeAt(0);
+        if (range.commonAncestorContainer.closest && range.commonAncestorContainer.closest('.action-bar, .sticky-note')) {
+          return;
+        }
+
+        const span = document.createElement('span');
+        const bg = hlColorInput.value;
+        span.className = 'user-highlight';
+        span.style.backgroundColor = bg;
+        span.style.color = getContrastColor(bg);
+        span.title = 'Click to remove highlight';
+
+        try {
+          range.surroundContents(span);
+          selection.removeAllRanges();
+          saveToLocalStorage();
+        } catch (err) {
+          showToast('Highlight within a single paragraph/item');
+        }
+      });
+
+      /* Click highlight to undo */
+      document.addEventListener('click', (e) => {
+        if (e.target.classList && e.target.classList.contains('user-highlight')) {
+          const span = e.target;
+          const parent = span.parentNode;
+          while (span.firstChild) {
+            parent.insertBefore(span.firstChild, span);
+          }
+          parent.removeChild(span);
+          parent.normalize();
+          saveToLocalStorage();
+          showToast('Highlight removed');
+        }
+      });
+
+      /* Local Storage Persistence */
+      function serializeNotes() {
+        const notes = [];
+        document.querySelectorAll('.sticky-note').forEach((n) => {
+          notes.push({
+            left: n.style.left,
+            top: n.style.top,
+            width: n.style.width,
+            height: n.style.height,
+            bg: n.style.backgroundColor,
+            text: n.querySelector('.sticky-body').innerHTML
+          });
+        });
+        return notes;
+      }
+
+      function saveToLocalStorage() {
+        try {
+          const payload = {
+            notes: serializeNotes()
+          };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (e) {}
+      }
+
+      /* Smart Hydration: Load from LocalStorage OR hydrate static DOM notes */
+      function smartHydrate() {
+        const savedRaw = localStorage.getItem(STORAGE_KEY);
+        const existingDomNotes = stickyContainer.querySelectorAll('.sticky-note');
+
+        if (savedRaw) {
+          try {
+            const parsed = JSON.parse(savedRaw);
+            if (parsed.notes && parsed.notes.length > 0) {
+              stickyContainer.innerHTML = '';
+              parsed.notes.forEach((n) => createStickyNote(n));
+              return;
+            }
+          } catch (e) {}
+        }
+
+        if (existingDomNotes.length > 0) {
+          existingDomNotes.forEach((noteEl) => attachStickyEvents(noteEl));
+        }
+      }
+
+      /* Clone-Save Mechanism (safe DOM export without breaking live listeners) */
+      btnSave.addEventListener('click', () => {
+        saveToLocalStorage();
+        const clonedDoc = document.documentElement.cloneNode(true);
+
+        /* Clean transient UI states in the clone only */
+        const clonedBody = clonedDoc.querySelector('body');
+        if (clonedBody) clonedBody.classList.remove('highlight-mode');
+
+        const clonedHlBtn = clonedDoc.querySelector('#btnHighlight');
+        if (clonedHlBtn) clonedHlBtn.classList.remove('active');
+
+        const clonedToast = clonedDoc.querySelector('#toastMsg');
+        if (clonedToast) clonedToast.classList.remove('show');
+
+        const htmlString = '<!DOCTYPE html>\n' + clonedDoc.outerHTML;
+        const blob = new Blob([htmlString], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'DPSP_and_Fundamental_Duties_Sketchnote.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showToast('☁️ Snapshot exported & synced!');
+      });
+
+      window.addEventListener('DOMContentLoaded', smartHydrate);
+    })();
+  </script>
+</body>
+</html>
