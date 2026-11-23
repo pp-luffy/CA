@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Economic Planning in India</title>
+    <title>Economic Planning in India & NITI Aayog</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
 
@@ -31,12 +31,12 @@
         .section-title {
             color: #ffeb3b;
             font-size: 2.2rem;
-            margin-top: 50px;
-            margin-bottom: 20px;
+            margin-top: 60px;
+            margin-bottom: 25px;
             border-bottom: 3px dashed #555;
             padding-bottom: 10px;
-            display: inline-block;
-            width: 100%;
+            display: block;
+            text-align: center;
         }
 
         /* Ultra-Short Revision Sheet */
@@ -47,7 +47,7 @@
             padding: 15px;
             margin-bottom: 40px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 15px;
             box-shadow: 0 4px 15px rgba(225, 177, 44, 0.2);
         }
@@ -56,9 +56,21 @@
             padding: 12px;
             border-radius: 5px;
             border-left: 5px solid #ffeb3b;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
-        .rev-item strong { color: #ffeb3b; font-family: 'Kalam', cursive; font-size: 1.3rem; display: block; margin-bottom: 4px; }
+        .rev-item strong {
+            color: #ffeb3b;
+            font-family: 'Kalam', cursive;
+            font-size: 1.25rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .rev-govt {
+            color: #4cd137;
+            font-size: 0.95rem;
+            display: block;
+            margin-top: 4px;
+        }
 
         /* Timeline Layout Architecture */
         .timeline-container {
@@ -90,7 +102,6 @@
             box-sizing: border-box;
         }
 
-        /* Left and Right node positioning */
         .timeline-node.left { left: 0; }
         .timeline-node.right { left: 50%; }
 
@@ -123,7 +134,7 @@
         }
 
         .card:hover {
-            transform: rotate(-1deg) scale(1.03);
+            transform: rotate(-0.8deg) scale(1.02);
             box-shadow: 8px 8px 25px rgba(0,0,0,0.8);
             z-index: 10;
         }
@@ -136,7 +147,7 @@
             font-size: 1.6rem;
             color: #ffffff;
         }
-        
+
         .card h4 {
             margin: 5px 0;
             font-size: 1.3rem;
@@ -144,22 +155,38 @@
             font-family: 'Kalam', cursive;
         }
 
+        .govt-badge {
+            display: inline-block;
+            background: #1f2e1f;
+            border: 1px solid #4cd137;
+            color: #7bed9f;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin: 6px 0 8px 0;
+        }
+
         .card p, .card ul {
             margin: 10px 0;
             font-size: 1.1rem;
             line-height: 1.5;
         }
-        
+
         .card ul {
             padding-left: 20px;
         }
-        
+
         .card li {
             margin-bottom: 5px;
         }
 
         .highlight {
             color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .cyan {
+            color: #00d2d3;
             font-weight: bold;
         }
 
@@ -177,11 +204,11 @@
             transform: rotate(3deg);
             box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
         }
-        .tag-plan { background-color: #00a8ff; } /* Blue */
-        .tag-break { background-color: #e84118; } /* Orange */
-        .tag-reform { background-color: #9c88ff; } /* Purple */
-        .tag-modern { background-color: #4cd137; } /* Green */
-        .tag-pre { background-color: #e1b12c; } /* Yellow */
+        .tag-plan { background-color: #00a8ff; }
+        .tag-break { background-color: #e84118; }
+        .tag-reform { background-color: #9c88ff; }
+        .tag-modern { background-color: #4cd137; }
+        .tag-pre { background-color: #e1b12c; }
 
         /* Pin icon for cards */
         .card::before {
@@ -193,12 +220,112 @@
             transform: rotate(-20deg);
         }
 
+        /* NITI Aayog Deep Dive Section */
+        .niti-section {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+        }
+
+        .niti-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .niti-card {
+            background: #262626;
+            border: 2px dashed #4cd137;
+            border-radius: 10px;
+            padding: 20px 22px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .niti-card h3 {
+            margin-top: 0;
+            color: #4cd137;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 8px;
+            font-size: 1.5rem;
+        }
+
+        .niti-card ul {
+            padding-left: 20px;
+            margin: 10px 0;
+            font-size: 1.08rem;
+            line-height: 1.5;
+        }
+
+        .niti-card li {
+            margin-bottom: 6px;
+        }
+
+        .pillars-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .pillar-chip {
+            background: #333;
+            border: 1px solid #ffeb3b;
+            color: #ffeb3b;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 1rem;
+        }
+
+        /* Comparison Table */
+        .table-wrap {
+            overflow-x: auto;
+            background: #262626;
+            border: 2px dashed #00a8ff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+        }
+
+        .table-wrap h3 {
+            margin-top: 0;
+            color: #00a8ff;
+            font-size: 1.6rem;
+            text-align: center;
+        }
+
+        table.comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+
+        table.comp-table th, table.comp-table td {
+            border: 1px dashed #555;
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table.comp-table th {
+            background-color: #333;
+            color: #ffeb3b;
+            font-family: 'Kalam', cursive;
+            font-size: 1.25rem;
+        }
+
+        table.comp-table tr:nth-child(even) {
+            background-color: #2c2c2c;
+        }
+
         /* Responsive timeline */
         @media screen and (max-width: 900px) {
+            body { padding: 15px; }
             .timeline-container::after { left: 31px; }
-            .timeline-node { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-node { width: 100%; padding-left: 70px; padding-right: 15px; }
             .timeline-node.right { left: 0%; }
             .timeline-node.left::after, .timeline-node.right::after { left: 21px; }
+            .niti-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -208,19 +335,80 @@
 
     <!-- ULTRA-SHORT REVISION SHEET -->
     <div class="revision-sheet">
-        <div class="rev-item"><strong>1st Plan (51-56)</strong> Harrod-Domar. Agriculture & Dams (Hirakud). Successful.</div>
-        <div class="rev-item"><strong>2nd Plan (56-61)</strong> Mahalanobis. Heavy Industry (Steel plants).</div>
-        <div class="rev-item"><strong>3rd Plan (61-66)</strong> Gadgil Yojana. Failed (Wars + Drought).</div>
-        <div class="rev-item"><strong>Plan Holiday (66-69)</strong> Green Revolution started. Rupee Devalued.</div>
-        <div class="rev-item"><strong>4th Plan (69-74)</strong> 14 Banks Nationalized. Smiling Buddha (74).</div>
-        <div class="rev-item"><strong>5th Plan (74-78)</strong> Garibi Hatao. Terminated early by Janata Govt.</div>
-        <div class="rev-item"><strong>Rolling Plan (78-80)</strong> Janata Govt. Discarded by Indira Gandhi.</div>
-        <div class="rev-item"><strong>6th Plan (80-85)</strong> NABARD (82) & EXIM established.</div>
-        <div class="rev-item"><strong>7th Plan (85-90)</strong> Private sector priority. Broke 'Hindu Rate of Growth'.</div>
-        <div class="rev-item"><strong>Annual Plans (90-92)</strong> 1991 LPG Reforms (Rao-Manmohan).</div>
-        <div class="rev-item"><strong>8th Plan (92-97)</strong> HRD focus. WTO joined (95). Panchayat Acts (73rd/74th).</div>
-        <div class="rev-item"><strong>11th Plan (07-12)</strong> Highest growth (8%). RTE Act (2009).</div>
-        <div class="rev-item"><strong>NITI Aayog (2015)</strong> Think Tank. Bottom-up approach. Cooperative Federalism.</div>
+        <div class="rev-item">
+            <strong>Constitutional Basis</strong>
+            Economic & Social Planning = <b>Concurrent List</b> (Entry 20, 7th Schedule). Mixed Economy (IPR 1948).
+        </div>
+        <div class="rev-item">
+            <strong>1st Plan (51–56)</strong>
+            Harrod-Domar. Agri & Dams (Hirakud). Successful.
+            <span class="rev-govt">Govt: J.L. Nehru (INC)</span>
+        </div>
+        <div class="rev-item">
+            <strong>2nd Plan (56–61)</strong>
+            Mahalanobis. Heavy Industry (Rourkela, Bhilai, Durgapur).
+            <span class="rev-govt">Govt: J.L. Nehru (INC)</span>
+        </div>
+        <div class="rev-item">
+            <strong>3rd Plan (61–66)</strong>
+            Gadgil Yojana. Failed (Wars + Drought).
+            <span class="rev-govt">Govt: Nehru → Shastri → Indira (INC)</span>
+        </div>
+        <div class="rev-item">
+            <strong>Plan Holiday (66–69)</strong>
+            Green Revolution started. Rupee Devalued (1966).
+            <span class="rev-govt">Govt: Indira Gandhi (INC)</span>
+        </div>
+        <div class="rev-item">
+            <strong>4th Plan (69–74)</strong>
+            14 Banks Nationalized. Smiling Buddha (1974).
+            <span class="rev-govt">Govt: Indira Gandhi (INC)</span>
+        </div>
+        <div class="rev-item">
+            <strong>5th Plan (74–78)</strong>
+            Garibi Hatao. Terminated 1 yr early by Janata Govt.
+            <span class="rev-govt">Govt: Indira Gandhi (INC)</span>
+        </div>
+        <div class="rev-item">
+            <strong>Rolling Plan (78–80)</strong>
+            Gunnar Myrdal concept. Discarded by Indira in 1980.
+            <span class="rev-govt">Govt: Morarji Desai (Janata Party)</span>
+        </div>
+        <div class="rev-item">
+            <strong>6th Plan (80–85)</strong>
+            NABARD (1982) & EXIM Bank. 6 more banks nationalized.
+            <span class="rev-govt">Govt: Indira → Rajiv Gandhi (INC)</span>
+        </div>
+        <div class="rev-item">
+            <strong>7th Plan (85–90)</strong>
+            Private sector priority. Broke 'Hindu Rate of Growth'.
+            <span class="rev-govt">Govt: Rajiv Gandhi (INC)</span>
+        </div>
+        <div class="rev-item">
+            <strong>Annual Plans (90–92)</strong>
+            1991 LPG Reforms (Rao–Manmohan).
+            <span class="rev-govt">Govt: V.P. Singh → C. Shekhar → P.V.N. Rao</span>
+        </div>
+        <div class="rev-item">
+            <strong>8th & 9th Plans (92–02)</strong>
+            8th: HRD, WTO (95). 9th: Social Justice, Kargil.
+            <span class="rev-govt">Govt: Rao / UF → Vajpayee (NDA)</span>
+        </div>
+        <div class="rev-item">
+            <strong>10th & 11th Plans (02–12)</strong>
+            11th: Highest growth (8%), Financial Inclusion, RTE (2009).
+            <span class="rev-govt">Govt: Vajpayee (NDA) → Manmohan (UPA)</span>
+        </div>
+        <div class="rev-item">
+            <strong>12th Plan (12–17)</strong>
+            Final FYP. Faster, More Inclusive & Sustainable Growth.
+            <span class="rev-govt">Govt: Manmohan (UPA) → Modi (NDA)</span>
+        </div>
+        <div class="rev-item">
+            <strong>NITI Aayog (2015–Now)</strong>
+            Think Tank. Bottom-up. Poverty Assessment. No fund allocation.
+            <span class="rev-govt">Govt: Narendra Modi (NDA)</span>
+        </div>
     </div>
 
     <div class="timeline-container">
@@ -229,17 +417,19 @@
         <div class="timeline-node left">
             <div class="card">
                 <div class="tag tag-pre">Foundation</div>
-                <h3>Pre-Independence Plans</h3>
+                <h3>Pre-Independence Plans & Basics</h3>
                 <ul>
-                    <li><strong>1934 Visvesvaraya Plan:</strong> 1st blueprint (Planned Economy).</li>
-                    <li><strong>1938 National Planning Comm:</strong> Set by SC Bose, chaired by Nehru.</li>
-                    <li><strong>1944 Bombay Plan:</strong> By 8 Industrialists (Tata, Birla).</li>
+                    <li><strong>1934 Visvesvaraya Plan:</strong> 1st blueprint (<em>Planned Economy for India</em>).</li>
+                    <li><strong>1938 National Planning Comm:</strong> Set by S.C. Bose, chaired by J.L. Nehru.</li>
+                    <li><strong>1944 Bombay Plan:</strong> By 8 Industrialists (Tata, Birla, etc.).</li>
                     <li><strong>1944 Gandhian Plan:</strong> S.N. Agarwal (Agri/Cottage).</li>
                     <li><strong>1945 People's Plan:</strong> M.N. Roy (Marxist).</li>
-                    <li><strong>1950 Sarvodaya Plan:</strong> JP Narayan.</li>
+                    <li><strong>1950 Sarvodaya Plan:</strong> Jayaprakash Narayan.</li>
                 </ul>
-                <p><span class="highlight">Planning Commission (1950):</span> Non-constitutional, advisory body.<br>
-                <span class="highlight">NDC (1952):</span> Final approval body, included CMs.</p>
+                <p><span class="highlight">Economic Planning:</span> Concurrent List (Entry 20, 7th Schedule).<br>
+                <span class="highlight">Mixed Economy Model:</span> Adopted via 1948 Industrial Policy Resolution.<br>
+                <span class="highlight">Planning Commission (Mar 15, 1950):</span> Non-constitutional, advisory body (PM = Chairman).<br>
+                <span class="highlight">NDC (Aug 6, 1952):</span> Final approval body, included all CMs.</p>
             </div>
         </div>
 
@@ -249,14 +439,15 @@
                 <div class="tag tag-plan">FYP 1</div>
                 <h3>1st Five-Year Plan</h3>
                 <h4>1951–1956</h4>
+                <div class="govt-badge">Govt: Jawaharlal Nehru (INC)</div>
                 <p><strong>Model:</strong> <span class="highlight">Harrod-Domar</span></p>
-                <p><strong>Focus:</strong> Agriculture, price stability, power.</p>
+                <p><strong>Focus:</strong> Agriculture, price stability, irrigation & power.</p>
                 <ul>
-                    <li>Massive projects: <span class="highlight">Hirakud Dam (Odisha)</span>, Bhakra Nangal.</li>
-                    <li>5 IITs & UGC established.</li>
-                    <li>Community Development Prog (1952).</li>
+                    <li>Massive projects: <span class="highlight">Hirakud Dam (Odisha)</span>, Bhakra Nangal, Damodar Valley.</li>
+                    <li>5 IITs & UGC (1953) established.</li>
+                    <li>Community Development Programme (1952).</li>
                 </ul>
-                <p><strong>Result:</strong> Highly successful (Achieved 3.6%).</p>
+                <p><strong>Result:</strong> Highly successful (Target 2.1% → Achieved 3.6%).</p>
             </div>
         </div>
 
@@ -266,13 +457,15 @@
                 <div class="tag tag-plan">FYP 2</div>
                 <h3>2nd Five-Year Plan</h3>
                 <h4>1956–1961</h4>
-                <p><strong>Model:</strong> <span class="highlight">P.C. Mahalanobis</span></p>
-                <p><strong>Focus:</strong> Rapid Industrialization (Heavy).</p>
+                <div class="govt-badge">Govt: Jawaharlal Nehru (INC)</div>
+                <p><strong>Model:</strong> <span class="highlight">P.C. Mahalanobis</span> (Nehru-Mahalanobis)</p>
+                <p><strong>Focus:</strong> Rapid Industrialization (Heavy & Basic Industries).</p>
                 <ul>
-                    <li>Steel plants: <span class="highlight">Rourkela (Odisha - German help)</span>, Bhilai (Russian help), Durgapur (UK help).</li>
+                    <li>Steel plants: <span class="highlight">Rourkela (Odisha – West Germany)</span>, Bhilai (USSR), Durgapur (UK).</li>
+                    <li>Industrial Policy Resolution 1956 ("Socialistic Pattern of Society").</li>
                     <li>Atomic Energy Commission (1957).</li>
                 </ul>
-                <p><strong>Result:</strong> Moderate success (Forex crisis).</p>
+                <p><strong>Result:</strong> Moderate success (Target 4.5% → Achieved 4.27%; Forex crisis).</p>
             </div>
         </div>
 
@@ -282,12 +475,14 @@
                 <div class="tag tag-plan">FYP 3</div>
                 <h3>3rd Five-Year Plan</h3>
                 <h4>1961–1966</h4>
-                <p><strong>Model:</strong> <span class="highlight">Gadgil Yojana</span></p>
-                <p><strong>Focus:</strong> Self-reliance, Agriculture.</p>
+                <div class="govt-badge">Govt: J.L. Nehru (till '64) → L.B. Shastri ('64–'66) → Indira Gandhi (INC)</div>
+                <p><strong>Model:</strong> <span class="highlight">Gadgil Yojana</span> (John Sandy & Sukhamoy Chakravarty)</p>
+                <p><strong>Focus:</strong> Self-reliant & self-generating economy, Agriculture.</p>
                 <ul>
-                    <li>FCI and Agri Prices Commission established (1965).</li>
+                    <li>FCI and Agricultural Prices Commission (now CACP) established (1965).</li>
+                    <li>IDBI & UTI set up (1964).</li>
                 </ul>
-                <p><strong>Result:</strong> <span class="highlight">Massive Failure</span> due to Sino-Indian War (62), Indo-Pak War (65), & severe drought.</p>
+                <p><strong>Result:</strong> <span class="highlight">Massive Failure</span> (Target 5.6% → Achieved 2.8%) due to Sino-Indian War (62), Indo-Pak War (65) & severe drought.</p>
             </div>
         </div>
 
@@ -297,10 +492,11 @@
                 <div class="tag tag-break">Break</div>
                 <h3>Plan Holiday (3 Annual Plans)</h3>
                 <h4>1966–1969</h4>
-                <p><strong>Context:</strong> Triggered by 3rd Plan failure & lack of resources.</p>
+                <div class="govt-badge">Govt: Indira Gandhi (INC)</div>
+                <p><strong>Context:</strong> Triggered by 3rd Plan failure, war expenses & lack of resources.</p>
                 <ul>
-                    <li><span class="highlight">Devaluation of Rupee (1966)</span>.</li>
-                    <li>Implementation of <span class="highlight">Green Revolution</span> (led by M.S. Swaminathan).</li>
+                    <li><span class="highlight">Devaluation of Rupee (1966)</span> to boost exports.</li>
+                    <li>Implementation of <span class="highlight">Green Revolution</span> (HYV seeds; M.S. Swaminathan).</li>
                 </ul>
             </div>
         </div>
@@ -311,14 +507,16 @@
                 <div class="tag tag-plan">FYP 4</div>
                 <h3>4th Five-Year Plan</h3>
                 <h4>1969–1974</h4>
-                <p><strong>Model:</strong> Gadgil Formula</p>
-                <p><strong>Focus:</strong> Growth with stability.</p>
+                <div class="govt-badge">Govt: Indira Gandhi (INC)</div>
+                <p><strong>Model:</strong> Gadgil Formula (Central assistance to states)</p>
+                <p><strong>Focus:</strong> Growth with stability & progressive self-reliance.</p>
                 <ul>
-                    <li><span class="highlight">Nationalization of 14 Banks (1969)</span>.</li>
+                    <li><span class="highlight">Nationalization of 14 Banks (July 1969)</span>.</li>
                     <li>1971 Indo-Pak War (Bangladesh creation).</li>
-                    <li><span class="highlight">Smiling Buddha (1974):</span> 1st Nuclear test.</li>
+                    <li><span class="highlight">Smiling Buddha (1974):</span> 1st Nuclear test (Pokhran).</li>
+                    <li>Family Planning & Drought Prone Area Programme (DPAP).</li>
                 </ul>
-                <p><strong>Result:</strong> Failed targets (Oil Crisis '73).</p>
+                <p><strong>Result:</strong> Failed targets (Target 5.7% → Achieved 3.3%; 1973 Oil Crisis).</p>
             </div>
         </div>
 
@@ -327,11 +525,12 @@
             <div class="card">
                 <div class="tag tag-plan">FYP 5 & Break</div>
                 <h3>5th Plan & Rolling Plan</h3>
-                <h4>1974–1978 & 1978-1980</h4>
-                <p><strong>5th Plan Focus:</strong> <span class="highlight">Garibi Hatao</span> (Poverty Eradication). Drafted by D.P. Dhar. Minimum Needs Prog.</p>
-                <p><strong>Result:</strong> Terminated early (1978) by Morarji Desai.</p>
+                <h4>1974–1978 & 1978–1980</h4>
+                <div class="govt-badge">5th Plan: Indira Gandhi (INC) | Rolling Plan: Morarji Desai (Janata Party)</div>
+                <p><strong>5th Plan Focus:</strong> <span class="highlight">Garibi Hatao</span> (Poverty Eradication) & Self-reliance. Drafted by D.P. Dhar. Minimum Needs Programme (MNP), 20-Point Programme (1975).</p>
+                <p><strong>Result:</strong> Successful (4.8% achieved), but terminated 1 year early (1978) by Janata Govt.</p>
                 <hr style="border-color:#555;">
-                <p><strong>Rolling Plan (78-80):</strong> Introduced by Janata Party. Discarded by Indira Gandhi in 1980.</p>
+                <p><strong>Rolling Plan (1978–80):</strong> Concept by <span class="highlight">Gunnar Myrdal</span>; adopted by <span class="highlight">Morarji Desai</span>. Annual revision of targets/allocations. Discarded by Indira Gandhi in 1980.</p>
             </div>
         </div>
 
@@ -341,13 +540,15 @@
                 <div class="tag tag-plan">FYP 6</div>
                 <h3>6th Five-Year Plan</h3>
                 <h4>1980–1985</h4>
-                <p><strong>Focus:</strong> Tech self-reliance, poverty.</p>
+                <div class="govt-badge">Govt: Indira Gandhi ('80–'84) → Rajiv Gandhi ('84–'85) (INC)</div>
+                <p><strong>Focus:</strong> Poverty eradication, tech self-reliance, economic liberalization.</p>
                 <ul>
-                    <li>Beginning of economic lib (End of Nehruvian socialism).</li>
+                    <li>End of strict Nehruvian socialism; price controls eased.</li>
                     <li>6 more banks nationalized (1980).</li>
-                    <li><span class="highlight">NABARD established (1982)</span>.</li>
+                    <li><span class="highlight">NABARD (1982)</span> (Sivaraman Committee) & EXIM Bank (1982).</li>
+                    <li>IRDP, NREP, TRYSEM launched.</li>
                 </ul>
-                <p><strong>Result:</strong> Successful (Achieved 5.7%).</p>
+                <p><strong>Result:</strong> Successful (Target 5.2% → Achieved 5.7%).</p>
             </div>
         </div>
 
@@ -355,13 +556,14 @@
         <div class="timeline-node left">
             <div class="card">
                 <div class="tag tag-plan">FYP 7 & Crisis</div>
-                <h3>7th Plan & The Crisis</h3>
-                <h4>1985–1990 & 1990-1992</h4>
-                <p><strong>7th Plan:</strong> Pvt sector prioritized. Jawahar Rozgar Yojana. SEBI established (88). <span class="highlight">Broke 'Hindu Rate of Growth'</span>.</p>
+                <h3>7th Plan & Annual Plans</h3>
+                <h4>1985–1990 & 1990–1992</h4>
+                <div class="govt-badge">7th Plan: Rajiv Gandhi (INC) → V.P. Singh | Annual Plans: V.P. Singh → Chandra Shekhar → P.V. Narasimha Rao</div>
+                <p><strong>7th Plan:</strong> "Food, Work & Productivity". Pvt sector prioritized. Jawahar Rozgar Yojana (1989). SEBI established (1988, non-statutory). <span class="highlight">Broke 'Hindu Rate of Growth'</span> (achieved 6.0%).</p>
                 <hr style="border-color:#555;">
-                <p><strong>Annual Plans (90-92):</strong> Delayed 8th Plan due to Forex crisis.</p>
+                <p><strong>Annual Plans (90–92):</strong> Delayed 8th Plan due to political instability & BoP/Forex crisis.</p>
                 <ul>
-                    <li><span class="highlight">1991 LPG Reforms:</span> Lib, Priv, Glob (Rao-Manmohan).</li>
+                    <li><span class="highlight">1991 LPG Reforms:</span> Liberalisation, Privatisation, Globalisation (PM P.V. Narasimha Rao & FM Manmohan Singh).</li>
                 </ul>
             </div>
         </div>
@@ -371,10 +573,12 @@
             <div class="card">
                 <div class="tag tag-plan">FYP 8 & 9</div>
                 <h3>8th & 9th Plans</h3>
-                <h4>1992–1997 & 1997-2002</h4>
-                <p><strong>8th Plan (Rao-Manmohan):</strong> HRD focus. <span class="highlight">Joined WTO (1995)</span>. 73rd/74th Amendments. Highly successful.</p>
+                <h4>1992–1997 & 1997–2002</h4>
+                <div class="govt-badge">8th: P.V. Narasimha Rao (INC) → Deve Gowda (UF)</div>
+                <p><strong>8th Plan (Rao–Manmohan Model):</strong> Indicative Planning; HRD focus. <span class="highlight">Joined WTO (Jan 1, 1995)</span>. 73rd/74th Amendments. PMRY (1993). Highly successful (6.8%).</p>
                 <hr style="border-color:#555;">
-                <p><strong>9th Plan:</strong> "Growth with Social Justice". Hit by Asian Financial Crisis (97), Pokhran-II, Kargil. Failed targets.</p>
+                <div class="govt-badge">9th: I.K. Gujral (UF) → Atal Bihari Vajpayee (NDA)</div>
+                <p><strong>9th Plan:</strong> "Growth with Social Justice & Equality". Hit by Asian Financial Crisis (1997), Pokhran-II (1998), Kargil War (1999). Failed targets (5.4%).</p>
             </div>
         </div>
 
@@ -383,48 +587,181 @@
             <div class="card">
                 <div class="tag tag-plan">FYP 10 & 11</div>
                 <h3>10th & 11th Plans</h3>
-                <h4>2002–2007 & 2007-2012</h4>
-                <p><strong>10th Plan:</strong> Target to double per capita income in 10yrs. High growth.</p>
+                <h4>2002–2007 & 2007–2012</h4>
+                <div class="govt-badge">10th: A.B. Vajpayee (NDA, '02–'04) → Manmohan Singh (UPA-I, '04–'07)</div>
+                <p><strong>10th Plan:</strong> Target to double per capita income in 10 yrs. Monitorable state-wise targets. High growth (7.6%).</p>
                 <hr style="border-color:#555;">
+                <div class="govt-badge">11th: Dr. Manmohan Singh (UPA-I & UPA-II)</div>
                 <p><strong>11th Plan (C. Rangarajan):</strong> "Faster and More Inclusive Growth".</p>
                 <ul>
-                    <li><span class="highlight">RTE Act enacted (2009)</span>.</li>
+                    <li>First FYP to explicitly include <span class="highlight">Financial Inclusion</span>.</li>
+                    <li><span class="highlight">RTE Act enacted (2009)</span>; Rashtriya Krishi Vikas Yojana (2007).</li>
                     <li>Achieved <span class="highlight">8% growth</span> (highest ever actual FYP rate).</li>
                 </ul>
             </div>
         </div>
-        
+
         <!-- 12th PLAN -->
         <div class="timeline-node right">
             <div class="card">
                 <div class="tag tag-plan">FYP 12</div>
                 <h3>12th Five-Year Plan</h3>
                 <h4>2012–2017</h4>
+                <div class="govt-badge">Govt: Dr. Manmohan Singh (UPA-II, '12–'14) → Narendra Modi (NDA, '14–'17)</div>
                 <p><strong>Theme:</strong> "Faster, More Inclusive and Sustainable Growth".</p>
                 <ul>
-                    <li>8% GDP target.</li>
-                    <li>Reduce IMR to 25, MMR to 1.</li>
+                    <li>8% GDP growth target; 4% Agriculture growth; 10% Manufacturing growth.</li>
+                    <li>Reduce IMR to 25, MMR to 1 per 1,000 live births; TFR to 2.1.</li>
+                    <li>10% reduction in headcount poverty; electricity to all villages.</li>
                 </ul>
-                <p><strong>Note:</strong> <span class="highlight">The Final Five-Year Plan</span>.</p>
+                <p><strong>Note:</strong> <span class="highlight">The Final Five-Year Plan</span> (replaced by NITI Aayog's 3-tier framework in 2017).</p>
             </div>
         </div>
 
-        <!-- NITI AAYOG -->
+        <!-- NITI AAYOG TIMELINE NODE -->
         <div class="timeline-node left">
             <div class="card">
                 <div class="tag tag-modern">Modern Era</div>
                 <h3>NITI Aayog</h3>
-                <h4>Jan 1, 2015</h4>
-                <p>National Institution for Transforming India.</p>
+                <h4>Established: Jan 1, 2015</h4>
+                <div class="govt-badge">Govt: Narendra Modi (NDA)</div>
+                <p><strong>Full Form:</strong> National Institution for Transforming India.</p>
                 <ul>
-                    <li><strong>Role:</strong> Premier "Think Tank" of Govt.</li>
-                    <li><strong>Philosophy:</strong> <span class="highlight">Cooperative Federalism</span> (States are equal partners).</li>
-                    <li><strong>Approach:</strong> <span class="highlight">Bottom-Up</span> (village to center).</li>
+                    <li><strong>Status:</strong> Extra-constitutional & Non-statutory (Cabinet Resolution).</li>
+                    <li><strong>Role:</strong> Premier Policy "Think Tank" & <span class="highlight">Poverty Assessment</span> body.</li>
+                    <li><strong>Philosophy:</strong> <span class="highlight">Cooperative & Competitive Federalism</span>.</li>
+                    <li><strong>Approach:</strong> <span class="highlight">Bottom-Up</span> (village to centre).</li>
                 </ul>
-                <p>Has <span class="highlight">NO power to allocate funds</span> (shifted to Finance Ministry). Governing Council includes all CMs.</p>
+                <p><span class="highlight">NO fund allocation power</span> (shifted to Ministry of Finance). See complete deep-dive below ↓</p>
             </div>
         </div>
 
     </div>
+
+    <!-- COMPREHENSIVE NITI AAYOG DEEP-DIVE SECTION -->
+    <div class="niti-section">
+        <h2 class="section-title">🏛️ NITI Aayog: Complete Exam Deep-Dive</h2>
+
+        <div class="niti-grid">
+
+            <!-- CARD 1: Structure & 2026 Leadership -->
+            <div class="niti-card">
+                <h3>1. Structure & Composition (2026)</h3>
+                <ul>
+                    <li><strong>Chairperson:</strong> Prime Minister (Ex-officio) — <span class="highlight">Shri Narendra Modi</span>.</li>
+                    <li><strong>Vice-Chairperson:</strong> Appointed by PM (Cabinet Minister rank) — <span class="highlight">Shri Ashok Kumar Lahiri</span> (Apr 2026).<br>
+                        <em>Past VCs: Arvind Panagariya (1st) → Rajiv Kumar → Suman Bery.</em></li>
+                    <li><strong>CEO:</strong> Appointed by PM (Secretary rank, fixed tenure) — <span class="highlight">Shri Anurag Jain</span>.<br>
+                        <em>1st CEO: Sindhushree Khullar.</em></li>
+                    <li><strong>Governing Council:</strong> All State CMs + CMs of UTs with Legislatures (Delhi, Puducherry, J&amp;K) + Lt. Governors of other UTs.</li>
+                    <li><strong>Regional Councils:</strong> Formed for specific regional issues; chaired by PM or nominee.</li>
+                    <li><strong>Full-Time Members (2026):</strong> Rajiv Gauba, Prof. K.V. Raju, Prof. Gobardhan Das, Dr. M. Srinivas, Prof. Abhay Karandikar, Dr. R. Balasubramaniam, <span class="cyan">Dr. Joram Aniya</span> (1st woman from NE India).</li>
+                    <li><strong>Ex-Officio Members:</strong> Max <span class="highlight">4 Union Cabinet Ministers</span> nominated by PM.</li>
+                    <li><strong>Part-Time Members:</strong> Max <span class="highlight">2</span> (from universities/research bodies, rotational).</li>
+                    <li><strong>Special Invitees:</strong> Domain experts nominated by PM.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 2: 2 Hubs, 3-Tier Plan & 7 Pillars -->
+            <div class="niti-card">
+                <h3>2. Hubs, Planning Docs & 7 Pillars</h3>
+                <p><strong class="cyan">Two Specialized Hubs:</strong></p>
+                <ul>
+                    <li><strong>Team India Hub:</strong> Leads State–Centre engagement & cooperative federalism.</li>
+                    <li><strong>Knowledge &amp; Innovation Hub:</strong> Builds NITI Aayog's think-tank &amp; research capacity.</li>
+                </ul>
+                <p><strong class="cyan">3-Tier Planning Framework (Replaced FYPs):</strong></p>
+                <ul>
+                    <li><span class="highlight">3-Year Action Agenda</span> (Short-term tactical goals).</li>
+                    <li><span class="highlight">7-Year Strategy</span> (Medium-term sectoral roadmap).</li>
+                    <li><span class="highlight">15-Year Vision Document</span> (Long-term; now aligned with <em>Viksit Bharat @2047</em>).</li>
+                </ul>
+                <p><strong class="cyan">7 Pillars of Effective Governance:</strong></p>
+                <div class="pillars-wrap">
+                    <span class="pillar-chip">1. Pro-People</span>
+                    <span class="pillar-chip">2. Pro-Activity</span>
+                    <span class="pillar-chip">3. Participation</span>
+                    <span class="pillar-chip">4. Empowering</span>
+                    <span class="pillar-chip">5. Inclusion of All</span>
+                    <span class="pillar-chip">6. Equality</span>
+                    <span class="pillar-chip">7. Transparency</span>
+                </div>
+            </div>
+
+            <!-- CARD 3: Flagship Initiatives & Indices -->
+            <div class="niti-card">
+                <h3>3. Flagship Initiatives & Major Indices</h3>
+                <p><strong class="cyan">Key Initiatives &amp; Attached Bodies:</strong></p>
+                <ul>
+                    <li><strong>Aspirational Districts (2018) &amp; Aspirational Blocks (2023):</strong> Rapid transformation of India's most underdeveloped districts/blocks (Delta ranking).</li>
+                    <li><strong>Atal Innovation Mission (AIM):</strong> Atal Tinkering Labs (schools) &amp; Atal Incubation Centres.</li>
+                    <li><strong>DMEO:</strong> Development Monitoring &amp; Evaluation Office (tracks govt schemes).</li>
+                    <li><strong>Women Entrepreneurship Platform (WEP)</strong> &amp; <strong>State Support Mission</strong>.</li>
+                    <li><strong>SATH</strong> (Sustainable Action for Transforming Human Capital — Education &amp; Health).</li>
+                    <li><strong>National Monetisation Pipeline (NMP)</strong>, <strong>Shoonya</strong> (Zero-pollution EVs), <strong>e-Amrit</strong>, <strong>LiFE</strong> (Lifestyle for Environment).</li>
+                </ul>
+                <p><strong class="cyan">High-Yield Indices Published by NITI Aayog:</strong></p>
+                <ul>
+                    <li><span class="highlight">SDG India Index</span> (Nodal agency for UN SDGs in India)</li>
+                    <li><span class="highlight">National Multidimensional Poverty Index (MPI)</span></li>
+                    <li><span class="highlight">Composite Water Management Index (CWMI)</span></li>
+                    <li>India Innovation Index | State Health Index | Export Preparedness Index | School Education Quality Index (SEQI) | Fiscal Health Index.</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div class="table-wrap">
+            <h3>⚖️ Planning Commission vs. NITI Aayog (Quick Revision Table)</h3>
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Planning Commission (1950–2014)</th>
+                        <th>NITI Aayog (2015–Present)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nature / Status</strong></td>
+                        <td>Non-constitutional, Non-statutory (Cabinet Resolution)</td>
+                        <td>Non-constitutional, Non-statutory (Cabinet Resolution)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Planning Approach</strong></td>
+                        <td><span class="highlight">Top-Down</span> (One-size-fits-all plans from Centre)</td>
+                        <td><span class="highlight">Bottom-Up</span> (State-specific, grassroots inputs)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fund Allocation Power</strong></td>
+                        <td><span class="highlight">Yes</span> (Allocated Plan funds to Ministries &amp; States)</td>
+                        <td><span class="highlight">No</span> (Pure advisory think tank; funds via Finance Ministry)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Role of States</strong></td>
+                        <td>Limited (Only as spectators via NDC &amp; annual plan meetings)</td>
+                        <td><span class="highlight">Equal Partners</span> in Governing Council (Cooperative &amp; Competitive Federalism)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Secretarial Head</strong></td>
+                        <td>Member Secretary (appointed via usual bureaucratic process)</td>
+                        <td><span class="highlight">CEO</span> (Secretary rank, directly appointed by PM)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Part-Time Members</strong></td>
+                        <td>No provision for part-time members</td>
+                        <td>Up to <span class="highlight">2 Part-Time Members</span> from academia/research</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Core Output</strong></td>
+                        <td>Five-Year Plans (12 plans total)</td>
+                        <td>3-Yr Action Agenda, 7-Yr Strategy, 15-Yr Vision &amp; State Indices</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
 </html>
