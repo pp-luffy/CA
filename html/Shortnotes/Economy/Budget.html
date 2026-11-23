@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Union Budget 2026–27 | Sketchnote Visual Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #1a1a1a;
+      --bg-dot: #2b2b2b;
+      --card-bg: #242426;
+      --card-border: #3d3d42;
+      --text-main: #f0f0f0;
+      --text-muted: #c8c8d0;
+      --accent-yellow: #ffd166;
+      --accent-cyan: #4cc9f0;
+      --accent-pink: #ff6b9d;
+      --accent-green: #06d6a0;
+      --accent-orange: #ff9f1c;
+      --accent-purple: #c77dff;
+      --accent-red: #ff595e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      position: relative;
+      margin: 0;
+      padding: 84px 20px 80px;
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(var(--bg-dot) 1.2px, transparent 1.2px);
+      background-size: 22px 22px;
+      color: var(--text-main);
+      font-family: 'Patrick Hand', cursive, sans-serif;
+      font-size: 18px;
+      line-height: 1.48;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Kalam', cursive;
+      margin-top: 0;
+      letter-spacing: 0.4px;
+    }
+
+    /* Action Bar */
+    #workspace-toolbar {
+      position: fixed;
+      top: 14px;
+      right: 18px;
+      z-index: 9999;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(26, 26, 28, 0.92);
+      border: 2px dashed var(--accent-cyan);
+      padding: 8px 14px;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      flex-wrap: wrap;
+    }
+
+    .tool-btn {
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 15px;
+      border: 2px solid #444;
+      background: #2b2b30;
+      color: #f0f0f0;
+      padding: 6px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tool-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-yellow);
+      background: #35353d;
+    }
+
+    .tool-btn.active {
+      background: var(--accent-yellow);
+      color: #111;
+      border-color: #fff;
+      box-shadow: 0 0 12px rgba(255, 209, 102, 0.55);
+    }
+
+    .hl-palette {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      padding-left: 6px;
+      border-left: 1px solid #555;
+    }
+
+    .hl-palette.show {
+      display: inline-flex;
+    }
+
+    .hl-swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .hl-swatch.selected {
+      transform: scale(1.22);
+      box-shadow: 0 0 8px #fff;
+    }
+
+    /* Header Banner */
+    .board-header {
+      max-width: 1440px;
+      margin: 0 auto 28px;
+      text-align: center;
+      padding: 24px 20px;
+      border: 3px dashed var(--accent-yellow);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 209, 102, 0.08), rgba(76, 201, 240, 0.08));
+      position: relative;
+    }
+
+    .board-header h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--accent-yellow);
+      margin-bottom: 6px;
+      text-shadow: 2px 3px 0 #000;
+    }
+
+    .board-subtitle {
+      font-size: 1.15rem;
+      color: var(--accent-cyan);
+      margin: 0;
+    }
+
+    .source-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      background: #2f2f35;
+      border: 1px solid var(--accent-pink);
+      color: var(--accent-pink);
+      font-size: 0.95rem;
+    }
+
+    /* Ultra-Short Quick Revision Sheet */
+    .quick-revision-sheet {
+      max-width: 1440px;
+      margin: 0 auto 36px;
+      background: #20232a;
+      border: 3px solid var(--accent-green);
+      border-radius: 16px;
+      padding: 18px 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+      position: relative;
+    }
+
+    .quick-revision-sheet::before {
+      content: "⚡ ULTRA-SHORT QUICK REVISION SHEET (EXAM FLASH)";
+      position: absolute;
+      top: -16px;
+      left: 20px;
+      background: var(--accent-green);
+      color: #111;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 2px 14px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .flash-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .flash-pill {
+      background: #17191e;
+      border-left: 4px solid var(--accent-yellow);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 0.98rem;
+      line-height: 1.35;
+    }
+
+    .flash-pill.cyan { border-left-color: var(--accent-cyan); }
+    .flash-pill.pink { border-left-color: var(--accent-pink); }
+    .flash-pill.orange { border-left-color: var(--accent-orange); }
+    .flash-pill.purple { border-left-color: var(--accent-purple); }
+    .flash-pill.red { border-left-color: var(--accent-red); }
+
+    .flash-pill strong {
+      color: var(--accent-yellow);
+    }
+
+    /* Masonry Polaroid Grid */
+    .masonry-board {
+      max-width: 1440px;
+      margin: 0 auto;
+      column-count: 3;
+      column-gap: 26px;
+    }
+
+    @media (max-width: 1180px) {
+      .masonry-board { column-count: 2; }
+    }
+
+    @media (max-width: 760px) {
+      .masonry-board { column-count: 1; }
+      body { padding-top: 105px; }
+    }
+
+    .polaroid-card {
+      break-inside: avoid;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-bottom: 14px solid #2f2f34;
+      border-radius: 14px;
+      padding: 20px 20px 18px;
+      margin-bottom: 28px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .polaroid-card:nth-child(odd) {
+      transform: rotate(-0.45deg);
+    }
+
+    .polaroid-card:nth-child(even) {
+      transform: rotate(0.45deg);
+    }
+
+    .polaroid-card:hover {
+      transform: rotate(0deg) translateY(-3px);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.75);
+      z-index: 2;
+    }
+
+    /* Washi tape effect */
+    .polaroid-card::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 82px;
+      height: 18px;
+      background: rgba(255, 209, 102, 0.35);
+      border-left: 2px dashed rgba(255, 255, 255, 0.2);
+      border-right: 2px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      padding: 2px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      color: #111;
+      background: var(--accent-yellow);
+    }
+
+    .tag-cyan { background: var(--accent-cyan); }
+    .tag-pink { background: var(--accent-pink); }
+    .tag-green { background: var(--accent-green); }
+    .tag-orange { background: var(--accent-orange); }
+    .tag-purple { background: var(--accent-purple); }
+    .tag-red { background: var(--accent-red); color: #fff; }
+
+    .polaroid-card h2 {
+      font-size: 1.55rem;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px dashed #444;
+      color: var(--accent-yellow);
+    }
+
+    .polaroid-card.theme-cyan h2 { color: var(--accent-cyan); }
+    .polaroid-card.theme-pink h2 { color: var(--accent-pink); }
+    .polaroid-card.theme-green h2 { color: var(--accent-green); }
+    .polaroid-card.theme-orange h2 { color: var(--accent-orange); }
+    .polaroid-card.theme-purple h2 { color: var(--accent-purple); }
+    .polaroid-card.theme-red h2 { color: var(--accent-red); }
+
+    .polaroid-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .polaroid-card li {
+      margin-bottom: 9px;
+      color: var(--text-main);
+    }
+
+    .polaroid-card ul ul {
+      margin-top: 5px;
+      padding-left: 18px;
+      list-style-type: circle;
+    }
+
+    .polaroid-card ul ul li {
+      margin-bottom: 5px;
+      color: var(--text-muted);
+    }
+
+    .hl-key {
+      color: var(--accent-yellow);
+      font-weight: 700;
+    }
+
+    .hl-num {
+      background: rgba(76, 201, 240, 0.16);
+      color: #7ee3ff;
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+    .hl-pink {
+      background: rgba(255, 107, 157, 0.16);
+      color: #ff9bbd;
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+    .hl-green {
+      background: rgba(6, 214, 160, 0.16);
+      color: #5ef2c8;
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+    .hl-orange {
+      background: rgba(255, 159, 28, 0.18);
+      color: #ffc266;
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+    .polaroid-caption {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px dotted #4a4a52;
+      font-size: 0.92rem;
+      color: #9e9eab;
+      text-align: right;
+      font-style: italic;
+    }
+
+    /* Macro Mini-Table inside Polaroid */
+    .macro-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 10px;
+      font-size: 0.98rem;
+    }
+
+    .macro-table th, .macro-table td {
+      border: 1px dashed #4a4a52;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .macro-table th {
+      background: #1b1b1e;
+      color: var(--accent-cyan);
+      font-family: 'Kalam', cursive;
+    }
+
+    /* User Highlighted Spans */
+    .user-highlight {
+      padding: 1px 3px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .user-highlight:hover {
+      opacity: 0.8;
+      outline: 1px dashed #fff;
+    }
+
+    body.highlight-mode {
+      cursor: text;
+    }
+
+    /* Draggable & Resizable Sticky Notes */
+    .sticky-note {
+      position: absolute;
+      min-width: 190px;
+      min-height: 150px;
+      width: 230px;
+      height: 185px;
+      border-radius: 10px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+      z-index: 5000;
+      display: flex;
+      flex-direction: column;
+      resize: both;
+      overflow: hidden;
+      border: 2px solid rgba(0, 0, 0, 0.25);
+    }
+
+    .sticky-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 8px;
+      background: rgba(0, 0, 0, 0.16);
+      cursor: grab;
+      user-select: none;
+    }
+
+    .sticky-header:active {
+      cursor: grabbing;
+    }
+
+    .sticky-colors {
+      display: flex;
+      gap: 5px;
+    }
+
+    .sticky-color-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 0, 0, 0.45);
+      cursor: pointer;
+    }
+
+    .sticky-del {
+      background: transparent;
+      border: none;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      color: inherit;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .sticky-body {
+      flex: 1;
+      padding: 10px;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 17px;
+      line-height: 1.35;
+      outline: none;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    /* Save Modal */
+    #save-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    #save-modal-overlay.open {
+      display: flex;
+    }
+
+    .save-modal {
+      background: #232328;
+      border: 2px solid var(--accent-cyan);
+      border-radius: 16px;
+      padding: 22px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .save-modal h3 {
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+    }
+
+    .save-modal label {
+      display: block;
+      font-size: 0.95rem;
+      margin-top: 8px;
+      color: var(--text-muted);
+    }
+
+    .save-modal input {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 4px;
+      border-radius: 8px;
+      border: 1px solid #4a4a55;
+      background: #16161a;
+      color: #f0f0f0;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    #toast-msg {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2b2b32;
+      color: var(--accent-green);
+      border: 1.5px solid var(--accent-green);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-family: 'Kalam', cursive;
+      font-size: 1rem;
+      z-index: 10001;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    #toast-msg.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive Workspace Action Bar -->
+  <div id="workspace-toolbar" data-workspace-ui="true">
+    <button class="tool-btn" id="btn-add-note" title="Add a draggable sticky note">📝 ADD NOTES</button>
+    <button class="tool-btn" id="btn-highlight" title="Toggle text highlighter (click any highlight to undo)">🖍️ HIGHLIGHT</button>
+    <div class="hl-palette" id="hl-palette">
+      <span class="hl-swatch selected" data-color="#ffe066" style="background:#ffe066" title="Yellow"></span>
+      <span class="hl-swatch" data-color="#4cc9f0" style="background:#4cc9f0" title="Cyan"></span>
+      <span class="hl-swatch" data-color="#ff6b9d" style="background:#ff6b9d" title="Pink"></span>
+      <span class="hl-swatch" data-color="#06d6a0" style="background:#06d6a0" title="Green"></span>
+      <span class="hl-swatch" data-color="#c77dff" style="background:#c77dff" title="Purple"></span>
+    </div>
+    <button class="tool-btn" id="btn-save" title="Clone-Save board state to GitHub or local HTML">☁️ SAVE</button>
+  </div>
+
+  <!-- Board Title Header -->
+  <header class="board-header">
+    <h1>📊 UNION BUDGET 2026–27 — VISUAL SKETCHNOTE BOARD</h1>
+    <p class="board-subtitle">Yuva Shakti-Driven Budget • Vision: Viksit Bharat • First Budget Prepared in Kartavya Bhawan</p>
+    <span class="source-badge">Source: Press Information Bureau (PIB) • Complete Zero-Omission Edition</span>
+  </header>
+
+  <!-- Ultra-Short Quick Revision Sheet -->
+  <section class="quick-revision-sheet" aria-label="Quick Revision Sheet">
+    <div class="flash-grid">
+      <div class="flash-pill">
+        <strong>Venue &amp; Principles:</strong> First Budget in <strong>Kartavya Bhawan</strong>. <em>Action over Ambivalence, Reform over Rhetoric, People over Populism</em>.
+      </div>
+      <div class="flash-pill cyan">
+        <strong>3 Kartavyas:</strong> (1) Sustain Economic Growth (2) Fulfill Aspirations (3) <em>Sabka Saath, Sabka Vikas</em> ("Last Mile").
+      </div>
+      <div class="flash-pill green">
+        <strong>Macro Targets (BE 26-27):</strong> Fiscal Deficit <strong>4.3%</strong> (RE 4.4%) • Debt/GDP <strong>55.6%</strong> (Target 50% by 2030-31) • Capex <strong>₹12.2L Cr</strong> (Eff. <strong>₹17.1L Cr</strong>).
+      </div>
+      <div class="flash-pill pink">
+        <strong>Growth Numbers:</strong> Nominal GDP <strong>10.5%</strong>, Real <strong>~7%</strong> • Total Exp <strong>₹53.5L Cr</strong> • Non-Debt Receipts <strong>₹36.5L Cr</strong> (Net Tax ₹28.7L Cr).
+      </div>
+      <div class="flash-pill orange">
+        <strong>Big Outlays:</strong> Biopharma SHAKTI <strong>₹10,000 Cr</strong> • Electronics Comp. <strong>₹40,000 Cr</strong> • Container Mfg <strong>₹10,000 Cr</strong> • SME Growth Fund <strong>₹10,000 Cr</strong> • CER <strong>₹5,000 Cr/CER</strong>.
+      </div>
+      <div class="flash-pill purple">
+        <strong>Flagship Infra &amp; Social:</strong> <strong>7 High-Speed Rail</strong> • Dankuni–Surat DFC • <strong>20 Nat. Waterways</strong> • 15,000 Schools + 500 Colleges AVGC Labs • <strong>Bharat-VISTAAR</strong> • <strong>SHE Marts</strong> • <strong>NIMHANS-2</strong>.
+      </div>
+      <div class="flash-pill red">
+        <strong>Tax Overhaul:</strong> <strong>Income Tax Act, 2025</strong> (w.e.f. 1 Apr 2026) • Slabs unchanged • LRS/Tour TCS <strong>2%</strong> • Personal Import Duty <strong>20%→10%</strong> • Data Centers Tax Holiday till <strong>2047</strong> • IFSC <strong>20 yrs</strong>.
+      </div>
+      <div class="flash-pill">
+        <strong>Key Watchouts:</strong> Bhutan = largest foreign aid beneficiary; <strong>zero funds for Chabahar Port</strong> • Rural private consumption (~60% GDP) weak • Greenflation &amp; Inverted Duty Structures.
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic Masonry Polaroid Canvas -->
+  <main class="masonry-board">
+
+    <!-- CARD 1: Context & The Three Kartavyas -->
+    <article class="polaroid-card">
+      <span class="card-tag">01 • Context &amp; Vision</span>
+      <h2>🏛️ Why in News &amp; The Three Kartavyas</h2>
+      <ul>
+        <li>Presented in Parliament by the <span class="hl-key">Union Minister of Finance and Corporate Affairs</span> — marks the <span class="hl-num">first Budget prepared in the newly inaugurated Kartavya Bhawan</span>.</li>
+        <li>Framed as a <span class="hl-pink">Yuva Shakti-driven Budget</span>, anchored in the vision of <span class="hl-key">Viksit Bharat</span>.</li>
+        <li><strong>Three Guiding Principles:</strong>
+          <ul>
+            <li><span class="hl-green">Action over Ambivalence</span></li>
+            <li><span class="hl-green">Reform over Rhetoric</span></li>
+            <li><span class="hl-green">People over Populism</span></li>
+          </ul>
+        </li>
+        <li><strong>Guided by Three Kartavyas (Duties):</strong>
+          <ul>
+            <li><strong>1. Sustain Economic Growth:</strong> Enhance productivity, competitiveness, and build resilience against volatile global dynamics.</li>
+            <li><strong>2. Fulfill Aspirations:</strong> Build the capacity of youth and citizens, making them strong partners in India's prosperity.</li>
+            <li><strong>3. Sabka Saath, Sabka Vikas:</strong> Ensure every family, community, region, and sector has access to resources and opportunities, focusing on the <span class="hl-orange">"Last Mile"</span>.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="polaroid-caption">Foundation of Union Budget 2026–27</div>
+    </article>
+
+    <!-- CARD 2: Macroeconomic Fundamentals -->
+    <article class="polaroid-card theme-cyan">
+      <span class="card-tag tag-cyan">02 • Macro Numbers</span>
+      <h2>📈 Macroeconomic Fundamentals</h2>
+      <table class="macro-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>BE 2026–27</th>
+            <th>RE 2025–26 / Goal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Fiscal Deficit</strong></td>
+            <td><span class="hl-num">4.3% of GDP</span></td>
+            <td>4.4% (Glide path &lt;4.5%)</td>
+          </tr>
+          <tr>
+            <td><strong>Debt-to-GDP</strong></td>
+            <td><span class="hl-num">55.6%</span></td>
+            <td>56.1% (Goal: <strong>50% by 2030–31</strong>)</td>
+          </tr>
+          <tr>
+            <td><strong>Capex</strong></td>
+            <td><span class="hl-num">₹12.2 Lakh Cr</span> (~3.1% GDP)</td>
+            <td>Up from ₹11.2 Lakh Cr (~₹11L Cr RE)</td>
+          </tr>
+          <tr>
+            <td><strong>Effective Capex</strong></td>
+            <td><span class="hl-num">₹17.1 Lakh Cr</span> (~4.4% GDP)</td>
+            <td>Includes grants-in-aid to states for capital assets</td>
+          </tr>
+          <tr>
+            <td><strong>GDP Growth</strong></td>
+            <td>Nominal <span class="hl-green">10.5%</span> • Real <span class="hl-green">~7%</span></td>
+            <td>Public investment = primary growth driver</td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+        <li><strong>Revised Estimates (RE) 2025–26:</strong> Non-debt receipts <span class="hl-num">₹34 lakh crore</span>; Total expenditure <span class="hl-num">₹49.6 lakh crore</span>; Capex <span class="hl-num">~₹11 lakh crore</span>.</li>
+        <li><strong>Budget Estimates (BE) 2026–27:</strong> Non-debt receipts <span class="hl-num">₹36.5 lakh crore</span>; Net tax receipts <span class="hl-num">₹28.7 lakh crore</span>; Total expenditure <span class="hl-num">₹53.5 lakh crore</span>.</li>
+        <li><strong>Deficit Financing (BE 2026–27):</strong> Net market borrowings <span class="hl-pink">₹11.7 lakh crore</span>; Gross borrowings <span class="hl-pink">₹17.2 lakh crore</span>; remainder met through <span class="hl-key">small savings and other sources</span>.</li>
+      </ul>
+      <div class="polaroid-caption">Fiscal Prudence + Capex Push</div>
+    </article>
+
+    <!-- CARD 3: First Kartavya - 7 Strategic Sectors -->
+    <article class="polaroid-card theme-green">
+      <span class="card-tag tag-green">03 • Kartavya 1 (Part A)</span>
+      <h2>🏭 7 Strategic &amp; Frontier Sectors</h2>
+      <ul>
+        <li><strong>1. Biopharma SHAKTI</strong> (<em>Strategy for Healthcare Advancement through Knowledge, Technology and Innovation</em>):
+          <ul>
+            <li>Outlay: <span class="hl-num">₹10,000 crore over 5 years</span> to develop India as a global biopharma manufacturing centre.</li>
+            <li>Focus on <span class="hl-green">biologics &amp; biosimilars</span>; <span class="hl-num">3 new NIPERs</span>, upgradation of <span class="hl-num">7 existing institutes</span>, strengthening <span class="hl-key">CDSCO</span> to global standards.</li>
+          </ul>
+        </li>
+        <li><strong>2. India Semiconductor Mission (ISM) 2.0:</strong>
+          <ul>
+            <li>Builds on ISM 1.0 for <span class="hl-key">technological sovereignty</span>.</li>
+            <li>Focus on manufacturing <span class="hl-green">semiconductor equipment &amp; materials</span>, resilient supply chains, industry-led R&amp;D and training centres for skilled workforce (economic &amp; national security).</li>
+          </ul>
+        </li>
+        <li><strong>3. Electronics Components Manufacturing Scheme:</strong>
+          <ul>
+            <li>Outlay hiked from <span class="hl-num">₹22,919 crore → ₹40,000 crore</span> to deepen domestic value chains and boost electronics manufacturing.</li>
+          </ul>
+        </li>
+        <li><strong>4. Rare Earth Corridors &amp; Chemical Parks:</strong>
+          <ul>
+            <li>Rare Earth Corridors in <span class="hl-orange">Odisha, Kerala, Andhra Pradesh, and Tamil Nadu</span> for mining, processing, and manufacturing of <span class="hl-key">Rare Earth Permanent Magnets (REPM)</span>.</li>
+            <li><span class="hl-num">3 Chemical Parks</span> under a cluster-based, plug-and-play model to reduce import dependence.</li>
+          </ul>
+        </li>
+        <li><strong>5. Capital Goods &amp; Container Manufacturing:</strong>
+          <ul>
+            <li><span class="hl-key">Hi-Tech Tool Rooms</span> by CPSEs; <span class="hl-key">Construction &amp; Infrastructure Equipment (CIE) Scheme</span>; <span class="hl-num">₹10,000 crore Container Manufacturing Scheme</span>.</li>
+          </ul>
+        </li>
+        <li><strong>6. Textile Sector Push:</strong>
+          <ul>
+            <li><span class="hl-key">Integrated Textile Programme</span>: <em>National Fibre Scheme</em>, <em>Samarth 2.0</em>, <em>Tex-Eco Initiative</em>, cluster modernisation + <span class="hl-green">Mega Textile Parks</span> (technical textiles &amp; value addition).</li>
+          </ul>
+        </li>
+        <li><strong>7. Gram Swaraj &amp; Sports Goods:</strong>
+          <ul>
+            <li><span class="hl-key">Mahatma Gandhi Gram Swaraj</span> initiative (khadi, handloom, handicrafts) + <span class="hl-green">Sports goods manufacturing initiative</span> (global hub for affordable, high-quality sports equipment).</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="polaroid-caption">Global Manufacturing Hub Strategy</div>
+    </article>
+
+    <!-- CARD 4: First Kartavya - MSMEs, Infra, CER, CCUS -->
+    <article class="polaroid-card theme-orange">
+      <span class="card-tag tag-orange">04 • Kartavya 1 (Part B)</span>
+      <h2>🚄 Legacy Clusters, MSMEs &amp; Growth Connectors</h2>
+      <ul>
+        <li><strong>Rejuvenating Legacy Industrial Sectors:</strong> Scheme to revive <span class="hl-num">200 legacy industrial clusters</span> (cost competitiveness &amp; efficiency via infra and tech upgradation).</li>
+        <li><strong>Champion MSMEs:</strong>
+          <ul>
+            <li>Dedicated <span class="hl-num">₹10,000 crore "SME Growth Fund"</span> to incentivize high-potential firms and create globally competitive <span class="hl-key">"Champion MSMEs"</span>.</li>
+            <li><span class="hl-key">Self-Reliant India Fund</span> gets additional <span class="hl-num">₹2,000 crore</span> (micro enterprises, steady risk capital).</li>
+            <li><span class="hl-orange">'Corporate Mitras'</span> envisioned as key enablers to mentor, guide, and integrate enterprises into larger value chains.</li>
+          </ul>
+        </li>
+        <li><strong>Infrastructure as "Growth Connectors":</strong>
+          <ul>
+            <li><strong>7 High-Speed Rail Corridors:</strong> <span class="hl-num">Mumbai–Pune</span>, <span class="hl-num">Pune–Hyderabad</span>, <span class="hl-num">Hyderabad–Bengaluru</span>, <span class="hl-num">Hyderabad–Chennai</span>, <span class="hl-num">Chennai–Bengaluru</span>, <span class="hl-num">Delhi–Varanasi</span>, <span class="hl-num">Varanasi–Siliguri</span>.</li>
+            <li><strong>Sustainable Cargo Movement:</strong> New Dedicated Freight Corridor (<span class="hl-green">Dankuni to Surat</span>) + operationalisation of <span class="hl-num">20 National Waterways</span> over next 5 years.</li>
+            <li><strong>Coastal Cargo Promotion Scheme:</strong> Shift cargo from road/rail to waterways &amp; coastal shipping to raise share from <span class="hl-num">6% to 12% by 2047</span>.</li>
+            <li><strong>Seaplane VGF Scheme:</strong> Indigenised seaplane manufacturing &amp; operations for last-mile connectivity and tourism.</li>
+            <li><strong>Infrastructure Risk Guarantee Fund:</strong> Prudently calibrated partial credit guarantees to lenders during infra development and construction phase.</li>
+          </ul>
+        </li>
+        <li><strong>City Economic Regions (CER):</strong> Map cities based on specific growth drivers; <span class="hl-num">₹5,000 crore per CER over 5 years</span> via <span class="hl-pink">"challenge mode"</span>.</li>
+        <li><strong>Carbon Capture (CCUS):</strong> Carbon Capture, Utilization, and Storage scheme to decarbonize hard-to-abate sectors (<span class="hl-key">Steel, Cement</span>).</li>
+      </ul>
+      <div class="polaroid-caption">Connectivity, Urban Hubs &amp; Decarbonisation</div>
+    </article>
+
+    <!-- CARD 5: Second Kartavya -->
+    <article class="polaroid-card theme-purple">
+      <span class="card-tag tag-purple">05 • Kartavya 2</span>
+      <h2>🚀 Fulfill Aspirations &amp; Build Capacity</h2>
+      <ul>
+        <li><strong>AVGC Content Creator Labs ("Orange Economy"):</strong>
+          <ul>
+            <li>Support <span class="hl-key">Indian Institute of Creative Technologies, Mumbai</span> to set up <em>Animation, Visual Effects, Gaming and Comics (AVGC) Content Creator Labs</em> in <span class="hl-num">15,000 secondary schools</span> and <span class="hl-num">500 colleges</span>.</li>
+          </ul>
+        </li>
+        <li><strong>National Institute of Hospitality:</strong>
+          <ul>
+            <li>Proposed by upgrading existing <span class="hl-key">National Council for Hotel Management and Catering Technology</span> — bridges gap between academia and tourism industry.</li>
+          </ul>
+        </li>
+        <li><strong>Khelo India Mission:</strong>
+          <ul>
+            <li>Builds on Khelo India programme to transform sports via integrated talent development, coach capacity building, sports science integration, competitive leagues, and expanded sports infrastructure.</li>
+          </ul>
+        </li>
+        <li><strong>Medical Value Tourism:</strong>
+          <ul>
+            <li><span class="hl-num">5 Regional Medical Hubs</span> in partnership with private sector — integrated facilities including <span class="hl-green">AYUSH Centres, diagnostics, post-care, and rehabilitation services</span>.</li>
+          </ul>
+        </li>
+        <li><strong>Women in STEM:</strong>
+          <ul>
+            <li><span class="hl-pink">One girls' hostel in every district</span> through Viability Gap Funding (VGF) or capital support.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="polaroid-caption">Youth, Orange Economy, Sports &amp; STEM</div>
+    </article>
+
+    <!-- CARD 6: Third Kartavya -->
+    <article class="polaroid-card theme-pink">
+      <span class="card-tag tag-pink">06 • Kartavya 3</span>
+      <h2>🤝 Sabka Saath, Sabka Vikas (Last Mile)</h2>
+      <ul>
+        <li><strong>Bharat-VISTAAR</strong> (<em>Virtually Integrated System to Access Agricultural Resources</em>):
+          <ul>
+            <li>Multilingual AI platform integrating <span class="hl-green">AgriStack</span> and <span class="hl-green">ICAR data</span> for customized farmer advisory.</li>
+          </ul>
+        </li>
+        <li><strong>SHE Marts</strong> (<em>Self-Help Entrepreneur Marts</em>):
+          <ul>
+            <li>Builds on success of <span class="hl-pink">"Lakhpati Didis"</span> — community-owned retail outlets set up within cluster federations.</li>
+          </ul>
+        </li>
+        <li><strong>Mental Health Infrastructure:</strong>
+          <ul>
+            <li>Setting up <span class="hl-num">"NIMHANS-2"</span> and upgrading institutes in <span class="hl-orange">Ranchi and Tezpur</span> to <span class="hl-key">"Regional Apex Institutions"</span>.</li>
+          </ul>
+        </li>
+        <li><strong>Purvodaya &amp; North-East:</strong>
+          <ul>
+            <li><strong>Buddhist Circuits:</strong> Specific scheme in North East Region (<span class="hl-num">Arunachal Pradesh, Sikkim, Assam, Manipur, Mizoram, Tripura</span>).</li>
+            <li><strong>East Coast Industrial Corridor:</strong> Well-connected node at <span class="hl-key">Durgapur (West Bengal)</span> + creation of <span class="hl-num">5 tourism destinations</span> in <span class="hl-num">5 Purvodaya States</span>.</li>
+          </ul>
+        </li>
+        <li><strong>Divyangjan Support:</strong>
+          <ul>
+            <li>Targeted empowerment of differently-abled through schemes like <span class="hl-key">"Divyang Sahara Yojana"</span>.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="polaroid-caption">Inclusive Growth &amp; Regional Balance</div>
+    </article>
+
+    <!-- CARD 7: Direct Tax Reforms -->
+    <article class="polaroid-card theme-cyan">
+      <span class="card-tag tag-cyan">07 • Tax Reforms (Direct)</span>
+      <h2>💼 Direct Tax &amp; Compliance Overhaul</h2>
+      <ul>
+        <li><strong>New Income Tax Act, 2025:</strong> Replaces Income Tax Act, 1961 — effective from <span class="hl-num">1st April 2026</span>.</li>
+        <li><strong>Tax Rates:</strong> <span class="hl-green">No changes to tax slabs</span> for FY 2026–27; stability maintained.</li>
+        <li><strong>TCS Rationalization:</strong> TCS on overseas tour packages and LRS remittances for education/medical purposes reduced to a <span class="hl-num">uniform 2% (without any threshold)</span>.</li>
+        <li><strong>TDS Rationalization:</strong>
+          <ul>
+            <li>TDS on supply of manpower services fixed at <span class="hl-num">1% (Individuals/HUF)</span> or <span class="hl-num">2% (others)</span>.</li>
+            <li><span class="hl-green">Decriminalized:</span> Non-production of books of accounts &amp; failure to pay TDS (where payment is made in kind).</li>
+          </ul>
+        </li>
+        <li><strong>Securities Transaction Tax (STT):</strong> Marginally increased (<span class="hl-pink">0.1% → 0.15%</span> in certain segments) to curb excessive equity speculation.</li>
+        <li><strong>Minimum Alternate Tax (MAT):</strong> Exemption to all <span class="hl-key">non-residents paying tax on presumptive basis</span>.</li>
+        <li><strong>Tax Administration:</strong> Joint Committee of <span class="hl-key">MCA &amp; CBDT</span> to incorporate <span class="hl-num">ICDS into IndAS</span> (eliminating separate ICDS accounting from <span class="hl-num">tax year 2027–28</span>); rationalising definition of accountant under Safe Harbour Rules.</li>
+        <li><strong>Immunity from Prosecution:</strong> Non-disclosure of foreign assets worth <span class="hl-num">less than ₹20 lakh</span> granted immunity (retrospective from <span class="hl-num">1st October 2024</span>).</li>
+        <li><strong>Buyback Tax Shift:</strong> Share buybacks taxed as <span class="hl-orange">Capital Gains in hands of shareholder</span> (burden shifted from company to recipient).</li>
+      </ul>
+      <div class="polaroid-caption">Simplification &amp; Certainty</div>
+    </article>
+
+    <!-- CARD 8: Indirect Tax, Strategic Incentives & Customs -->
+    <article class="polaroid-card">
+      <span class="card-tag">08 • Tax Reforms (Customs &amp; Incentives)</span>
+      <h2>🌐 Strategic Tax Holidays &amp; Customs Modernisation</h2>
+      <ul>
+        <li><strong>Customs Duty Rationalization:</strong>
+          <ul>
+            <li>Tariff on goods imported for personal use cut from <span class="hl-num">20% → 10%</span>.</li>
+            <li><span class="hl-green">Full exemption</span> on <span class="hl-num">17 cancer drugs</span> and medicines/foods for <span class="hl-num">7 rare diseases</span>.</li>
+          </ul>
+        </li>
+        <li><strong>Strategic Incentives for Investment &amp; Industry:</strong>
+          <ul>
+            <li><strong>Data Centers Tax Holiday:</strong> Foreign companies providing global cloud services via Indian data centers get tax holiday <span class="hl-num">until 2047</span>.</li>
+            <li><strong>IFSC (GIFT City):</strong> Tax holiday extended from <span class="hl-num">10 → 20 years</span> for Offshore Banking Units.</li>
+            <li><strong>Critical Minerals:</strong> Customs duty exemptions on capital goods for processing critical minerals (<span class="hl-key">Lithium, Cobalt, etc.</span>) &amp; manufacturing Lithium-ion cells.</li>
+            <li><strong>IT Sector Safe Harbour:</strong> Threshold enhanced to <span class="hl-num">₹2,000 crore</span>; unified category for software development and KPO services.</li>
+          </ul>
+        </li>
+        <li><strong>Customs Modernization &amp; Export Promotion:</strong>
+          <ul>
+            <li><strong>Sectoral Relief:</strong> Duty-free import limits increased for inputs in <span class="hl-orange">Marine, Leather, and Textile</span> sectors.</li>
+            <li><strong>Aviation &amp; Defence:</strong> Duty exemptions for parts/components used in aircraft manufacture &amp; <span class="hl-key">MRO</span> (Maintenance, Repair, Overhaul).</li>
+          </ul>
+        </li>
+        <li><strong>Ease of Doing Business:</strong>
+          <ul>
+            <li>Single digital window for cargo clearance, instant customs clearance for non-compliant goods, rollout of <span class="hl-key">Customs Integrated System (CIS)</span>, expanded <span class="hl-green">AI-based container scanning</span>.</li>
+            <li><span class="hl-key">EEZ / High Seas fish catch</span> made duty-free; revised duty-free baggage allowances; dispute settlement for honest taxpayers with reduced penalty.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="polaroid-caption">Global Capital &amp; Trade Facilitation</div>
+    </article>
+
+    <!-- CARD 9: Concerns Regarding Budget 2026-27 -->
+    <article class="polaroid-card theme-red">
+      <span class="card-tag tag-red">09 • Critical Analysis</span>
+      <h2>⚠️ Concerns Regarding Union Budget 2026–27</h2>
+      <ul>
+        <li><strong>Global Headwinds:</strong> Assumes <span class="hl-num">10.0% nominal GDP growth</span> (First Advance Estimates FY 2025–26), tested by global slowdown, geopolitical conflicts, and trade disruptions.</li>
+        <li><strong>Revenue Buoyancy:</strong> Large shortfalls in income tax &amp; GST collections sharply reduced fiscal space → across-the-board expenditure cuts (capex &amp; key social sectors). Heavy bet on <span class="hl-orange">Supply-Side Economics</span> (roads, factories, railways), while <span class="hl-pink">Private Consumption (~60% of GDP)</span> remains limited, especially in rural areas.</li>
+        <li><strong>Implementation Lag:</strong> High-tech schemes (<span class="hl-key">Bharat-VISTAAR, Biopharma SHAKTI</span>) require advanced institutional capacity and face bureaucratic/execution bottlenecks; infra projects still face <span class="hl-pink">land acquisition challenges</span>.</li>
+        <li><strong>Job Creation Gap:</strong> Capex-heavy focus (semiconductors, biopharma) risks <span class="hl-pink">jobless or K-shaped growth</span> due to limited labour absorption amid widening education–employment skill mismatch.</li>
+        <li><strong>Green Transition &amp; Resource Constraints:</strong> Shift to green tech increases demand for water, energy, critical minerals → import dependence &amp; <span class="hl-orange">greenflation</span> elevating costs for MSMEs &amp; manufacturing.</li>
+        <li><strong>Uncertain Capital Flows:</strong> Persistent <span class="hl-pink">FPI outflows</span> and unclear <span class="hl-pink">FDI outlook</span> raise external financing stability &amp; investor confidence concerns.</li>
+        <li><strong>External Aid Prioritisation Challenge:</strong> Foreign grants-in-aid make <span class="hl-num">Bhutan</span> the largest beneficiary, while <span class="hl-pink">no funds for Chabahar Port (Iran)</span> raise regional connectivity and strategic outreach concerns.</li>
+      </ul>
+      <div class="polaroid-caption">Key Risks &amp; Structural Bottlenecks</div>
+    </article>
+
+    <!-- CARD 10: Way Forward & Conclusion -->
+    <article class="polaroid-card theme-green">
+      <span class="card-tag tag-green">10 • Way Forward &amp; Conclusion</span>
+      <h2>🧭 Strengthening India's Economy Beyond 2026–27</h2>
+      <ul>
+        <li><strong>Reviving Twin Engines of Demand:</strong> Both investment and consumption must fire together. Faster rollout of <span class="hl-key">SHE Marts</span> &amp; <span class="hl-key">Bharat-VISTAAR</span> can raise rural incomes and boost demand (higher marginal propensity to consume).</li>
+        <li><strong>Securing Strategic Autonomy in Critical Resources:</strong> Critical minerals = <span class="hl-orange">"new oil"</span> of green economy. Combine <span class="hl-key">Rare Earth Corridors</span> with overseas mineral security partnerships + boost <span class="hl-green">R&amp;D spending</span> beyond current low share of GDP (semiconductors &amp; biopharma).</li>
+        <li><strong>Skilling for New Sectors:</strong> Match AVGC &amp; Semiconductor push with aggressive skill development (<span class="hl-num">Skill India 2.0</span>) to prevent a talent crunch.</li>
+        <li><strong>Quality of Expenditure:</strong> Shift from <span class="hl-pink">"Outlays" to "Outcomes"</span> — audit every Rupee (e.g., <em>Mahatma Gandhi Gram Swaraj</em>) for tangible asset creation &amp; income generation, not just fund utilization.</li>
+        <li><strong>Correcting "Inverted Duty Structures":</strong> In textiles &amp; electronics, raw materials taxed higher than finished imports hurt domestic manufacturing → need sector-wise duty correction so <span class="hl-green">"Made in India"</span> is cheaper than imports at the tax level.</li>
+        <li><strong>Conclusion:</strong> Strategically balances fiscal prudence with high-tech industrialization &amp; inclusive welfare for <span class="hl-key">"Viksit Bharat"</span>. Ultimate success hinges on effective implementation to bridge the <span class="hl-pink">"Jobless Growth"</span> gap and revive private consumption to reach the <span class="hl-orange">"Last Mile"</span>.</li>
+      </ul>
+      <div class="polaroid-caption">Mains Way Forward &amp; Synthesis</div>
+    </article>
+
+  </main>
+
+  <!-- Save / GitHub Sync Modal -->
+  <div id="save-modal-overlay" data-workspace-ui="true">
+    <div class="save-modal">
+      <h3>☁️ Clone-Save Workspace</h3>
+      <p style="margin:0 0 10px; font-size:0.95rem; color:#c8c8d0;">
+        Safely clones the DOM (stripping toolbar &amp; modal UI) without breaking active event listeners. Sync directly to GitHub or download a clean HTML snapshot.
+      </p>
+      <label for="gh-repo">GitHub Repo (owner/repo)</label>
+      <input type="text" id="gh-repo" placeholder="e.g. username/revision-notes" />
+      <label for="gh-path">File Path in Repo</label>
+      <input type="text" id="gh-path" value="budget-2026-27-sketchnote.html" />
+      <label for="gh-token">GitHub Personal Access Token (repo scope)</label>
+      <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" />
+      <div class="modal-actions">
+        <button class="tool-btn" id="btn-modal-close">Close</button>
+        <button class="tool-btn" id="btn-download-html" style="border-color: var(--accent-green); color: var(--accent-green);">💾 Download HTML</button>
+        <button class="tool-btn" id="btn-sync-gh" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">☁️ Sync to GitHub</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-msg" data-workspace-ui="true"></div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY_NOTES = 'sketchnote_budget26_notes_v1';
+      const STORAGE_KEY_BOARD = 'sketchnote_budget26_highlights_v1';
+      const NOTE_COLORS = [
+        { bg: '#fff3a1', text: '#1a1a1a' },
+        { bg: '#a8f0dc', text: '#11221e' },
+        { bg: '#ffc4dd', text: '#241019' },
+        { bg: '#b8e7ff', text: '#0d222e' },
+        { bg: '#e3c4ff', text: '#1d102b' }
+      ];
+
+      let highlightMode = false;
+      let activeHighlightColor = '#ffe066';
+      let noteZCounter = 5005;
+
+      const btnAddNote = document.getElementById('btn-add-note');
+      const btnHighlight = document.getElementById('btn-highlight');
+      const hlPalette = document.getElementById('hl-palette');
+      const btnSave = document.getElementById('btn-save');
+      const saveModal = document.getElementById('save-modal-overlay');
+      const btnModalClose = document.getElementById('btn-modal-close');
+      const btnDownloadHtml = document.getElementById('btn-download-html');
+      const btnSyncGh = document.getElementById('btn-sync-gh');
+      const toastEl = document.getElementById('toast-msg');
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._timer);
+        toastEl._timer = setTimeout(() => toastEl.classList.remove('show'), 2800);
+      }
+
+      /* Auto-contrast calculator for highlighter */
+      function getContrastTextColor(hex) {
+        const clean = hex.replace('#', '');
+        const r = parseInt(clean.substring(0, 2), 16);
+        const g = parseInt(clean.substring(2, 4), 16);
+        const b = parseInt(clean.substring(4, 6), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance > 0.58 ? '#111111' : '#ffffff';
+      }
+
+      /* Persist Sticky Notes to LocalStorage */
+      function persistNotes() {
+        const notes = Array.from(document.querySelectorAll('.sticky-note')).map((el) => ({
+          id: el.dataset.noteId,
+          left: el.style.left,
+          top: el.style.top,
+          width: el.style.width,
+          height: el.style.height,
+          bg: el.style.backgroundColor,
+          color: el.style.color,
+          text: el.querySelector('.sticky-body').innerText
+        }));
+        try {
+          localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(notes));
+        } catch (e) {}
+      }
+
+      /* Wire up draggable, resizable, color-picking sticky note */
+      function bindStickyNoteEvents(noteEl) {
+        const header = noteEl.querySelector('.sticky-header');
+        const body = noteEl.querySelector('.sticky-body');
+        const delBtn = noteEl.querySelector('.sticky-del');
+        const colorDots = noteEl.querySelectorAll('.sticky-color-dot');
+
+        noteEl.addEventListener('mousedown', () => {
+          noteEl.style.zIndex = ++noteZCounter;
+        });
+
+        let isDragging = false;
+        let startX = 0, startY = 0, origLeft = 0, origTop = 0;
+
+        header.addEventListener('mousedown', (e) => {
+          if (e.target.closest('button') || e.target.classList.contains('sticky-color-dot')) return;
+          isDragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          origLeft = noteEl.offsetLeft;
+          origTop = noteEl.offsetTop;
+          noteEl.style.zIndex = ++noteZCounter;
+          e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          noteEl.style.left = Math.max(0, origLeft + (e.clientX - startX)) + 'px';
+          noteEl.style.top = Math.max(0, origTop + (e.clientY - startY)) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+          if (isDragging) {
+            isDragging = false;
+            persistNotes();
+          }
+        });
+
+        /* Save size changes on resize */
+        noteEl.addEventListener('mouseup', persistNotes);
+        body.addEventListener('input', persistNotes);
+
+        delBtn.addEventListener('click', () => {
+          noteEl.remove();
+          persistNotes();
+        });
+
+        colorDots.forEach((dot) => {
+          dot.addEventListener('click', () => {
+            const bg = dot.dataset.bg;
+            const txt = dot.dataset.text;
+            noteEl.style.backgroundColor = bg;
+            noteEl.style.color = txt;
+            persistNotes();
+          });
+        });
+      }
+
+      function createStickyNote(data = {}) {
+        const id = data.id || 'note_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.dataset.noteId = id;
+        note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random() * 140)) + 'px';
+        note.style.top = data.top || (window.scrollY + 120 + Math.floor(Math.random() * 90)) + 'px';
+        if (data.width) note.style.width = data.width;
+        if (data.height) note.style.height = data.height;
+        note.style.backgroundColor = data.bg || NOTE_COLORS[0].bg;
+        note.style.color = data.color || NOTE_COLORS[0].text;
+        note.style.zIndex = ++noteZCounter;
+
+        const dotsHtml = NOTE_COLORS.map(
+          (c) => `<span class="sticky-color-dot" data-bg="${c.bg}" data-text="${c.text}" style="background:${c.bg};" title="Change color"></span>`
+        ).join('');
+
+        note.innerHTML = `
+          <div class="sticky-header">
+            <div class="sticky-colors">${dotsHtml}</div>
+            <button class="sticky-del" title="Delete note">✕</button>
+          </div>
+          <div class="sticky-body" contenteditable="true" spellcheck="false"></div>
+        `;
+        note.querySelector('.sticky-body').innerText = data.text !== undefined ? data.text : 'Quick revision note...';
+        document.body.appendChild(note);
+        bindStickyNoteEvents(note);
+        persistNotes();
+        return note;
+      }
+
+      /* Smart Hydration: Load from localStorage, or hydrate static notes already present in DOM */
+      function smartHydrate() {
+        const existingDomNotes = Array.from(document.querySelectorAll('.sticky-note'));
+        let savedNotes = null;
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY_NOTES);
+          if (raw) savedNotes = JSON.parse(raw);
+        } catch (e) {}
+
+        if (savedNotes && Array.isArray(savedNotes) && savedNotes.length > 0) {
+          existingDomNotes.forEach((el) => el.remove());
+          savedNotes.forEach((n) => createStickyNote(n));
+        } else if (existingDomNotes.length > 0) {
+          existingDomNotes.forEach((el) => bindStickyNoteEvents(el));
+          persistNotes();
+        }
+
+        /* Rebind click-to-undo on any existing highlighted spans */
+        document.querySelectorAll('.user-highlight').forEach(bindHighlightUndo);
+      }
+
+      /* Highlighter Tool + Click-to-Undo */
+      function bindHighlightUndo(span) {
+        if (span.dataset.undoBound) return;
+        span.dataset.undoBound = 'true';
+        span.title = 'Click to remove highlight';
+        span.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const parent = span.parentNode;
+          while (span.firstChild) {
+            parent.insertBefore(span.firstChild, span);
+          }
+          parent.removeChild(span);
+          parent.normalize();
+          showToast('Highlight removed');
+        });
+      }
+
+      btnHighlight.addEventListener('click', () => {
+        highlightMode = !highlightMode;
+        btnHighlight.classList.toggle('active', highlightMode);
+        hlPalette.classList.toggle('show', highlightMode);
+        document.body.classList.toggle('highlight-mode', highlightMode);
+        showToast(highlightMode ? 'Highlight Mode ON — Select text to highlight' : 'Highlight Mode OFF');
+      });
+
+      document.querySelectorAll('.hl-swatch').forEach((swatch) => {
+        swatch.addEventListener('click', () => {
+          document.querySelectorAll('.hl-swatch').forEach((s) => s.classList.remove('selected'));
+          swatch.classList.add('selected');
+          activeHighlightColor = swatch.dataset.color;
+        });
+      });
+
+      document.addEventListener('mouseup', (e) => {
+        if (!highlightMode) return;
+        if (e.target.closest('[data-workspace-ui="true"]') || e.target.closest('.sticky-note')) return;
+
+        const selection = window.getSelection();
+        if (!selection || selection.isCollapsed || !selection.toString().trim()) return;
+
+        const range = selection.getRangeAt(0);
+        const span = document.createElement('span');
+        span.className = 'user-highlight';
+        span.style.backgroundColor = activeHighlightColor;
+        span.style.color = getContrastTextColor(activeHighlightColor);
+
+        try {
+          range.surroundContents(span);
+          bindHighlightUndo(span);
+          selection.removeAllRanges();
+        } catch (err) {
+          /* Handle multi-node selections safely */
+          const frag = range.extractContents();
+          span.appendChild(frag);
+          range.insertNode(span);
+          bindHighlightUndo(span);
+          selection.removeAllRanges();
+        }
+      });
+
+      /* Add Sticky Note Button */
+      btnAddNote.addEventListener('click', () => {
+        const note = createStickyNote();
+        note.querySelector('.sticky-body').focus();
+        showToast('Sticky note added');
+      });
+
+      /* Clone-Save Mechanism (Preserves active DOM listeners untouched) */
+      function buildCleanHtmlSnapshot() {
+        const clone = document.documentElement.cloneNode(true);
+        /* Remove transient workspace UI states cleanly from clone */
+        clone.querySelectorAll('#save-modal-overlay').forEach((el) => el.classList.remove('open'));
+        clone.querySelectorAll('#toast-msg').forEach((el) => {
+          el.classList.remove('show');
+          el.textContent = '';
+        });
+        clone.querySelectorAll('#btn-highlight').forEach((el) => el.classList.remove('active'));
+        clone.querySelectorAll('#hl-palette').forEach((el) => el.classList.remove('show'));
+        const clonedBody = clone.querySelector('body');
+        if (clonedBody) clonedBody.classList.remove('highlight-mode');
+
+        /* Strip transient data flags so Smart Hydration re-binds cleanly on reload */
+        clone.querySelectorAll('.user-highlight').forEach((s) => s.removeAttribute('data-undo-bound'));
+
+        return '<!DOCTYPE html>\n' + clone.outerHTML;
+      }
+
+      btnSave.addEventListener('click', () => {
+        saveModal.classList.add('open');
+      });
+
+      btnModalClose.addEventListener('click', () => {
+        saveModal.classList.remove('open');
+      });
+
+      saveModal.addEventListener('click', (e) => {
+        if (e.target === saveModal) saveModal.classList.remove('open');
+      });
+
+      btnDownloadHtml.addEventListener('click', () => {
+        const html = buildCleanHtmlSnapshot();
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = document.getElementById('gh-path').value.trim() || 'union-budget-2026-27-notes.html';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        saveModal.classList.remove('open');
+        showToast('Clean HTML snapshot downloaded!');
+      });
+
+      btnSyncGh.addEventListener('click', async () => {
+        const repo = document.getElementById('gh-repo').value.trim();
+        const path = document.getElementById('gh-path').value.trim();
+        const token = document.getElementById('gh-token').value.trim();
+
+        if (!repo || !path || !token) {
+          showToast('Fill repo, path & token to sync');
+          return;
+        }
+
+        const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+        const htmlContent = buildCleanHtmlSnapshot();
+        const encoded = btoa(unescape(encodeURIComponent(htmlContent)));
+
+        try {
+          let sha = undefined;
+          const getRes = await fetch(apiUrl, {
+            headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }
+          });
+          if (getRes.ok) {
+            const existing = await getRes.json();
+            sha = existing.sha;
+          }
+
+          const putRes = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              message: 'Update Union Budget 2026-27 Sketchnote Board',
+              content: encoded,
+              ...(sha ? { sha } : {})
+            })
+          });
+
+          if (!putRes.ok) throw new Error('GitHub API error: ' + putRes.status);
+          saveModal.classList.remove('open');
+          showToast('☁️ Synced cleanly to GitHub!');
+        } catch (err) {
+          showToast('Sync failed: ' + err.message);
+        }
+      });
+
+      /* Initialize */
+      smartHydrate();
+    })();
+  </script>
+</body>
+</html>
