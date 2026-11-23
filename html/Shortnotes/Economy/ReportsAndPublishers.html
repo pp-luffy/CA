@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Publishers — Visual Sketchnote Board</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            background-color: #1a1a1a;
+            background-image: radial-gradient(#2c2c2c 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: #f0f0f0;
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 80px 30px 60px 30px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Kalam', cursive;
+            color: #ffffff;
+            margin-top: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.9rem;
+            margin-bottom: 6px;
+            text-shadow: 3px 3px 0px #000;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #bdbdbd;
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #ffeb3b;
+            font-size: 2rem;
+            margin: 45px auto 22px auto;
+            max-width: 1320px;
+            border-bottom: 3px dashed #555;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ================= ACTION BAR (WORKSPACE) ================= */
+        .workspace-bar {
+            position: fixed;
+            top: 14px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 10px;
+            background: rgba(26, 26, 26, 0.92);
+            padding: 8px 12px;
+            border: 2px dashed #ffeb3b;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+        }
+
+        .ws-btn {
+            font-family: 'Kalam', cursive;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 2px solid #444;
+            background: #2b2b2b;
+            color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ws-btn:hover {
+            transform: translateY(-2px);
+            border-color: #ffeb3b;
+            color: #ffeb3b;
+        }
+
+        .ws-btn.active {
+            background: #ffeb3b;
+            color: #1a1a1a;
+            border-color: #ffeb3b;
+        }
+
+        .hl-palette {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding-left: 6px;
+            border-left: 1px dashed #666;
+        }
+
+        .hl-palette.show {
+            display: flex;
+        }
+
+        .hl-swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .hl-swatch:hover, .hl-swatch.selected {
+            transform: scale(1.2);
+            box-shadow: 0 0 8px #fff;
+        }
+
+        .user-highlight {
+            padding: 0 3px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .user-highlight:hover {
+            opacity: 0.75;
+            text-decoration: line-through;
+        }
+
+        /* ================= STICKY NOTES ================= */
+        .sticky-note {
+            position: absolute;
+            width: 220px;
+            min-width: 170px;
+            min-height: 150px;
+            border-radius: 6px;
+            box-shadow: 6px 8px 20px rgba(0, 0, 0, 0.7);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            resize: both;
+            overflow: hidden;
+            border: 2px solid rgba(0,0,0,0.3);
+        }
+
+        .sticky-header {
+            padding: 6px 8px;
+            background: rgba(0, 0, 0, 0.15);
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .sticky-colors {
+            display: flex;
+            gap: 5px;
+        }
+
+        .sticky-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        .sticky-close {
+            background: transparent;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: inherit;
+            line-height: 1;
+        }
+
+        .sticky-body {
+            flex: 1;
+            padding: 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.05rem;
+            outline: none;
+            overflow-y: auto;
+            line-height: 1.35;
+        }
+
+        /* ================= ULTRA-SHORT REVISION SHEET ================= */
+        .revision-sheet {
+            max-width: 1320px;
+            margin: 0 auto 40px auto;
+            background: #222;
+            border: 2px solid #e1b12c;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 6px 22px rgba(225, 177, 44, 0.18);
+        }
+
+        .rev-header {
+            font-family: 'Kalam', cursive;
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px dashed #555;
+            padding-bottom: 8px;
+        }
+
+        .rev-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+            gap: 12px;
+        }
+
+        .rev-item {
+            background: #2d2d2d;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border-left: 5px solid #ffeb3b;
+            font-size: 1.02rem;
+            line-height: 1.38;
+        }
+
+        .rev-item strong {
+            color: #ffeb3b;
+            font-family: 'Kalam', cursive;
+            font-size: 1.18rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .rev-meta {
+            color: #7bed9f;
+            font-size: 0.94rem;
+            display: block;
+            margin-top: 3px;
+        }
+
+        /* ================= MASONRY POLAROID GRID ================= */
+        .masonry-board {
+            max-width: 1320px;
+            margin: 0 auto;
+            column-count: 3;
+            column-gap: 26px;
+        }
+
+        .polaroid-card {
+            break-inside: avoid;
+            background: #262626;
+            border: 2px dashed #666;
+            border-bottom: 14px solid #333;
+            border-radius: 10px;
+            padding: 20px 20px 18px 20px;
+            margin-bottom: 28px;
+            position: relative;
+            box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.65);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .polaroid-card:nth-child(odd) { transform: rotate(-0.6deg); }
+        .polaroid-card:nth-child(even) { transform: rotate(0.6deg); }
+
+        .polaroid-card:hover {
+            transform: rotate(0deg) scale(1.015);
+            box-shadow: 10px 12px 26px rgba(0, 0, 0, 0.85);
+            z-index: 20;
+        }
+
+        .polaroid-card::before {
+            content: '📌';
+            position: absolute;
+            top: -12px;
+            left: 14px;
+            font-size: 1.45rem;
+            transform: rotate(-18deg);
+        }
+
+        .tag {
+            position: absolute;
+            top: -12px;
+            right: 12px;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: 'Kalam', cursive;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            transform: rotate(2.5deg);
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+        }
+
+        .tag-blue { background: #00a8ff; }
+        .tag-green { background: #4cd137; }
+        .tag-yellow { background: #fbc531; }
+        .tag-purple { background: #9c88ff; }
+        .tag-orange { background: #ff7f50; }
+        .tag-pink { background: #ff6b81; }
+        .tag-cyan { background: #00d2d3; }
+
+        .polaroid-card h3 {
+            font-size: 1.52rem;
+            margin: 8px 0 8px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed #4a4a4a;
+            color: #ffffff;
+        }
+
+        .polaroid-card p, .polaroid-card ul {
+            font-size: 1.06rem;
+            line-height: 1.48;
+            margin: 8px 0;
+        }
+
+        .polaroid-card ul {
+            padding-left: 19px;
+        }
+
+        .polaroid-card li {
+            margin-bottom: 6px;
+        }
+
+        .hl { color: #ffeb3b; font-weight: bold; }
+        .cy { color: #00d2d3; font-weight: bold; }
+        .gr { color: #7bed9f; font-weight: bold; }
+        .or { color: #ff9f43; font-weight: bold; }
+        .pk { color: #ff6b81; font-weight: bold; }
+
+        .exam-trap {
+            margin-top: 10px;
+            background: #2f2318;
+            border-left: 4px solid #ff9f43;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 0.98rem;
+        }
+
+        .odisha-box {
+            margin-top: 10px;
+            background: #1b2d22;
+            border-left: 4px solid #4cd137;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 0.98rem;
+        }
+
+        /* ================= TABLES ================= */
+        .table-container {
+            max-width: 1320px;
+            margin: 20px auto 40px auto;
+            background: #242424;
+            border: 2px dashed #00a8ff;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-x: auto;
+            box-shadow: 6px 8px 18px rgba(0,0,0,0.65);
+        }
+
+        .table-container.trap-border {
+            border-color: #ff6b81;
+        }
+
+        table.master-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.05rem;
+        }
+
+        table.master-table th, table.master-table td {
+            border: 1px dashed #555;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table.master-table th {
+            background: #323232;
+            color: #ffeb3b;
+            font-family: 'Kalam', cursive;
+            font-size: 1.18rem;
+        }
+
+        table.master-table tr:nth-child(even) {
+            background: #2a2a2a;
+        }
+
+        /* Toast notification */
+        #ws-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4cd137;
+            color: #1a1a1a;
+            font-family: 'Kalam', cursive;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 10000;
+        }
+
+        #ws-toast.show { opacity: 1; }
+
+        @media (max-width: 1080px) {
+            .masonry-board { column-count: 2; }
+        }
+
+        @media (max-width: 720px) {
+            body { padding: 75px 14px 40px 14px; }
+            .masonry-board { column-count: 1; }
+            .workspace-bar { right: 10px; left: 10px; justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INTERACTIVE WORKSPACE BAR -->
+    <div class="workspace-bar" id="workspaceBar">
+        <button class="ws-btn" id="btnAddNote">📝 ADD NOTES</button>
+        <button class="ws-btn" id="btnHighlight">🖍️ HIGHLIGHT</button>
+        <div class="hl-palette" id="hlPalette">
+            <div class="hl-swatch selected" data-color="#ffeb3b" style="background:#ffeb3b;" title="Yellow"></div>
+            <div class="hl-swatch" data-color="#7bed9f" style="background:#7bed9f;" title="Green"></div>
+            <div class="hl-swatch" data-color="#70d6ff" style="background:#70d6ff;" title="Cyan"></div>
+            <div class="hl-swatch" data-color="#ff6b81" style="background:#ff6b81;" title="Pink"></div>
+            <div class="hl-swatch" data-color="#ff9f43" style="background:#ff9f43;" title="Orange"></div>
+        </div>
+        <button class="ws-btn" id="btnSave">☁️ SAVE</button>
+    </div>
+
+    <h1>📊 Major Reports, Indices &amp; Publishers</h1>
+    <p class="subtitle">OPSC ASO • UPSC • SSC • Banking — Complete Global &amp; Indian Reports Sketchnote Board (2025–26)</p>
+
+    <!-- ULTRA-SHORT QUICK REVISION SHEET -->
+    <div class="revision-sheet">
+        <div class="rev-header">
+            <span>⚡ ULTRA-SHORT QUICK REVISION SHEET (MOST REPEATED IN EXAMS)</span>
+            <span style="font-size:1.05rem; color:#7bed9f;">High-Yield Publishers + Latest Ranks</span>
+        </div>
+        <div class="rev-grid">
+            <div class="rev-item">
+                <strong>World Bank</strong>
+                World Dev. Report, Global Economic Prospects, Logistics Performance (38th), B-READY, South Asia Economic Focus (PYQ!).
+                <span class="rev-meta">Discontinued: Ease of Doing Business</span>
+            </div>
+            <div class="rev-item">
+                <strong>IMF</strong>
+                World Economic Outlook (WEO), Global Financial Stability Report (GFSR), Fiscal Monitor.
+                <span class="rev-meta">Trick: WEO + GFSR + Fiscal = IMF</span>
+            </div>
+            <div class="rev-item">
+                <strong>WEF (Non-UN)</strong>
+                Global Gender Gap (131st), Global Risks (2026), Energy Transition (71st), Travel &amp; Tourism (39th).
+                <span class="rev-meta">NOT World Competitiveness (that's IMD)</span>
+            </div>
+            <div class="rev-item">
+                <strong>UNDP</strong>
+                Human Development Index (130th, PYQ!), Gender Inequality Index (108th), Global MPI (with OPHI).
+                <span class="rev-meta">HDI since 1990 (Health, Edu, Income)</span>
+            </div>
+            <div class="rev-item">
+                <strong>UNCTAD &amp; WIPO</strong>
+                UNCTAD: World Investment Report, Trade &amp; Dev. Report. WIPO: Global Innovation Index (38th).
+                <span class="rev-meta">Int'l IP Index = US Chamber (NOT WIPO)</span>
+            </div>
+            <div class="rev-item">
+                <strong>Global Watchdogs</strong>
+                Hunger: Concern+Welthungerhilfe (102nd) | Corruption: Transparency Int'l (91st) | Press: RSF (151st).
+                <span class="rev-meta">Peace/Terrorism: IEP | CCPI: Germanwatch</span>
+            </div>
+            <div class="rev-item">
+                <strong>NITI Aayog (India)</strong>
+                SDG India, National MPI, Fiscal Health Index (Odisha #1!), Export Preparedness, CWMI, Innovation.
+                <span class="rev-meta">State-level rankings = mostly NITI Aayog</span>
+            </div>
+            <div class="rev-item">
+                <strong>RBI &amp; Macro Data</strong>
+                RBI: Financial Stability, FI-Index (67), DPI. NSO: CPI, IIP, PLFS. DPIIT: WPI, 8 Core Industries.
+                <span class="rev-meta">ASER = Pratham NGO | ISFR = FSI</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 1: INTERNATIONAL FINANCIAL & ECONOMIC BODIES -->
+    <h2 class="section-title">🌍 Part 1: International Reports &amp; Publishers</h2>
+
+    <div class="masonry-board">
+
+        <!-- 1. WORLD BANK -->
+        <div class="polaroid-card">
+            <div class="tag tag-blue">Bretton Woods</div>
+            <h3>1. World Bank</h3>
+            <ul>
+                <li><span class="hl">World Development Report (WDR)</span> — Annual flagship on global development.</li>
+                <li><span class="hl">Global Economic Prospects (GEP)</span> — Semi-annual economic growth forecasts.</li>
+                <li><span class="hl">South Asia Economic Focus</span> (now <em>South Asia Development Update</em>) — <span class="gr">OPSC ASO 2021 PYQ!</span></li>
+                <li><span class="hl">Logistics Performance Index (LPI)</span> — Trade logistics efficiency (<span class="cy">India: 38th</span>).</li>
+                <li><span class="hl">Business Ready (B-READY)</span> — New flagship replacing <em>Ease of Doing Business</em> (discontinued in 2021).</li>
+                <li><span class="hl">International Debt Report</span> &amp; <span class="hl">Migration &amp; Development Brief</span> (Global Remittances — <span class="cy">India #1</span> recipient).</li>
+                <li><span class="hl">Human Capital Index (HCI)</span> &amp; <span class="hl">Service Trade Restriction Index</span>.</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> "World Development Report" = <span class="hl">World Bank</span>; "Human Development Report" = <span class="cy">UNDP</span>.
+            </div>
+        </div>
+
+        <!-- 2. IMF -->
+        <div class="polaroid-card">
+            <div class="tag tag-purple">Bretton Woods</div>
+            <h3>2. International Monetary Fund (IMF)</h3>
+            <ul>
+                <li><span class="hl">World Economic Outlook (WEO)</span> — Published twice a year (April &amp; October); global GDP growth &amp; inflation forecasts.</li>
+                <li><span class="hl">Global Financial Stability Report (GFSR)</span> — Assesses systemic risks to global financial markets.</li>
+                <li><span class="hl">Fiscal Monitor</span> — Tracks public finance, government debt &amp; deficits worldwide.</li>
+                <li><span class="hl">External Sector Report</span> — Current account balances &amp; exchange rates.</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> <em>Global</em> Financial Stability Report = <span class="hl">IMF</span>; Indian <em>Financial Stability Report</em> = <span class="cy">RBI</span>!
+            </div>
+        </div>
+
+        <!-- 3. WORLD ECONOMIC FORUM (WEF) -->
+        <div class="polaroid-card">
+            <div class="tag tag-orange">Non-UN • Davos</div>
+            <h3>3. World Economic Forum (WEF)</h3>
+            <ul>
+                <li><span class="hl">Global Gender Gap Report</span> — 4 pillars (Eco, Edu, Health, Politics); <span class="cy">India: 131st of 148</span> (2025).</li>
+                <li><span class="hl">Global Risks Report</span> — 2026 edition: Geoeconomic confrontation = top short-term global risk; Cyber insecurity = major risk for India.</li>
+                <li><span class="hl">Energy Transition Index (ETI)</span> — Clean energy readiness (<span class="cy">India: 71st</span>, 2025).</li>
+                <li><span class="hl">Travel &amp; Tourism Development Index (TTDI)</span> — <span class="cy">India: 39th of 119</span> (2024).</li>
+                <li><span class="hl">Global Competitiveness Report</span>, <span class="hl">Future of Jobs Report</span>, <span class="hl">Global Social Mobility Index</span>, <span class="hl">Global IT Report</span>, <span class="hl">Enabling Trade Report</span>.</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> WEF is <span class="or">NOT a UN agency</span> (it's a Swiss NGO). Also, <em>World Competitiveness Index</em> is by <span class="hl">IMD</span> (not WEF)!
+            </div>
+        </div>
+
+        <!-- 4. UNDP -->
+        <div class="polaroid-card">
+            <div class="tag tag-cyan">UN Programme</div>
+            <h3>4. UNDP (UN Development Programme)</h3>
+            <ul>
+                <li><span class="hl">Human Development Report (HDR) &amp; HDI</span> — Since 1990 (Mahbub ul Haq &amp; Amartya Sen). <span class="gr">OPSC ASO 2015 PYQ!</span>
+                    <ul>
+                        <li>3 Dimensions: <span class="cy">Health</span> (Life expectancy), <span class="cy">Education</span> (Mean &amp; Expected yrs), <span class="cy">Income</span> (GNI per capita PPP).</li>
+                        <li>Latest (2025): <span class="hl">India 130th of 193</span> (HDI 0.685).</li>
+                    </ul>
+                </li>
+                <li><span class="hl">Gender Inequality Index (GII)</span> — <span class="cy">India: 108th</span>.</li>
+                <li><span class="hl">Gender Development Index (GDI)</span> &amp; <span class="hl">Inequality-Adjusted HDI (IHDI)</span>.</li>
+                <li><span class="hl">Global Multidimensional Poverty Index (MPI)</span> — Jointly with <span class="hl">OPHI (Oxford University)</span>.</li>
+            </ul>
+        </div>
+
+        <!-- 5. UNCTAD, WTO & OECD -->
+        <div class="polaroid-card">
+            <div class="tag tag-green">Trade &amp; Policy</div>
+            <h3>5. UNCTAD, WTO, OECD &amp; BIS</h3>
+            <ul>
+                <li><strong>UNCTAD (UN Trade &amp; Dev.):</strong>
+                    <ul>
+                        <li><span class="hl">World Investment Report</span> (Global FDI inflows/outflows).</li>
+                        <li><span class="hl">Trade and Development Report</span> &amp; <span class="hl">Review of Maritime Transport</span>.</li>
+                    </ul>
+                </li>
+                <li><strong>WTO (World Trade Org.):</strong> <span class="hl">World Trade Report</span>, <span class="hl">World Trade Statistical Review</span>, World Trade Outlook Indicator.</li>
+                <li><strong>OECD (Paris):</strong> <span class="hl">PISA</span> (Programme for International Student Assessment), <span class="hl">OECD Economic Outlook</span>, <span class="hl">Better Life Index</span>.</li>
+                <li><strong>BIS (Basel):</strong> <span class="hl">Global Financial System Report</span>.</li>
+                <li><strong>FATF:</strong> <span class="hl">Global Money Laundering Report</span> (Grey &amp; Black Lists).</li>
+            </ul>
+        </div>
+
+        <!-- 6. OTHER UN SPECIALISED AGENCIES -->
+        <div class="polaroid-card">
+            <div class="tag tag-yellow">UN Agencies</div>
+            <h3>6. Key UN Agencies (One-Liner Goldmine)</h3>
+            <ul>
+                <li><strong>WIPO:</strong> <span class="hl">Global Innovation Index (GII)</span> (<span class="cy">India: 38th</span>, 2025) &amp; World IP Indicators.</li>
+                <li><strong>UN SDSN:</strong> <span class="hl">World Happiness Report</span> (<span class="cy">India: 118th</span>, 2025).</li>
+                <li><strong>UNEP:</strong> <span class="hl">Emissions Gap Report</span>, <span class="hl">Adaptation Gap Report</span>, Global Environment Outlook (GEO).</li>
+                <li><strong>FAO:</strong> <span class="hl">State of Food Security &amp; Nutrition (SOFI)</span>, Food Price Index, State of World's Forests (SOFO).</li>
+                <li><strong>ILO:</strong> <span class="hl">World Employment &amp; Social Outlook (WESO)</span>, World Social Protection Report, Global Wage Report.</li>
+                <li><strong>UN-DESA:</strong> <span class="hl">World Economic Situation &amp; Prospects (WESP)</span>, World Social Report, World's Women Report.</li>
+                <li><strong>UNFPA:</strong> <span class="hl">State of World Population Report</span>.</li>
+                <li><strong>UNESCO:</strong> <span class="hl">Global Education Monitoring (GEM) Report</span>, World Water Development Report (UN-Water).</li>
+                <li><strong>UN-Habitat:</strong> <span class="hl">World Cities Report</span> | <strong>WHO:</strong> World Health Statistics, Global TB Report.</li>
+                <li><strong>WMO:</strong> <span class="hl">State of Global Climate Report</span>, Greenhouse Gas Bulletin.</li>
+                <li><strong>IEA (Energy):</strong> <span class="hl">World Energy Outlook</span> &amp; <span class="hl">Global Energy Review</span>.</li>
+            </ul>
+        </div>
+
+        <!-- 7. NON-UN WATCHDOGS & NGOs -->
+        <div class="polaroid-card">
+            <div class="tag tag-pink">Non-UN NGOs</div>
+            <h3>7. Global Watchdogs &amp; Think Tanks</h3>
+            <ul>
+                <li><span class="hl">Global Hunger Index (GHI)</span> → <span class="cy">Concern Worldwide &amp; Welthungerhilfe</span> (<span class="or">India: 102nd</span>, 2025; 4 indicators: undernourishment, child stunting, wasting, mortality).</li>
+                <li><span class="hl">Corruption Perceptions Index (CPI)</span> → <span class="cy">Transparency International</span> (<span class="or">India: 91st</span>, score 39; Denmark #1).</li>
+                <li><span class="hl">World Press Freedom Index</span> → <span class="cy">Reporters Without Borders (RSF)</span> (<span class="or">India: 151st</span>; Norway #1).</li>
+                <li><span class="hl">Global Peace Index (GPI)</span> &amp; <span class="hl">Global Terrorism Index (GTI)</span> → <span class="cy">Institute for Economics &amp; Peace (IEP)</span>, Australia (GPI 115th; GTI 14th).</li>
+                <li><span class="hl">Climate Change Performance Index (CCPI)</span> → <span class="cy">Germanwatch, NewClimate Inst. &amp; CAN</span> (<span class="gr">India: 10th</span>).</li>
+                <li><span class="hl">Global Climate Risk Index (CRI)</span> → <span class="cy">Germanwatch</span>.</li>
+                <li><span class="hl">Living Planet Report</span> → <span class="cy">WWF</span> | <span class="hl">Rule of Law Index</span> → <span class="cy">World Justice Project</span> (86th).</li>
+                <li><span class="hl">Henley Passport Index</span> → <span class="cy">Henley &amp; Partners</span> (Singapore #1).</li>
+                <li><span class="hl">Democracy Index</span> &amp; <span class="hl">Global Liveability Index</span> → <span class="cy">Economist Intelligence Unit (EIU)</span>.</li>
+                <li><span class="hl">International IP Index</span> → <span class="cy">US Chamber of Commerce</span> (38th).</li>
+                <li><span class="hl">World Competitiveness Index</span> → <span class="cy">IMD</span> (41st) | <span class="hl">Index of Economic Freedom</span> → <span class="cy">Heritage Foundation</span>.</li>
+                <li><span class="hl">World Air Quality Report</span> → <span class="cy">IQAir</span> | <span class="hl">Air Quality Life Index</span> → <span class="cy">EPIC (Univ. of Chicago)</span>.</li>
+                <li><span class="hl">Arms Transfers Report</span> → <span class="cy">SIPRI</span> | <span class="hl">Global Financial Centres Index</span> → <span class="cy">Z/Yen Group</span> (GIFT City 43rd).</li>
+                <li><span class="hl">Global AI Vibrancy Index</span> → <span class="cy">Stanford HAI</span> (<span class="gr">India: 3rd</span>).</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- SECTION 2: INDIAN NATIONAL REPORTS & PUBLISHERS -->
+    <h2 class="section-title">🇮🇳 Part 2: Indian National Reports, Indices &amp; Publishers</h2>
+
+    <div class="masonry-board">
+
+        <!-- 8. NITI AAYOG -->
+        <div class="polaroid-card">
+            <div class="tag tag-green">Think Tank</div>
+            <h3>8. NITI Aayog Indices</h3>
+            <ul>
+                <li><span class="hl">SDG India Index</span> — Tracks UN Sustainable Development Goals across states/UTs.</li>
+                <li><span class="hl">National Multidimensional Poverty Index (MPI)</span> — Official poverty assessment body (<span class="gr">OPSC ASO 2021 PYQ!</span>).</li>
+                <li><span class="hl">Fiscal Health Index (FHI)</span> — Evaluates state fiscal sustainability &amp; debt management.</li>
+                <li><span class="hl">Export Preparedness Index (EPI)</span> — Maharashtra topped large states (2024).</li>
+                <li><span class="hl">India Innovation Index</span> (with Institute for Competitiveness).</li>
+                <li><span class="hl">Composite Water Management Index (CWMI)</span>.</li>
+                <li><span class="hl">State Health Index</span> &amp; <span class="hl">School Education Quality Index (SEQI)</span>.</li>
+                <li><span class="hl">State Energy &amp; Climate Index (SECI)</span>.</li>
+            </ul>
+            <div class="odisha-box">
+                <strong>🌟 OPSC ASO Special:</strong> In NITI Aayog's <strong>Fiscal Health Index</strong> (FY 2023–24), <span class="hl">Odisha ranked #1</span> across India!
+            </div>
+        </div>
+
+        <!-- 9. RBI & MACROECONOMIC INDICES -->
+        <div class="polaroid-card">
+            <div class="tag tag-blue">Macro &amp; Banking</div>
+            <h3>9. RBI, NSO &amp; DPIIT (Macro Indices)</h3>
+            <ul>
+                <li><strong>Reserve Bank of India (RBI):</strong>
+                    <ul>
+                        <li><span class="hl">Financial Stability Report (FSR)</span> — Bi-annual.</li>
+                        <li><span class="hl">Financial Inclusion Index (FI-Index)</span> — Scale 0–100 (67 in Mar 2025; <span class="cy">Usage has max 45% weight</span>).</li>
+                        <li><span class="hl">Digital Payments Index (DPI)</span> — Tracks digital payment adoption (Base: Mar 2018 = 100).</li>
+                        <li><span class="hl">Report on Trend &amp; Progress of Banking in India</span>.</li>
+                    </ul>
+                </li>
+                <li><strong>NSO (MoSPI):</strong>
+                    <ul>
+                        <li><span class="hl">CPI (Consumer Price Index)</span> — Retail inflation (RBI's MPC target).</li>
+                        <li><span class="hl">IIP (Index of Industrial Production)</span> — Industrial activity.</li>
+                        <li><span class="hl">PLFS</span> (Periodic Labour Force Survey) &amp; GDP Estimates.</li>
+                    </ul>
+                </li>
+                <li><strong>DPIIT (Min. of Commerce &amp; Industry):</strong>
+                    <ul>
+                        <li><span class="hl">WPI (Wholesale Price Index)</span> — Goods only (no services!).</li>
+                        <li><span class="hl">Index of Eight Core Industries (ICI)</span> — 40.27% weight in IIP (Refinery products has max weight).</li>
+                    </ul>
+                </li>
+                <li><strong>Labour Bureau (Min. of Labour):</strong> <span class="hl">CPI-IW</span> (Industrial Workers), <span class="hl">CPI-AL</span> (Agri), <span class="hl">CPI-RL</span> (Rural).</li>
+            </ul>
+        </div>
+
+        <!-- 10. OTHER HIGH-YIELD INDIAN REPORTS -->
+        <div class="polaroid-card">
+            <div class="tag tag-yellow">Must-Know India</div>
+            <h3>10. Other High-Yield Indian Reports</h3>
+            <ul>
+                <li><span class="hl">ASER (Annual Status of Education Report)</span> → <span class="or">Pratham NGO</span> (NOT Ministry of Education!).</li>
+                <li><span class="hl">India State of Forest Report (ISFR)</span> → <span class="cy">Forest Survey of India (FSI)</span>, Dehradun (Biennial).</li>
+                <li><span class="hl">Economic Survey of India</span> → <span class="cy">Ministry of Finance (DEA)</span>, authored by Chief Economic Adviser.</li>
+                <li><span class="hl">RESIDEX</span> (Housing prices) → <span class="cy">National Housing Bank (NHB)</span>.</li>
+                <li><span class="hl">Swachh Survekshan</span> → <span class="cy">Min. of Housing &amp; Urban Affairs (MoHUA)</span>.</li>
+                <li><span class="hl">National Air Quality Index (AQI)</span> → <span class="cy">CPCB</span> (8 pollutants).</li>
+                <li><span class="hl">Crime in India Report</span> → <span class="cy">NCRB</span> (Ministry of Home Affairs).</li>
+                <li><span class="hl">Good Governance Index (GGI)</span> → <span class="cy">DARPG</span> (Min. of Personnel).</li>
+                <li><span class="hl">AISHE</span> (Higher Education Survey) → <span class="cy">Ministry of Education</span>.</li>
+                <li><span class="hl">National Family Health Survey (NFHS)</span> → <span class="cy">MoHFW</span> (Nodal: IIPS Mumbai).</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- SECTION 3: CLASSIC EXAM TRAPS (DON'T CONFUSE WITH) -->
+    <h2 class="section-title">🔥 Part 3: Classic Confusing Pairs (Exam-Trap Eliminator)</h2>
+
+    <div class="table-container trap-border">
+        <table class="master-table">
+            <thead>
+                <tr>
+                    <th>Report / Index A</th>
+                    <th>Publisher A</th>
+                    <th>vs.</th>
+                    <th>Report / Index B</th>
+                    <th>Publisher B</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>World Economic Outlook (WEO)</strong></td>
+                    <td><span class="hl">IMF</span></td>
+                    <td>⚔️</td>
+                    <td><strong>World Economic Situation &amp; Prospects</strong></td>
+                    <td><span class="cy">UN-DESA</span></td>
+                </tr>
+                <tr>
+                    <td><strong>World Development Report</strong></td>
+                    <td><span class="hl">World Bank</span></td>
+                    <td>⚔️</td>
+                    <td><strong>Human Development Report (HDI)</strong></td>
+                    <td><span class="cy">UNDP</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Global Financial Stability Report</strong></td>
+                    <td><span class="hl">IMF</span></td>
+                    <td>⚔️</td>
+                    <td><strong>Financial Stability Report (India)</strong></td>
+                    <td><span class="cy">RBI</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Global Competitiveness Report</strong></td>
+                    <td><span class="hl">WEF</span></td>
+                    <td>⚔️</td>
+                    <td><strong>World Competitiveness Index</strong></td>
+                    <td><span class="cy">IMD (Switzerland)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Global Innovation Index (GII)</strong></td>
+                    <td><span class="hl">WIPO</span></td>
+                    <td>⚔️</td>
+                    <td><strong>International IP Index</strong></td>
+                    <td><span class="cy">US Chamber of Commerce</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Global Gender Gap Report</strong></td>
+                    <td><span class="hl">WEF</span></td>
+                    <td>⚔️</td>
+                    <td><strong>Gender Inequality Index (GII)</strong></td>
+                    <td><span class="cy">UNDP</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Global MPI (Poverty)</strong></td>
+                    <td><span class="hl">UNDP + OPHI</span></td>
+                    <td>⚔️</td>
+                    <td><strong>National MPI (India)</strong></td>
+                    <td><span class="cy">NITI Aayog</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CPI (Retail Inflation)</strong></td>
+                    <td><span class="hl">NSO (MoSPI)</span></td>
+                    <td>⚔️</td>
+                    <td><strong>WPI (Wholesale Inflation)</strong></td>
+                    <td><span class="cy">DPIIT (Commerce Min.)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>ASER (Rural Education)</strong></td>
+                    <td><span class="hl">Pratham (NGO)</span></td>
+                    <td>⚔️</td>
+                    <td><strong>School Education Quality Index (SEQI)</strong></td>
+                    <td><span class="cy">NITI Aayog</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Global Hunger Index (GHI)</strong></td>
+                    <td><span class="hl">Concern Worldwide + Welthungerhilfe</span></td>
+                    <td>⚔️</td>
+                    <td><strong>SOFI (Food Security &amp; Nutrition)</strong></td>
+                    <td><span class="cy">FAO &amp; UN Partners</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="ws-toast">Saved!</div>
+
+    <script>
+        (function () {
+            const STORAGE_KEY = 'sketchnote_reports_publishers_v1';
+            const btnAddNote = document.getElementById('btnAddNote');
+            const btnHighlight = document.getElementById('btnHighlight');
+            const hlPalette = document.getElementById('hlPalette');
+            const btnSave = document.getElementById('btnSave');
+            const toast = document.getElementById('ws-toast');
+
+            let highlightMode = false;
+            let activeHlColor = '#ffeb3b';
+            let noteZIndex = 5000;
+
+            const NOTE_COLORS = [
+                { bg: '#fff59d', text: '#1a1a1a' },
+                { bg: '#a5d6a7', text: '#1a1a1a' },
+                { bg: '#81d4fa', text: '#1a1a1a' },
+                { bg: '#ffab91', text: '#1a1a1a' },
+                { bg: '#ce93d8', text: '#1a1a1a' }
+            ];
+
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2200);
+            }
+
+            function getContrastYIQ(hexcolor) {
+                hexcolor = hexcolor.replace('#', '');
+                const r = parseInt(hexcolor.substr(0, 2), 16);
+                const g = parseInt(hexcolor.substr(2, 2), 16);
+                const b = parseInt(hexcolor.substr(4, 2), 16);
+                const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+                return (yiq >= 128) ? '#1a1a1a' : '#ffffff';
+            }
+
+            // ================= STICKY NOTES =================
+            function createStickyNote(data = {}) {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.dataset.id = data.id || ('note_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6));
+
+                const bg = data.bg || NOTE_COLORS[0].bg;
+                note.style.backgroundColor = bg;
+                note.style.color = getContrastYIQ(bg);
+                note.style.left = data.left || (window.scrollX + 80 + Math.floor(Math.random() * 120)) + 'px';
+                note.style.top = data.top || (window.scrollY + 110 + Math.floor(Math.random() * 80)) + 'px';
+                if (data.width) note.style.width = data.width;
+                if (data.height) note.style.height = data.height;
+                note.style.zIndex = ++noteZIndex;
+
+                const header = document.createElement('div');
+                header.className = 'sticky-header';
+
+                const colorsDiv = document.createElement('div');
+                colorsDiv.className = 'sticky-colors';
+                NOTE_COLORS.forEach(c => {
+                    const dot = document.createElement('span');
+                    dot.className = 'sticky-dot';
+                    dot.style.background = c.bg;
+                    dot.title = 'Change color';
+                    dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        note.style.backgroundColor = c.bg;
+                        note.style.color = getContrastYIQ(c.bg);
+                        persistState();
+                    });
+                    colorsDiv.appendChild(dot);
+                });
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'sticky-close';
+                closeBtn.textContent = '×';
+                closeBtn.title = 'Delete note';
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    note.remove();
+                    persistState();
+                });
+
+                header.appendChild(colorsDiv);
+                header.appendChild(closeBtn);
+
+                const body = document.createElement('div');
+                body.className = 'sticky-body';
+                body.contentEditable = 'true';
+                body.innerHTML = data.content || 'Type your quick note here...';
+                body.addEventListener('input', persistState);
+
+                note.appendChild(header);
+                note.appendChild(body);
+                document.body.appendChild(note);
+
+                bindNoteDrag(note, header);
+                note.addEventListener('mousedown', () => { note.style.zIndex = ++noteZIndex; });
+                note.addEventListener('mouseup', persistState);
+
+                return note;
+            }
+
+            function bindNoteDrag(note, handle) {
+                let isDragging = false, startX, startY, origLeft, origTop;
+                handle.addEventListener('mousedown', (e) => {
+                    if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-close')) return;
+                    isDragging = true;
+                    note.style.zIndex = ++noteZIndex;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    origLeft = parseInt(note.style.left, 10) || note.offsetLeft;
+                    origTop = parseInt(note.style.top, 10) || note.offsetTop;
+                    e.preventDefault();
+                });
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    note.style.left = (origLeft + e.clientX - startX) + 'px';
+                    note.style.top = (origTop + e.clientY - startY) + 'px';
+                });
+                window.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        persistState();
+                    }
+                });
+            }
+
+            btnAddNote.addEventListener('click', () => {
+                createStickyNote();
+                persistState();
+            });
+
+            // ================= HIGHLIGHTER TOOL =================
+            btnHighlight.addEventListener('click', () => {
+                highlightMode = !highlightMode;
+                btnHighlight.classList.toggle('active', highlightMode);
+                hlPalette.classList.toggle('show', highlightMode);
+                document.body.style.cursor = highlightMode ? 'text' : 'default';
+                if (highlightMode) showToast('Highlight Mode ON: Select text to highlight. Click highlight to undo.');
+            });
+
+            document.querySelectorAll('.hl-swatch').forEach(swatch => {
+                swatch.addEventListener('click', () => {
+                    document.querySelectorAll('.hl-swatch').forEach(s => s.classList.remove('selected'));
+                    swatch.classList.add('selected');
+                    activeHlColor = swatch.dataset.color;
+                });
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (!highlightMode) return;
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                const range = sel.getRangeAt(0);
+                const container = range.commonAncestorContainer.nodeType === 1
+                    ? range.commonAncestorContainer
+                    : range.commonAncestorContainer.parentElement;
+                if (container.closest('.workspace-bar') || container.closest('.sticky-note')) return;
+
+                try {
+                    const span = document.createElement('span');
+                    span.className = 'user-highlight';
+                    span.style.backgroundColor = activeHlColor;
+                    span.style.color = getContrastYIQ(activeHlColor);
+                    span.title = 'Click to remove highlight';
+                    range.surroundContents(span);
+                    sel.removeAllRanges();
+                    persistState();
+                } catch (err) {
+                    showToast('Select text within a single paragraph/item to highlight.');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('user-highlight')) {
+                    const span = e.target;
+                    const parent = span.parentNode;
+                    while (span.firstChild) parent.insertBefore(span.firstChild, span);
+                    parent.removeChild(span);
+                    parent.normalize();
+                    persistState();
+                }
+            });
+
+            // ================= SMART HYDRATION & PERSISTENCE =================
+            function serializeNotes() {
+                return Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                    id: n.dataset.id,
+                    bg: n.style.backgroundColor,
+                    left: n.style.left,
+                    top: n.style.top,
+                    width: n.style.width,
+                    height: n.style.height,
+                    content: n.querySelector('.sticky-body').innerHTML
+                }));
+            }
+
+            function persistState() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify({ notes: serializeNotes() }));
+                } catch (e) {}
+            }
+
+            function hydrate() {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                const existingDomNotes = document.querySelectorAll('.sticky-note');
+
+                if (raw) {
+                    try {
+                        const parsed = JSON.parse(raw);
+                        if (parsed.notes && parsed.notes.length) {
+                            existingDomNotes.forEach(n => n.remove());
+                            parsed.notes.forEach(n => createStickyNote(n));
+                            return;
+                        }
+                    } catch (e) {}
+                }
+                existingDomNotes.forEach(note => {
+                    const header = note.querySelector('.sticky-header');
+                    const body = note.querySelector('.sticky-body');
+                    const closeBtn = note.querySelector('.sticky-close');
+                    if (header) bindNoteDrag(note, header);
+                    if (body) body.addEventListener('input', persistState);
+                    if (closeBtn) closeBtn.addEventListener('click', () => { note.remove(); persistState(); });
+                });
+            }
+
+            // ================= CLONE-SAVE MECHANISM =================
+            btnSave.addEventListener('click', () => {
+                persistState();
+                const clone = document.documentElement.cloneNode(true);
+                const cloneBar = clone.querySelector('#workspaceBar');
+                if (cloneBar) cloneBar.remove();
+                const cloneToast = clone.querySelector('#ws-toast');
+                if (cloneToast) cloneToast.remove();
+
+                const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Reports_and_Publishers_Sketchnote.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showToast('☁️ Saved! Clean HTML exported & local state synced.');
+            });
+
+            hydrate();
+        })();
+    </script>
+</body>
+</html>
