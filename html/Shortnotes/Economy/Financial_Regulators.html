@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Regulators of India — Visual Sketchnote Board</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            background-color: #1a1a1a;
+            background-image: radial-gradient(#2c2c2c 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: #f0f0f0;
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 80px 30px 60px 30px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Kalam', cursive;
+            color: #ffffff;
+            margin-top: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.9rem;
+            margin-bottom: 6px;
+            text-shadow: 3px 3px 0px #000;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #bdbdbd;
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #ffeb3b;
+            font-size: 2rem;
+            margin: 45px auto 22px auto;
+            max-width: 1320px;
+            border-bottom: 3px dashed #555;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ================= ACTION BAR (WORKSPACE) ================= */
+        .workspace-bar {
+            position: fixed;
+            top: 14px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 10px;
+            background: rgba(26, 26, 26, 0.92);
+            padding: 8px 12px;
+            border: 2px dashed #ffeb3b;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+        }
+
+        .ws-btn {
+            font-family: 'Kalam', cursive;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 2px solid #444;
+            background: #2b2b2b;
+            color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ws-btn:hover {
+            transform: translateY(-2px);
+            border-color: #ffeb3b;
+            color: #ffeb3b;
+        }
+
+        .ws-btn.active {
+            background: #ffeb3b;
+            color: #1a1a1a;
+            border-color: #ffeb3b;
+        }
+
+        .hl-palette {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding-left: 6px;
+            border-left: 1px dashed #666;
+        }
+
+        .hl-palette.show {
+            display: flex;
+        }
+
+        .hl-swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .hl-swatch:hover, .hl-swatch.selected {
+            transform: scale(1.2);
+            box-shadow: 0 0 8px #fff;
+        }
+
+        /* Highlighted text span */
+        .user-highlight {
+            padding: 0 3px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .user-highlight:hover {
+            opacity: 0.75;
+            text-decoration: line-through;
+        }
+
+        /* ================= STICKY NOTES ================= */
+        .sticky-note {
+            position: absolute;
+            width: 220px;
+            min-width: 170px;
+            min-height: 150px;
+            border-radius: 6px;
+            box-shadow: 6px 8px 20px rgba(0, 0, 0, 0.7);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            resize: both;
+            overflow: hidden;
+            border: 2px solid rgba(0,0,0,0.3);
+        }
+
+        .sticky-header {
+            padding: 6px 8px;
+            background: rgba(0, 0, 0, 0.15);
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .sticky-colors {
+            display: flex;
+            gap: 5px;
+        }
+
+        .sticky-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        .sticky-close {
+            background: transparent;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: inherit;
+            line-height: 1;
+        }
+
+        .sticky-body {
+            flex: 1;
+            padding: 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.05rem;
+            outline: none;
+            overflow-y: auto;
+            line-height: 1.35;
+        }
+
+        /* ================= ULTRA-SHORT REVISION SHEET ================= */
+        .revision-sheet {
+            max-width: 1320px;
+            margin: 0 auto 40px auto;
+            background: #222;
+            border: 2px solid #e1b12c;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 6px 22px rgba(225, 177, 44, 0.18);
+        }
+
+        .rev-header {
+            font-family: 'Kalam', cursive;
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px dashed #555;
+            padding-bottom: 8px;
+        }
+
+        .rev-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+            gap: 12px;
+        }
+
+        .rev-item {
+            background: #2d2d2d;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border-left: 5px solid #ffeb3b;
+            font-size: 1.02rem;
+            line-height: 1.38;
+        }
+
+        .rev-item strong {
+            color: #ffeb3b;
+            font-family: 'Kalam', cursive;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .rev-meta {
+            color: #7bed9f;
+            font-size: 0.95rem;
+            display: block;
+            margin-top: 3px;
+        }
+
+        /* ================= MASONRY POLAROID GRID ================= */
+        .masonry-board {
+            max-width: 1320px;
+            margin: 0 auto;
+            column-count: 3;
+            column-gap: 26px;
+        }
+
+        .polaroid-card {
+            break-inside: avoid;
+            background: #262626;
+            border: 2px dashed #666;
+            border-bottom: 14px solid #333;
+            border-radius: 10px;
+            padding: 20px 20px 18px 20px;
+            margin-bottom: 28px;
+            position: relative;
+            box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.65);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .polaroid-card:nth-child(odd) {
+            transform: rotate(-0.6deg);
+        }
+
+        .polaroid-card:nth-child(even) {
+            transform: rotate(0.6deg);
+        }
+
+        .polaroid-card:hover {
+            transform: rotate(0deg) scale(1.015);
+            box-shadow: 10px 12px 26px rgba(0, 0, 0, 0.85);
+            z-index: 20;
+        }
+
+        .polaroid-card::before {
+            content: '📌';
+            position: absolute;
+            top: -12px;
+            left: 14px;
+            font-size: 1.45rem;
+            transform: rotate(-18deg);
+        }
+
+        .tag {
+            position: absolute;
+            top: -12px;
+            right: 12px;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: 'Kalam', cursive;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            transform: rotate(2.5deg);
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+        }
+
+        .tag-blue { background: #00a8ff; }
+        .tag-green { background: #4cd137; }
+        .tag-yellow { background: #fbc531; }
+        .tag-purple { background: #9c88ff; }
+        .tag-orange { background: #ff7f50; }
+        .tag-pink { background: #ff6b81; }
+        .tag-cyan { background: #00d2d3; }
+
+        .polaroid-card h3 {
+            font-size: 1.55rem;
+            margin: 8px 0 6px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed #4a4a4a;
+            color: #ffffff;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 8px 0 12px 0;
+        }
+
+        .pill {
+            background: #1c1c1c;
+            border: 1px solid #555;
+            color: #dcdcdc;
+            padding: 2px 9px;
+            border-radius: 12px;
+            font-size: 0.92rem;
+        }
+
+        .pill-head {
+            border-color: #4cd137;
+            color: #7bed9f;
+            background: #1b2a1b;
+        }
+
+        .pill-hq {
+            border-color: #00a8ff;
+            color: #70d6ff;
+            background: #182630;
+        }
+
+        .polaroid-card p, .polaroid-card ul {
+            font-size: 1.08rem;
+            line-height: 1.48;
+            margin: 8px 0;
+        }
+
+        .polaroid-card ul {
+            padding-left: 19px;
+        }
+
+        .polaroid-card li {
+            margin-bottom: 5px;
+        }
+
+        .hl { color: #ffeb3b; font-weight: bold; }
+        .cy { color: #00d2d3; font-weight: bold; }
+        .gr { color: #7bed9f; font-weight: bold; }
+        .or { color: #ff9f43; font-weight: bold; }
+
+        .exam-trap {
+            margin-top: 10px;
+            background: #2f2318;
+            border-left: 4px solid #ff9f43;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        /* ================= MASTER COMPARISON TABLE ================= */
+        .table-container {
+            max-width: 1320px;
+            margin: 20px auto 40px auto;
+            background: #242424;
+            border: 2px dashed #00a8ff;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-x: auto;
+            box-shadow: 6px 8px 18px rgba(0,0,0,0.65);
+        }
+
+        table.master-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.05rem;
+        }
+
+        table.master-table th, table.master-table td {
+            border: 1px dashed #555;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table.master-table th {
+            background: #323232;
+            color: #ffeb3b;
+            font-family: 'Kalam', cursive;
+            font-size: 1.18rem;
+        }
+
+        table.master-table tr:nth-child(even) {
+            background: #2a2a2a;
+        }
+
+        /* Toast notification */
+        #ws-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4cd137;
+            color: #1a1a1a;
+            font-family: 'Kalam', cursive;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 10000;
+        }
+
+        #ws-toast.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 1080px) {
+            .masonry-board { column-count: 2; }
+        }
+
+        @media (max-width: 720px) {
+            body { padding: 75px 14px 40px 14px; }
+            .masonry-board { column-count: 1; }
+            .workspace-bar { right: 10px; left: 10px; justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INTERACTIVE WORKSPACE BAR -->
+    <div class="workspace-bar" id="workspaceBar">
+        <button class="ws-btn" id="btnAddNote">📝 ADD NOTES</button>
+        <button class="ws-btn" id="btnHighlight">🖍️ HIGHLIGHT</button>
+        <div class="hl-palette" id="hlPalette">
+            <div class="hl-swatch selected" data-color="#ffeb3b" style="background:#ffeb3b;" title="Yellow"></div>
+            <div class="hl-swatch" data-color="#7bed9f" style="background:#7bed9f;" title="Green"></div>
+            <div class="hl-swatch" data-color="#70d6ff" style="background:#70d6ff;" title="Cyan"></div>
+            <div class="hl-swatch" data-color="#ff6b81" style="background:#ff6b81;" title="Pink"></div>
+            <div class="hl-swatch" data-color="#ff9f43" style="background:#ff9f43;" title="Orange"></div>
+        </div>
+        <button class="ws-btn" id="btnSave">☁️ SAVE</button>
+    </div>
+
+    <h1>🏦 Financial Regulators of India</h1>
+    <p class="subtitle">OPSC ASO • UPSC • SSC • Banking Awareness — Complete 2026 Exam Sketchnote Board</p>
+
+    <!-- ULTRA-SHORT QUICK REVISION SHEET -->
+    <div class="revision-sheet">
+        <div class="rev-header">
+            <span>⚡ ULTRA-SHORT QUICK REVISION SHEET (AT-A-GLANCE)</span>
+            <span style="font-size:1.05rem; color:#7bed9f;">Updated: Nov 2026</span>
+        </div>
+        <div class="rev-grid">
+            <div class="rev-item">
+                <strong>RBI (1935 | Mumbai)</strong>
+                Banks, Money Market, Forex, Monetary Policy, Payment Systems.
+                <span class="rev-meta">Act: RBI Act 1934 | Head: Sanjay Malhotra (26th)</span>
+            </div>
+            <div class="rev-item">
+                <strong>SEBI (1988 / 1992 | Mumbai)</strong>
+                Capital Market, Stock Exchanges, Mutual Funds, Commodities.
+                <span class="rev-meta">Act: SEBI Act 1992 | Head: Tuhin Kanta Pandey</span>
+            </div>
+            <div class="rev-item">
+                <strong>IRDAI (1999 | Hyderabad)</strong>
+                Insurance Sector (Life, General, Health, Reinsurance).
+                <span class="rev-meta">Act: IRDA Act 1999 | Head: Ajay Seth</span>
+            </div>
+            <div class="rev-item">
+                <strong>PFRDA (2003 / 2013 | New Delhi)</strong>
+                Pension Sector (NPS, Atal Pension Yojana, UPS).
+                <span class="rev-meta">Act: PFRDA Act 2013 | Head: S. Ramann</span>
+            </div>
+            <div class="rev-item">
+                <strong>IFSCA (2020 | Gandhinagar)</strong>
+                Unified Regulator for GIFT City IFSC (RBI+SEBI+IRDAI+PFRDA).
+                <span class="rev-meta">Act: IFSCA Act 2019 | Head: K. Rajaraman</span>
+            </div>
+            <div class="rev-item">
+                <strong>IBBI (2016 | New Delhi)</strong>
+                Insolvency &amp; Bankruptcy Ecosystem (IPs, IPAs, IUs).
+                <span class="rev-meta">Act: IBC 2016 | Head: Jayanti Prasad (Addl.)</span>
+            </div>
+            <div class="rev-item">
+                <strong>NABARD (1982 | Mumbai)</strong>
+                Agriculture &amp; Rural Dev; supervises RRBs &amp; Co-op Banks.
+                <span class="rev-meta">Act: NABARD Act 1981 | Head: Shaji K.V.</span>
+            </div>
+            <div class="rev-item">
+                <strong>SIDBI (1990 | Lucknow)</strong>
+                Apex MSME Development &amp; Refinance Institution.
+                <span class="rev-meta">Act: SIDBI Act 1989 | Head: Manoj Mittal</span>
+            </div>
+            <div class="rev-item">
+                <strong>NHB (1988 | New Delhi)</strong>
+                Housing Finance (100% Govt owned since 2019; HFC reg → RBI).
+                <span class="rev-meta">Act: NHB Act 1987 | Publishes: RESIDEX</span>
+            </div>
+            <div class="rev-item">
+                <strong>FSDC (2010 | Non-Statutory)</strong>
+                Super-Coordinator of all financial regulators.
+                <span class="rev-meta">Chair: Union Finance Minister | Sub-Comm: RBI Gov</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MASONRY POLAROID BOARD -->
+    <h2 class="section-title">📌 Core Regulators &amp; Exam Perspectives</h2>
+
+    <div class="masonry-board">
+
+        <!-- 1. RBI -->
+        <div class="polaroid-card">
+            <div class="tag tag-blue">Central Bank</div>
+            <h3>1. Reserve Bank of India (RBI)</h3>
+            <div class="badge-row">
+                <span class="pill">Est: Apr 1, 1935</span>
+                <span class="pill pill-hq">HQ: Mumbai (shifted from Kolkata 1937)</span>
+                <span class="pill pill-head">26th Gov: Sanjay Malhotra</span>
+            </div>
+            <ul>
+                <li><strong>Origin:</strong> Recommended by <span class="hl">Hilton Young Commission (1926)</span>; established under <span class="hl">RBI Act, 1934</span>.</li>
+                <li><strong>Nationalization:</strong> <span class="hl">Jan 1, 1949</span>. First Governor: Sir Osborne Smith; 1st Indian Governor: <span class="hl">C.D. Deshmukh</span>.</li>
+                <li><strong>Core Functions:</strong> Monetary Policy, Issuer of Currency (except ₹1 note &amp; coins — Ministry of Finance), Banker to Govt &amp; Banks, Lender of Last Resort, Forex Custodian (FEMA 1999), Banking &amp; NBFC Supervision.</li>
+                <li><strong>Monetary Policy Committee (MPC):</strong> Statutory (2016, Sec 45ZB of RBI Act). <span class="hl">6 Members</span> (3 RBI + 3 Govt), chaired by RBI Governor (casting vote). Inflation target: <span class="cy">4% ± 2%</span> (CPI).</li>
+                <li><strong>Payment Systems (PSS Act 2007):</strong> Regulates <span class="hl">RTGS</span> (Min ₹2 Lakh, <span class="gr">No upper limit</span>), <span class="hl">NEFT</span> (No min/max), UPI, IMPS.</li>
+                <li><strong>4 Wholly-Owned Subsidiaries:</strong> <span class="cy">DICGC</span> (Deposit insurance up to <span class="hl">₹5 Lakh</span>/depositor/bank), <span class="cy">BRBNMPL</span> (Note printing), <span class="cy">ReBIT</span> (IT/Cyber), <span class="cy">IFTAS</span>, plus <span class="cy">RBIH</span> (Innovation Hub, Bengaluru).</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> RBI regulates <em>Money Market</em> (short-term, &lt;1 yr), NOT Capital Market. Also, RBI has <span class="hl">4 Deputy Governors</span> max.
+            </div>
+        </div>
+
+        <!-- 2. SEBI -->
+        <div class="polaroid-card">
+            <div class="tag tag-purple">Capital Market</div>
+            <h3>2. SEBI (Securities &amp; Exchange Board of India)</h3>
+            <div class="badge-row">
+                <span class="pill">Est: 1988 | Statutory: 1992</span>
+                <span class="pill pill-hq">HQ: Mumbai</span>
+                <span class="pill pill-head">Chair: Tuhin Kanta Pandey</span>
+            </div>
+            <ul>
+                <li><strong>Statutory Status:</strong> Granted on <span class="hl">Jan 30, 1992</span> via <span class="hl">SEBI Act, 1992</span> (Narasimham Committee).</li>
+                <li><strong>Domain:</strong> Regulates <span class="hl">Stock Exchanges</span> (NSE, BSE), <span class="hl">Mutual Funds</span> (OPSC PYQ!), Merchant Bankers, Credit Rating Agencies, FPIs, Venture Capital, REITs/InvITs.</li>
+                <li><strong>Commodity Derivatives:</strong> Forward Markets Commission (FMC) was <span class="hl">merged into SEBI in 2015</span>.</li>
+                <li><strong>Quasi-Powers:</strong> Quasi-legislative (regulations), Quasi-executive (investigations), Quasi-judicial (orders).</li>
+                <li><strong>Appellate Body:</strong> <span class="cy">SAT (Securities Appellate Tribunal)</span>, Mumbai — also hears appeals against IRDAI &amp; PFRDA!</li>
+                <li><strong>Key Portals:</strong> <span class="hl">SCORES</span> (Investor grievance redressal), <span class="hl">SMART ODR</span>, <span class="hl">T+1 / T+0</span> settlement cycle.</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> Mutual Funds &amp; Credit Rating Agencies are regulated by <span class="hl">SEBI</span> (not RBI). Tuhin Kanta Pandey is a 1987-batch <span class="gr">Odisha cadre IAS</span> officer!
+            </div>
+        </div>
+
+        <!-- 3. IRDAI -->
+        <div class="polaroid-card">
+            <div class="tag tag-orange">Insurance</div>
+            <h3>3. IRDAI (Insurance Regulatory &amp; Development Authority)</h3>
+            <div class="badge-row">
+                <span class="pill">Est: 1999 | Statutory: Apr 2000</span>
+                <span class="pill pill-hq">HQ: Hyderabad</span>
+                <span class="pill pill-head">Chair: Ajay Seth</span>
+            </div>
+            <ul>
+                <li><strong>Origin:</strong> Based on <span class="hl">Malhotra Committee (1994)</span> recommendations; established under <span class="hl">IRDA Act, 1999</span> (renamed IRDAI in 2014).</li>
+                <li><strong>Composition:</strong> <span class="hl">10 Members</span> — 1 Chairperson + 5 Whole-Time + 4 Part-Time members (appointed by Govt).</li>
+                <li><strong>Domain:</strong> Regulates Life Insurance (LIC &amp; private), General Insurance, Health Insurance, Reinsurance (GIC Re), Insurance Brokers &amp; Agents.</li>
+                <li><strong>Vision 2047:</strong> <span class="cy">"Insurance for All by 2047"</span> via <span class="hl">Bima Trinity</span> — Bima Sugam (marketplace), Bima Vistaar (all-in-one policy), Bima Vahak (women-led distribution).</li>
+                <li><strong>FDI Limit:</strong> Increased to <span class="hl">74%</span> (automatic route; Budget 2025 proposed raising to 100% for domestic investment).</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> HQ shifted from New Delhi to <span class="hl">Hyderabad (2001)</span> — favorite SSC/OPSC HQ question!
+            </div>
+        </div>
+
+        <!-- 4. PFRDA -->
+        <div class="polaroid-card">
+            <div class="tag tag-green">Pensions</div>
+            <h3>4. PFRDA (Pension Fund Regulatory &amp; Dev. Authority)</h3>
+            <div class="badge-row">
+                <span class="pill">Est: 2003 | Statutory: 2013</span>
+                <span class="pill pill-hq">HQ: New Delhi</span>
+                <span class="pill pill-head">Chair: Sivasubramanian Ramann</span>
+            </div>
+            <ul>
+                <li><strong>Origin:</strong> Set up by executive order in 2003; statutory status via <span class="hl">PFRDA Act, 2013</span> (Ministry of Finance).</li>
+                <li><strong>Composition:</strong> 1 Chairperson + up to 6 members (at least 3 whole-time).</li>
+                <li><strong>Flagship Schemes Regulated:</strong>
+                    <ul>
+                        <li><span class="hl">NPS (National Pension System)</span> — for Govt &amp; all citizens (18–70 yrs).</li>
+                        <li><span class="hl">APY (Atal Pension Yojana)</span> — unorganized sector (18–40 yrs; ₹1,000–₹5,000 guaranteed pension at 60).</li>
+                        <li><span class="hl">NPS Vatsalya</span> (for minors) &amp; <span class="hl">UPS (Unified Pension Scheme)</span>.</li>
+                    </ul>
+                </li>
+                <li><strong>Intermediaries:</strong> Regulates Pension Funds, Central Recordkeeping Agencies (CRAs like Protean/KFintech), Points of Presence (PoPs).</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> <span class="hl">EPFO</span> (Employees' Provident Fund) is NOT under PFRDA — it is under <span class="cy">Ministry of Labour &amp; Employment</span>!
+            </div>
+        </div>
+
+        <!-- 5. IFSCA -->
+        <div class="polaroid-card">
+            <div class="tag tag-cyan">Unified IFSC</div>
+            <h3>5. IFSCA (Int'l Financial Services Centres Authority)</h3>
+            <div class="badge-row">
+                <span class="pill">Est: Apr 27, 2020</span>
+                <span class="pill pill-hq">HQ: GIFT City, Gandhinagar</span>
+                <span class="pill pill-head">Chair: K. Rajaraman</span>
+            </div>
+            <ul>
+                <li><strong>Act:</strong> <span class="hl">IFSCA Act, 2019</span> (Statutory body under Ministry of Finance).</li>
+                <li><strong>Why Unique?</strong> India's <span class="hl">first unified financial regulator</span>. Inside GIFT City (Gujarat), it exercises the combined powers of <span class="cy">RBI + SEBI + IRDAI + PFRDA</span>.</li>
+                <li><strong>Composition:</strong> <span class="hl">9 Members</span> — Chairperson + 1 nominee each from RBI, SEBI, IRDAI, PFRDA + 2 MoF officials + 2 whole-time/part-time members.</li>
+                <li><strong>Key Initiatives:</strong> India International Bullion Exchange (<span class="hl">IIBX</span>), Global FinTech Hub, Foreign Universities in GIFT City, Aircraft/Ship leasing.</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> Only major financial regulator headquartered in <span class="hl">Gandhinagar (Gujarat)</span>.
+            </div>
+        </div>
+
+        <!-- 6. IBBI -->
+        <div class="polaroid-card">
+            <div class="tag tag-pink">Insolvency</div>
+            <h3>6. IBBI (Insolvency &amp; Bankruptcy Board of India)</h3>
+            <div class="badge-row">
+                <span class="pill">Est: Oct 1, 2016</span>
+                <span class="pill pill-hq">HQ: New Delhi</span>
+                <span class="pill pill-head">Chair (Addl.): Jayanti Prasad</span>
+            </div>
+            <ul>
+                <li><strong>Act:</strong> <span class="hl">Insolvency and Bankruptcy Code (IBC), 2016</span> (Ministry of Corporate Affairs).</li>
+                <li><strong>Unique Role:</strong> Regulates both <span class="cy">Profession</span> (Insolvency Professionals, IP Agencies, Information Utilities like NeSL) and <span class="cy">Processes</span> (CIRP, Liquidation, Pre-Packs).</li>
+                <li><strong>Adjudicating Authorities:</strong>
+                    <ul>
+                        <li><span class="hl">NCLT</span> (National Company Law Tribunal) → Companies &amp; LLPs.</li>
+                        <li><span class="hl">DRT</span> (Debt Recovery Tribunal) → Individuals &amp; Partnerships.</li>
+                    </ul>
+                </li>
+                <li><strong>Timeline:</strong> Corporate Insolvency Resolution Process (CIRP) must conclude within <span class="hl">180 days</span> (+90 days extension; max 330 days including litigation).</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> IBBI falls under <span class="hl">Ministry of Corporate Affairs (MCA)</span>, NOT Ministry of Finance!
+            </div>
+        </div>
+
+        <!-- 7. NABARD -->
+        <div class="polaroid-card">
+            <div class="tag tag-green">Agri &amp; Rural</div>
+            <h3>7. NABARD (National Bank for Agri &amp; Rural Dev.)</h3>
+            <div class="badge-row">
+                <span class="pill">Est: July 12, 1982</span>
+                <span class="pill pill-hq">HQ: Mumbai</span>
+                <span class="pill pill-head">Chair: Shaji K.V.</span>
+            </div>
+            <ul>
+                <li><strong>Origin:</strong> Recommended by <span class="hl">B. Sivaraman Committee (CRAFICARD)</span> during the <span class="cy">6th Five-Year Plan</span>; under <span class="hl">NABARD Act, 1981</span>.</li>
+                <li><strong>Ownership:</strong> <span class="hl">100% Government of India</span> (RBI sold its remaining stake in 2019).</li>
+                <li><strong>Supervisory Role:</strong> Supervises <span class="hl">RRBs (Regional Rural Banks)</span> &amp; <span class="hl">Rural Cooperative Banks</span> (State &amp; District Co-op Banks). <em>Note: Banking license still comes from RBI!</em></li>
+                <li><strong>Key Funds &amp; Schemes:</strong> <span class="hl">RIDF</span> (Rural Infrastructure Development Fund — funded by banks' PSL shortfalls), <span class="hl">SHG-Bank Linkage</span>, Kisan Credit Card (KCC), E-Shakti.</li>
+            </ul>
+        </div>
+
+        <!-- 8. SIDBI -->
+        <div class="polaroid-card">
+            <div class="tag tag-yellow">MSME Apex</div>
+            <h3>8. SIDBI (Small Industries Dev. Bank of India)</h3>
+            <div class="badge-row">
+                <span class="pill">Est: Apr 2, 1990</span>
+                <span class="pill pill-hq">HQ: Lucknow</span>
+                <span class="pill pill-head">CMD: Manoj Mittal</span>
+            </div>
+            <ul>
+                <li><strong>Act:</strong> <span class="hl">SIDBI Act, 1989</span> (All-India Financial Institution — AIFI regulated by RBI).</li>
+                <li><strong>Role:</strong> Principal financial institution for promotion, financing &amp; development of the <span class="hl">MSME sector</span>.</li>
+                <li><strong>Key Subsidiaries / Initiatives:</strong>
+                    <ul>
+                        <li><span class="hl">MUDRA Bank</span> (Micro Units Development &amp; Refinance Agency — Shishu, Kishore, Tarun, Tarun Plus).</li>
+                        <li><span class="cy">CGTMSE</span> (Credit Guarantee Fund Trust for Micro &amp; Small Enterprises — joint with MSME Ministry).</li>
+                        <li><span class="hl">UDYAMI Helpline</span> &amp; <span class="hl">PSB Loans in 59 Minutes</span>.</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Exam Trap:</strong> HQ is in <span class="hl">Lucknow (UP)</span> — frequently tested in Banking &amp; OPSC exams!
+            </div>
+        </div>
+
+        <!-- 9. NHB, EXIM & AIFIs -->
+        <div class="polaroid-card">
+            <div class="tag tag-blue">AIFIs &amp; Housing</div>
+            <h3>9. NHB, EXIM Bank &amp; NaBFID</h3>
+            <ul>
+                <li><strong>NHB (National Housing Bank):</strong>
+                    <ul>
+                        <li>Est: <span class="hl">July 9, 1988</span> (NHB Act 1987) | <span class="cy">HQ: New Delhi</span>.</li>
+                        <li>100% Govt owned (transferred from RBI in 2019).</li>
+                        <li><strong>Trap:</strong> Regulation of Housing Finance Companies (HFCs) shifted from NHB to <span class="hl">RBI in Aug 2019</span>! NHB now focuses on refinancing &amp; supervision. Publishes <span class="hl">RESIDEX</span>.</li>
+                    </ul>
+                </li>
+                <li><strong>EXIM Bank (Export-Import Bank):</strong> Est: <span class="hl">Jan 1, 1982</span> (EXIM Bank Act 1981) | <span class="cy">HQ: Mumbai</span>. Finances foreign trade.</li>
+                <li><strong>NaBFID (2021):</strong> 5th AIFI (with NABARD, SIDBI, NHB, EXIM). HQ: Mumbai. Long-term <span class="hl">Infrastructure financing</span>.</li>
+            </ul>
+        </div>
+
+        <!-- 10. FSDC & NPCI -->
+        <div class="polaroid-card">
+            <div class="tag tag-orange">Coordination &amp; Payments</div>
+            <h3>10. FSDC &amp; NPCI (High-Yield Extras)</h3>
+            <ul>
+                <li><strong>FSDC (Financial Stability &amp; Development Council):</strong>
+                    <ul>
+                        <li>Est: <span class="hl">Dec 2010</span> (Raghuram Rajan Committee). <span class="or">Non-statutory</span> body.</li>
+                        <li><strong>Chairperson:</strong> <span class="hl">Union Finance Minister</span>.</li>
+                        <li><strong>Members:</strong> Heads of RBI, SEBI, IRDAI, PFRDA, IBBI, IFSCA + Finance Secy + CEA.</li>
+                        <li><strong>FSDC Sub-Committee:</strong> Chaired by <span class="hl">RBI Governor</span>.</li>
+                    </ul>
+                </li>
+                <li><strong>NPCI (National Payments Corp. of India):</strong>
+                    <ul>
+                        <li>Est: <span class="hl">2008</span> (Not-for-profit Sec 8 company; initiative of <span class="cy">RBI &amp; IBA</span>). HQ: Mumbai.</li>
+                        <li>Operates: <span class="hl">UPI, RuPay, IMPS, AePS, FASTag (NETC), NACH, BBPS</span>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- MASTER COMPARISON & HQ TRAP TABLE -->
+    <h2 class="section-title">⚖️ Master Exam-Trap Matrix (HQ, Ministry, Act &amp; Appeals)</h2>
+
+    <div class="table-container">
+        <table class="master-table">
+            <thead>
+                <tr>
+                    <th>Regulator</th>
+                    <th>Est. / Act</th>
+                    <th>Headquarters</th>
+                    <th>Parent Ministry</th>
+                    <th>Current Head (2026)</th>
+                    <th>Key Exam Fact / Appellate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>RBI</strong></td>
+                    <td>1935 (RBI Act 1934)</td>
+                    <td>Mumbai</td>
+                    <td>Ministry of Finance</td>
+                    <td>Sanjay Malhotra</td>
+                    <td>Hilton Young Comm.; Money Market; MPC (6 members)</td>
+                </tr>
+                <tr>
+                    <td><strong>SEBI</strong></td>
+                    <td>1988 / 1992 (SEBI Act 1992)</td>
+                    <td>Mumbai</td>
+                    <td>Ministry of Finance</td>
+                    <td>Tuhin Kanta Pandey</td>
+                    <td>Capital Market &amp; Mutual Funds; Appeal → <strong>SAT</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>IRDAI</strong></td>
+                    <td>1999 (IRDA Act 1999)</td>
+                    <td><span class="hl">Hyderabad</span></td>
+                    <td>Ministry of Finance</td>
+                    <td>Ajay Seth</td>
+                    <td>Malhotra Comm.; 10 members; Appeal → <strong>SAT</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>PFRDA</strong></td>
+                    <td>2003 / 2013 (PFRDA Act 2013)</td>
+                    <td><span class="hl">New Delhi</span></td>
+                    <td>Ministry of Finance</td>
+                    <td>S. Ramann</td>
+                    <td>NPS, APY, UPS; Appeal → <strong>SAT</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>IFSCA</strong></td>
+                    <td>2020 (IFSCA Act 2019)</td>
+                    <td><span class="hl">Gandhinagar</span></td>
+                    <td>Ministry of Finance</td>
+                    <td>K. Rajaraman</td>
+                    <td>Unified Regulator for GIFT City IFSC (9 members)</td>
+                </tr>
+                <tr>
+                    <td><strong>IBBI</strong></td>
+                    <td>2016 (IBC 2016)</td>
+                    <td><span class="hl">New Delhi</span></td>
+                    <td><span class="or">Min. of Corporate Affairs</span></td>
+                    <td>Jayanti Prasad (Addl.)</td>
+                    <td>Adjudication: NCLT (Corps) &amp; DRT (Individuals)</td>
+                </tr>
+                <tr>
+                    <td><strong>NABARD</strong></td>
+                    <td>1982 (NABARD Act 1981)</td>
+                    <td>Mumbai</td>
+                    <td>Ministry of Finance</td>
+                    <td>Shaji K.V.</td>
+                    <td>Sivaraman Comm.; Supervises RRBs &amp; Co-op Banks</td>
+                </tr>
+                <tr>
+                    <td><strong>SIDBI</strong></td>
+                    <td>1990 (SIDBI Act 1989)</td>
+                    <td><span class="hl">Lucknow</span></td>
+                    <td>Ministry of Finance</td>
+                    <td>Manoj Mittal</td>
+                    <td>Apex MSME bank; MUDRA Bank subsidiary</td>
+                </tr>
+                <tr>
+                    <td><strong>NHB</strong></td>
+                    <td>1988 (NHB Act 1987)</td>
+                    <td><span class="hl">New Delhi</span></td>
+                    <td>Ministry of Finance</td>
+                    <td>Sanjay Shukla (MD)</td>
+                    <td>HFC regulation shifted to RBI (2019); RESIDEX</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="ws-toast">Saved!</div>
+
+    <script>
+        (function () {
+            const STORAGE_KEY = 'sketchnote_financial_regulators_v1';
+            const btnAddNote = document.getElementById('btnAddNote');
+            const btnHighlight = document.getElementById('btnHighlight');
+            const hlPalette = document.getElementById('hlPalette');
+            const btnSave = document.getElementById('btnSave');
+            const toast = document.getElementById('ws-toast');
+
+            let highlightMode = false;
+            let activeHlColor = '#ffeb3b';
+            let noteZIndex = 5000;
+
+            const NOTE_COLORS = [
+                { bg: '#fff59d', text: '#1a1a1a' },
+                { bg: '#a5d6a7', text: '#1a1a1a' },
+                { bg: '#81d4fa', text: '#1a1a1a' },
+                { bg: '#ffab91', text: '#1a1a1a' },
+                { bg: '#ce93d8', text: '#1a1a1a' }
+            ];
+
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2200);
+            }
+
+            // Auto-contrast helper (returns dark or light text for any hex)
+            function getContrastYIQ(hexcolor) {
+                hexcolor = hexcolor.replace('#', '');
+                const r = parseInt(hexcolor.substr(0, 2), 16);
+                const g = parseInt(hexcolor.substr(2, 2), 16);
+                const b = parseInt(hexcolor.substr(4, 2), 16);
+                const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+                return (yiq >= 128) ? '#1a1a1a' : '#ffffff';
+            }
+
+            // ================= STICKY NOTES =================
+            function createStickyNote(data = {}) {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.dataset.id = data.id || ('note_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6));
+
+                const bg = data.bg || NOTE_COLORS[0].bg;
+                const textColor = getContrastYIQ(bg);
+                note.style.backgroundColor = bg;
+                note.style.color = textColor;
+                note.style.left = data.left || (window.scrollX + 80 + Math.floor(Math.random() * 120)) + 'px';
+                note.style.top = data.top || (window.scrollY + 110 + Math.floor(Math.random() * 80)) + 'px';
+                if (data.width) note.style.width = data.width;
+                if (data.height) note.style.height = data.height;
+                note.style.zIndex = ++noteZIndex;
+
+                const header = document.createElement('div');
+                header.className = 'sticky-header';
+
+                const colorsDiv = document.createElement('div');
+                colorsDiv.className = 'sticky-colors';
+                NOTE_COLORS.forEach(c => {
+                    const dot = document.createElement('span');
+                    dot.className = 'sticky-dot';
+                    dot.style.background = c.bg;
+                    dot.title = 'Change color';
+                    dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        note.style.backgroundColor = c.bg;
+                        note.style.color = getContrastYIQ(c.bg);
+                        persistState();
+                    });
+                    colorsDiv.appendChild(dot);
+                });
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'sticky-close';
+                closeBtn.textContent = '×';
+                closeBtn.title = 'Delete note';
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    note.remove();
+                    persistState();
+                });
+
+                header.appendChild(colorsDiv);
+                header.appendChild(closeBtn);
+
+                const body = document.createElement('div');
+                body.className = 'sticky-body';
+                body.contentEditable = 'true';
+                body.innerHTML = data.content || 'Type your quick note here...';
+                body.addEventListener('input', persistState);
+
+                note.appendChild(header);
+                note.appendChild(body);
+                document.body.appendChild(note);
+
+                bindNoteDrag(note, header);
+                note.addEventListener('mousedown', () => { note.style.zIndex = ++noteZIndex; });
+                note.addEventListener('mouseup', persistState);
+
+                return note;
+            }
+
+            function bindNoteDrag(note, handle) {
+                let isDragging = false, startX, startY, origLeft, origTop;
+                handle.addEventListener('mousedown', (e) => {
+                    if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-close')) return;
+                    isDragging = true;
+                    note.style.zIndex = ++noteZIndex;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    origLeft = parseInt(note.style.left, 10) || note.offsetLeft;
+                    origTop = parseInt(note.style.top, 10) || note.offsetTop;
+                    e.preventDefault();
+                });
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    note.style.left = (origLeft + e.clientX - startX) + 'px';
+                    note.style.top = (origTop + e.clientY - startY) + 'px';
+                });
+                window.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        persistState();
+                    }
+                });
+            }
+
+            btnAddNote.addEventListener('click', () => {
+                createStickyNote();
+                persistState();
+            });
+
+            // ================= HIGHLIGHTER TOOL =================
+            btnHighlight.addEventListener('click', () => {
+                highlightMode = !highlightMode;
+                btnHighlight.classList.toggle('active', highlightMode);
+                hlPalette.classList.toggle('show', highlightMode);
+                document.body.style.cursor = highlightMode ? 'text' : 'default';
+                if (highlightMode) showToast('Highlight Mode ON: Select text to highlight. Click highlight to undo.');
+            });
+
+            document.querySelectorAll('.hl-swatch').forEach(swatch => {
+                swatch.addEventListener('click', () => {
+                    document.querySelectorAll('.hl-swatch').forEach(s => s.classList.remove('selected'));
+                    swatch.classList.add('selected');
+                    activeHlColor = swatch.dataset.color;
+                });
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (!highlightMode) return;
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                const range = sel.getRangeAt(0);
+                // Avoid highlighting inside workspace bar or sticky notes
+                const container = range.commonAncestorContainer.nodeType === 1
+                    ? range.commonAncestorContainer
+                    : range.commonAncestorContainer.parentElement;
+                if (container.closest('.workspace-bar') || container.closest('.sticky-note')) return;
+
+                try {
+                    const span = document.createElement('span');
+                    span.className = 'user-highlight';
+                    span.style.backgroundColor = activeHlColor;
+                    span.style.color = getContrastYIQ(activeHlColor);
+                    span.title = 'Click to remove highlight';
+                    range.surroundContents(span);
+                    sel.removeAllRanges();
+                    persistState();
+                } catch (err) {
+                    showToast('Select text within a single paragraph/item to highlight.');
+                }
+            });
+
+            // Undo highlight on click
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('user-highlight')) {
+                    const span = e.target;
+                    const parent = span.parentNode;
+                    while (span.firstChild) parent.insertBefore(span.firstChild, span);
+                    parent.removeChild(span);
+                    parent.normalize();
+                    persistState();
+                }
+            });
+
+            // ================= SMART HYDRATION & PERSISTENCE =================
+            function serializeNotes() {
+                return Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                    id: n.dataset.id,
+                    bg: n.style.backgroundColor,
+                    left: n.style.left,
+                    top: n.style.top,
+                    width: n.style.width,
+                    height: n.style.height,
+                    content: n.querySelector('.sticky-body').innerHTML
+                }));
+            }
+
+            function persistState() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify({ notes: serializeNotes() }));
+                } catch (e) {}
+            }
+
+            function hydrate() {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                const existingDomNotes = document.querySelectorAll('.sticky-note');
+
+                if (raw) {
+                    try {
+                        const parsed = JSON.parse(raw);
+                        if (parsed.notes && parsed.notes.length) {
+                            existingDomNotes.forEach(n => n.remove());
+                            parsed.notes.forEach(n => createStickyNote(n));
+                            return;
+                        }
+                    } catch (e) {}
+                }
+                // Smart Hydration: if localStorage is empty, bind any static DOM notes already present
+                existingDomNotes.forEach(note => {
+                    const header = note.querySelector('.sticky-header');
+                    const body = note.querySelector('.sticky-body');
+                    const closeBtn = note.querySelector('.sticky-close');
+                    if (header) bindNoteDrag(note, header);
+                    if (body) body.addEventListener('input', persistState);
+                    if (closeBtn) closeBtn.addEventListener('click', () => { note.remove(); persistState(); });
+                });
+            }
+
+            // ================= CLONE-SAVE MECHANISM =================
+            btnSave.addEventListener('click', () => {
+                persistState();
+                // Clone documentElement so active DOM & event listeners stay 100% intact
+                const clone = document.documentElement.cloneNode(true);
+                const cloneBar = clone.querySelector('#workspaceBar');
+                if (cloneBar) cloneBar.remove();
+                const cloneToast = clone.querySelector('#ws-toast');
+                if (cloneToast) cloneToast.remove();
+
+                const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Financial_Regulators_Sketchnote.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showToast('☁️ Saved! Clean HTML exported & local state synced.');
+            });
+
+            hydrate();
+        })();
+    </script>
+</body>
+</html>
