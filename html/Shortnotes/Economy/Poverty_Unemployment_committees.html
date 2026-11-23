@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poverty, Unemployment &amp; Economic Committees — Short Notes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            background-color: #1a1a1a;
+            background-image: radial-gradient(#2c2c2c 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: #f0f0f0;
+            font-family: 'Patrick Hand', cursive;
+            margin: 0;
+            padding: 80px 30px 60px 30px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Kalam', cursive;
+            color: #ffffff;
+            margin-top: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 6px;
+            text-shadow: 3px 3px 0px #000;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #bdbdbd;
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            color: #ffeb3b;
+            font-size: 1.95rem;
+            margin: 42px auto 20px auto;
+            max-width: 1320px;
+            border-bottom: 3px dashed #555;
+            padding-bottom: 6px;
+        }
+
+        /* ================= WORKSPACE ACTION BAR ================= */
+        .workspace-bar {
+            position: fixed;
+            top: 14px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 10px;
+            background: rgba(26, 26, 26, 0.94);
+            padding: 8px 12px;
+            border: 2px dashed #ffeb3b;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+        }
+
+        .ws-btn {
+            font-family: 'Kalam', cursive;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 2px solid #444;
+            background: #2b2b2b;
+            color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ws-btn:hover {
+            transform: translateY(-2px);
+            border-color: #ffeb3b;
+            color: #ffeb3b;
+        }
+
+        .ws-btn.active {
+            background: #ffeb3b;
+            color: #1a1a1a;
+            border-color: #ffeb3b;
+        }
+
+        .hl-palette {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding-left: 6px;
+            border-left: 1px dashed #666;
+        }
+
+        .hl-palette.show { display: flex; }
+
+        .hl-swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .hl-swatch:hover, .hl-swatch.selected {
+            transform: scale(1.2);
+            box-shadow: 0 0 8px #fff;
+        }
+
+        .user-highlight {
+            padding: 0 3px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .user-highlight:hover {
+            opacity: 0.75;
+            text-decoration: line-through;
+        }
+
+        /* ================= STICKY NOTES ================= */
+        .sticky-note {
+            position: absolute;
+            width: 220px;
+            min-width: 170px;
+            min-height: 150px;
+            border-radius: 6px;
+            box-shadow: 6px 8px 20px rgba(0, 0, 0, 0.7);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            resize: both;
+            overflow: hidden;
+            border: 2px solid rgba(0,0,0,0.3);
+        }
+
+        .sticky-header {
+            padding: 6px 8px;
+            background: rgba(0, 0, 0, 0.15);
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .sticky-colors { display: flex; gap: 5px; }
+
+        .sticky-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        .sticky-close {
+            background: transparent;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: inherit;
+            line-height: 1;
+        }
+
+        .sticky-body {
+            flex: 1;
+            padding: 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.05rem;
+            outline: none;
+            overflow-y: auto;
+            line-height: 1.35;
+        }
+
+        /* ================= ULTRA-SHORT REVISION SHEET ================= */
+        .revision-sheet {
+            max-width: 1320px;
+            margin: 0 auto 36px auto;
+            background: #222;
+            border: 2px solid #e1b12c;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 6px 22px rgba(225, 177, 44, 0.18);
+        }
+
+        .rev-header {
+            font-family: 'Kalam', cursive;
+            font-size: 1.45rem;
+            color: #ffeb3b;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #555;
+            padding-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .rev-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+            gap: 11px;
+        }
+
+        .rev-item {
+            background: #2d2d2d;
+            padding: 9px 11px;
+            border-radius: 6px;
+            border-left: 5px solid #ffeb3b;
+            font-size: 1.01rem;
+            line-height: 1.36;
+        }
+
+        .rev-item strong {
+            color: #ffeb3b;
+            font-family: 'Kalam', cursive;
+            font-size: 1.15rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .rev-meta {
+            color: #7bed9f;
+            font-size: 0.92rem;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* ================= MASONRY POLAROID BOARD ================= */
+        .masonry-board {
+            max-width: 1320px;
+            margin: 0 auto;
+            column-count: 3;
+            column-gap: 24px;
+        }
+
+        .polaroid-card {
+            break-inside: avoid;
+            background: #262626;
+            border: 2px dashed #666;
+            border-bottom: 14px solid #333;
+            border-radius: 10px;
+            padding: 18px 18px 16px 18px;
+            margin-bottom: 26px;
+            position: relative;
+            box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.65);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .polaroid-card:nth-child(odd) { transform: rotate(-0.5deg); }
+        .polaroid-card:nth-child(even) { transform: rotate(0.5deg); }
+
+        .polaroid-card:hover {
+            transform: rotate(0deg) scale(1.015);
+            box-shadow: 10px 12px 26px rgba(0, 0, 0, 0.85);
+            z-index: 20;
+        }
+
+        .polaroid-card::before {
+            content: '📌';
+            position: absolute;
+            top: -12px;
+            left: 14px;
+            font-size: 1.4rem;
+            transform: rotate(-18deg);
+        }
+
+        .tag {
+            position: absolute;
+            top: -12px;
+            right: 12px;
+            padding: 3px 11px;
+            border-radius: 4px;
+            font-family: 'Kalam', cursive;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            transform: rotate(2deg);
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+        }
+
+        .tag-blue { background: #00a8ff; }
+        .tag-green { background: #4cd137; }
+        .tag-yellow { background: #fbc531; }
+        .tag-purple { background: #9c88ff; }
+        .tag-orange { background: #ff7f50; }
+        .tag-pink { background: #ff6b81; }
+        .tag-cyan { background: #00d2d3; }
+
+        .polaroid-card h3 {
+            font-size: 1.48rem;
+            margin: 6px 0 8px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #4a4a4a;
+        }
+
+        .polaroid-card p, .polaroid-card ul {
+            font-size: 1.04rem;
+            line-height: 1.44;
+            margin: 7px 0;
+        }
+
+        .polaroid-card ul { padding-left: 18px; }
+        .polaroid-card li { margin-bottom: 5px; }
+
+        .hl { color: #ffeb3b; font-weight: bold; }
+        .cy { color: #00d2d3; font-weight: bold; }
+        .gr { color: #7bed9f; font-weight: bold; }
+        .or { color: #ff9f43; font-weight: bold; }
+
+        .exam-trap {
+            margin-top: 9px;
+            background: #2f2318;
+            border-left: 4px solid #ff9f43;
+            padding: 7px 10px;
+            border-radius: 4px;
+            font-size: 0.97rem;
+        }
+
+        /* ================= MASTER COMMITTEES TABLE ================= */
+        .table-container {
+            max-width: 1320px;
+            margin: 18px auto 40px auto;
+            background: #242424;
+            border: 2px dashed #00a8ff;
+            border-radius: 10px;
+            padding: 18px;
+            overflow-x: auto;
+            box-shadow: 6px 8px 18px rgba(0,0,0,0.65);
+        }
+
+        table.master-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.03rem;
+        }
+
+        table.master-table th, table.master-table td {
+            border: 1px dashed #555;
+            padding: 9px 11px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table.master-table th {
+            background: #323232;
+            color: #ffeb3b;
+            font-family: 'Kalam', cursive;
+            font-size: 1.15rem;
+        }
+
+        table.master-table tr:nth-child(even) { background: #2a2a2a; }
+
+        #ws-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4cd137;
+            color: #1a1a1a;
+            font-family: 'Kalam', cursive;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 10000;
+        }
+
+        #ws-toast.show { opacity: 1; }
+
+        @media (max-width: 1080px) { .masonry-board { column-count: 2; } }
+        @media (max-width: 720px) {
+            body { padding: 75px 14px 40px 14px; }
+            .masonry-board { column-count: 1; }
+            .workspace-bar { right: 10px; left: 10px; justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WORKSPACE BAR -->
+    <div class="workspace-bar" id="workspaceBar">
+        <button class="ws-btn" id="btnAddNote">📝 ADD NOTES</button>
+        <button class="ws-btn" id="btnHighlight">🖍️ HIGHLIGHT</button>
+        <div class="hl-palette" id="hlPalette">
+            <div class="hl-swatch selected" data-color="#ffeb3b" style="background:#ffeb3b;" title="Yellow"></div>
+            <div class="hl-swatch" data-color="#7bed9f" style="background:#7bed9f;" title="Green"></div>
+            <div class="hl-swatch" data-color="#70d6ff" style="background:#70d6ff;" title="Cyan"></div>
+            <div class="hl-swatch" data-color="#ff6b81" style="background:#ff6b81;" title="Pink"></div>
+            <div class="hl-swatch" data-color="#ff9f43" style="background:#ff9f43;" title="Orange"></div>
+        </div>
+        <button class="ws-btn" id="btnSave">☁️ SAVE</button>
+    </div>
+
+    <h1>📉 Poverty, Unemployment &amp; Economic Committees</h1>
+    <p class="subtitle">Precise Short Notes for OPSC ASO • UPSC • SSC (Updated 2026)</p>
+
+    <!-- ULTRA-SHORT QUICK REVISION SHEET -->
+    <div class="revision-sheet">
+        <div class="rev-header">
+            <span>⚡ ULTRA-SHORT REVISION SHEET (MUST-REMEMBER FACTS)</span>
+            <span style="font-size:1rem; color:#7bed9f;">High-Yield One-Liners</span>
+        </div>
+        <div class="rev-grid">
+            <div class="rev-item">
+                <strong>Poverty Agency (PYQ)</strong>
+                Official assessment body: <b>NITI Aayog</b> (using NSO data &amp; National MPI).
+                <span class="rev-meta">MPI = 3 Dimensions, 12 Indicators</span>
+            </div>
+            <div class="rev-item">
+                <strong>Calorie Norm</strong>
+                <b>Alagh Committee (1979):</b> 2400 kcal (Rural) / 2100 kcal (Urban).
+                <span class="rev-meta">Tendulkar (2009) dropped calorie norm</span>
+            </div>
+            <div class="rev-item">
+                <strong>Tendulkar vs Rangarajan</strong>
+                Tendulkar: ₹27(R)/₹33(U) → 21.9%. Rangarajan: ₹32(R)/₹47(U) → 29.5%.
+                <span class="rev-meta">Base data: 2011–12 NSSO</span>
+            </div>
+            <div class="rev-item">
+                <strong>PURA Model (PYQ)</strong>
+                Providing Urban Amenities to Rural Areas — by <b>Dr. A.P.J. Abdul Kalam</b>.
+                <span class="rev-meta">4 Connectivities: Physical, Elec, Knowledge, Eco</span>
+            </div>
+            <div class="rev-item">
+                <strong>Disguised Unemployment</strong>
+                Marginal Productivity of extra worker = <b>Zero (0)</b>. Dominant in Indian agriculture.
+                <span class="rev-meta">Frictional = temporary (between jobs)</span>
+            </div>
+            <div class="rev-item">
+                <strong>Unemployment Data</strong>
+                Measured by <b>NSO (PLFS)</b> via 3 metrics: Usual (365d), Weekly (7d), Daily (most sensitive).
+                <span class="rev-meta">Phillips Curve: Inflation ↑ ⇒ Unemployment ↓</span>
+            </div>
+            <div class="rev-item">
+                <strong>16th Finance Commission</strong>
+                Chair: <b>Arvind Panagariya</b> (2026–31). Devolution retained at <b>41%</b>.
+                <span class="rev-meta">New: 10% GDP Contribution | RDG ended</span>
+            </div>
+            <div class="rev-item">
+                <strong>Inequality Metrics</strong>
+                <b>Lorenz Curve</b> (graph) &amp; <b>Gini Coefficient</b> (0 = Equal, 1 = Max Inequality).
+                <span class="rev-meta">Kuznets Curve: Inverted-U (Growth vs Inequality)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART 1 & 2: POVERTY & UNEMPLOYMENT -->
+    <h2 class="section-title">📌 Part 1: Poverty &amp; Unemployment (Core Concepts)</h2>
+
+    <div class="masonry-board">
+
+        <!-- CARD 1: POVERTY BASICS & INEQUALITY -->
+        <div class="polaroid-card">
+            <div class="tag tag-orange">Poverty Basics</div>
+            <h3>1. Types &amp; Measurement of Poverty</h3>
+            <ul>
+                <li><span class="hl">Absolute Poverty:</span> Inability to meet basic minimum needs (food, shelter, health). Used in developing nations (India).</li>
+                <li><span class="hl">Relative Poverty:</span> Income compared to society's average (inequality). Used in developed nations.</li>
+                <li><span class="hl">Head Count Ratio (HCR):</span> % of population living below the poverty line.</li>
+                <li><span class="hl">Poverty Gap Index:</span> Measures <em>depth/intensity</em> of poverty (distance from poverty line).</li>
+                <li><span class="hl">Lorenz Curve:</span> Graphical measure of income inequality (45° line = perfect equality).</li>
+                <li><span class="hl">Gini Coefficient:</span> Numerical value from Lorenz curve — <span class="cy">0 = Perfect Equality</span>, <span class="or">1 = Perfect Inequality</span>.</li>
+                <li><span class="hl">PURA Model (OPSC PYQ):</span> <em>Providing Urban Amenities to Rural Areas</em> — proposed by <span class="gr">Dr. A.P.J. Abdul Kalam</span> to eradicate rural poverty via 4 connectivities (Physical, Electronic, Knowledge, Economic).</li>
+            </ul>
+        </div>
+
+        <!-- CARD 2: POVERTY COMMITTEES -->
+        <div class="polaroid-card">
+            <div class="tag tag-yellow">Chronology</div>
+            <h3>2. Poverty Estimation Committees</h3>
+            <ul>
+                <li><strong>Dadabhai Naoroji (1901):</strong> 1st ever estimate (<em>Poverty &amp; Un-British Rule in India</em>) — "Jail Cost of Living".</li>
+                <li><strong>Dandekar &amp; Rath (1971):</strong> 1st post-independence scientific estimate (2250 kcal norm).</li>
+                <li><span class="hl">Alagh Committee (1979):</span> Calorie-based poverty line — <span class="cy">2400 kcal (Rural)</span> &amp; <span class="cy">2100 kcal (Urban)</span>.</li>
+                <li><span class="hl">Lakdawala Committee (1993):</span> Retained Alagh calorie norm; introduced state-specific poverty lines (CPI-AL rural, CPI-IW urban).</li>
+                <li><span class="hl">Tendulkar Committee (2009):</span>
+                    <ul>
+                        <li>Dropped calorie norm; shifted to <span class="cy">Mixed Reference Period (MRP)</span>; added health &amp; education.</li>
+                        <li>Line (2011–12): <span class="gr">₹27/day (Rural)</span>, <span class="gr">₹33/day (Urban)</span> → <span class="hl">21.9% poor</span>.</li>
+                    </ul>
+                </li>
+                <li><span class="hl">Rangarajan Committee (2014):</span> Used MMRP + protein/fat norms. Line: <span class="gr">₹32/day (Rural)</span>, <span class="gr">₹47/day (Urban)</span> → <span class="hl">29.5% poor</span> (not officially adopted).</li>
+                <li><span class="hl">NITI Aayog (Current — OPSC PYQ):</span> Official poverty assessment body. Uses <span class="cy">National MPI</span> (3 dimensions: Health, Education, Standard of Living; 12 indicators — adds <em>Maternal Health</em> &amp; <em>Bank Account</em> to Global MPI's 10).</li>
+            </ul>
+        </div>
+
+        <!-- CARD 3: TYPES OF UNEMPLOYMENT -->
+        <div class="polaroid-card">
+            <div class="tag tag-blue">Unemployment</div>
+            <h3>3. Types of Unemployment</h3>
+            <ul>
+                <li><span class="hl">Disguised Unemployment:</span> More people employed than required; <span class="cy">Marginal Productivity = 0</span>. Seen in Indian agriculture.</li>
+                <li><span class="hl">Seasonal Unemployment:</span> Work available only during specific seasons (sowing/harvesting, tourism).</li>
+                <li><span class="hl">Structural Unemployment:</span> Long-term mismatch between workers' skills and job demand (automation, industrial shift).</li>
+                <li><span class="hl">Frictional Unemployment:</span> Short-term/temporary gap while switching jobs. Exists even at <em>full employment</em>.</li>
+                <li><span class="hl">Cyclical Unemployment:</span> Caused by economic recessions / downturns in business cycle (demand deficiency).</li>
+                <li><span class="hl">Underemployment:</span> Working below skill level or part-time when seeking full-time work.</li>
+                <li><span class="hl">Technological Unemployment:</span> Job loss directly due to AI / machinery replacing labour.</li>
+            </ul>
+            <div class="exam-trap">
+                <strong>🔥 Natural Rate of Unemployment</strong> = Frictional + Structural (Cyclical = 0).
+            </div>
+        </div>
+
+        <!-- CARD 4: MEASUREMENT & CURVES -->
+        <div class="polaroid-card">
+            <div class="tag tag-cyan">NSO &amp; Curves</div>
+            <h3>4. Unemployment Measurement &amp; Curves</h3>
+            <ul>
+                <li><strong>Nodal Agency:</strong> <span class="hl">NSO (MoSPI)</span> conducts <span class="cy">PLFS (Periodic Labour Force Survey)</span>.</li>
+                <li><strong>3 NSO Reference Measures:</strong>
+                    <ul>
+                        <li><span class="hl">Usual Status (US):</span> 365 days — captures <em>chronic/open</em> unemployment.</li>
+                        <li><span class="hl">Current Weekly Status (CWS):</span> 7 days — unemployed if not worked even 1 hour in the week.</li>
+                        <li><span class="hl">Current Daily Status (CDS):</span> Person-day basis — <span class="gr">most comprehensive/sensitive</span> measure (captures underemployment).</li>
+                    </ul>
+                </li>
+                <li><strong>Key Ratios:</strong>
+                    <ul>
+                        <li><span class="cy">LFPR</span> = (Employed + Unemployed) / Total Pop (15+ yrs).</li>
+                        <li><span class="cy">Unemployment Rate (UR)</span> = Unemployed / Labour Force.</li>
+                    </ul>
+                </li>
+                <li><strong>Must-Know Curves:</strong>
+                    <ul>
+                        <li><span class="hl">Phillips Curve:</span> Inverse relationship between <span class="or">Inflation &amp; Unemployment</span> (short-run).</li>
+                        <li><span class="hl">Okun's Law:</span> Inverse relationship between <span class="or">GDP growth &amp; Unemployment</span>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- CARD 5: 16TH FINANCE COMMISSION -->
+        <div class="polaroid-card">
+            <div class="tag tag-green">2026 Current</div>
+            <h3>5. 16th Finance Commission (2026–31)</h3>
+            <ul>
+                <li><strong>Constitutional Body:</strong> <span class="hl">Article 280</span> | Tabled: <span class="cy">Feb 1, 2026</span>.</li>
+                <li><strong>Chairperson:</strong> <span class="hl">Dr. Arvind Panagariya</span> (15th FC was N.K. Singh).</li>
+                <li><strong>Vertical Devolution:</strong> Retained at <span class="gr">41%</span> of divisible tax pool to States.</li>
+                <li><strong>Horizontal Formula Weights:</strong>
+                    <ul>
+                        <li>Income Distance: <span class="hl">42.5%</span> | Population (2011): <span class="hl">17.5%</span></li>
+                        <li>Demographic Perf.: <span class="hl">10%</span> | Area: <span class="hl">10%</span> | Forest: <span class="hl">10%</span></li>
+                        <li><span class="cy">NEW — Contribution to GDP: 10%</span> (replaced Tax Effort).</li>
+                    </ul>
+                </li>
+                <li><strong>Grants (₹9.47 Lakh Cr):</strong> Local Bodies + Disaster Mgmt only. <span class="or">Discontinued</span> Revenue Deficit Grants (RDG), Sector &amp; State-specific grants.</li>
+                <li><strong>Fiscal Targets:</strong> Centre fiscal deficit → <span class="hl">3.5% GDP</span> by 2030–31; States → <span class="hl">3% GSDP</span>; halt off-budget borrowings.</li>
+            </ul>
+        </div>
+
+        <!-- CARD 6: QUICK COMMITTEE CLUSTERS -->
+        <div class="polaroid-card">
+            <div class="tag tag-purple">Memory Hacks</div>
+            <h3>6. High-Frequency Committee Clusters</h3>
+            <ul>
+                <li><strong>Banking Trio:</strong>
+                    <ul>
+                        <li><span class="hl">Hilton Young (1926)</span> → RBI Establishment</li>
+                        <li><span class="hl">Narasimham I &amp; II (1991, 98)</span> → Banking Reforms</li>
+                        <li><span class="hl">Nachiket Mor (2013)</span> → Payments Banks &amp; Financial Inclusion</li>
+                    </ul>
+                </li>
+                <li><strong>Tax &amp; GST Trio:</strong>
+                    <ul>
+                        <li><span class="hl">Raja Chelliah (1991)</span> → Tax Reforms</li>
+                        <li><span class="hl">Vijay Kelkar</span> → GST, FRBM &amp; PPP Model</li>
+                        <li><span class="hl">Asim Dasgupta</span> → GST Design (Empowered Comm.)</li>
+                    </ul>
+                </li>
+                <li><strong>Rural &amp; Agri Trio:</strong>
+                    <ul>
+                        <li><span class="hl">B. Sivaraman (1979)</span> → NABARD</li>
+                        <li><span class="hl">M.S. Swaminathan</span> → MSP (C2 + 50%)</li>
+                        <li><span class="hl">Ashok Dalwai</span> → Doubling Farmers' Income</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- PART 3: MASTER ECONOMIC COMMITTEES TABLE -->
+    <h2 class="section-title">🏛️ Part 2: Master Economic Committees Matrix (Exam Quick-Ref)</h2>
+
+    <div class="table-container">
+        <table class="master-table">
+            <thead>
+                <tr>
+                    <th>Committee / Commission</th>
+                    <th>Domain / Sector</th>
+                    <th>Key Recommendation / Exam One-Liner</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Hilton Young Commission (1926)</strong></td>
+                    <td>Central Banking</td>
+                    <td>Recommended creation of <span class="hl">RBI</span> (Royal Commission on Indian Currency &amp; Finance).</td>
+                </tr>
+                <tr>
+                    <td><strong>Narasimham Committee I (1991) &amp; II (1998)</strong></td>
+                    <td>Banking Reforms</td>
+                    <td>Reduced CRR/SLR, allowed private banks, NPA norms, <span class="cy">ARCs</span>, bank mergers.</td>
+                </tr>
+                <tr>
+                    <td><strong>Urjit Patel Committee (2014)</strong></td>
+                    <td>Monetary Policy</td>
+                    <td>Recommended <span class="hl">CPI-based Inflation Targeting (4% ± 2%)</span> &amp; creation of <span class="hl">MPC</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Nachiket Mor Committee (2013)</strong></td>
+                    <td>Financial Inclusion</td>
+                    <td>Creation of <span class="hl">Payments Banks</span> &amp; universal bank account for every adult.</td>
+                </tr>
+                <tr>
+                    <td><strong>Usha Thorat Committee</strong></td>
+                    <td>Banking</td>
+                    <td>Small Finance Banks (SFBs) &amp; NBFC regulation.</td>
+                </tr>
+                <tr>
+                    <td><strong>P.J. Nayak Committee (2014)</strong></td>
+                    <td>PSU Banks</td>
+                    <td>Governance reforms in PSU Banks; led to <span class="cy">Banks Board Bureau (now FSIB)</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Bimal Jalan Committee (2019)</strong></td>
+                    <td>RBI Reserves</td>
+                    <td><span class="hl">Economic Capital Framework (ECF)</span> — surplus transfer from RBI to Govt.</td>
+                </tr>
+                <tr>
+                    <td><strong>Malhotra Committee (1994)</strong></td>
+                    <td>Insurance</td>
+                    <td>Opened insurance to private sector; led to creation of <span class="hl">IRDAI</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Raghuram Rajan Committee (2008)</strong></td>
+                    <td>Financial Sector</td>
+                    <td>Financial sector reforms; recommended setting up <span class="hl">FSDC</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>S.S. Tarapore Committee (1997, 2006)</strong></td>
+                    <td>Forex / BoP</td>
+                    <td>Roadmap for <span class="hl">Fuller Capital Account Convertibility</span> of the Rupee.</td>
+                </tr>
+                <tr>
+                    <td><strong>B. Sivaraman Committee (CRAFICARD)</strong></td>
+                    <td>Rural Credit</td>
+                    <td>Recommended establishment of <span class="hl">NABARD (1982)</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Narasimham (1975) — Working Group</strong></td>
+                    <td>Rural Banking</td>
+                    <td>Establishment of <span class="hl">Regional Rural Banks (RRBs)</span> (1st RRB: Prathama Bank, 1975).</td>
+                </tr>
+                <tr>
+                    <td><strong>Raja Chelliah Committee (1991)</strong></td>
+                    <td>Taxation</td>
+                    <td>Comprehensive direct &amp; indirect <span class="hl">Tax Reforms</span> post-1991 LPG.</td>
+                </tr>
+                <tr>
+                    <td><strong>Vijay Kelkar Committee</strong></td>
+                    <td>Fiscal / Tax / PPP</td>
+                    <td><span class="hl">GST implementation</span>, FRBM framework, &amp; revisiting PPP model.</td>
+                </tr>
+                <tr>
+                    <td><strong>N.K. Singh Committee (2017)</strong></td>
+                    <td>Fiscal Policy</td>
+                    <td><span class="hl">FRBM Review</span> (Debt-to-GDP target: 60% combined — 40% Centre, 20% States); also 15th FC Chair.</td>
+                </tr>
+                <tr>
+                    <td><strong>Parthasarathi Shome Committee</strong></td>
+                    <td>Taxation</td>
+                    <td>Review of <span class="hl">GAAR</span> (General Anti-Avoidance Rules) &amp; Tax Administration Reforms.</td>
+                </tr>
+                <tr>
+                    <td><strong>M.S. Swaminathan Commission (2004)</strong></td>
+                    <td>Agriculture</td>
+                    <td>National Commission on Farmers — recommended <span class="hl">MSP = C2 + 50%</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Shanta Kumar Committee (2015)</strong></td>
+                    <td>Food / PDS</td>
+                    <td>Restructuring of <span class="hl">FCI</span> (Food Corporation of India) &amp; Direct Benefit Transfer in PDS.</td>
+                </tr>
+                <tr>
+                    <td><strong>Ashok Dalwai Committee (2016)</strong></td>
+                    <td>Agriculture</td>
+                    <td>Strategy for <span class="hl">Doubling Farmers' Income</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>U.K. Sinha Committee (2019)</strong></td>
+                    <td>MSMEs</td>
+                    <td>Long-term economic &amp; financial sustainability of the <span class="hl">MSME Sector</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Abid Hussain Committee (1997)</strong></td>
+                    <td>Small Industries</td>
+                    <td>Reforms &amp; dereservation of <span class="hl">Small Scale Industries (SSIs)</span>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sarkaria (1983) / Punchhi (2007)</strong></td>
+                    <td>Polity–Economy</td>
+                    <td><span class="hl">Centre–State Relations</span> (Fiscal &amp; administrative federalism).</td>
+                </tr>
+                <tr>
+                    <td><strong>Mahalanobis Committee (1960)</strong></td>
+                    <td>Income Distribution</td>
+                    <td>Studied <span class="hl">Distribution of Income &amp; Levels of Living</span> in India.</td>
+                </tr>
+                <tr>
+                    <td><strong>Bibek Debroy Committee (2015)</strong></td>
+                    <td>Railways</td>
+                    <td>Mobilization of resources &amp; <span class="hl">Merger of Railway Budget with Union Budget</span> (2017).</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="ws-toast">Saved!</div>
+
+    <script>
+        (function () {
+            const STORAGE_KEY = 'sketchnote_poverty_unemp_committees_v1';
+            const btnAddNote = document.getElementById('btnAddNote');
+            const btnHighlight = document.getElementById('btnHighlight');
+            const hlPalette = document.getElementById('hlPalette');
+            const btnSave = document.getElementById('btnSave');
+            const toast = document.getElementById('ws-toast');
+
+            let highlightMode = false;
+            let activeHlColor = '#ffeb3b';
+            let noteZIndex = 5000;
+
+            const NOTE_COLORS = [
+                { bg: '#fff59d', text: '#1a1a1a' },
+                { bg: '#a5d6a7', text: '#1a1a1a' },
+                { bg: '#81d4fa', text: '#1a1a1a' },
+                { bg: '#ffab91', text: '#1a1a1a' },
+                { bg: '#ce93d8', text: '#1a1a1a' }
+            ];
+
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2200);
+            }
+
+            function getContrastYIQ(hexcolor) {
+                hexcolor = hexcolor.replace('#', '');
+                const r = parseInt(hexcolor.substr(0, 2), 16);
+                const g = parseInt(hexcolor.substr(2, 2), 16);
+                const b = parseInt(hexcolor.substr(4, 2), 16);
+                const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+                return (yiq >= 128) ? '#1a1a1a' : '#ffffff';
+            }
+
+            // ================= STICKY NOTES =================
+            function createStickyNote(data = {}) {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.dataset.id = data.id || ('note_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6));
+
+                const bg = data.bg || NOTE_COLORS[0].bg;
+                note.style.backgroundColor = bg;
+                note.style.color = getContrastYIQ(bg);
+                note.style.left = data.left || (window.scrollX + 80 + Math.floor(Math.random() * 120)) + 'px';
+                note.style.top = data.top || (window.scrollY + 110 + Math.floor(Math.random() * 80)) + 'px';
+                if (data.width) note.style.width = data.width;
+                if (data.height) note.style.height = data.height;
+                note.style.zIndex = ++noteZIndex;
+
+                const header = document.createElement('div');
+                header.className = 'sticky-header';
+
+                const colorsDiv = document.createElement('div');
+                colorsDiv.className = 'sticky-colors';
+                NOTE_COLORS.forEach(c => {
+                    const dot = document.createElement('span');
+                    dot.className = 'sticky-dot';
+                    dot.style.background = c.bg;
+                    dot.title = 'Change color';
+                    dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        note.style.backgroundColor = c.bg;
+                        note.style.color = getContrastYIQ(c.bg);
+                        persistState();
+                    });
+                    colorsDiv.appendChild(dot);
+                });
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'sticky-close';
+                closeBtn.textContent = '×';
+                closeBtn.title = 'Delete note';
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    note.remove();
+                    persistState();
+                });
+
+                header.appendChild(colorsDiv);
+                header.appendChild(closeBtn);
+
+                const body = document.createElement('div');
+                body.className = 'sticky-body';
+                body.contentEditable = 'true';
+                body.innerHTML = data.content || 'Type your quick note here...';
+                body.addEventListener('input', persistState);
+
+                note.appendChild(header);
+                note.appendChild(body);
+                document.body.appendChild(note);
+
+                bindNoteDrag(note, header);
+                note.addEventListener('mousedown', () => { note.style.zIndex = ++noteZIndex; });
+                note.addEventListener('mouseup', persistState);
+
+                return note;
+            }
+
+            function bindNoteDrag(note, handle) {
+                let isDragging = false, startX, startY, origLeft, origTop;
+                handle.addEventListener('mousedown', (e) => {
+                    if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-close')) return;
+                    isDragging = true;
+                    note.style.zIndex = ++noteZIndex;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    origLeft = parseInt(note.style.left, 10) || note.offsetLeft;
+                    origTop = parseInt(note.style.top, 10) || note.offsetTop;
+                    e.preventDefault();
+                });
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    note.style.left = (origLeft + e.clientX - startX) + 'px';
+                    note.style.top = (origTop + e.clientY - startY) + 'px';
+                });
+                window.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        persistState();
+                    }
+                });
+            }
+
+            btnAddNote.addEventListener('click', () => {
+                createStickyNote();
+                persistState();
+            });
+
+            // ================= HIGHLIGHTER TOOL =================
+            btnHighlight.addEventListener('click', () => {
+                highlightMode = !highlightMode;
+                btnHighlight.classList.toggle('active', highlightMode);
+                hlPalette.classList.toggle('show', highlightMode);
+                document.body.style.cursor = highlightMode ? 'text' : 'default';
+                if (highlightMode) showToast('Highlight Mode ON: Select text to highlight. Click highlight to undo.');
+            });
+
+            document.querySelectorAll('.hl-swatch').forEach(swatch => {
+                swatch.addEventListener('click', () => {
+                    document.querySelectorAll('.hl-swatch').forEach(s => s.classList.remove('selected'));
+                    swatch.classList.add('selected');
+                    activeHlColor = swatch.dataset.color;
+                });
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (!highlightMode) return;
+                const sel = window.getSelection();
+                if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+                const range = sel.getRangeAt(0);
+                const container = range.commonAncestorContainer.nodeType === 1
+                    ? range.commonAncestorContainer
+                    : range.commonAncestorContainer.parentElement;
+                if (container.closest('.workspace-bar') || container.closest('.sticky-note')) return;
+
+                try {
+                    const span = document.createElement('span');
+                    span.className = 'user-highlight';
+                    span.style.backgroundColor = activeHlColor;
+                    span.style.color = getContrastYIQ(activeHlColor);
+                    span.title = 'Click to remove highlight';
+                    range.surroundContents(span);
+                    sel.removeAllRanges();
+                    persistState();
+                } catch (err) {
+                    showToast('Select text within a single paragraph/item to highlight.');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('user-highlight')) {
+                    const span = e.target;
+                    const parent = span.parentNode;
+                    while (span.firstChild) parent.insertBefore(span.firstChild, span);
+                    parent.removeChild(span);
+                    parent.normalize();
+                    persistState();
+                }
+            });
+
+            // ================= SMART HYDRATION & PERSISTENCE =================
+            function serializeNotes() {
+                return Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                    id: n.dataset.id,
+                    bg: n.style.backgroundColor,
+                    left: n.style.left,
+                    top: n.style.top,
+                    width: n.style.width,
+                    height: n.style.height,
+                    content: n.querySelector('.sticky-body').innerHTML
+                }));
+            }
+
+            function persistState() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify({ notes: serializeNotes() }));
+                } catch (e) {}
+            }
+
+            function hydrate() {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                const existingDomNotes = document.querySelectorAll('.sticky-note');
+
+                if (raw) {
+                    try {
+                        const parsed = JSON.parse(raw);
+                        if (parsed.notes && parsed.notes.length) {
+                            existingDomNotes.forEach(n => n.remove());
+                            parsed.notes.forEach(n => createStickyNote(n));
+                            return;
+                        }
+                    } catch (e) {}
+                }
+                existingDomNotes.forEach(note => {
+                    const header = note.querySelector('.sticky-header');
+                    const body = note.querySelector('.sticky-body');
+                    const closeBtn = note.querySelector('.sticky-close');
+                    if (header) bindNoteDrag(note, header);
+                    if (body) body.addEventListener('input', persistState);
+                    if (closeBtn) closeBtn.addEventListener('click', () => { note.remove(); persistState(); });
+                });
+            }
+
+            // ================= CLONE-SAVE MECHANISM =================
+            btnSave.addEventListener('click', () => {
+                persistState();
+                const clone = document.documentElement.cloneNode(true);
+                const cloneBar = clone.querySelector('#workspaceBar');
+                if (cloneBar) cloneBar.remove();
+                const cloneToast = clone.querySelector('#ws-toast');
+                if (cloneToast) cloneToast.remove();
+
+                const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Poverty_Unemployment_Committees.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showToast('☁️ Saved! Clean HTML exported & local state synced.');
+            });
+
+            hydrate();
+        })();
+    </script>
+</body>
+</html>
