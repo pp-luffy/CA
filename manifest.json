@@ -1,5 +1,5 @@
 {
-  "timestamp": 1795403026718,
+  "timestamp": 1795403711658,
   "weekly": [
     "05102026-11102026.html",
     "12102026-18102026.html",
@@ -63,6 +63,10 @@
     {
       "subject": "Geography",
       "filename": "Islands.html"
+    },
+    {
+      "subject": "Geography",
+      "filename": "Koppen_Classification.html"
     },
     {
       "subject": "Geography",
