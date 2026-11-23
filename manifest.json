@@ -1,5 +1,5 @@
 {
-  "timestamp": 1795351854688,
+  "timestamp": 1795402101907,
   "weekly": [
     "05102026-11102026.html",
     "12102026-18102026.html",
@@ -20,6 +20,10 @@
     "September_odisha.html"
   ],
   "shortnotes": [
+    {
+      "subject": "Economy",
+      "filename": "Budget.html"
+    },
     {
       "subject": "Economy",
       "filename": "Economic_Planning.html"
