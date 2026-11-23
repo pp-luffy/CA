@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Köppen Climate Classification — Visual Sketchnote Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #1a1a1a;
+      --bg-grid: rgba(255, 255, 255, 0.04);
+      --card-bg: #242426;
+      --card-border: #3d3d42;
+      --text-main: #f0f0f0;
+      --text-muted: #bdbdc4;
+      --accent-yellow: #ffd166;
+      --accent-cyan: #4cc9f0;
+      --accent-pink: #ff6b9d;
+      --accent-green: #06d6a0;
+      --accent-orange: #ff9f1c;
+      --accent-purple: #c77dff;
+      --accent-red: #ff5c5c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      position: relative;
+      margin: 0;
+      padding: 24px 20px 110px 20px;
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(var(--bg-grid) 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+      color: var(--text-main);
+      font-family: 'Patrick Hand', cursive, sans-serif;
+      font-size: 18px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, .hand-title {
+      font-family: 'Kalam', cursive, sans-serif;
+      margin-top: 0;
+    }
+
+    .board-wrapper {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+
+    /* Header Banner */
+    .hero-header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding: 22px 20px;
+      border: 2.5px dashed var(--accent-yellow);
+      border-radius: 18px 22px 16px 24px;
+      background: linear-gradient(135deg, rgba(255, 209, 102, 0.09), rgba(76, 201, 240, 0.08));
+      position: relative;
+    }
+
+    .hero-header h1 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      color: var(--accent-yellow);
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+      text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin: 2px 4px;
+      font-family: 'Kalam', cursive;
+    }
+
+    .badge-yellow { background: rgba(255, 209, 102, 0.2); color: var(--accent-yellow); border: 1px solid var(--accent-yellow); }
+    .badge-cyan { background: rgba(76, 201, 240, 0.2); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+    .badge-pink { background: rgba(255, 107, 157, 0.2); color: var(--accent-pink); border: 1px solid var(--accent-pink); }
+    .badge-green { background: rgba(6, 214, 160, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+    .badge-orange { background: rgba(255, 159, 28, 0.2); color: var(--accent-orange); border: 1px solid var(--accent-orange); }
+    .badge-purple { background: rgba(199, 125, 255, 0.2); color: var(--accent-purple); border: 1px solid var(--accent-purple); }
+
+    /* Ultra-Short Quick Revision Sheet */
+    .quick-rev-sheet {
+      background: #20232a;
+      border: 3px solid var(--accent-green);
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin-bottom: 32px;
+      box-shadow: 6px 6px 0px rgba(6, 214, 160, 0.22);
+      position: relative;
+    }
+
+    .quick-rev-sheet::before {
+      content: "⚡ 60-SECOND ULTRA-SHORT REVISION SHEET";
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      background: var(--accent-green);
+      color: #111;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 2px 14px;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .rev-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .rev-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 4px solid var(--accent-cyan);
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 0.98rem;
+    }
+
+    .rev-pill strong {
+      color: var(--accent-yellow);
+    }
+
+    /* Spatial Equator-to-Pole Strip */
+    .spatial-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 2px dashed var(--accent-cyan);
+      border-radius: 16px;
+    }
+
+    .spatial-strip-title {
+      grid-column: 1 / -1;
+      font-family: 'Kalam', cursive;
+      font-size: 1.25rem;
+      color: var(--accent-cyan);
+      margin-bottom: 2px;
+    }
+
+    .zone-node {
+      background: #26262b;
+      border: 2px solid #444;
+      border-radius: 12px;
+      padding: 12px;
+      position: relative;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .zone-node:hover {
+      transform: translateY(-3px);
+    }
+
+    .zone-letter {
+      font-family: 'Kalam', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.1;
+      display: block;
+    }
+
+    /* Masonry / Polaroid Grid */
+    .masonry-grid {
+      column-count: 2;
+      column-gap: 26px;
+    }
+
+    @media (max-width: 980px) {
+      .masonry-grid {
+        column-count: 1;
+      }
+    }
+
+    .polaroid-card {
+      break-inside: avoid;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-bottom: 14px solid #2f2f35;
+      border-radius: 10px 14px 12px 10px;
+      padding: 20px 22px 22px 22px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .polaroid-card:nth-child(odd) {
+      transform: rotate(-0.35deg);
+    }
+
+    .polaroid-card:nth-child(even) {
+      transform: rotate(0.35deg);
+    }
+
+    .polaroid-card:hover {
+      transform: rotate(0deg);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Decorative Washi Tape */
+    .polaroid-card::before {
+      content: "";
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 96px;
+      height: 20px;
+      background: rgba(255, 209, 102, 0.38);
+      border-left: 2px dotted rgba(255, 255, 255, 0.25);
+      border-right: 2px dotted rgba(255, 255, 255, 0.25);
+      pointer-events: none;
+    }
+
+    .polaroid-card.tape-cyan::before { background: rgba(76, 201, 240, 0.35); }
+    .polaroid-card.tape-pink::before { background: rgba(255, 107, 157, 0.35); }
+    .polaroid-card.tape-green::before { background: rgba(6, 214, 160, 0.35); }
+    .polaroid-card.tape-orange::before { background: rgba(255, 159, 28, 0.38); }
+    .polaroid-card.tape-purple::before { background: rgba(199, 125, 255, 0.35); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.14);
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+    }
+
+    .card-header h2 {
+      font-size: 1.45rem;
+      margin: 0;
+      color: var(--accent-yellow);
+    }
+
+    .polaroid-caption {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px dotted rgba(255, 255, 255, 0.15);
+      font-family: 'Kalam', cursive;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* Tables */
+    table.sketch-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 0.98rem;
+    }
+
+    table.sketch-table th,
+    table.sketch-table td {
+      border: 1.5px solid #3c3c44;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.sketch-table th {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--accent-cyan);
+      font-family: 'Kalam', cursive;
+      font-size: 1.05rem;
+    }
+
+    table.sketch-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .code-tag {
+      display: inline-block;
+      background: #141418;
+      border: 1.5px solid var(--accent-yellow);
+      color: var(--accent-yellow);
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      padding: 0 7px;
+      border-radius: 6px;
+      font-size: 1.02rem;
+    }
+
+    .hl-yellow { color: var(--accent-yellow); font-weight: 700; }
+    .hl-cyan { color: var(--accent-cyan); font-weight: 700; }
+    .hl-pink { color: var(--accent-pink); font-weight: 700; }
+    .hl-green { color: var(--accent-green); font-weight: 700; }
+    .hl-orange { color: var(--accent-orange); font-weight: 700; }
+    .hl-purple { color: var(--accent-purple); font-weight: 700; }
+
+    .trick-box {
+      background: rgba(255, 159, 28, 0.11);
+      border-left: 4px solid var(--accent-orange);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 1rem;
+    }
+
+    .trap-box {
+      background: rgba(255, 92, 92, 0.12);
+      border-left: 4px solid var(--accent-red);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    ul.sketch-list {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    ul.sketch-list li {
+      margin-bottom: 6px;
+    }
+
+    /* Full-width Spatial India Map Card */
+    .full-width-section {
+      margin-top: 6px;
+      margin-bottom: 28px;
+    }
+
+    .india-spatial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .india-zone-box {
+      background: #1e1e22;
+      border: 2px solid #3c3c44;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .india-zone-box h3 {
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      border-bottom: 1.5px dashed rgba(255, 255, 255, 0.15);
+      padding-bottom: 4px;
+    }
+
+    /* User Highlight Spans */
+    .user-highlight {
+      padding: 0 3px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .user-highlight:hover {
+      opacity: 0.8;
+      text-decoration: line-through;
+    }
+
+    /* Floating Action Bar */
+    .workspace-toolbar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(26, 26, 30, 0.94);
+      backdrop-filter: blur(10px);
+      border: 2px solid #4a4a55;
+      padding: 10px 16px;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tool-btn {
+      font-family: 'Kalam', cursive;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 7px 15px;
+      border: 2px solid transparent;
+      border-radius: 999px;
+      cursor: pointer;
+      color: #f0f0f0;
+      background: #2e2e36;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tool-btn:hover {
+      background: #3d3d48;
+      transform: translateY(-2px);
+    }
+
+    .tool-btn.active {
+      background: var(--accent-yellow);
+      color: #111;
+      border-color: #fff;
+    }
+
+    .hl-color-picker {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      padding: 0 6px;
+      border-left: 1px solid #555;
+      border-right: 1px solid #555;
+    }
+
+    .hl-color-picker.visible {
+      display: flex;
+    }
+
+    .swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .swatch.selected {
+      border-color: #fff;
+      transform: scale(1.15);
+    }
+
+    /* Draggable Resizable Sticky Notes */
+    .sticky-note {
+      position: absolute;
+      width: 230px;
+      min-width: 170px;
+      min-height: 140px;
+      background: #fff3a1;
+      color: #1a1a1a;
+      border-radius: 6px 6px 14px 6px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
+      z-index: 5000;
+      display: flex;
+      flex-direction: column;
+      resize: both;
+      overflow: hidden;
+      border: 1.5px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .sticky-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      background: rgba(0, 0, 0, 0.12);
+      cursor: move;
+      user-select: none;
+    }
+
+    .sticky-colors {
+      display: flex;
+      gap: 5px;
+    }
+
+    .sticky-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+    }
+
+    .sticky-del {
+      background: transparent;
+      border: none;
+      color: #222;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .sticky-body {
+      flex: 1;
+      padding: 10px;
+      outline: none;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1.05rem;
+      line-height: 1.35;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    /* Save / GitHub Sync Modal */
+    .save-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .save-modal-backdrop.open {
+      display: flex;
+    }
+
+    .save-modal {
+      background: #242428;
+      border: 2px solid var(--accent-cyan);
+      border-radius: 14px;
+      padding: 20px;
+      width: 100%;
+      max-width: 440px;
+      color: var(--text-main);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.75);
+    }
+
+    .save-modal h3 {
+      margin-top: 0;
+      color: var(--accent-cyan);
+    }
+
+    .save-modal label {
+      display: block;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      color: var(--text-muted);
+    }
+
+    .save-modal input {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 4px;
+      border-radius: 8px;
+      border: 1.5px solid #444;
+      background: #18181c;
+      color: #f0f0f0;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .toast-banner {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      background: #232830;
+      border: 2px solid var(--accent-green);
+      color: var(--accent-green);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-family: 'Kalam', cursive;
+      font-weight: 700;
+      z-index: 10001;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .toast-banner.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="board-wrapper" id="sketchnote-board">
+
+    <!-- HEADER -->
+    <header class="hero-header">
+      <h1>🌍 Köppen Climate Classification — Master Sketchnote</h1>
+      <p class="hero-subtitle">
+        Empirical scheme based on <span class="hl-yellow">Mean Annual / Monthly Temperature &amp; Precipitation</span> linked to <span class="hl-green">Natural Vegetation</span> — 2- or 3-Letter Code System
+      </p>
+      <div style="margin-top:10px;">
+        <span class="badge badge-yellow">OPSC ASO 2021 PYQ</span>
+        <span class="badge badge-cyan">NCERT India 8 Zones</span>
+        <span class="badge badge-pink">Zero-Omission Board</span>
+        <span class="badge badge-green">3-Hook Memory System</span>
+      </div>
+    </header>
+
+    <!-- STEP 3: ULTRA-SHORT QUICK REVISION SHEET -->
+    <section class="quick-rev-sheet">
+      <div class="rev-grid">
+        <div class="rev-pill">
+          <strong>5 Main Groups (A→E):</strong> Walk Equator → Pole.<br/>
+          <strong>A, C, D, E</strong> = Temperature; <strong>ONLY B</strong> = Precipitation. (+ <strong>H</strong> = Highland).
+        </div>
+        <div class="rev-pill">
+          <strong>"What's Missing?" Rule:</strong> Lowercase <strong>w</strong> = Winter DRY (summer rain); <strong>s</strong> = Summer DRY (winter rain); <strong>f</strong> = Full-year rain; <strong>m</strong> = Monsoon.
+        </div>
+        <div class="rev-pill">
+          <strong>4 Dry (B) Codes (PYQ):</strong> <strong>W</strong> = Wasteland (Desert), <strong>S</strong> = Steppe (Semi-arid); <strong>h</strong> = hot (≥18°C), <strong>k</strong> = kold (&lt;18°C).
+        </div>
+        <div class="rev-pill">
+          <strong>India 3-Exception Shortcut:</strong> Almost all 8 Indian codes end in <strong>w</strong> EXCEPT <strong>As</strong> (Tamil Nadu), <strong>Dfc</strong> (Arunachal/Sikkim), &amp; <strong>E/ET</strong> (Himalayas). <strong>Odisha = Aw</strong>.
+        </div>
+      </div>
+    </section>
+
+    <!-- SPATIAL LAYOUT: EQUATOR TO POLE -->
+    <section class="spatial-strip">
+      <div class="spatial-strip-title">🧭 Spatial Walk: Equator → Pole (1st Letter — CAPITAL)</div>
+      <div class="zone-node" style="border-color: var(--accent-red);">
+        <span class="zone-letter" style="color: var(--accent-red);">A</span>
+        <strong>Tropical</strong><br/>
+        <span class="hl-yellow">Around the Equator</span><br/>
+        <small>Coldest month ≥ 18°C (No winter, always hot)</small>
+      </div>
+      <div class="zone-node" style="border-color: var(--accent-orange);">
+        <span class="zone-letter" style="color: var(--accent-orange);">B</span>
+        <strong>Dry (Arid / Semi-Arid)</strong><br/>
+        <span class="hl-orange">Bone-dry / Barren</span><br/>
+        <small>Potential evaporation &gt; precipitation (ONLY rainfall group)</small>
+      </div>
+      <div class="zone-node" style="border-color: var(--accent-green);">
+        <span class="zone-letter" style="color: var(--accent-green);">C</span>
+        <strong>Warm Temperate</strong><br/>
+        <span class="hl-green">Comfortable / Cool-mild</span><br/>
+        <small>Mid-latitude; Coldest month between -3°C and 18°C</small>
+      </div>
+      <div class="zone-node" style="border-color: var(--accent-cyan);">
+        <span class="zone-letter" style="color: var(--accent-cyan);">D</span>
+        <strong>Cold Snow Forest</strong><br/>
+        <span class="hl-cyan">Deep-freeze winters</span><br/>
+        <small>Taiga; Coldest ≤ -3°C; Warmest &gt; 10°C</small>
+      </div>
+      <div class="zone-node" style="border-color: var(--accent-purple);">
+        <span class="zone-letter" style="color: var(--accent-purple);">E</span>
+        <strong>Cold / Polar</strong><br/>
+        <span class="hl-purple">End of the Earth</span><br/>
+        <small>Warmest month &lt; 10°C (No true summer; Tundra &amp; Ice Cap)</small>
+      </div>
+      <div class="zone-node" style="border-color: #9e9ea8;">
+        <span class="zone-letter" style="color: #d4d4dc;">H</span>
+        <strong>Highland</strong><br/>
+        <span style="color:#d4d4dc;font-weight:700;">Added Later</span><br/>
+        <small>Cold due to high elevation (mountains)</small>
+      </div>
+    </section>
+
+    <!-- MASONRY POLAROID BOARD -->
+    <div class="masonry-grid">
+
+      <!-- CARD 1: 2ND LETTER DECODING KEY -->
+      <article class="polaroid-card tape-cyan">
+        <div class="card-header">
+          <h2>🔑 2nd Letter — Precipitation / Dryness</h2>
+          <span class="badge badge-cyan">German Roots</span>
+        </div>
+        <div class="trap-box" style="margin-top:0; margin-bottom:12px;">
+          ⚠️ <strong>The "What's Missing?" Rule:</strong> Lowercase <span class="code-tag">w</span> and <span class="code-tag">s</span> tell you which season is <strong>DRY (missing rain)</strong>, NOT when it rains!
+        </div>
+        <p><strong class="hl-cyan">For A, C, D Climates (lowercase):</strong></p>
+        <ul class="sketch-list">
+          <li><span class="code-tag">f</span> (<em>feucht</em> = moist) — <strong>Full-year rain</strong>; no dry season.</li>
+          <li><span class="code-tag">m</span> — <strong>Monsoon</strong> (heavy seasonal rain, short dry season).</li>
+          <li><span class="code-tag">w</span> — <strong>Winter dry</strong> (so rain is in summer).</li>
+          <li><span class="code-tag">s</span> — <strong>Summer dry</strong> (so rain is in winter — classic <em>Mediterranean</em> &amp; <em>Tamil Nadu</em> signature).</li>
+        </ul>
+
+        <p><strong class="hl-orange">For B Climates (CAPITAL):</strong></p>
+        <ul class="sketch-list">
+          <li><span class="code-tag">S</span> — <strong>Steppe</strong> (Semi-arid).</li>
+          <li><span class="code-tag">W</span> (<em>Wüste</em> = desert) — <strong>Wasteland / Desert</strong> (Arid).</li>
+        </ul>
+
+        <p><strong class="hl-purple">For E Climates (CAPITAL):</strong></p>
+        <ul class="sketch-list">
+          <li><span class="code-tag">T</span> — <strong>Tundra</strong> (warmest month between 0°C and 10°C).</li>
+          <li><span class="code-tag">F</span> (<em>Frost</em>) — <strong>Frozen solid / Ice Cap</strong> (all months below 0°C).</li>
+        </ul>
+        <div class="polaroid-caption">Decode from German roots — zero rote learning</div>
+      </article>
+
+      <!-- CARD 2: 3RD LETTER TEMPERATURE NUANCES -->
+      <article class="polaroid-card tape-pink">
+        <div class="card-header">
+          <h2>🌡️ 3rd Letter — Temperature Nuances</h2>
+          <span class="badge badge-pink">Lowercase</span>
+        </div>
+        <p><strong class="hl-orange">For B Climates:</strong></p>
+        <ul class="sketch-list">
+          <li><span class="code-tag">h</span> (<em>heiß</em> = hot) — Mean annual temp <strong>18°C or higher</strong> (low-latitude / subtropical).</li>
+          <li><span class="code-tag">k</span> (<em>kalt</em> = kold) — Mean annual temp <strong>below 18°C</strong> (mid-latitude).</li>
+        </ul>
+
+        <p><strong class="hl-cyan">For C and D Climates (a → b → c → d gets colder step-by-step):</strong></p>
+        <ul class="sketch-list">
+          <li><span class="code-tag">a</span> — <strong>Hot summer</strong> (warmest month above 22°C).</li>
+          <li><span class="code-tag">b</span> — <strong>Warm summer</strong> (warmest month below 22°C; at least 4 months above 10°C).</li>
+          <li><span class="code-tag">c</span> — <strong>Cool, short summer</strong> (less than 4 months above 10°C).</li>
+          <li><span class="code-tag">d</span> — <strong>Very severe winter</strong> (coldest month below -38°C; Siberia).</li>
+        </ul>
+
+        <p><strong class="hl-green">India-Specific Suffix:</strong></p>
+        <ul class="sketch-list">
+          <li><span class="code-tag">g</span> — <strong>Gangetic type</strong>: Hottest month occurs <em>before</em> the summer solstice / monsoon onset (i.e., May–June).</li>
+        </ul>
+        <div class="polaroid-caption">Step-down scale: a (hot) → d (Siberia)</div>
+      </article>
+
+      <!-- CARD 3: EXAM SPOTLIGHT - 4 DRY B CODES -->
+      <article class="polaroid-card tape-orange">
+        <div class="card-header">
+          <h2>🏜️ Exam Spotlight: The 4 Dry (B) Codes</h2>
+          <span class="badge badge-orange">OPSC ASO 2021 PYQ</span>
+        </div>
+        <table class="sketch-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Full Name</th>
+              <th>Key Feature</th>
+              <th>Classic Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="code-tag">BWh</span></td>
+              <td><strong>Subtropical / Hot Desert</strong></td>
+              <td>Arid + Hot (mean annual ≥ 18°C)</td>
+              <td>Sahara, Thar, Arabian, Kalahari</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">BWk</span></td>
+              <td><strong>Mid-latitude / Cold Desert</strong></td>
+              <td>Arid + Cold (mean annual &lt; 18°C)</td>
+              <td>Gobi, Patagonia, Ladakh</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">BSh</span></td>
+              <td><strong>Subtropical / Hot Steppe</strong></td>
+              <td>Semi-arid + Hot</td>
+              <td>Sahel, Rajasthan–Gujarat transition, Deccan rain-shadow</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">BSk</span></td>
+              <td><strong>Mid-latitude / Cold Steppe</strong></td>
+              <td>Semi-arid + Cold</td>
+              <td>Central Asian Steppes, US Great Plains</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="trick-box">
+          🧠 <strong>Memory Trick:</strong> <span class="hl-yellow">W</span> = <strong>W</strong>asteland (Desert), <span class="hl-yellow">S</span> = <strong>S</strong>teppe (Semi-arid); <span class="hl-orange">h</span> = <strong>h</strong>ot, <span class="hl-cyan">k</span> = <strong>k</strong>old.
+        </div>
+        <div class="polaroid-caption">Most frequently confused MCQ quartet</div>
+      </article>
+
+      <!-- CARD 4: WORLD KÖPPEN CODES -->
+      <article class="polaroid-card tape-purple">
+        <div class="card-header">
+          <h2>🌐 World Köppen Codes — Quick Reference</h2>
+          <span class="badge badge-purple">10 Global Types</span>
+        </div>
+        <table class="sketch-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Climate Type</th>
+              <th>Classic Region / Equivalent Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="code-tag">Af</span></td>
+              <td>Tropical Wet</td>
+              <td>Amazon, Congo Basin, Indonesia (Equatorial)</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">Am</span></td>
+              <td>Tropical Monsoon</td>
+              <td>Indian subcontinent, SE Asia, N. Australia</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">Aw</span></td>
+              <td>Tropical Wet &amp; Dry</td>
+              <td>Savanna (Sudan type), Peninsular India</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">Cfa</span></td>
+              <td>Humid Subtropical</td>
+              <td>SE USA, Eastern China (China type)</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">Cfb</span></td>
+              <td>Marine West Coast</td>
+              <td>Western Europe, UK, New Zealand (British type)</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">Cs / Csa</span></td>
+              <td>Mediterranean</td>
+              <td>Around Mediterranean Sea, California, Central Chile (dry summer, winter rain)</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">Df</span></td>
+              <td>Cold Climate with Humid Winters</td>
+              <td>Taiga / Boreal (Canada, Russia)</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">Dw</span></td>
+              <td>Cold Climate with Dry Winters</td>
+              <td>NE Asia, Eastern Siberia</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">ET</span></td>
+              <td>Tundra</td>
+              <td>Arctic coastal fringe, high Himalayas</td>
+            </tr>
+            <tr>
+              <td><span class="code-tag">EF</span></td>
+              <td>Polar Ice Cap</td>
+              <td>Greenland, Antarctica</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="polaroid-caption">Match-the-following goldmine</div>
+      </article>
+
+    </div>
+
+    <!-- FULL-WIDTH SPATIAL INDIA CARD -->
+    <section class="full-width-section">
+      <article class="polaroid-card tape-green" style="transform: none;">
+        <div class="card-header">
+          <h2>🇮🇳 Köppen's 8 Climatic Regions of India (NCERT) — 4-Part Spatial Map Trick</h2>
+          <span class="badge badge-green">High Yield</span>
+        </div>
+
+        <div class="india-spatial-grid">
+          <div class="india-zone-box" style="border-color: var(--accent-yellow);">
+            <h3 style="color: var(--accent-yellow);">1️⃣ Tropic of Cancer Split (~65% of India)</h3>
+            <ul class="sketch-list">
+              <li><span class="code-tag">Cwg</span> <strong>Monsoon with dry winter (Gangetic type)</strong><br/>
+                <em>North of Tropic of Cancer:</em> Ganga Plains, Eastern Rajasthan, Northern MP, most of North-East India (Assam, etc.).<br/>
+                <span class="hl-green">Trick:</span> <strong>g</strong> literally stands for <strong>G</strong>angetic.
+              </li>
+              <li><span class="code-tag">Aw</span> <strong>Tropical Savanna</strong><br/>
+                <em>South of Tropic of Cancer:</em> Most of Peninsular India — includes <span class="hl-yellow">Odisha</span>, Chhattisgarh, Jharkhand, MP, interior Maharashtra / Telangana.<br/>
+                <span class="hl-green">Trick:</span> Tropical (<strong>A</strong>) + winter dry (<strong>w</strong>).
+              </li>
+            </ul>
+          </div>
+
+          <div class="india-zone-box" style="border-color: var(--accent-pink);">
+            <h3 style="color: var(--accent-pink);">2️⃣ Two Bottom Coasts (Exact Opposites)</h3>
+            <ul class="sketch-list">
+              <li><span class="code-tag">Amw</span> <strong>Monsoon with short dry winter</strong><br/>
+                <em>Region:</em> West Coast south of Goa (Malabar &amp; Konkan coast).<br/>
+                <span class="hl-green">Trick:</span> <strong>M</strong>alabar <strong>M</strong>onsoon.
+              </li>
+              <li><span class="code-tag">As</span> <strong>Monsoon with dry summer</strong><br/>
+                <em>Region:</em> Coromandel Coast of Tamil Nadu (receives winter rain Oct–Dec from retreating NE monsoon).<br/>
+                <span class="hl-pink">Trick:</span> The <strong>ONLY `s` (summer dry)</strong> in India!
+              </li>
+            </ul>
+          </div>
+
+          <div class="india-zone-box" style="border-color: var(--accent-orange);">
+            <h3 style="color: var(--accent-orange);">3️⃣ The Dry West</h3>
+            <ul class="sketch-list">
+              <li><span class="code-tag">BWhw</span> <strong>Hot Desert</strong><br/>
+                <em>Region:</em> Extreme Western Rajasthan (Thar Desert).<br/>
+                <span class="hl-green">Trick:</span> <strong>W</strong>asteland + <strong>h</strong>ot + <strong>w</strong>inter dry.
+              </li>
+              <li><span class="code-tag">BShw</span> <strong>Semi-arid Steppe</strong><br/>
+                <em>Region:</em> North-western Gujarat, parts of W. Rajasthan, Punjab, and rain-shadow interior of Western Ghats (parts of Karnataka, Maharashtra, Andhra).<br/>
+                <span class="hl-green">Trick:</span> <strong>S</strong>emi-arid + <strong>h</strong>ot + <strong>w</strong>inter dry.
+              </li>
+            </ul>
+          </div>
+
+          <div class="india-zone-box" style="border-color: var(--accent-cyan);">
+            <h3 style="color: var(--accent-cyan);">4️⃣ The Cold Tops</h3>
+            <ul class="sketch-list">
+              <li><span class="code-tag">E / ET</span> <strong>Polar / Tundra type</strong><br/>
+                <em>Region:</em> Western / Higher Himalayas — Jammu &amp; Kashmir, Ladakh, Himachal Pradesh, Uttarakhand.<br/>
+                <span class="hl-green">Trick:</span> <strong>E</strong>xtreme cold / Tundra.
+              </li>
+              <li><span class="code-tag">Dfc</span> <strong>Cold humid winter with short summer</strong><br/>
+                <em>Region:</em> Arunachal Pradesh (and Sikkim).<br/>
+                <span class="hl-green">Trick:</span> <em>"Arunachal is <strong>D</strong>eep-cold, <strong>f</strong>ull-year wet, <strong>c</strong>ool short summer."</em>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trick-box" style="margin-top:16px;">
+          ⚡ <strong>Ultimate India Shortcut:</strong> Almost every Indian code ends in <span class="code-tag">w</span> (dry winter). <strong>Only 3 exceptions break that rule:</strong> <span class="hl-pink">As</span> (Tamil Nadu), <span class="hl-cyan">Dfc</span> (Arunachal), and <span class="hl-purple">E / ET</span> (Himalayas). Lock those 3 in and the rest fall into place!
+        </div>
+        <div class="polaroid-caption">NCERT Class 11 Standard — 8 Climatic Types</div>
+      </article>
+    </section>
+
+    <!-- EXAM TRAPS & SCHOLARS -->
+    <div class="masonry-grid">
+      <article class="polaroid-card tape-pink">
+        <div class="card-header">
+          <h2>🚨 Quick Exam Traps to Watch For</h2>
+          <span class="badge badge-pink">Don't Miss</span>
+        </div>
+        <ul class="sketch-list">
+          <li><strong>Only <span class="code-tag">As</span> in India has a dry summer:</strong> Tamil Nadu's Coromandel Coast is the mirror opposite of the rest of India because it gets rain in <strong>Oct–Dec</strong> from the retreating <strong>North-East Monsoon</strong>.</li>
+          <li><strong>Odisha's code is <span class="code-tag">Aw</span></strong> (Tropical Savanna) — <em>NOT</em> <span class="code-tag">Amw</span> or <span class="code-tag">Cwg</span>.</li>
+          <li><strong><span class="code-tag">Cwg</span> vs <span class="code-tag">Aw</span> boundary:</strong> Roughly follows the <strong>Tropic of Cancer</strong> — north of it is <span class="code-tag">Cwg</span> (Northern Plains), south of it is <span class="code-tag">Aw</span> (Peninsular Plateau).</li>
+          <li><strong>Precipitation-only Group:</strong> Among A, B, C, D, E, <strong>only B</strong> is defined by precipitation (evaporation &gt; rainfall); the other four are temperature-based.</li>
+        </ul>
+        <div class="polaroid-caption">Classic OPSC / UPSC MCQ traps</div>
+      </article>
+
+      <article class="polaroid-card tape-cyan">
+        <div class="card-header">
+          <h2>🎓 Scholars of Indian Climatic Regions</h2>
+          <span class="badge badge-cyan">OPSC ASO 2021 Q75</span>
+        </div>
+        <p>Apart from <strong>Wladimir Köppen</strong>, remember these key scholars who delineated India's climatic regions:</p>
+        <ul class="sketch-list">
+          <li><strong class="hl-yellow">Köppen:</strong> Empirical; based on mean annual/monthly temperature &amp; precipitation linked to natural vegetation.</li>
+          <li><strong class="hl-cyan">Thornthwaite:</strong> Based on <strong>Precipitation Effectiveness (P/E)</strong> &amp; <strong>Thermal Efficiency (T/E)</strong>.</li>
+          <li><strong class="hl-green">Trewartha:</strong> <strong>Modified Köppen</strong> classification adapted specifically for India.</li>
+          <li><strong class="hl-orange">L.D. Stamp:</strong> Divided India into Temperate/Continental &amp; Tropical zones using the 18°C January isotherm.</li>
+          <li><strong class="hl-purple">R.L. Singh:</strong> Regional geographer who also delineated Indian climatic regions.</li>
+        </ul>
+        <div class="polaroid-caption">Direct PYQ recall list</div>
+      </article>
+    </div>
+
+  </div>
+
+  <!-- STATIC STICKY NOTES CONTAINER (For Smart Hydration) -->
+  <div id="sticky-notes-layer"></div>
+
+  <!-- FLOATING WORKSPACE ACTION BAR -->
+  <div class="workspace-toolbar" id="workspace-toolbar" data-ui-transient="true">
+    <button class="tool-btn" id="btn-add-note" title="Add draggable sticky note">📝 ADD NOTES</button>
+    <button class="tool-btn" id="btn-highlight" title="Toggle text highlighter (click highlight to undo)">🖍️ HIGHLIGHT</button>
+    <div class="hl-color-picker" id="hl-color-picker">
+      <span class="swatch selected" data-color="#ffd166" style="background:#ffd166;" title="Yellow"></span>
+      <span class="swatch" data-color="#06d6a0" style="background:#06d6a0;" title="Mint Green"></span>
+      <span class="swatch" data-color="#4cc9f0" style="background:#4cc9f0;" title="Cyan"></span>
+      <span class="swatch" data-color="#ff6b9d" style="background:#ff6b9d;" title="Pink"></span>
+      <span class="swatch" data-color="#c77dff" style="background:#c77dff;" title="Purple"></span>
+    </div>
+    <button class="tool-btn" id="btn-save" title="Clone-Save HTML / Sync to GitHub">☁️ SAVE</button>
+  </div>
+
+  <!-- SAVE / GITHUB SYNC MODAL -->
+  <div class="save-modal-backdrop" id="save-modal" data-ui-transient="true">
+    <div class="save-modal">
+      <h3>☁️ Clone-Save &amp; GitHub Sync</h3>
+      <p style="font-size:0.95rem;color:#bdbdc4;margin-top:0;">
+        Uses clean DOM cloning (strips toolbar &amp; modal without breaking live listeners). Download locally or push directly to GitHub.
+      </p>
+      <div class="modal-actions" style="margin-bottom:14px;">
+        <button class="tool-btn active" id="btn-download-html">💾 Download HTML</button>
+      </div>
+      <hr style="border:0;border-top:1px dashed #444;" />
+      <label>GitHub Repo (owner/repo)</label>
+      <input type="text" id="gh-repo" placeholder="e.g. pp-luffy/CA" />
+      <label>File Path in Repo</label>
+      <input type="text" id="gh-path" placeholder="e.g. notes/koppen-codes.html" />
+      <label>Personal Access Token (repo scope)</label>
+      <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" />
+      <div class="modal-actions">
+        <button class="tool-btn" style="background:var(--accent-cyan);color:#111;" id="btn-gh-push">🚀 Push to GitHub</button>
+        <button class="tool-btn" id="btn-close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-banner" id="toast-banner" data-ui-transient="true"></div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY_NOTES = 'koppen_sketchnote_sticky_notes_v1';
+      const STORAGE_KEY_BOARD = 'koppen_sketchnote_board_html_v1';
+      const NOTE_COLORS = ['#fff3a1', '#a8f0dc', '#b8e8ff', '#ffc2d9', '#e5c6ff'];
+
+      const boardEl = document.getElementById('sketchnote-board');
+      const notesLayer = document.getElementById('sticky-notes-layer');
+      const btnAddNote = document.getElementById('btn-add-note');
+      const btnHighlight = document.getElementById('btn-highlight');
+      const hlColorPicker = document.getElementById('hl-color-picker');
+      const btnSave = document.getElementById('btn-save');
+      const saveModal = document.getElementById('save-modal');
+      const btnCloseModal = document.getElementById('btn-close-modal');
+      const btnDownloadHtml = document.getElementById('btn-download-html');
+      const btnGhPush = document.getElementById('btn-gh-push');
+      const toastEl = document.getElementById('toast-banner');
+
+      let highlightMode = false;
+      let activeHighlightColor = '#ffd166';
+      let zCounter = 5001;
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+      }
+
+      /* Auto-Contrast Text Color Calculator */
+      function getContrastTextColor(hex) {
+        const clean = hex.replace('#', '');
+        const r = parseInt(clean.substring(0, 2), 16);
+        const g = parseInt(clean.substring(2, 4), 16);
+        const b = parseInt(clean.substring(4, 6), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance > 0.58 ? '#111111' : '#ffffff';
+      }
+
+      /* 1. STICKY NOTES: DRAGGABLE, RESIZABLE, COLOR-PICKER */
+      function serializeNotes() {
+        const notes = [];
+        notesLayer.querySelectorAll('.sticky-note').forEach((el) => {
+          notes.push({
+            id: el.dataset.id,
+            left: el.style.left,
+            top: el.style.top,
+            width: el.style.width,
+            height: el.style.height,
+            bg: el.dataset.bg || '#fff3a1',
+            text: el.querySelector('.sticky-body').innerText
+          });
+        });
+        try {
+          localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(notes));
+        } catch (e) {}
+      }
+
+      function attachStickyListeners(noteEl) {
+        const header = noteEl.querySelector('.sticky-header');
+        const body = noteEl.querySelector('.sticky-body');
+        const delBtn = noteEl.querySelector('.sticky-del');
+
+        noteEl.addEventListener('mousedown', () => {
+          noteEl.style.zIndex = ++zCounter;
+        });
+
+        let dragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        header.addEventListener('mousedown', (e) => {
+          if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-del')) return;
+          dragging = true;
+          noteEl.style.zIndex = ++zCounter;
+          offsetX = e.pageX - noteEl.offsetLeft;
+          offsetY = e.pageY - noteEl.offsetTop;
+          e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (!dragging) return;
+          noteEl.style.left = Math.max(0, e.pageX - offsetX) + 'px';
+          noteEl.style.top = Math.max(0, e.pageY - offsetY) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+          if (dragging) {
+            dragging = false;
+            serializeNotes();
+          }
+        });
+
+        noteEl.querySelectorAll('.sticky-dot').forEach((dot) => {
+          dot.addEventListener('click', () => {
+            const c = dot.dataset.color;
+            noteEl.style.backgroundColor = c;
+            noteEl.dataset.bg = c;
+            noteEl.style.color = getContrastTextColor(c);
+            serializeNotes();
+          });
+        });
+
+        delBtn.addEventListener('click', () => {
+          noteEl.remove();
+          serializeNotes();
+        });
+
+        body.addEventListener('input', serializeNotes);
+        new ResizeObserver(() => serializeNotes()).observe(noteEl);
+      }
+
+      function createStickyNote(data) {
+        const id = (data && data.id) || 'note_' + Date.now();
+        const bg = (data && data.bg) || NOTE_COLORS[0];
+        const left = (data && data.left) || (window.scrollX + 60 + Math.floor(Math.random() * 80)) + 'px';
+        const top = (data && data.top) || (window.scrollY + 110 + Math.floor(Math.random() * 60)) + 'px';
+
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.dataset.id = id;
+        note.dataset.bg = bg;
+        note.style.left = left;
+        note.style.top = top;
+        if (data && data.width) note.style.width = data.width;
+        if (data && data.height) note.style.height = data.height;
+        note.style.backgroundColor = bg;
+        note.style.color = getContrastTextColor(bg);
+        note.style.zIndex = ++zCounter;
+
+        const dotsHtml = NOTE_COLORS.map(
+          (c) => `<span class="sticky-dot" data-color="${c}" style="background:${c};" title="Change color"></span>`
+        ).join('');
+
+        note.innerHTML = `
+          <div class="sticky-header">
+            <div class="sticky-colors">${dotsHtml}</div>
+            <button class="sticky-del" title="Delete note">✕</button>
+          </div>
+          <div class="sticky-body" contenteditable="true" spellcheck="false"></div>
+        `;
+        note.querySelector('.sticky-body').innerText = (data && data.text) || 'Jot down a quick mnemonic...';
+        notesLayer.appendChild(note);
+        attachStickyListeners(note);
+        serializeNotes();
+      }
+
+      btnAddNote.addEventListener('click', () => {
+        createStickyNote();
+        showToast('📝 Sticky note added!');
+      });
+
+      /* 2. TEXT HIGHLIGHTER WITH AUTO-CONTRAST & CLICK-TO-UNDO */
+      function saveBoardState() {
+        try {
+          localStorage.setItem(STORAGE_KEY_BOARD, boardEl.innerHTML);
+        } catch (e) {}
+      }
+
+      function bindHighlightUndo() {
+        boardEl.addEventListener('click', (e) => {
+          if (e.target.classList && e.target.classList.contains('user-highlight')) {
+            const span = e.target;
+            const parent = span.parentNode;
+            while (span.firstChild) {
+              parent.insertBefore(span.firstChild, span);
+            }
+            parent.removeChild(span);
+            parent.normalize();
+            saveBoardState();
+            showToast('↩️ Highlight removed');
+          }
+        });
+      }
+
+      btnHighlight.addEventListener('click', () => {
+        highlightMode = !highlightMode;
+        btnHighlight.classList.toggle('active', highlightMode);
+        hlColorPicker.classList.toggle('visible', highlightMode);
+        showToast(highlightMode ? '🖍️ Highlight ON — select text (click highlight to undo)' : '🖍️ Highlight OFF');
+      });
+
+      hlColorPicker.querySelectorAll('.swatch').forEach((sw) => {
+        sw.addEventListener('click', () => {
+          hlColorPicker.querySelectorAll('.swatch').forEach((s) => s.classList.remove('selected'));
+          sw.classList.add('selected');
+          activeHighlightColor = sw.dataset.color;
+        });
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!highlightMode) return;
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+
+        const range = sel.getRangeAt(0);
+        if (!boardEl.contains(range.commonAncestorContainer)) return;
+
+        try {
+          const span = document.createElement('span');
+          span.className = 'user-highlight';
+          span.style.backgroundColor = activeHighlightColor;
+          span.style.color = getContrastTextColor(activeHighlightColor);
+          span.title = 'Click to remove highlight';
+          range.surroundContents(span);
+          sel.removeAllRanges();
+          saveBoardState();
+        } catch (err) {
+          // Cross-node selection fallback: highlight extracted fragment safely
+          try {
+            const frag = range.extractContents();
+            const span = document.createElement('span');
+            span.className = 'user-highlight';
+            span.style.backgroundColor = activeHighlightColor;
+            span.style.color = getContrastTextColor(activeHighlightColor);
+            span.title = 'Click to remove highlight';
+            span.appendChild(frag);
+            range.insertNode(span);
+            sel.removeAllRanges();
+            saveBoardState();
+          } catch (e2) {}
+        }
+      });
+
+      /* 3. SMART HYDRATION (Load localStorage OR hydrate static DOM notes) */
+      function smartHydrate() {
+        try {
+          const savedBoard = localStorage.getItem(STORAGE_KEY_BOARD);
+          if (savedBoard && savedBoard.trim().length > 0) {
+            boardEl.innerHTML = savedBoard;
+          }
+        } catch (e) {}
+
+        let loadedFromStorage = false;
+        try {
+          const savedNotes = localStorage.getItem(STORAGE_KEY_NOTES);
+          if (savedNotes) {
+            const parsed = JSON.parse(savedNotes);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              notesLayer.innerHTML = '';
+              parsed.forEach((n) => createStickyNote(n));
+              loadedFromStorage = true;
+            }
+          }
+        } catch (e) {}
+
+        // If localStorage was empty, hydrate any pre-existing static notes directly from DOM
+        if (!loadedFromStorage) {
+          const domNotes = notesLayer.querySelectorAll('.sticky-note');
+          if (domNotes.length > 0) {
+            domNotes.forEach((el) => attachStickyListeners(el));
+            serializeNotes();
+          }
+        }
+      }
+
+      /* 4. CLONE-SAVE MECHANISM (Safe export without breaking live event listeners) */
+      function generateCleanClonedHtml() {
+        const clonedDoc = document.documentElement.cloneNode(true);
+        // Remove transient modal/toast states while keeping toolbar intact or stripping active UI states
+        const clonedModal = clonedDoc.querySelector('#save-modal');
+        if (clonedModal) clonedModal.classList.remove('open');
+        const clonedToast = clonedDoc.querySelector('#toast-banner');
+        if (clonedToast) {
+          clonedToast.classList.remove('show');
+          clonedToast.textContent = '';
+        }
+        const clonedHlBtn = clonedDoc.querySelector('#btn-highlight');
+        if (clonedHlBtn) clonedHlBtn.classList.remove('active');
+        const clonedPicker = clonedDoc.querySelector('#hl-color-picker');
+        if (clonedPicker) clonedPicker.classList.remove('visible');
+
+        // Remove password/token input values from clone for safety
+        clonedDoc.querySelectorAll('input').forEach((inp) => inp.removeAttribute('value'));
+
+        return '<!DOCTYPE html>\n' + clonedDoc.outerHTML;
+      }
+
+      btnSave.addEventListener('click', () => {
+        saveBoardState();
+        serializeNotes();
+        saveModal.classList.add('open');
+      });
+
+      btnCloseModal.addEventListener('click', () => saveModal.classList.remove('open'));
+      saveModal.addEventListener('click', (e) => {
+        if (e.target === saveModal) saveModal.classList.remove('open');
+      });
+
+      btnDownloadHtml.addEventListener('click', () => {
+        const htmlContent = generateCleanClonedHtml();
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'koppen-climate-sketchnote.html';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        saveModal.classList.remove('open');
+        showToast('💾 Clean HTML exported!');
+      });
+
+      btnGhPush.addEventListener('click', async () => {
+        const repo = document.getElementById('gh-repo').value.trim();
+        const path = document.getElementById('gh-path').value.trim();
+        const token = document.getElementById('gh-token').value.trim();
+
+        if (!repo || !path || !token) {
+          showToast('⚠️ Fill Repo, Path, and Token');
+          return;
+        }
+
+        const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+        const htmlContent = generateCleanClonedHtml();
+        const encoded = btoa(unescape(encodeURIComponent(htmlContent)));
+
+        try {
+          let sha = undefined;
+          const getRes = await fetch(apiUrl, {
+            headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+          });
+          if (getRes.ok) {
+            const existing = await getRes.json();
+            sha = existing.sha;
+          }
+
+          const putRes = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+              Authorization: `token ${token}`,
+              Accept: 'application/vnd.github.v3+json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              message: 'Update Köppen Climate Sketchnote via Clone-Save',
+              content: encoded,
+              sha
+            })
+          });
+
+          if (putRes.ok) {
+            saveModal.classList.remove('open');
+            showToast('☁️ Synced cleanly to GitHub!');
+          } else {
+            showToast('❌ GitHub push failed (' + putRes.status + ')');
+          }
+        } catch (err) {
+          showToast('❌ Network error during GitHub sync');
+        }
+      });
+
+      // Initialize Workspace
+      smartHydrate();
+      bindHighlightUndo();
+    })();
+  </script>
+</body>
+</html>
