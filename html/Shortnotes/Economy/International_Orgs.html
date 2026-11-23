@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>International Economic Organizations — Dark-Mode Sketchnote Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --surface: #242424;
+    --surface-2: #2c2c2c;
+    --text: #f0f0f0;
+    --muted: #b8b8b8;
+    --yellow: #ffe066;
+    --cyan: #5ce1e6;
+    --pink: #ff7eb6;
+    --green: #7ae582;
+    --orange: #ff9f43;
+    --purple: #c084fc;
+    --border: #3a3a3a;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    position: relative;
+    margin: 0;
+    padding: 86px 24px 60px;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+    color: var(--text);
+    font-family: 'Patrick Hand', cursive, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* Action Bar */
+  #workspace-toolbar {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(26, 26, 26, 0.94);
+    border: 2px solid #444;
+    border-radius: 999px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tool-btn {
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+    font-weight: 700;
+    color: #f0f0f0;
+    background: #2f2f2f;
+    border: 2px solid #555;
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tool-btn:hover {
+    transform: translateY(-1px);
+    background: #3b3b3b;
+    border-color: var(--yellow);
+  }
+
+  .tool-btn.active {
+    background: var(--yellow);
+    color: #111;
+    border-color: var(--yellow);
+  }
+
+  #hl-color-picker {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #666;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .toolbar-hint {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 4px;
+    display: none;
+  }
+
+  body.highlight-mode .toolbar-hint {
+    display: inline;
+  }
+
+  body.highlight-mode {
+    cursor: text;
+  }
+
+  /* Header */
+  .board-header {
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed #444;
+  }
+
+  .board-header h1 {
+    font-family: 'Kalam', cursive;
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    margin: 0 0 6px;
+    color: var(--yellow);
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 0 #000;
+  }
+
+  .board-header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 19px;
+  }
+
+  /* Ultra-Short Quick Revision Sheet */
+  .quick-revision {
+    max-width: 1360px;
+    margin: 0 auto 36px;
+    background: #20232a;
+    border: 2px dashed var(--cyan);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+  }
+
+  .quick-revision-title {
+    font-family: 'Kalam', cursive;
+    font-size: 24px;
+    color: var(--cyan);
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 10px;
+  }
+
+  .qr-chip {
+    background: #17191e;
+    border-left: 4px solid var(--yellow);
+    border-radius: 8px;
+    padding: 8px 11px;
+    font-size: 15.5px;
+    line-height: 1.35;
+  }
+
+  .qr-chip strong {
+    color: var(--yellow);
+    font-family: 'Kalam', cursive;
+  }
+
+  .qr-chip.c-cyan { border-left-color: var(--cyan); }
+  .qr-chip.c-cyan strong { color: var(--cyan); }
+  .qr-chip.c-pink { border-left-color: var(--pink); }
+  .qr-chip.c-pink strong { color: var(--pink); }
+  .qr-chip.c-green { border-left-color: var(--green); }
+  .qr-chip.c-green strong { color: var(--green); }
+  .qr-chip.c-orange { border-left-color: var(--orange); }
+  .qr-chip.c-orange strong { color: var(--orange); }
+  .qr-chip.c-purple { border-left-color: var(--purple); }
+  .qr-chip.c-purple strong { color: var(--purple); }
+
+  /* Masonry / Polaroid Scatter Layout */
+  .masonry-board {
+    max-width: 1380px;
+    margin: 0 auto;
+    column-count: 3;
+    column-gap: 24px;
+  }
+
+  @media (max-width: 1120px) {
+    .masonry-board { column-count: 2; }
+  }
+
+  @media (max-width: 720px) {
+    .masonry-board { column-count: 1; }
+  }
+
+  /* Polaroid Card */
+  .polaroid-card {
+    break-inside: avoid;
+    background: var(--surface);
+    border: 2px solid #3c3c3c;
+    border-bottom: 18px solid #2e2e2e;
+    border-radius: 8px;
+    padding: 20px 20px 16px;
+    margin-bottom: 26px;
+    position: relative;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.52);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .polaroid-card:nth-child(odd) {
+    transform: rotate(-0.45deg);
+  }
+
+  .polaroid-card:nth-child(even) {
+    transform: rotate(0.45deg);
+  }
+
+  .polaroid-card:hover {
+    transform: rotate(0deg) translateY(-3px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.65);
+    z-index: 2;
+  }
+
+  .tape {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 78px;
+    height: 20px;
+    background: rgba(255, 224, 102, 0.28);
+    border: 1px dashed rgba(255, 224, 102, 0.45);
+    border-radius: 2px;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-family: 'Kalam', cursive;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--cyan);
+  }
+
+  .polaroid-card h2 {
+    font-family: 'Kalam', cursive;
+    font-size: 24px;
+    margin: 0 0 10px;
+    color: var(--yellow);
+    line-height: 1.2;
+    border-bottom: 1.5px dashed #454545;
+    padding-bottom: 6px;
+  }
+
+  .polaroid-card h3 {
+    font-family: 'Kalam', cursive;
+    font-size: 19px;
+    margin: 14px 0 6px;
+    color: var(--cyan);
+  }
+
+  .polaroid-card p {
+    margin: 0 0 10px;
+  }
+
+  .polaroid-card ul {
+    margin: 6px 0 10px;
+    padding-left: 20px;
+  }
+
+  .polaroid-card li {
+    margin-bottom: 6px;
+  }
+
+  .polaroid-caption {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #3a3a3a;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* Highlights & Callouts */
+  .hl-y { color: var(--yellow); font-weight: 700; }
+  .hl-c { color: var(--cyan); font-weight: 700; }
+  .hl-p { color: var(--pink); font-weight: 700; }
+  .hl-g { color: var(--green); font-weight: 700; }
+  .hl-o { color: var(--orange); font-weight: 700; }
+  .hl-v { color: var(--purple); font-weight: 700; }
+
+  .callout-box {
+    background: #1d1d1d;
+    border-left: 4px solid var(--pink);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 16.5px;
+  }
+
+  .callout-box.green { border-left-color: var(--green); }
+  .callout-box.yellow { border-left-color: var(--yellow); }
+  .callout-box.cyan { border-left-color: var(--cyan); }
+  .callout-box.orange { border-left-color: var(--orange); }
+
+  /* User Text Highlighter Mark */
+  mark.user-highlight {
+    padding: 0 3px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  mark.user-highlight:hover {
+    opacity: 0.78;
+    outline: 1px dashed #fff;
+  }
+
+  /* Sticky Notes */
+  .sticky-note {
+    position: absolute;
+    width: 240px;
+    min-width: 170px;
+    min-height: 140px;
+    background: #ffe066;
+    color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+    z-index: 5000;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    overflow: hidden;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .sticky-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    background: rgba(0, 0, 0, 0.12);
+    cursor: move;
+    user-select: none;
+    gap: 6px;
+  }
+
+  .sticky-title {
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .sticky-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .sticky-color {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .sticky-delete {
+    background: rgba(0, 0, 0, 0.2);
+    color: inherit;
+    border: none;
+    border-radius: 4px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .sticky-delete:hover {
+    background: #e11d48;
+    color: #fff;
+  }
+
+  .sticky-body {
+    flex: 1;
+    padding: 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 17px;
+    line-height: 1.4;
+    outline: none;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+
+  /* GitHub Save Modal */
+  #save-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  #save-modal-backdrop.open {
+    display: flex;
+  }
+
+  .save-modal {
+    width: 100%;
+    max-width: 460px;
+    background: #232323;
+    border: 2px solid var(--cyan);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--text);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+  }
+
+  .save-modal h3 {
+    font-family: 'Kalam', cursive;
+    margin: 0 0 10px;
+    color: var(--cyan);
+    font-size: 22px;
+  }
+
+  .save-modal label {
+    display: block;
+    font-size: 15px;
+    color: var(--muted);
+    margin: 8px 0 3px;
+  }
+
+  .save-modal input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1.5px solid #4b4b4b;
+    background: #161616;
+    color: #f0f0f0;
+    font-family: inherit;
+    font-size: 16px;
+  }
+
+  .save-modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  #save-status {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--green);
+  }
+</style>
+</head>
+<body>
+
+  <!-- Interactive Workspace Action Bar -->
+  <div id="workspace-toolbar" data-workspace-ui="true">
+    <button id="btn-add-note" class="tool-btn" type="button">📝 ADD NOTES</button>
+    <button id="btn-highlight" class="tool-btn" type="button">🖍️ HIGHLIGHT</button>
+    <input id="hl-color-picker" type="color" value="#ffe066" title="Highlighter Color">
+    <button id="btn-save" class="tool-btn" type="button">☁️ SAVE</button>
+    <span class="toolbar-hint">Select text to highlight • Click highlight to undo</span>
+  </div>
+
+  <!-- Header -->
+  <header class="board-header">
+    <h1>🌍 International Economic Organizations</h1>
+    <p>Global institutions working in international economic cooperation &amp; stability — UN, World Bank, IMF, WTO, Regional Banks &amp; Trade Blocs</p>
+  </header>
+
+  <!-- Step 3: Ultra-Short Quick Revision Sheet -->
+  <section class="quick-revision" aria-label="Ultra-Short Quick Revision Sheet">
+    <h2 class="quick-revision-title">⚡ Ultra-Short Quick Revision Sheet (At-a-Glance)</h2>
+    <div class="qr-grid">
+      <div class="qr-chip"><strong>UNO:</strong> 1945 (51 founders) • ECOSOC (simple majority, 1 vote) • UNCTAD (1964, Geneva, meets every 4 yrs).</div>
+      <div class="qr-chip c-cyan"><strong>Bretton Woods:</strong> July 1–22, 1944 (New Hampshire, US) • Created IMF &amp; World Bank.</div>
+      <div class="qr-chip c-green"><strong>World Bank Group (D.C.):</strong> WB = IBRD (1944) + IDA (170+); Group adds IFC (1956), MIGA (1988), ICSID (1966). <strong>India NOT in ICSID.</strong></div>
+      <div class="qr-chip c-pink"><strong>IMF (D.C.):</strong> 190 members • Quotas = 25% Reserve/Gold Tranche + 75% Credit Tranche • SDR (1969): USD, EUR, RMB, JPY, GBP.</div>
+      <div class="qr-chip c-orange"><strong>Regional Banks:</strong> ADB (1966, Manila, 67) • AIIB (2015, Beijing; China 26.06%, India 7.5%) • NDB (2015, Shanghai, BRICS, $100B, 1 vote, no veto).</div>
+      <div class="qr-chip c-purple"><strong>WTO (1995, Geneva):</strong> Replaced GATT (1947/48) via 8th Uruguay Round (1986–94) • MFN &amp; National Treatment • TRIMS, TRIPS (7), AOA (3), GATS, SCM.</div>
+      <div class="qr-chip"><strong>SAARC &amp; SAFTA:</strong> SAARC (8 Dec 1985, Dhaka; HQ Kathmandu) • SAFTA (6 Jan 2004, 12th Summit Islamabad; launched 2006).</div>
+      <div class="qr-chip c-cyan"><strong>Americas Blocs:</strong> NAFTA (US-Canada-Mexico, &gt;$20T GDP → USMCA) • CAFTA-DR (US + 6) • MERCOSUR (5 S. American nations).</div>
+      <div class="qr-chip c-green"><strong>EU &amp; Asia-Pacific:</strong> EU (27 states, 19 Eurozone, Schengen, Brexit) • ASEAN (10 states, $2.57T) • PACER Plus (2001/02, Nauru) • RCEP (ASEAN 10 + 6).</div>
+    </div>
+  </section>
+
+  <!-- Step 4: Dynamic Masonry / Polaroid Scatter Canvas -->
+  <main class="masonry-board">
+
+    <!-- Card 1: Overview & UNO -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">Global Pillar #1</span>
+      <h2>🇺🇳 UNO, ECOSOC &amp; UNCTAD</h2>
+      <p><span class="hl-y">International Economic Organizations</span> comprise all global institutions working in international economic cooperation and stability (UN, World Bank, IMF, WTO, SAARC, NAFTA, etc.).</p>
+
+      <h3>United Nations (UNO)</h3>
+      <ul>
+        <li>Founded in <span class="hl-c">1945</span> after the Second World War by <span class="hl-y">51 countries</span>.</li>
+        <li>Committed to maintaining international peace &amp; security, developing friendly relations among nations, and promoting social progress, better living standards, and human rights.</li>
+        <li><strong>UN Assists In:</strong> Peacekeeping • Security • Human Rights • Economic Development • Humanitarian Assistance.</li>
+      </ul>
+
+      <h3>Economic and Social Council (ECOSOC)</h3>
+      <ul>
+        <li>Principal organ to coordinate the <span class="hl-g">economic, social, and related work</span> of the UN and its specialized agencies &amp; institutions.</li>
+        <li>Voting is by <span class="hl-y">simple majority</span>; each member has <span class="hl-y">one vote</span>.</li>
+      </ul>
+
+      <h3>UNCTAD (UN Conference on Trade &amp; Development)</h3>
+      <ul>
+        <li>Principal organ of <span class="hl-c">UNGA</span> dealing with trade, investment, and development issues.</li>
+        <li>Established in <span class="hl-y">1964</span>; permanent secretariat in <span class="hl-g">Geneva</span>.</li>
+        <li><strong>Primary Objective:</strong> Formulate policies relating to all aspects of development — trade, aid, transport, finance, and technology.</li>
+        <li>Ordinarily meets <span class="hl-p">once in four years</span>.</li>
+      </ul>
+      <div class="polaroid-caption">UN System • Peace &amp; Development</div>
+    </article>
+
+    <!-- Card 2: Bretton Woods & World Bank Group -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">Bretton Woods Twin #1</span>
+      <h2>🏛️ Bretton Woods &amp; World Bank Group</h2>
+      <div class="callout-box cyan">
+        <strong>Bretton Woods Conference:</strong> Site of the first world economic conference — <em>UN Monetary and Financial Conference</em> held in <span class="hl-c">Bretton Woods, New Hampshire, US</span> from <span class="hl-y">July 1 to July 22, 1944</span>. Created both the <strong>IMF</strong> and <strong>World Bank</strong>. The <strong>Bretton Woods Agreement (1944)</strong> is the landmark system for monetary &amp; exchange rate management.
+      </div>
+
+      <h3>World Bank vs. World Bank Group</h3>
+      <ul>
+        <li>Part of the UN system, but its <span class="hl-o">governance structure is different</span>. HQ: <span class="hl-y">Washington, D.C.</span></li>
+        <li><span class="hl-g">World Bank (2 institutions):</span> <strong>IBRD</strong> + <strong>IDA</strong>.</li>
+        <li><span class="hl-c">World Bank Group (5 institutions):</span> IBRD + IDA + <strong>IFC</strong> + <strong>MIGA</strong> + <strong>ICSID</strong>.</li>
+        <li><strong>India's Status:</strong> Founder member of <span class="hl-g">IBRD, IDA, and IFC</span>. However, India is <span class="hl-p">NOT a member of ICSID</span>.</li>
+      </ul>
+
+      <h3>The 5 Institutions</h3>
+      <ul>
+        <li><strong>IBRD (1944):</strong> <em>International Bank for Reconstruction and Development</em>. Created to help Europe rebuild after WWII; joins with IDA to form World Bank; works with public &amp; private sectors in developing countries to reduce poverty &amp; build shared prosperity.</li>
+        <li><strong>IDA:</strong> <em>International Development Association</em>. Helps world's poorest countries. Overseen by <span class="hl-y">170+ shareholder nations</span>. Provides loans (called <span class="hl-c">"credits"</span>) and grants to boost growth, reduce inequalities, and improve living conditions. Complements IBRD.</li>
+        <li><strong>IFC (1956):</strong> <em>International Finance Corporation</em>. Supports <span class="hl-g">private sector growth</span> in developing world. Mission: promote sustainable private sector investment. Provides loans, equity, advice, and technical services to private sector (while WB assists governments).</li>
+        <li><strong>MIGA (1988):</strong> <em>Multilateral Investment Guarantee Agency</em>. Investment insurance facility promoting cross-border investment in developing countries via guarantees (<span class="hl-o">political risk insurance &amp; credit enhancement</span>) to investors &amp; lenders.</li>
+        <li><strong>ICSID (1966):</strong> <em>International Centre for Settlement of Investment Disputes</em>. Established by the ICSID Convention (between States and Nationals of Other States). Leading forum for <span class="hl-p">investor-State dispute settlement</span> in treaties, laws, and contracts.</li>
+      </ul>
+      <div class="polaroid-caption">HQ: Washington, D.C. • Development Arm</div>
+    </article>
+
+    <!-- Card 3: IMF -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">Bretton Woods Twin #2</span>
+      <h2>💰 International Monetary Fund (IMF)</h2>
+      <div class="callout-box yellow">
+        <strong>WB vs. IMF Key Distinction:</strong> World Bank is <em>not</em> a bank in the conventional sense (performs <span class="hl-g">development function</span>), whereas IMF performs the <span class="hl-y">lending function</span> associated with banks.
+      </div>
+
+      <ul>
+        <li><strong>Members:</strong> <span class="hl-c">190 countries</span>.</li>
+        <li><strong>Headquarters:</strong> <span class="hl-y">Washington, D.C.</span> (offices in Paris, Tokyo, New York, and Geneva).</li>
+        <li><strong>Functions:</strong> Lending institution giving advances to members in need; mentor of members' monetary &amp; exchange rate policies; maintains stability in global exchange rate system.</li>
+      </ul>
+
+      <h3>Lending Facilities</h3>
+      <ul>
+        <li><strong>Extended Fund Facility (EFF — 1974):</strong> Helps countries address <span class="hl-o">medium- and longer-term Balance of Payments (BoP)</span> problems caused by structural weaknesses requiring fundamental economic reforms.</li>
+        <li><strong>Poverty Reduction &amp; Growth Facility (PRGF — Sept 1999):</strong> Replaced the <em>Enhanced Structural Adjustment Facility</em>; lends to the world's poorest countries.</li>
+      </ul>
+
+      <h3>Quotas &amp; Tranches</h3>
+      <ul>
+        <li>Every member subscribes a <strong>Quota</strong> reflecting its relative position in the world economy, denominated in <span class="hl-c">SDRs</span> (IMF's unit of account).</li>
+        <li><span class="hl-y">25% Reserve / Gold Tranche:</span> Paid in foreign currency or gold.</li>
+        <li><span class="hl-g">75% Credit Tranche:</span> Paid in domestic currency.</li>
+      </ul>
+
+      <h3>Special Drawing Rights (SDR)</h3>
+      <div class="callout-box">
+        <ul>
+          <li>International reserve asset / reserve money used alongside gold &amp; US dollars.</li>
+          <li>Established in <span class="hl-y">1969</span> to alleviate the problem of <span class="hl-c">international liquidity</span>.</li>
+          <li><strong>5-Currency Basket:</strong> <span class="hl-g">US Dollar, Euro, Chinese Renminbi, Japanese Yen, British Pound Sterling</span>.</li>
+          <li>Allocated in proportion to quota subscriptions. <span class="hl-p">Only IMF members</span> can participate.</li>
+        </ul>
+      </div>
+      <div class="polaroid-caption">Monetary Stability &amp; BoP Lending</div>
+    </article>
+
+    <!-- Card 4: Regional Development Banks -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">Multilateral Banks</span>
+      <h2>🏦 ADB, AIIB &amp; NDB</h2>
+
+      <h3>Asian Development Bank (ADB)</h3>
+      <ul>
+        <li>Established <span class="hl-y">19 December 1966</span>; HQ: <span class="hl-c">Manila, Philippines</span> (+ field offices worldwide).</li>
+        <li>Promotes social &amp; economic development in Asia via loans, technical assistance, grants, and equity investments.</li>
+        <li>Members: Grew from <span class="hl-g">31</span> at establishment to <span class="hl-y">67 members</span> (48 Asia-Pacific + 19 outside).</li>
+        <li>Modelled closely on World Bank; <span class="hl-o">weighted voting system</span> proportional to capital subscriptions.</li>
+      </ul>
+
+      <h3>Asian Infrastructure Investment Bank (AIIB)</h3>
+      <ul>
+        <li>Initiated by <span class="hl-p">China</span>; finances infrastructure development &amp; regional connectivity in Asia-Pacific.</li>
+        <li>Viewed as Asia's response to West-dominated ADB and World Bank.</li>
+        <li>Officially established <span class="hl-y">Dec 2015</span>; opened for business <span class="hl-y">Jan 2016</span>; HQ: <span class="hl-c">Beijing, China</span>.</li>
+        <li><strong>Shareholding:</strong> China = largest (<span class="hl-p">26.06%</span> voting shares); India = 2nd largest (<span class="hl-g">7.5%</span> vote share).</li>
+      </ul>
+
+      <h3>New Development Bank (NDB)</h3>
+      <ul>
+        <li>Promoted by <span class="hl-y">BRICS</span> (Brazil, Russia, India, China, South Africa); outcome of <span class="hl-c">6th BRICS Summit</span> (Fortaleza, Brazil).</li>
+        <li>HQ: <span class="hl-c">Shanghai, China</span>; regional office in <span class="hl-o">Johannesburg, South Africa</span>.</li>
+        <li>Began operations <span class="hl-y">July 2015</span> with initial capital of <span class="hl-g">$100 billion</span>.</li>
+        <li>Funds infrastructure projects in emerging economies for sustainable development.</li>
+        <li><strong>Governance:</strong> Each participant country has <span class="hl-g">one vote</span>; <span class="hl-p">no veto power</span>.</li>
+      </ul>
+      <div class="polaroid-caption">Asia-Pacific &amp; BRICS Financing</div>
+    </article>
+
+    <!-- Card 5: WTO & GATT -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">Global Trade Rules</span>
+      <h2>⚖️ WTO, GATT &amp; Core Principles</h2>
+      <ul>
+        <li><strong>WTO:</strong> Established <span class="hl-y">1995</span>; HQ: <span class="hl-c">Geneva, Switzerland</span>. Operates global trade rules, settles trade disputes, and provides a forum where negotiations are conducted directly &amp; exclusively by Member governments. Agreements are <span class="hl-g">legally binding contracts</span>.</li>
+        <li><strong>GATT (General Agreement on Tariffs and Trade):</strong> Signed by <span class="hl-y">23 nations</span> in Geneva on <span class="hl-c">30 Oct 1947</span>; took effect <span class="hl-c">1 Jan 1948</span>. Aimed to reduce/eliminate tariffs &amp; quotas.</li>
+        <li><strong>Uruguay Round (1986–1994):</strong> 8th round of GATT negotiations → led to formation of WTO.</li>
+        <li><strong>India:</strong> Member of GATT since <span class="hl-g">1948</span> → party to Uruguay Round &amp; <span class="hl-y">founding member of WTO</span>.</li>
+        <li><strong>Scope Shift:</strong> GATT applied only to <span class="hl-o">goods</span>; WTO covers <span class="hl-g">goods, services, and trade-related IPR</span>.</li>
+      </ul>
+
+      <h3>Principle of Non-Discrimination</h3>
+      <div class="callout-box green">
+        Applies to trade in <strong>goods, services, and TRIPS</strong>:
+        <ul>
+          <li><strong>Most-Favoured Nation (MFN):</strong> An advantage granted to one country must be given to <span class="hl-y">all WTO Members</span>.</li>
+          <li><strong>National Treatment:</strong> Must <span class="hl-p">not discriminate</span> between imports and like domestic products.</li>
+        </ul>
+      </div>
+      <div class="polaroid-caption">Rules-Based Multilateral Trade</div>
+    </article>
+
+    <!-- Card 6: Key WTO Agreements -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">WTO Legal Pillars</span>
+      <h2>📜 Major WTO Agreements</h2>
+
+      <ul>
+        <li><strong>TRIMS (Trade-Related Investment Measures):</strong> Prohibits investment measures that restrict/distort trade, discriminate against foreign products, or create quantitative restrictions (e.g., <span class="hl-o">local content requirements</span>).</li>
+        <li><strong>TRIPS (Trade-Related Intellectual Property Rights):</strong> IPR = <em>"Information with commercial value."</em> Sets minimum protection &amp; enforcement standards across <span class="hl-y">7 areas</span>:
+          <br><span class="hl-c">(a) Patents • (b) Copyright • (c) Industrial design • (d) Geographical indication • (e) Trademarks • (f) Trade secrets • (g) Layout design (topographies of integrated circuits)</span>.
+        </li>
+        <li><strong>Agreement on Agriculture (AOA — 1995):</strong> Reforms agricultural trade to be fairer &amp; more competitive (some negotiations ongoing). Stands on <span class="hl-g">3 Pillars</span>: <strong>Domestic Support, Market Access, Export Subsidies</strong>.</li>
+        <li><strong>GATS (1995):</strong> <em>General Agreement on Trade in Services</em> — first multilateral agreement covering trade in services (negotiated in Uruguay Round).</li>
+      </ul>
+
+      <h3>SCM Agreement &amp; Trade Duties</h3>
+      <ul>
+        <li><strong>Subsidies &amp; Countervailing Measures (SCM):</strong> Regulates subsidies (financial contribution by/at direction of government/public body conferring benefit to industry) and countervailing measures.</li>
+        <li><strong>Actionable Subsidies:</strong> Not prohibited, but can face countervailing measures or be challenged in WTO's <span class="hl-c">Dispute Resolution Body</span>. Duties must be transparent with a specified <span class="hl-y">sunset period</span>.</li>
+        <li><strong>Countervailing Duty:</strong> Imposed on imports to counterbalance a <span class="hl-o">subsidy</span> provided by the exporter country.</li>
+        <li><strong>Anti-Dumping Duty:</strong> Counterbalances heavy subsidization where exporters sell goods <span class="hl-p">below domestic price or cost of production</span> in foreign markets to wipe out the target country's industry.</li>
+      </ul>
+      <div class="polaroid-caption">TRIMS • TRIPS • AOA • GATS • SCM</div>
+    </article>
+
+    <!-- Card 7: SAARC & SAFTA -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">South Asia</span>
+      <h2>🌏 SAARC &amp; SAFTA</h2>
+
+      <h3>SAARC (South Asian Association for Regional Cooperation)</h3>
+      <ul>
+        <li>Regional intergovernmental organization &amp; geopolitical union of South Asia.</li>
+        <li><strong>Share (as of 2015):</strong> <span class="hl-y">3%</span> world area • <span class="hl-c">21%</span> world population • <span class="hl-g">3.8%</span> global economy.</li>
+        <li>Founded in <span class="hl-o">Dhaka</span> on <span class="hl-y">8 December 1985</span>; Secretariat in <span class="hl-c">Kathmandu, Nepal</span>.</li>
+        <li>Promotes economic &amp; regional integration; launched SAFTA in <span class="hl-g">2006</span>.</li>
+        <li>Holds permanent diplomatic relations at UN as an <span class="hl-v">observer</span>; links with EU &amp; multilateral entities.</li>
+      </ul>
+
+      <h3>SAFTA (South Asian Free Trade Area)</h3>
+      <ul>
+        <li>Agreement reached on <span class="hl-y">January 6, 2004</span> at the <span class="hl-c">12th SAARC Summit in Islamabad, Pakistan</span>.</li>
+        <li><strong>8 Members:</strong> Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, Sri Lanka.</li>
+        <li>Created a free trade area of <span class="hl-g">1.6 billion people</span> (combined population <span class="hl-g">1.8 billion</span> as of 2011).</li>
+        <li>Framework signed by foreign ministers to reduce <span class="hl-o">customs duties</span> of all traded goods in a phased manner.</li>
+      </ul>
+      <div class="polaroid-caption">South Asian Economic Integration</div>
+    </article>
+
+    <!-- Card 8: Americas Trade Blocs -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">The Americas</span>
+      <h2>🌎 NAFTA, CAFTA-DR &amp; MERCOSUR</h2>
+
+      <h3>NAFTA (North American Free Trade Agreement)</h3>
+      <ul>
+        <li>Trilateral rules-based trading bloc: <span class="hl-c">Canada, Mexico, United States</span>.</li>
+        <li>World's largest FTA; combined GDP <span class="hl-y">more than $20 trillion</span>.</li>
+        <li>First time two developed nations signed a trade agreement with an emerging market country.</li>
+        <li><span class="hl-p">Now replaced by USMCA.</span></li>
+      </ul>
+
+      <h3>CR–CAFTA / CAFTA-DR</h3>
+      <ul>
+        <li><em>Central America and Dominican Republic Free Trade Agreement</em>.</li>
+        <li>First FTA between the <span class="hl-c">United States</span> and a group of smaller developing economies: <span class="hl-g">Costa Rica, El Salvador, Guatemala, Honduras, Nicaragua, and Dominican Republic</span>.</li>
+        <li>Promotes stronger trade &amp; investment ties, prosperity, and stability across the region and along the US Southern border.</li>
+      </ul>
+
+      <h3>MERCOSUR</h3>
+      <ul>
+        <li>Economic &amp; political bloc: <span class="hl-y">Argentina, Brazil, Paraguay, Uruguay, Venezuela</span>.</li>
+        <li>Created when longtime rivals Argentina &amp; Brazil sought to improve relations; saw a <span class="hl-g">tenfold increase</span> in intra-group trade in the 1990s.</li>
+      </ul>
+      <div class="polaroid-caption">North, Central &amp; South America</div>
+    </article>
+
+    <!-- Card 9: European Union -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">Europe</span>
+      <h2>🇪🇺 European Union, Euro &amp; Brexit</h2>
+      <ul>
+        <li>Political &amp; economic union of <span class="hl-y">27 member states</span> located primarily in Europe.</li>
+        <li><strong>Internal Single Market:</strong> Standardised laws ensuring free movement of <span class="hl-c">people, goods, services, and capital</span>; legislation in justice &amp; home affairs; common policies on trade, agriculture, fisheries, and regional development.</li>
+        <li><strong>Schengen Area:</strong> Passport controls have been <span class="hl-g">abolished</span> for travel within the area.</li>
+        <li><strong>Monetary Union &amp; Euro:</strong> Established in <span class="hl-y">1999</span>, full force in <span class="hl-y">2002</span>; composed of <span class="hl-c">19 EU member states</span> using the <strong>Euro</strong> (official common currency of the <strong>Eurozone</strong>).</li>
+        <li><strong>Brexit:</strong> Shorthand for <em>Britain + exit</em> (UK leaving the EU; noted in text as due on <span class="hl-p">29 March, 2019</span>).</li>
+      </ul>
+      <div class="polaroid-caption">Single Market &amp; Monetary Union</div>
+    </article>
+
+    <!-- Card 10: ASEAN, PACER Plus & RCEP -->
+    <article class="polaroid-card">
+      <div class="tape"></div>
+      <span class="card-tag">Asia-Pacific</span>
+      <h2>🌴 ASEAN, PACER Plus &amp; RCEP</h2>
+
+      <h3>ASEAN (Association of Southeast Asian Nations)</h3>
+      <ul>
+        <li>Regional grouping promoting economic, political, and security cooperation among <span class="hl-y">10 members</span>: <span class="hl-c">Brunei, Cambodia, Indonesia, Laos, Malaysia, Myanmar, Philippines, Singapore, Thailand, Vietnam</span>.</li>
+        <li>Population: nearly <span class="hl-g">640 million</span>; combined GDP: <span class="hl-y">$2.57 trillion</span>.</li>
+        <li>Signed <span class="hl-o">six FTAs</span> with other regional economies.</li>
+      </ul>
+
+      <h3>PACER Plus</h3>
+      <ul>
+        <li><em>Pacific Agreement on Closer Economic Relations Plus</em> (negotiations since <span class="hl-y">2009</span>).</li>
+        <li><strong>PACER:</strong> Umbrella agreement between Pacific Islands Forum members (Forum Island Countries + <span class="hl-c">Australia &amp; New Zealand</span>).</li>
+        <li>First signed at <span class="hl-g">Nauru on 18 August 2001</span>; entered into force <span class="hl-g">3 October 2002</span>. Sets framework for future trade &amp; economic relations.</li>
+      </ul>
+
+      <h3>RCEP (Regional Comprehensive Economic Partnership)</h3>
+      <ul>
+        <li>Negotiated since <span class="hl-y">2013</span>.</li>
+        <li>Proposed FTA between the <span class="hl-c">10 ASEAN member states</span> + <span class="hl-o">6 Asia-Pacific states</span> with existing ASEAN FTAs: <strong>Australia, China, India, Japan, South Korea, New Zealand</strong>.</li>
+        <li>Source notes a broad agreement is likely to be reached soon.</li>
+      </ul>
+      <div class="polaroid-caption">Indo-Pacific Trade Architecture</div>
+    </article>
+
+  </main>
+
+  <!-- Sticky Notes Container (persisted in DOM for Smart Hydration) -->
+  <div id="sticky-notes-layer"></div>
+
+  <!-- Cloud / GitHub Clone-Save Modal -->
+  <div id="save-modal-backdrop" data-workspace-ui="true">
+    <div class="save-modal">
+      <h3>☁️ Clone-Save to GitHub / Export</h3>
+      <p style="margin:0 0 8px; font-size:15px; color:#ccc;">Safely clones the DOM, strips active toolbar UI, and preserves your highlights &amp; sticky notes without breaking live event listeners.</p>
+      <label for="gh-owner">GitHub Username / Owner</label>
+      <input id="gh-owner" type="text" placeholder="e.g. your-username">
+      <label for="gh-repo">Repository Name</label>
+      <input id="gh-repo" type="text" placeholder="e.g. study-notes">
+      <label for="gh-path">File Path</label>
+      <input id="gh-path" type="text" value="international-economic-orgs.html">
+      <label for="gh-token">Personal Access Token (repo scope)</label>
+      <input id="gh-token" type="password" placeholder="ghp_...">
+      <div id="save-status"></div>
+      <div class="save-modal-actions">
+        <button id="btn-download-html" class="tool-btn" type="button">💾 Download HTML</button>
+        <button id="btn-push-github" class="tool-btn" type="button">🚀 Push to GitHub</button>
+        <button id="btn-close-modal" class="tool-btn" type="button">✖ Close</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const STORAGE_NOTES_KEY = 'sketchnote_ieo_sticky_notes_v1';
+  const STORAGE_GH_KEY = 'sketchnote_ieo_gh_config_v1';
+
+  const btnAddNote = document.getElementById('btn-add-note');
+  const btnHighlight = document.getElementById('btn-highlight');
+  const hlColorPicker = document.getElementById('hl-color-picker');
+  const btnSave = document.getElementById('btn-save');
+  const notesLayer = document.getElementById('sticky-notes-layer');
+
+  const modalBackdrop = document.getElementById('save-modal-backdrop');
+  const btnCloseModal = document.getElementById('btn-close-modal');
+  const btnDownloadHtml = document.getElementById('btn-download-html');
+  const btnPushGithub = document.getElementById('btn-push-github');
+  const saveStatus = document.getElementById('save-status');
+
+  let highlightMode = false;
+  let highestZ = 5000;
+
+  /* ---------- Utility: Auto-Contrast Text Color ---------- */
+  function getContrastColor(hex) {
+    const clean = hex.replace('#', '');
+    const r = parseInt(clean.substring(0, 2), 16);
+    const g = parseInt(clean.substring(2, 4), 16);
+    const b = parseInt(clean.substring(4, 6), 16);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.55 ? '#111111' : '#ffffff';
+  }
+
+  /* ---------- Sticky Notes Engine ---------- */
+  function persistNotes() {
+    const data = [];
+    notesLayer.querySelectorAll('.sticky-note').forEach((note) => {
+      data.push({
+        id: note.dataset.noteId,
+        left: note.style.left,
+        top: note.style.top,
+        width: note.style.width || '240px',
+        height: note.style.height || '160px',
+        bg: note.dataset.bg || '#ffe066',
+        content: note.querySelector('.sticky-body').innerHTML
+      });
+    });
+    try {
+      localStorage.setItem(STORAGE_NOTES_KEY, JSON.stringify(data));
+    } catch (e) {
+      console.warn('localStorage unavailable:', e);
+    }
+  }
+
+  function attachStickyListeners(note) {
+    const header = note.querySelector('.sticky-header');
+    const bodyEl = note.querySelector('.sticky-body');
+    const colorInput = note.querySelector('.sticky-color');
+    const deleteBtn = note.querySelector('.sticky-delete');
+
+    note.addEventListener('mousedown', () => {
+      highestZ += 1;
+      note.style.zIndex = highestZ;
+    });
+
+    // Dragging
+    let dragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    header.addEventListener('mousedown', (e) => {
+      if (e.target === colorInput || e.target === deleteBtn) return;
+      dragging = true;
+      highestZ += 1;
+      note.style.zIndex = highestZ;
+      const rect = note.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const x = Math.max(8, e.pageX - offsetX);
+      const y = Math.max(70, e.pageY - offsetY);
+      note.style.left = x + 'px';
+      note.style.top = y + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (dragging) {
+        dragging = false;
+        persistNotes();
+      }
+    });
+
+    // Color picker with auto-contrast
+    colorInput.addEventListener('input', (e) => {
+      const hex = e.target.value;
+      note.style.backgroundColor = hex;
+      note.style.color = getContrastColor(hex);
+      note.dataset.bg = hex;
+      persistNotes();
+    });
+
+    // Save edits & resize
+    bodyEl.addEventListener('input', persistNotes);
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(() => persistNotes());
+      ro.observe(note);
+    }
+
+    // Delete
+    deleteBtn.addEventListener('click', () => {
+      note.remove();
+      persistNotes();
+    });
+  }
+
+  function createStickyNote(opts = {}) {
+    const id = opts.id || ('note-' + Date.now() + '-' + Math.floor(Math.random() * 1000));
+    const bg = opts.bg || '#ffe066';
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.dataset.noteId = id;
+    note.dataset.bg = bg;
+    note.style.left = opts.left || (window.scrollX + 90 + Math.floor(Math.random() * 80)) + 'px';
+    note.style.top = opts.top || (window.scrollY + 110 + Math.floor(Math.random() * 60)) + 'px';
+    note.style.width = opts.width || '240px';
+    note.style.height = opts.height || '165px';
+    note.style.backgroundColor = bg;
+    note.style.color = getContrastColor(bg);
+    highestZ += 1;
+    note.style.zIndex = highestZ;
+
+    note.innerHTML = `
+      <div class="sticky-header">
+        <span class="sticky-title">📌 Sticky Note</span>
+        <div class="sticky-controls">
+          <input type="color" class="sticky-color" value="${bg}" title="Note Color">
+          <button type="button" class="sticky-delete" title="Delete Note">×</button>
+        </div>
+      </div>
+      <div class="sticky-body" contenteditable="true" spellcheck="false">${opts.content || 'Write your revision cue here...'}</div>
+    `;
+
+    notesLayer.appendChild(note);
+    attachStickyListeners(note);
+    persistNotes();
+    return note;
+  }
+
+  /* ---------- Smart Hydration (DOM fallback if localStorage empty) ---------- */
+  function hydrateWorkspace() {
+    let saved = null;
+    try {
+      const raw = localStorage.getItem(STORAGE_NOTES_KEY);
+      if (raw) saved = JSON.parse(raw);
+    } catch (e) {
+      saved = null;
+    }
+
+    if (saved && Array.isArray(saved) && saved.length > 0) {
+      notesLayer.innerHTML = '';
+      saved.forEach((n) => createStickyNote(n));
+    } else {
+      // Hydrate any static sticky notes already baked into the saved HTML DOM
+      const domNotes = notesLayer.querySelectorAll('.sticky-note');
+      domNotes.forEach((note) => attachStickyListeners(note));
+    }
+
+    // Bind click-to-undo on any pre-existing highlights in DOM
+    document.querySelectorAll('mark.user-highlight').forEach(bindHighlightUndo);
+  }
+
+  btnAddNote.addEventListener('click', () => {
+    const n = createStickyNote();
+    const bodyEl = n.querySelector('.sticky-body');
+    bodyEl.focus();
+  });
+
+  /* ---------- Text Highlighter with Auto-Contrast & Click-to-Undo ---------- */
+  function bindHighlightUndo(markEl) {
+    if (markEl.dataset.undoBound) return;
+    markEl.dataset.undoBound = 'true';
+    markEl.title = 'Click to remove highlight';
+    markEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const parent = markEl.parentNode;
+      while (markEl.firstChild) {
+        parent.insertBefore(markEl.firstChild, markEl);
+      }
+      parent.removeChild(markEl);
+      parent.normalize();
+    });
+  }
+
+  btnHighlight.addEventListener('click', () => {
+    highlightMode = !highlightMode;
+    btnHighlight.classList.toggle('active', highlightMode);
+    document.body.classList.toggle('highlight-mode', highlightMode);
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!highlightMode) return;
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+
+    const range = sel.getRangeAt(0);
+    const common = range.commonAncestorContainer;
+    const containerEl = common.nodeType === 1 ? common : common.parentElement;
+
+    // Prevent highlighting inside toolbar, modal, or sticky notes
+    if (
+      !containerEl ||
+      containerEl.closest('#workspace-toolbar') ||
+      containerEl.closest('#save-modal-backdrop') ||
+      containerEl.closest('.sticky-note')
+    ) {
+      return;
+    }
+
+    const bgHex = hlColorPicker.value || '#ffe066';
+    const fgHex = getContrastColor(bgHex);
+
+    const mark = document.createElement('mark');
+    mark.className = 'user-highlight';
+    mark.style.backgroundColor = bgHex;
+    mark.style.color = fgHex;
+
+    try {
+      range.surroundContents(mark);
+      bindHighlightUndo(mark);
+      sel.removeAllRanges();
+    } catch (err) {
+      // Fallback for cross-element selections
+      const frag = range.extractContents();
+      mark.appendChild(frag);
+      range.insertNode(mark);
+      bindHighlightUndo(mark);
+      sel.removeAllRanges();
+    }
+  });
+
+  /* ---------- Clone-Save Mechanism (Safe DOM Export & GitHub Sync) ---------- */
+  function buildCleanClonedHTML() {
+    const clone = document.documentElement.cloneNode(true);
+
+    // Sync live sticky note values cleanly into cloned DOM
+    const liveNotes = document.querySelectorAll('#sticky-notes-layer .sticky-note');
+    const clonedNotes = clone.querySelectorAll('#sticky-notes-layer .sticky-note');
+    liveNotes.forEach((live, idx) => {
+      if (clonedNotes[idx]) {
+        const liveColor = live.querySelector('.sticky-color').value;
+        clonedNotes[idx].querySelector('.sticky-color').setAttribute('value', liveColor);
+      }
+    });
+
+    // Reset transient UI states on clone without touching live page
+    const clonedBody = clone.querySelector('body');
+    clonedBody.classList.remove('highlight-mode');
+
+    const clonedModal = clone.querySelector('#save-modal-backdrop');
+    if (clonedModal) clonedModal.classList.remove('open');
+
+    const clonedHlBtn = clone.querySelector('#btn-highlight');
+    if (clonedHlBtn) clonedHlBtn.classList.remove('active');
+
+    // Clear sensitive token input from clone
+    const clonedToken = clone.querySelector('#gh-token');
+    if (clonedToken) clonedToken.setAttribute('value', '');
+
+    return '<!DOCTYPE html>\n' + clone.outerHTML;
+  }
+
+  function loadGithubConfig() {
+    try {
+      const cfg = JSON.parse(localStorage.getItem(STORAGE_GH_KEY) || '{}');
+      if (cfg.owner) document.getElementById('gh-owner').value = cfg.owner;
+      if (cfg.repo) document.getElementById('gh-repo').value = cfg.repo;
+      if (cfg.path) document.getElementById('gh-path').value = cfg.path;
+    } catch (e) {}
+  }
+
+  btnSave.addEventListener('click', () => {
+    loadGithubConfig();
+    saveStatus.textContent = '';
+    modalBackdrop.classList.add('open');
+  });
+
+  btnCloseModal.addEventListener('click', () => {
+    modalBackdrop.classList.remove('open');
+  });
+
+  modalBackdrop.addEventListener('click', (e) => {
+    if (e.target === modalBackdrop) modalBackdrop.classList.remove('open');
+  });
+
+  btnDownloadHtml.addEventListener('click', () => {
+    const htmlStr = buildCleanClonedHTML();
+    const blob = new Blob([htmlStr], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = document.getElementById('gh-path').value.trim() || 'international-economic-orgs.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    saveStatus.style.color = '#7ae582';
+    saveStatus.textContent = '✅ Clean cloned HTML downloaded! All highlights & notes preserved.';
+  });
+
+  btnPushGithub.addEventListener('click', async () => {
+    const owner = document.getElementById('gh-owner').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+    const path = document.getElementById('gh-path').value.trim();
+    const token = document.getElementById('gh-token').value.trim();
+
+    if (!owner || !repo || !path || !token) {
+      saveStatus.style.color = '#ff7eb6';
+      saveStatus.textContent = '⚠️ Please fill Owner, Repo, Path, and Token.';
+      return;
+    }
+
+    try {
+      localStorage.setItem(STORAGE_GH_KEY, JSON.stringify({ owner, repo, path }));
+    } catch (e) {}
+
+    saveStatus.style.color = '#ffe066';
+    saveStatus.textContent = '⏳ Syncing cloned DOM to GitHub...';
+
+    const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}`;
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    };
+
+    try {
+      let sha = undefined;
+      const getRes = await fetch(apiUrl, { headers });
+      if (getRes.ok) {
+        const existing = await getRes.json();
+        sha = existing.sha;
+      }
+
+      const htmlStr = buildCleanClonedHTML();
+      const encodedContent = btoa(unescape(encodeURIComponent(htmlStr)));
+
+      const putRes = await fetch(apiUrl, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify({
+          message: 'Update sketchnote board via Clone-Save',
+          content: encodedContent,
+          sha
+        })
+      });
+
+      if (!putRes.ok) {
+        const errData = await putRes.json();
+        throw new Error(errData.message || 'GitHub API error');
+      }
+
+      saveStatus.style.color = '#7ae582';
+      saveStatus.textContent = '✅ Successfully synced to GitHub without breaking listeners!';
+    } catch (err) {
+      saveStatus.style.color = '#ff7eb6';
+      saveStatus.textContent = '❌ Sync failed: ' + err.message;
+    }
+  });
+
+  hydrateWorkspace();
+})();
+</script>
+</body>
+</html>
