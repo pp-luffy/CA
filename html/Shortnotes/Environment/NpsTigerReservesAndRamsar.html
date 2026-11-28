@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>National Parks, Tiger Reserves & Ramsar Sites — Shortnote Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --card-bg: #242424;
+    --card-border: #3a3a3a;
+    --text: #f0f0f0;
+    --yellow: #ffd54f;
+    --cyan: #4dd0e1;
+    --green: #81c784;
+    --pink: #f48fb1;
+    --orange: #ffb74d;
+    --purple: #ce93d8;
+    --red: #ef9a9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    position: relative;
+    margin: 0;
+    padding: 74px 20px 50px;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(#2c2c2c 1px, transparent 1px),
+      radial-gradient(#252525 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    color: var(--text);
+    font-family: 'Patrick Hand', cursive;
+    font-size: 17px;
+    line-height: 1.4;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3 { font-family: 'Kalam', cursive; margin-top: 0; }
+
+  /* Workspace Bar */
+  #workspace-bar {
+    position: fixed;
+    top: 12px;
+    right: 18px;
+    z-index: 9999;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(24, 24, 24, 0.92);
+    border: 2px dashed var(--yellow);
+    padding: 6px 12px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+  }
+
+  .ws-btn {
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    border: 1.5px solid #555;
+    background: #2c2c2c;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .ws-btn:hover { border-color: var(--yellow); }
+  .ws-btn.active { background: var(--yellow); color: #111; border-color: var(--yellow); }
+  #hl-color-picker { width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; }
+
+  /* Header */
+  .board-header { text-align: center; max-width: 1200px; margin: 0 auto 20px; }
+  .board-header h1 { font-size: 2.3rem; color: var(--yellow); margin-bottom: 4px; text-shadow: 2px 2px 0 #000; }
+  .board-header .subtitle { color: var(--cyan); font-size: 1.1rem; margin: 0; }
+
+  /* Quick Revision Strip */
+  .quick-revision {
+    max-width: 1240px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, #232822 0%, #1f2428 100%);
+    border: 2px dashed var(--green);
+    border-radius: 14px;
+    padding: 14px 18px;
+  }
+  .quick-revision h2 { color: var(--green); font-size: 1.3rem; margin-bottom: 10px; }
+  .qr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .qr-pill {
+    background: rgba(255,255,255,0.04);
+    border-left: 4px solid var(--yellow);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  .qr-pill strong { color: var(--yellow); }
+  .qr-pill.cyan { border-left-color: var(--cyan); } .qr-pill.cyan strong { color: var(--cyan); }
+  .qr-pill.orange { border-left-color: var(--orange); } .qr-pill.orange strong { color: var(--orange); }
+  .qr-pill.pink { border-left-color: var(--pink); } .qr-pill.pink strong { color: var(--pink); }
+  .qr-pill.red { border-left-color: var(--red); } .qr-pill.red strong { color: var(--red); }
+  .qr-pill.purple { border-left-color: var(--purple); } .qr-pill.purple strong { color: var(--purple); }
+
+  /* Grid */
+  .grid-3 {
+    max-width: 1240px;
+    margin: 0 auto 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+
+  .grid-2 {
+    max-width: 1240px;
+    margin: 0 auto 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 5px 6px 0 rgba(0,0,0,0.5);
+    position: relative;
+  }
+
+  .card h3 {
+    font-size: 1.28rem;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px dashed #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .accent-green h3 { color: var(--green); }
+  .accent-orange h3 { color: var(--orange); }
+  .accent-cyan h3 { color: var(--cyan); }
+  .accent-yellow h3 { color: var(--yellow); }
+  .accent-pink h3 { color: var(--pink); }
+
+  .badge {
+    font-size: 0.85rem;
+    padding: 1px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid currentColor;
+  }
+
+  ul { margin: 4px 0 0; padding-left: 18px; }
+  li { margin-bottom: 5px; }
+
+  .hl-y { color: var(--yellow); font-weight: bold; }
+  .hl-c { color: var(--cyan); font-weight: bold; }
+  .hl-g { color: var(--green); font-weight: bold; }
+  .hl-p { color: var(--pink); font-weight: bold; }
+  .hl-o { color: var(--orange); font-weight: bold; }
+  .hl-r { color: var(--red); font-weight: bold; }
+
+  /* Compact Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 0.94rem; margin-top: 6px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px dashed #3d3d3d; }
+  th { font-family: 'Kalam', cursive; color: var(--yellow); border-bottom: 1.5px solid #555; }
+
+  /* Highlight & Sticky Notes */
+  .user-highlight { border-radius: 4px; padding: 0 3px; cursor: pointer; }
+  .user-highlight:hover { opacity: 0.8; text-decoration: line-through; }
+
+  .sticky-note {
+    position: absolute; width: 210px; min-width: 140px; min-height: 110px;
+    background: #fff59d; color: #1a1a1a; border-radius: 8px;
+    box-shadow: 4px 8px 20px rgba(0,0,0,0.6); z-index: 5000;
+    display: flex; flex-direction: column; resize: both; overflow: hidden;
+  }
+  .sticky-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 8px; background: rgba(0,0,0,0.12); cursor: move; user-select: none;
+  }
+  .sticky-colors { display: flex; gap: 5px; }
+  .sticky-dot { width: 13px; height: 13px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.4); cursor: pointer; }
+  .sticky-del { background: transparent; border: none; font-weight: bold; cursor: pointer; color: #222; }
+  .sticky-body { flex: 1; padding: 8px; font-family: 'Patrick Hand', cursive; font-size: 16px; outline: none; overflow-y: auto; }
+</style>
+</head>
+<body>
+
+  <div id="workspace-bar">
+    <button class="ws-btn" id="btn-add-note">📝 NOTE</button>
+    <button class="ws-btn" id="btn-highlight">🖍️ HIGHLIGHT</button>
+    <input type="color" id="hl-color-picker" value="#ffd54f" title="Highlighter Color">
+    <button class="ws-btn" id="btn-save">☁️ SAVE</button>
+  </div>
+
+  <header class="board-header">
+    <h1>🗺️ National Parks, Tiger Reserves & Ramsar Sites</h1>
+    <p class="subtitle">Updated Nov 2026 • Ultra-Compact Exam Shortnotes</p>
+  </header>
+
+  <!-- 1-Minute Quick Revision Strip -->
+  <section class="quick-revision">
+    <h2>⚡ 30-SECOND NUMBERS</h2>
+    <div class="qr-grid">
+      <div class="qr-pill"><strong>National Parks:</strong> <strong>106</strong> (WII) / <strong>107th</strong> = Similipal (Odisha, Apr 2025) | WLS = <strong>573</strong></div>
+      <div class="qr-pill orange"><strong>Tiger Reserves:</strong> <strong>58</strong> (18 states) | 58th = <strong>Madhav (MP, Mar 2025)</strong> | Tigers = <strong>3,682</strong></div>
+      <div class="qr-pill cyan"><strong>Ramsar Sites:</strong> <strong>103</strong> (Oct 2026) | Rank: <strong>1st Asia, 3rd World</strong> | 100th = <strong>Surha Tal (UP)</strong></div>
+      <div class="qr-pill pink"><strong>Top States:</strong> NPs = <strong>MP (11)</strong> | TRs = <strong>MP (9)</strong> | Ramsar = <strong>TN (20)</strong>, UP (14)</div>
+      <div class="qr-pill red"><strong>Montreux Record (2):</strong> <strong>Keoladeo (RJ)</strong> & <strong>Loktak (MN)</strong> *(Chilika removed 2002)*</div>
+      <div class="qr-pill purple"><strong>Odisha Count:</strong> <strong>2 NPs</strong> (Bhitarkanika, Similipal) | <strong>2 TRs</strong> (Similipal, Satkosia) | <strong>6 Ramsar</strong></div>
+    </div>
+  </section>
+
+  <!-- 3 Core Cards -->
+  <section class="grid-3">
+
+    <article class="card accent-green">
+      <h3>🌲 National Parks <span class="badge">106 / 107</span></h3>
+      <ul>
+        <li><span class="hl-g">Count Trap:</span> <strong>106</strong> on WII portal; Odisha notified <strong>Similipal (107th)</strong> on 24 Apr 2025.</li>
+        <li><span class="hl-y">Most NPs:</span> <strong>MP (11)</strong> &gt; Assam (7).</li>
+        <li><span class="hl-c">Only 1 NP:</span> Bihar (Valmiki), Goa (Mollem), Jharkhand (Betla), Ladakh (Hemis), Nagaland (Intanki), Sikkim (Khangchendzonga), UP (Dudhwa).</li>
+        <li><span class="hl-o">Superlatives:</span>
+          <br>• <strong>1st:</strong> Jim Corbett / Hailey (UK, 1936)
+          <br>• <strong>Largest:</strong> Hemis (Ladakh) | <strong>Smallest:</strong> South Button (A&N)
+          <br>• <strong>Only Floating:</strong> Keibul Lamjao (Loktak, Manipur)
+          <br>• <strong>1st Marine:</strong> Gulf of Kachchh (Gujarat, 1982)</li>
+        <li><span class="hl-p">UNESCO NPs (7):</span> Kaziranga, Manas, Keoladeo, Sundarbans, Nanda Devi & Valley of Flowers, Great Himalayan, <strong>Khangchendzonga (Mixed)</strong>.</li>
+      </ul>
+    </article>
+
+    <article class="card accent-orange">
+      <h3>🐅 Tiger Reserves <span class="badge">58 TRs</span></h3>
+      <ul>
+        <li><span class="hl-o">Status:</span> <strong>58 TRs</strong> in 18 states (NTCA, Project Tiger 1973); <strong>3,682 tigers</strong> (~70% global); Tiger Day = <strong>29 July</strong>.</li>
+        <li><span class="hl-y">Most TRs:</span> <strong>MP (9)</strong> &gt; Maharashtra (6) &gt; KA, RJ, TN (5 each).</li>
+        <li><span class="hl-g">Most Tigers (2022):</span> MP &gt; Karnataka &gt; Uttarakhand &gt; Maharashtra.</li>
+        <li><span class="hl-c">Largest:</span> <strong>Nagarjunsagar–Srisailam</strong> (AP — largest total & core).</li>
+        <li><span class="hl-r">Smallest Trap:</span> <strong>Orang (Assam)</strong> = smallest core (~79 sq km); <strong>Bor (MH)</strong> & <strong>Nameri (AS)</strong> also cited in older static GK.</li>
+        <li><span class="hl-p">Highest Density/Pop:</span> <strong>Jim Corbett (UK)</strong>.</li>
+        <li><span class="hl-y">Odisha (2):</span> <strong>Similipal</strong> (1973–74, black tigers) & <strong>Satkosia</strong> (Mahanadi Gorge).</li>
+      </ul>
+    </article>
+
+    <article class="card accent-cyan">
+      <h3>🦆 Ramsar Sites <span class="badge">103 Sites</span></h3>
+      <ul>
+        <li><span class="hl-c">Status:</span> <strong>103 sites</strong> across 28 States/UTs (as of 15 Oct 2026) — <strong>1st in Asia, 3rd in World</strong> (after UK, Mexico).</li>
+        <li><span class="hl-y">1st Sites (1981):</span> <strong>Chilika Lake (Odisha)</strong> & <strong>Keoladeo NP (RJ)</strong>.</li>
+        <li><span class="hl-g">Top States:</span> <strong>Tamil Nadu (20)</strong> &gt; UP (14) &gt; Bihar, Odisha, Punjab (6 each).</li>
+        <li><span class="hl-r">Zero Ramsar States:</span> <strong>Telangana, Meghalaya, Nagaland</strong>.</li>
+        <li><span class="hl-o">Size:</span> <strong>Largest</strong> = Sundarban (WB) | <strong>Smallest</strong> = Renuka (HP) & Vembannur (TN).</li>
+        <li><span class="hl-p">Montreux Record:</span> <strong>Keoladeo (RJ)</strong> & <strong>Loktak (MN)</strong>.</li>
+        <li><span class="hl-y">Odisha (6):</span> Chilika, Bhitarkanika, Satkosia Gorge, Tampara, Hirakud, Ansupa.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- 2 Compact Latest-Additions Tables -->
+  <section class="grid-2">
+
+    <article class="card accent-yellow">
+      <h3>🆕 Latest 5 Tiger Reserves (54th–58th)</h3>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Tiger Reserve</th><th>State</th><th>Year / Hook</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>54th</strong></td><td>Veerangana Durgavati</td><td>MP</td><td>2023 (Nauradehi+Durgavati)</td></tr>
+          <tr><td><strong>55th</strong></td><td>Dholpur–Karauli</td><td>RJ</td><td>2023 (Chambal landscape)</td></tr>
+          <tr><td><strong>56th</strong></td><td>Guru Ghasidas–Tamor Pingla</td><td>CG</td><td>Nov 2024 (3rd largest TR)</td></tr>
+          <tr><td><strong>57th</strong></td><td>Ratapani</td><td>MP</td><td>Dec 2024 (Bhimbetka)</td></tr>
+          <tr><td><span class="hl-y">58th</span></td><td><span class="hl-y">Madhav TR</span></td><td><strong>MP</strong></td><td><strong>Mar 2025 (Latest, MP's 9th)</strong></td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="card accent-pink">
+      <h3>🆕 2026 Ramsar Additions (97th–103rd)</h3>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Ramsar Site</th><th>State/UT</th><th>Date / Hook</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>97–98</strong></td><td>Patna BS & Chhari-Dhand</td><td>UP; GJ</td><td>31 Jan 2026</td></tr>
+          <tr><td><strong>99th</strong></td><td>Shekha Jheel BS</td><td>UP</td><td>Apr 2026 (Aligarh)</td></tr>
+          <tr><td><span class="hl-y">100th</span></td><td><span class="hl-y">JPN BS (Surha Tal)</span></td><td><strong>UP</strong></td><td><strong>5 Jun 2026 (100th Site!)</strong></td></tr>
+          <tr><td><span class="hl-c">101st</span></td><td><span class="hl-c">Glaw Lake</span></td><td><strong>AR</strong></td><td><strong>3 Aug 2026 (Arunachal's 1st)</strong></td></tr>
+          <tr><td><span class="hl-p">102–103</span></td><td><span class="hl-p">Sukhna & Sauj Jheel</span></td><td><strong>CH; UP</strong></td><td><strong>15 Oct 2026 (Chandigarh's 1st)</strong></td></tr>
+        </tbody>
+      </table>
+    </article>
+
+  </section>
+
+  <div id="sticky-layer"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'sketchnote_np_tr_ramsar_v1';
+  const btnAddNote = document.getElementById('btn-add-note');
+  const btnHighlight = document.getElementById('btn-highlight');
+  const hlColorPicker = document.getElementById('hl-color-picker');
+  const btnSave = document.getElementById('btn-save');
+  const stickyLayer = document.getElementById('sticky-layer');
+  let highlightMode = false;
+  const NOTE_COLORS = ['#fff59d', '#ffcc80', '#f48fb1', '#80deea', '#a5d6a7'];
+
+  function getContrastColor(hex) {
+    const c = hex.replace('#', '');
+    const yiq = ((parseInt(c.substr(0,2),16)*299)+(parseInt(c.substr(2,2),16)*587)+(parseInt(c.substr(4,2),16)*114))/1000;
+    return yiq >= 135 ? '#111111' : '#ffffff';
+  }
+
+  function saveNotesToLocal() {
+    const notes = [];
+    document.querySelectorAll('.sticky-note').forEach(el => {
+      notes.push({
+        id: el.dataset.id, left: el.style.left, top: el.style.top,
+        width: el.style.width, height: el.style.height, bg: el.style.backgroundColor,
+        html: el.querySelector('.sticky-body').innerHTML
+      });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+  }
+
+  function hydrateNote(noteEl) {
+    const header = noteEl.querySelector('.sticky-header');
+    const body = noteEl.querySelector('.sticky-body');
+    const delBtn = noteEl.querySelector('.sticky-del');
+    let isDragging = false, startX, startY, origLeft, origTop;
+    header.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-del')) return;
+      isDragging = true; startX = e.clientX; startY = e.clientY;
+      origLeft = noteEl.offsetLeft; origTop = noteEl.offsetTop; noteEl.style.zIndex = 6000;
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      noteEl.style.left = (origLeft + (e.clientX - startX)) + 'px';
+      noteEl.style.top = (origTop + (e.clientY - startY)) + 'px';
+    });
+    document.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; saveNotesToLocal(); } });
+    noteEl.querySelectorAll('.sticky-dot').forEach(dot => {
+      dot.addEventListener('click', () => { noteEl.style.backgroundColor = dot.dataset.color; saveNotesToLocal(); });
+    });
+    delBtn.addEventListener('click', () => { noteEl.remove(); saveNotesToLocal(); });
+    body.addEventListener('input', saveNotesToLocal);
+    noteEl.addEventListener('mouseup', saveNotesToLocal);
+  }
+
+  function createStickyNote(data = {}) {
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.dataset.id = data.id || 'note_' + Date.now();
+    note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random()*100)) + 'px';
+    note.style.top = data.top || (window.scrollY + 110 + Math.floor(Math.random()*70)) + 'px';
+    if (data.width) note.style.width = data.width;
+    if (data.height) note.style.height = data.height;
+    note.style.backgroundColor = data.bg || NOTE_COLORS[0];
+    const dotsHtml = NOTE_COLORS.map(c => `<span class="sticky-dot" data-color="${c}" style="background:${c}"></span>`).join('');
+    note.innerHTML = `<div class="sticky-header"><div class="sticky-colors">${dotsHtml}</div><button class="sticky-del">✕</button></div><div class="sticky-body" contenteditable="true">${data.html || 'Note...'}</div>`;
+    stickyLayer.appendChild(note);
+    hydrateNote(note);
+    saveNotesToLocal();
+  }
+
+  btnAddNote.addEventListener('click', () => createStickyNote());
+  btnHighlight.addEventListener('click', () => { highlightMode = !highlightMode; btnHighlight.classList.toggle('active', highlightMode); });
+
+  document.addEventListener('mouseup', (e) => {
+    if (!highlightMode || e.target.closest('#workspace-bar') || e.target.closest('.sticky-note')) return;
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.className = 'user-highlight';
+    span.style.backgroundColor = hlColorPicker.value;
+    span.style.color = getContrastColor(hlColorPicker.value);
+    try { range.surroundContents(span); sel.removeAllRanges(); }
+    catch { const frag = range.extractContents(); span.appendChild(frag); range.insertNode(span); sel.removeAllRanges(); }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('user-highlight')) {
+      const span = e.target, parent = span.parentNode;
+      while (span.firstChild) parent.insertBefore(span.firstChild, span);
+      parent.removeChild(span); parent.normalize();
+    }
+  });
+
+  btnSave.addEventListener('click', () => {
+    const clone = document.documentElement.cloneNode(true);
+    const bar = clone.querySelector('#workspace-bar');
+    if (bar) bar.remove();
+    const blob = new Blob(['<!DOCTYPE html>\n' + clone.outerHTML], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'national-parks-tiger-reserves-ramsar.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  });
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) { try { JSON.parse(saved).forEach(n => createStickyNote(n)); } catch {} }
+})();
+</script>
+</body>
+</html>
