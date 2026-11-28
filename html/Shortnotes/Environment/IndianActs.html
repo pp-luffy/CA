@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indian Environmental Acts, NAPCC & Conservation Projects — Sketchnote Visual Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --card-bg: #242424;
+    --card-border: #3a3a3a;
+    --text: #f0f0f0;
+    --muted: #b8b8b8;
+    --yellow: #ffd54f;
+    --cyan: #4dd0e1;
+    --green: #81c784;
+    --pink: #f48fb1;
+    --orange: #ffb74d;
+    --purple: #ce93d8;
+    --red: #ef9a9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    position: relative;
+    margin: 0;
+    padding: 80px 24px 60px;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(#2c2c2c 1px, transparent 1px),
+      radial-gradient(#252525 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    color: var(--text);
+    font-family: 'Patrick Hand', cursive;
+    font-size: 18px;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .hand-title {
+    font-family: 'Kalam', cursive;
+    margin-top: 0;
+    letter-spacing: 0.3px;
+  }
+
+  /* Interactive Action Bar */
+  #workspace-bar {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(24, 24, 24, 0.92);
+    border: 2px dashed var(--yellow);
+    padding: 8px 14px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+  }
+
+  .ws-btn {
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #555;
+    background: #2c2c2c;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+  }
+
+  .ws-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--yellow);
+  }
+
+  .ws-btn.active {
+    background: var(--yellow);
+    color: #111;
+    border-color: var(--yellow);
+  }
+
+  #hl-color-picker {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* Header */
+  .board-header {
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 28px;
+  }
+
+  .board-header h1 {
+    font-size: 2.6rem;
+    color: var(--yellow);
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 #000;
+  }
+
+  .board-header .subtitle {
+    color: var(--cyan);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  /* Ultra-Short Revision Sheet */
+  .quick-revision {
+    max-width: 1280px;
+    margin: 0 auto 36px;
+    background: linear-gradient(135deg, #232822 0%, #1f2428 100%);
+    border: 2.5px dashed var(--green);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+  }
+
+  .quick-revision h2 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+    gap: 12px;
+  }
+
+  .qr-pill {
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 4px solid var(--yellow);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.98rem;
+  }
+
+  .qr-pill strong { color: var(--yellow); }
+  .qr-pill.cyan { border-left-color: var(--cyan); }
+  .qr-pill.cyan strong { color: var(--cyan); }
+  .qr-pill.pink { border-left-color: var(--pink); }
+  .qr-pill.pink strong { color: var(--pink); }
+  .qr-pill.orange { border-left-color: var(--orange); }
+  .qr-pill.orange strong { color: var(--orange); }
+  .qr-pill.red { border-left-color: var(--red); }
+  .qr-pill.red strong { color: var(--red); }
+  .qr-pill.purple { border-left-color: var(--purple); }
+  .qr-pill.purple strong { color: var(--purple); }
+
+  /* Section Dividers */
+  .section-label {
+    max-width: 1280px;
+    margin: 34px auto 16px;
+    font-family: 'Kalam', cursive;
+    font-size: 1.65rem;
+    color: var(--orange);
+    border-bottom: 2px dashed #444;
+    padding-bottom: 4px;
+  }
+
+  /* Masonry / Polaroid Grid */
+  .masonry-grid {
+    max-width: 1280px;
+    margin: 0 auto 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    align-items: start;
+  }
+
+  .polaroid {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 18px 20px 24px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.55);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .polaroid:hover {
+    transform: translateY(-3px);
+  }
+
+  .polaroid::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1.5deg);
+    width: 78px;
+    height: 18px;
+    background: rgba(255, 213, 79, 0.25);
+    border: 1px solid rgba(255, 213, 79, 0.4);
+  }
+
+  .polaroid h3 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px dashed #444;
+  }
+
+  .accent-yellow h3 { color: var(--yellow); }
+  .accent-cyan h3 { color: var(--cyan); }
+  .accent-green h3 { color: var(--green); }
+  .accent-pink h3 { color: var(--pink); }
+  .accent-orange h3 { color: var(--orange); }
+  .accent-purple h3 { color: var(--purple); }
+  .accent-red h3 { color: var(--red); }
+
+  ul {
+    margin: 6px 0 0;
+    padding-left: 20px;
+  }
+
+  li { margin-bottom: 7px; }
+
+  .hl-y { color: var(--yellow); font-weight: bold; }
+  .hl-c { color: var(--cyan); font-weight: bold; }
+  .hl-g { color: var(--green); font-weight: bold; }
+  .hl-p { color: var(--pink); font-weight: bold; }
+  .hl-o { color: var(--orange); font-weight: bold; }
+  .hl-r { color: var(--red); font-weight: bold; }
+  .hl-pu { color: var(--purple); font-weight: bold; }
+
+  .yr-tag {
+    display: inline-block;
+    padding: 0 7px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--cyan);
+    border: 1px solid rgba(77, 208, 225, 0.45);
+    margin-left: 4px;
+  }
+
+  .amd-tag {
+    display: inline-block;
+    padding: 0 7px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: bold;
+    background: rgba(244, 143, 177, 0.14);
+    color: var(--pink);
+    border: 1px solid rgba(244, 143, 177, 0.5);
+    margin-left: 4px;
+  }
+
+  /* Full Width Table */
+  .table-wrap {
+    max-width: 1280px;
+    margin: 0 auto 28px;
+    overflow-x: auto;
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.55);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.98rem;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px dashed #3e3e3e;
+  }
+
+  th {
+    font-family: 'Kalam', cursive;
+    color: var(--yellow);
+    font-size: 1.08rem;
+    border-bottom: 2px solid #555;
+  }
+
+  tr:hover td {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  /* User Highlight Span */
+  .user-highlight {
+    border-radius: 4px;
+    padding: 0 3px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .user-highlight:hover {
+    opacity: 0.8;
+    text-decoration: line-through;
+  }
+
+  /* Sticky Notes */
+  .sticky-note {
+    position: absolute;
+    width: 220px;
+    min-width: 150px;
+    min-height: 120px;
+    background: #fff59d;
+    color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.6);
+    z-index: 5000;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    overflow: hidden;
+  }
+
+  .sticky-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 8px;
+    background: rgba(0, 0, 0, 0.12);
+    cursor: move;
+    user-select: none;
+  }
+
+  .sticky-colors {
+    display: flex;
+    gap: 5px;
+  }
+
+  .sticky-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.4);
+    cursor: pointer;
+  }
+
+  .sticky-del {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: #222;
+    font-size: 15px;
+  }
+
+  .sticky-body {
+    flex: 1;
+    padding: 8px 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 17px;
+    outline: none;
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Interactive Workspace Bar -->
+  <div id="workspace-bar">
+    <button class="ws-btn" id="btn-add-note">📝 ADD NOTES</button>
+    <button class="ws-btn" id="btn-highlight">🖍️ HIGHLIGHT</button>
+    <input type="color" id="hl-color-picker" value="#ffd54f" title="Highlighter Color">
+    <button class="ws-btn" id="btn-save">☁️ SAVE</button>
+  </div>
+
+  <!-- Header -->
+  <header class="board-header">
+    <h1>🇮🇳 Indian Environmental Acts, NAPCC & Conservation Projects</h1>
+    <p class="subtitle">12 Landmark Indian Acts (with 2022–24 Amendments) • 8 NAPCC Missions • Recent Schemes • 9 Species Projects</p>
+  </header>
+
+  <!-- Step 3: Ultra-Short Quick Revision Sheet -->
+  <section class="quick-revision">
+    <h2>⚡ ULTRA-SHORT QUICK REVISION SHEET</h2>
+    <div class="qr-grid">
+      <div class="qr-pill"><strong>Umbrella Act:</strong> <strong>EPA 1986</strong> (post-Bhopal) → EIA, CRZ, ESZ & Wetlands Rules issued under it</div>
+      <div class="qr-pill red"><strong>NGT Act 2010 Trap:</strong> Covers 7 scheduled laws, but <strong>EXCLUDES WPA 1972 & FRA 2006</strong>!</div>
+      <div class="qr-pill cyan"><strong>Key Amendments:</strong> WPA 2022 (6→4 Schedules) | FCA 2023 (<em>Van Sanrakshan</em>) | BDA 2023 (AYUSH eased) | Water Act 2024</div>
+      <div class="qr-pill orange"><strong>NAPCC (2008) — 8 Missions:</strong> Solar, Energy Efficiency (PAT), Sustainable Habitat, Water, Himalayas, Green India, Agriculture, Strategic Knowledge</div>
+      <div class="qr-pill pink"><strong>2019–2023 Flagships:</strong> ICAP (1st in world) | NCAP (40% PM cut) | Green Hydrogen (5 MMT/yr) | <strong>MISHTI</strong> (Mangroves) | <strong>Amrit Dharohar</strong> (Ramsar)</div>
+      <div class="qr-pill purple"><strong>Species Timeline:</strong> Hangul (1970) → Tiger (1973) → Crocodile (1975) → Elephant (1992) → Vulture (2006) → Snow Leopard (2009) → Dolphin/Lion (2020) → Cheetah (2022)</div>
+    </div>
+  </section>
+
+  <!-- Section 1: All 12 Major Indian Acts -->
+  <div class="section-label">⚖️ All 12 Major Indian Biodiversity, Forest & Environmental Acts</div>
+  <section class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Act</th>
+          <th>Year & Amendments</th>
+          <th>Core Scope, Statutory Bodies & Exam Traps</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Indian Forest Act</strong></td>
+          <td><span class="yr-tag">1927</span></td>
+          <td>Consolidates forest laws; classifies forests into <span class="hl-g">Reserved, Protected, and Village Forests</span>; regulates timber transit.</td>
+        </tr>
+        <tr>
+          <td><strong>Wild Life (Protection) Act (WPA)</strong></td>
+          <td><span class="yr-tag">1972</span> <span class="amd-tag">Amended 2022</span></td>
+          <td>Creates <strong>National Parks, WLS, Conservation & Community Reserves, Tiger Reserves</strong>. Establishes <span class="hl-y">NTCA, WCCB, CZA, NBWL</span>. <strong>2022 Amendment:</strong> Rationalised Schedules from <strong>6 to 4</strong> & aligned with CITES.</td>
+        </tr>
+        <tr>
+          <td><strong>Water (Prevention & Control of Pollution) Act</strong></td>
+          <td><span class="yr-tag">1974</span> <span class="amd-tag">Amended 2024</span></td>
+          <td>Established <span class="hl-c">CPCB</span> and <span class="hl-c">SPCBs</span> to control water pollution.</td>
+        </tr>
+        <tr>
+          <td><strong>Forest (Conservation) Act (FCA)</strong></td>
+          <td><span class="yr-tag">1980</span> <span class="amd-tag">Amended 2023</span></td>
+          <td>Restricts diversion of forest land for non-forest purposes without Central Govt approval. <strong>2023 Amendment</strong> (<em>Van (Sanrakshan Evam Samvardhan) Adhiniyam</em>): added exemptions for strategic linear projects near borders.</td>
+        </tr>
+        <tr>
+          <td><strong>Air (Prevention & Control of Pollution) Act</strong></td>
+          <td><span class="yr-tag">1981</span></td>
+          <td>Empowers CPCB / SPCBs to control <strong>air (and later noise)</strong> pollution.</td>
+        </tr>
+        <tr>
+          <td><strong>Environment (Protection) Act (EPA)</strong></td>
+          <td><span class="yr-tag">1986</span></td>
+          <td><span class="hl-y">Umbrella Legislation</span> (enacted after <strong>Bhopal Gas Tragedy</strong>). Notifications like <strong>EIA, CRZ (Coastal Regulation Zone), ESZ (Eco-Sensitive Zones), and Wetlands Rules</strong> are issued under this Act.</td>
+        </tr>
+        <tr>
+          <td><strong>Public Liability Insurance Act</strong></td>
+          <td><span class="yr-tag">1991</span></td>
+          <td>Mandatory insurance for immediate relief to victims of accidents involving <strong>hazardous substances</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>PPV&FR Act</strong></td>
+          <td><span class="yr-tag">2001</span></td>
+          <td><em>Protection of Plant Varieties & Farmers' Rights Act</em> — protects plant breeders' & farmers' rights over crop varieties.</td>
+        </tr>
+        <tr>
+          <td><strong>Biological Diversity Act (BDA)</strong></td>
+          <td><span class="yr-tag">2002</span> <span class="amd-tag">Amended 2023</span></td>
+          <td>Implements <strong>CBD</strong>; 3-tier structure: <span class="hl-g">NBA</span> (National), <span class="hl-g">SBBs</span> (State), <span class="hl-g">BMCs</span> (Local — maintain <em>People's Biodiversity Registers</em>). <strong>2023 Amendment:</strong> Decriminalised offences & eased compliance for <strong>AYUSH</strong> practitioners.</td>
+        </tr>
+        <tr>
+          <td><strong>Forest Rights Act (FRA)</strong></td>
+          <td><span class="yr-tag">2006</span></td>
+          <td>Recognises Individual & Community Forest Rights (incl. Minor Forest Produce) of <strong>STs & OTFDs</strong>; empowers the <span class="hl-o">Gram Sabha</span>.</td>
+        </tr>
+        <tr>
+          <td><strong>National Green Tribunal (NGT) Act</strong></td>
+          <td><span class="yr-tag">2010</span></td>
+          <td>Dedicated environmental court for speedy disposal under <strong>7 scheduled laws</strong>. <span class="hl-r">Trap: WPA 1972 & FRA 2006 are NOT under NGT jurisdiction!</span></td>
+        </tr>
+        <tr>
+          <td><strong>CAF / CAMPA Act</strong></td>
+          <td><span class="yr-tag">2016</span></td>
+          <td>Manages Compensatory Afforestation Funds when forest land is diverted: <span class="hl-y">90% to States, 10% to Centre</span>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 2: NAPCC (8 Missions) & Recent National Schemes -->
+  <div class="section-label">☀️ India's Climate Action Plan (NAPCC — 2008) & Recent Schemes</div>
+  <section class="masonry-grid">
+
+    <article class="polaroid accent-yellow">
+      <h3>NAPCC (2008): Missions 1 to 4</h3>
+      <ul>
+        <li><span class="hl-y">1. Jawaharlal Nehru National Solar Mission (JNNSM):</span> Promote solar power generation & make solar competitive with fossil fuels.</li>
+        <li><span class="hl-c">2. National Mission for Enhanced Energy Efficiency (NMEEE):</span> Market-based energy efficiency via <span class="hl-y">PAT Scheme</span> (<em>Perform, Achieve and Trade</em>).</li>
+        <li><span class="hl-g">3. National Mission on Sustainable Habitat (NMSH):</span> Energy efficiency in buildings, urban waste management & public transport.</li>
+        <li><span class="hl-c">4. National Water Mission (NWM):</span> Integrated water resource management & <strong>20% improvement</strong> in water use efficiency.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-green">
+      <h3>NAPCC (2008): Missions 5 to 8</h3>
+      <ul>
+        <li><span class="hl-c">5. National Mission for Sustaining the Himalayan Ecosystem (NMSHE):</span> Conserve Himalayan glaciers, biodiversity & mountain ecosystems.</li>
+        <li><span class="hl-g">6. National Mission for a Green India (GIM):</span> Afforestation & restoration of degraded forest ecosystems.</li>
+        <li><span class="hl-o">7. National Mission for Sustainable Agriculture (NMSA):</span> Climate-resilient crops, soil health & micro-irrigation.</li>
+        <li><span class="hl-pu">8. National Mission on Strategic Knowledge for Climate Change (NMSKCC):</span> Research, climate modelling & data networks.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-pink">
+      <h3>Recent High-Yield National Schemes (2019–2023)</h3>
+      <ul>
+        <li><span class="hl-p">India Cooling Action Plan (ICAP)</span> <span class="yr-tag">2019</span>: India was the <strong>first country in the world</strong> to develop a comprehensive cooling action plan.</li>
+        <li><span class="hl-r">National Clean Air Programme (NCAP)</span> <span class="yr-tag">2019</span>: Target of <strong>40% reduction</strong> in PM2.5 & PM10 levels in <strong>131 non-attainment cities</strong> by 2025–26.</li>
+        <li><span class="hl-c">National Green Hydrogen Mission</span> <span class="yr-tag">2023</span>: Make India a global hub for green hydrogen (target: <strong>5 MMT/year by 2030</strong>).</li>
+        <li><span class="hl-g">MISHTI</span> <span class="yr-tag">2023</span>: <strong>Mangrove</strong> plantation along India's coastlines.</li>
+        <li><span class="hl-y">Amrit Dharohar</span> <span class="yr-tag">2023</span>: Optimal use & conservation of <strong>Ramsar Wetlands</strong>.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Section 3: India's 9 Species Conservation Projects -->
+  <div class="section-label">🐅 India's 9 Flagship Species Conservation Projects</div>
+  <section class="masonry-grid">
+
+    <article class="polaroid accent-orange">
+      <h3>1970s Classics (Hangul, Tiger, Crocodile)</h3>
+      <ul>
+        <li><span class="hl-o">Project Hangul</span> <span class="yr-tag">1970</span>: Conservation of the <strong>Kashmir Stag (Hangul)</strong> in <strong>Dachigam NP, J&K</strong>.</li>
+        <li><span class="hl-y">Project Tiger</span> <span class="yr-tag">1973</span>: Flagship tiger conservation scheme; administered by <strong>NTCA</strong>.</li>
+        <li><span class="hl-g">Project Crocodile</span> <span class="yr-tag">1975</span>: Conservation of Gharial, Mugger & Saltwater Crocodile (notably in <span class="hl-y">Bhitarkanika & Satkosia, Odisha</span>).</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-cyan">
+      <h3>1990s–2000s (Elephant, Vulture, Snow Leopard)</h3>
+      <ul>
+        <li><span class="hl-c">Project Elephant</span> <span class="yr-tag">1992</span>: Protects elephants, habitats & corridors (linked with <strong>MIKE</strong> programme under CITES).</li>
+        <li><span class="hl-r">Vulture Conservation (Diclofenac Ban)</span> <span class="yr-tag">2006</span>: Veterinary <strong>Diclofenac</strong> banned to save critically endangered vultures; <strong>Vulture Safe Zones</strong> created.</li>
+        <li><span class="hl-pu">Project Snow Leopard</span> <span class="yr-tag">2009</span>: Conservation of high-altitude Himalayan wildlife & ecosystems.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-red">
+      <h3>2020s Projects (Dolphin, Lion, Cheetah)</h3>
+      <ul>
+        <li><span class="hl-c">Project Dolphin</span> <span class="yr-tag">2020</span>: Conservation of both <strong>Gangetic/river & marine dolphins</strong>.</li>
+        <li><span class="hl-y">Project Lion</span> <span class="yr-tag">2020</span>: Conservation & landscape management of <strong>Asiatic Lions (Gir, Gujarat)</strong>.</li>
+        <li><span class="hl-r">Project Cheetah</span> <span class="yr-tag">2022</span>: World's first intercontinental large wild carnivore translocation (<strong>Namibia / South Africa → Kuno NP, MP</strong>).</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Container for Sticky Notes -->
+  <div id="sticky-layer"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'sketchnote_indian_acts_napcc_projects_v1';
+  const btnAddNote = document.getElementById('btn-add-note');
+  const btnHighlight = document.getElementById('btn-highlight');
+  const hlColorPicker = document.getElementById('hl-color-picker');
+  const btnSave = document.getElementById('btn-save');
+  const stickyLayer = document.getElementById('sticky-layer');
+
+  let highlightMode = false;
+  const NOTE_COLORS = ['#fff59d', '#ffcc80', '#f48fb1', '#80deea', '#a5d6a7'];
+
+  function getContrastColor(hex) {
+    const c = hex.replace('#', '');
+    const r = parseInt(c.substr(0, 2), 16);
+    const g = parseInt(c.substr(2, 2), 16);
+    const b = parseInt(c.substr(4, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return yiq >= 135 ? '#111111' : '#ffffff';
+  }
+
+  function saveNotesToLocal() {
+    const notes = [];
+    document.querySelectorAll('.sticky-note').forEach(el => {
+      notes.push({
+        id: el.dataset.id,
+        left: el.style.left,
+        top: el.style.top,
+        width: el.style.width,
+        height: el.style.height,
+        bg: el.style.backgroundColor,
+        html: el.querySelector('.sticky-body').innerHTML
+      });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+  }
+
+  function hydrateNote(noteEl) {
+    const header = noteEl.querySelector('.sticky-header');
+    const body = noteEl.querySelector('.sticky-body');
+    const delBtn = noteEl.querySelector('.sticky-del');
+
+    let isDragging = false, startX, startY, origLeft, origTop;
+    header.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-del')) return;
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origLeft = noteEl.offsetLeft;
+      origTop = noteEl.offsetTop;
+      noteEl.style.zIndex = 6000;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      noteEl.style.left = (origLeft + (e.clientX - startX)) + 'px';
+      noteEl.style.top = (origTop + (e.clientY - startY)) + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        saveNotesToLocal();
+      }
+    });
+
+    noteEl.querySelectorAll('.sticky-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        noteEl.style.backgroundColor = dot.dataset.color;
+        saveNotesToLocal();
+      });
+    });
+
+    delBtn.addEventListener('click', () => {
+      noteEl.remove();
+      saveNotesToLocal();
+    });
+
+    body.addEventListener('input', saveNotesToLocal);
+    noteEl.addEventListener('mouseup', saveNotesToLocal);
+  }
+
+  function createStickyNote(data = {}) {
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.dataset.id = data.id || 'note_' + Date.now();
+    note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random() * 120)) + 'px';
+    note.style.top = data.top || (window.scrollY + 120 + Math.floor(Math.random() * 80)) + 'px';
+    if (data.width) note.style.width = data.width;
+    if (data.height) note.style.height = data.height;
+    note.style.backgroundColor = data.bg || NOTE_COLORS[0];
+
+    const dotsHtml = NOTE_COLORS.map(c =>
+      `<span class="sticky-dot" data-color="${c}" style="background:${c}"></span>`
+    ).join('');
+
+    note.innerHTML = `
+      <div class="sticky-header">
+        <div class="sticky-colors">${dotsHtml}</div>
+        <button class="sticky-del" title="Delete Note">✕</button>
+      </div>
+      <div class="sticky-body" contenteditable="true">${data.html || 'Write your revision note...'}</div>
+    `;
+
+    stickyLayer.appendChild(note);
+    hydrateNote(note);
+    saveNotesToLocal();
+  }
+
+  btnAddNote.addEventListener('click', () => createStickyNote());
+
+  btnHighlight.addEventListener('click', () => {
+    highlightMode = !highlightMode;
+    btnHighlight.classList.toggle('active', highlightMode);
+  });
+
+  document.addEventListener('mouseup', (e) => {
+    if (!highlightMode) return;
+    if (e.target.closest('#workspace-bar') || e.target.closest('.sticky-note')) return;
+
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.className = 'user-highlight';
+    const color = hlColorPicker.value;
+    span.style.backgroundColor = color;
+    span.style.color = getContrastColor(color);
+    span.title = 'Click to remove highlight';
+
+    try {
+      range.surroundContents(span);
+      sel.removeAllRanges();
+    } catch (err) {
+      const frag = range.extractContents();
+      span.appendChild(frag);
+      range.insertNode(span);
+      sel.removeAllRanges();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('user-highlight')) {
+      const span = e.target;
+      const parent = span.parentNode;
+      while (span.firstChild) parent.insertBefore(span.firstChild, span);
+      parent.removeChild(span);
+      parent.normalize();
+    }
+  });
+
+  function initHydration() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.length > 0) {
+          stickyLayer.innerHTML = '';
+          parsed.forEach(n => createStickyNote(n));
+          return;
+        }
+      } catch (e) {}
+    }
+    document.querySelectorAll('.sticky-note').forEach(hydrateNote);
+  }
+
+  btnSave.addEventListener('click', () => {
+    const clone = document.documentElement.cloneNode(true);
+    const bar = clone.querySelector('#workspace-bar');
+    if (bar) bar.remove();
+
+    const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'indian-acts-napcc-projects.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  initHydration();
+})();
+</script>
+</body>
+</html>
