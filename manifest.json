@@ -1,5 +1,5 @@
 {
-  "timestamp": 1795403814021,
+  "timestamp": 1795855658885,
   "weekly": [
     "05102026-11102026.html",
     "12102026-18102026.html",
@@ -43,6 +43,10 @@
     {
       "subject": "Economy",
       "filename": "ReportsAndPublishers.html"
+    },
+    {
+      "subject": "Environment",
+      "filename": "BRs.html"
     },
     {
       "subject": "Geography",
