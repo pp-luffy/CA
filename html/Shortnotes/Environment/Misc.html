@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISFR 2023, Odisha WLS, Movements & Cycles — Shortnote Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --card-bg: #242424;
+    --card-border: #3a3a3a;
+    --text: #f0f0f0;
+    --yellow: #ffd54f;
+    --cyan: #4dd0e1;
+    --green: #81c784;
+    --pink: #f48fb1;
+    --orange: #ffb74d;
+    --purple: #ce93d8;
+    --red: #ef9a9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    position: relative;
+    margin: 0;
+    padding: 74px 20px 50px;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(#2c2c2c 1px, transparent 1px),
+      radial-gradient(#252525 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    color: var(--text);
+    font-family: 'Patrick Hand', cursive;
+    font-size: 17px;
+    line-height: 1.4;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3 { font-family: 'Kalam', cursive; margin-top: 0; }
+
+  /* Workspace Bar */
+  #workspace-bar {
+    position: fixed;
+    top: 12px;
+    right: 18px;
+    z-index: 9999;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(24, 24, 24, 0.92);
+    border: 2px dashed var(--yellow);
+    padding: 6px 12px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+  }
+
+  .ws-btn {
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    border: 1.5px solid #555;
+    background: #2c2c2c;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .ws-btn:hover { border-color: var(--yellow); }
+  .ws-btn.active { background: var(--yellow); color: #111; border-color: var(--yellow); }
+  #hl-color-picker { width: 28px; height: 28px; border: none; background: transparent; cursor: pointer; }
+
+  /* Header */
+  .board-header { text-align: center; max-width: 1200px; margin: 0 auto 20px; }
+  .board-header h1 { font-size: 2.25rem; color: var(--yellow); margin-bottom: 4px; text-shadow: 2px 2px 0 #000; }
+  .board-header .subtitle { color: var(--cyan); font-size: 1.1rem; margin: 0; }
+
+  /* Quick Revision Strip */
+  .quick-revision {
+    max-width: 1240px;
+    margin: 0 auto 22px;
+    background: linear-gradient(135deg, #232822 0%, #1f2428 100%);
+    border: 2px dashed var(--green);
+    border-radius: 14px;
+    padding: 14px 18px;
+  }
+  .quick-revision h2 { color: var(--green); font-size: 1.28rem; margin-bottom: 10px; }
+  .qr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(225px, 1fr)); gap: 10px; }
+  .qr-pill {
+    background: rgba(255,255,255,0.04);
+    border-left: 4px solid var(--yellow);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.94rem;
+  }
+  .qr-pill strong { color: var(--yellow); }
+  .qr-pill.cyan { border-left-color: var(--cyan); } .qr-pill.cyan strong { color: var(--cyan); }
+  .qr-pill.orange { border-left-color: var(--orange); } .qr-pill.orange strong { color: var(--orange); }
+  .qr-pill.pink { border-left-color: var(--pink); } .qr-pill.pink strong { color: var(--pink); }
+  .qr-pill.red { border-left-color: var(--red); } .qr-pill.red strong { color: var(--red); }
+  .qr-pill.purple { border-left-color: var(--purple); } .qr-pill.purple strong { color: var(--purple); }
+
+  /* Grids */
+  .grid-2 {
+    max-width: 1240px;
+    margin: 0 auto 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 5px 6px 0 rgba(0,0,0,0.5);
+  }
+
+  .card h3 {
+    font-size: 1.28rem;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px dashed #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .accent-green h3 { color: var(--green); }
+  .accent-orange h3 { color: var(--orange); }
+  .accent-cyan h3 { color: var(--cyan); }
+  .accent-yellow h3 { color: var(--yellow); }
+  .accent-pink h3 { color: var(--pink); }
+  .accent-purple h3 { color: var(--purple); }
+
+  .badge {
+    font-size: 0.84rem;
+    padding: 1px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid currentColor;
+  }
+
+  ul { margin: 4px 0 0; padding-left: 18px; }
+  li { margin-bottom: 5px; }
+
+  .hl-y { color: var(--yellow); font-weight: bold; }
+  .hl-c { color: var(--cyan); font-weight: bold; }
+  .hl-g { color: var(--green); font-weight: bold; }
+  .hl-p { color: var(--pink); font-weight: bold; }
+  .hl-o { color: var(--orange); font-weight: bold; }
+  .hl-r { color: var(--red); font-weight: bold; }
+  .hl-pu { color: var(--purple); font-weight: bold; }
+
+  /* Compact Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 0.94rem; margin-top: 6px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px dashed #3d3d3d; }
+  th { font-family: 'Kalam', cursive; color: var(--yellow); border-bottom: 1.5px solid #555; }
+
+  /* Highlight & Sticky Notes */
+  .user-highlight { border-radius: 4px; padding: 0 3px; cursor: pointer; }
+  .user-highlight:hover { opacity: 0.8; text-decoration: line-through; }
+
+  .sticky-note {
+    position: absolute; width: 210px; min-width: 140px; min-height: 110px;
+    background: #fff59d; color: #1a1a1a; border-radius: 8px;
+    box-shadow: 4px 8px 20px rgba(0,0,0,0.6); z-index: 5000;
+    display: flex; flex-direction: column; resize: both; overflow: hidden;
+  }
+  .sticky-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 8px; background: rgba(0,0,0,0.12); cursor: move; user-select: none;
+  }
+  .sticky-colors { display: flex; gap: 5px; }
+  .sticky-dot { width: 13px; height: 13px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.4); cursor: pointer; }
+  .sticky-del { background: transparent; border: none; font-weight: bold; cursor: pointer; color: #222; }
+  .sticky-body { flex: 1; padding: 8px; font-family: 'Patrick Hand', cursive; font-size: 16px; outline: none; overflow-y: auto; }
+</style>
+</head>
+<body>
+
+  <div id="workspace-bar">
+    <button class="ws-btn" id="btn-add-note">📝 NOTE</button>
+    <button class="ws-btn" id="btn-highlight">🖍️ HIGHLIGHT</button>
+    <input type="color" id="hl-color-picker" value="#ffd54f" title="Highlighter Color">
+    <button class="ws-btn" id="btn-save">☁️ SAVE</button>
+  </div>
+
+  <header class="board-header">
+    <h1>🌳 ISFR 2023, Odisha WLS, Movements & Cycles</h1>
+    <p class="subtitle">Final Environment Shortnotes • OPSC ASO High-Yield Booster</p>
+  </header>
+
+  <!-- 30-Second Numbers -->
+  <section class="quick-revision">
+    <h2>⚡ 30-SECOND NUMBERS</h2>
+    <div class="qr-grid">
+      <div class="qr-pill"><strong>ISFR 2023 (India):</strong> Forest + Tree = <strong>25.17%</strong> (Forest <strong>21.76%</strong> + Tree <strong>3.41%</strong>) | Mangroves = <strong>4,992 sq km</strong></div>
+      <div class="qr-pill cyan"><strong>ISFR 2023 (Odisha):</strong> Forest = <strong>33.67%</strong> (52,433 sq km) | Total F+T = <strong>37.63%</strong> | <strong>3rd in India</strong> in forest gain (+152 sq km)</div>
+      <div class="qr-pill orange"><strong>Odisha WLS & ERs:</strong> <strong>19 Wildlife Sanctuaries</strong> | <strong>3 Elephant Reserves</strong> (Mayurbhanj, Mahanadi, Sambalpur)</div>
+      <div class="qr-pill pink"><strong>Movements Order:</strong> Bishnoi (1730) → Chipko (1973) → Silent Valley (1973) → Jungle Bachao (1982) → Appiko (1983) → NBA (1985)</div>
+      <div class="qr-pill purple"><strong>Cycles & Forests:</strong> <strong>Phosphorus</strong> = Sedimentary (NO gas phase) | Largest Indian Forest Type = <strong>Tropical Deciduous</strong></div>
+    </div>
+  </section>
+
+  <!-- Row 1: ISFR 2023 & Odisha WLS -->
+  <section class="grid-2">
+
+    <article class="card accent-green">
+      <h3>📊 ISFR 2023 (18th Edition • FSI Dehradun) <span class="badge">Latest</span></h3>
+      <ul>
+        <li><span class="hl-g">Total Forest + Tree Cover:</span> <strong>8,27,357 sq km (25.17%)</strong> — Forest: <strong>21.76%</strong> (7,15,343 sq km) + Tree: <strong>3.41%</strong> (1,12,014 sq km).</li>
+        <li><span class="hl-y">Top 3 by Area (F+T Cover):</span> <strong>Madhya Pradesh</strong> &gt; Arunachal Pradesh &gt; Maharashtra.</li>
+        <li><span class="hl-c">Top 3 by % Forest Cover:</span> <strong>Lakshadweep (91.33%)</strong> &gt; Mizoram (85.34%) &gt; A&N Islands (81.62%).</li>
+        <li><span class="hl-o">Top 3 Forest Cover Gain:</span> Mizoram (+242) &gt; Gujarat (+180) &gt; <span class="hl-y">Odisha (+152 sq km — 3rd!)</span>.</li>
+        <li><span class="hl-p">Odisha Stats:</span> Forest = <strong>52,433 sq km (33.67%)</strong>; Forest+Tree = <strong>58,597 sq km (37.63%)</strong>; Mangroves = <strong>259.06 sq km</strong> (Kendrapara highest).</li>
+        <li><span class="hl-pu">Carbon Sink:</span> <strong>30.43 billion tonnes</strong> CO₂ eq (+2.29 Bn since 2005; NDC target: 2.5–3 Bn by 2030).</li>
+      </ul>
+    </article>
+
+    <article class="card accent-orange">
+      <h3>🐘 Odisha Wildlife Sanctuaries & Elephant Reserves <span class="badge">19 WLS • 3 ERs</span></h3>
+      <ul>
+        <li><span class="hl-o">3 Elephant Reserves:</span> <strong>Mayurbhanj</strong>, <strong>Mahanadi</strong>, and <strong>Sambalpur</strong>.</li>
+        <li><span class="hl-c">Gahirmatha Marine WLS (Kendrapara):</span> World's largest nesting beach for <strong>Olive Ridley Sea Turtles</strong>.</li>
+        <li><span class="hl-g">Debrigarh WLS (Bargarh):</span> Near Hirakud Dam; Indian Bison (Gaur) & four-horned antelope.</li>
+        <li><span class="hl-y">Chandaka–Dampara WLS (Khordha/Cuttack):</span> Famous urban-edge <strong>Elephant Sanctuary</strong> near Bhubaneswar.</li>
+        <li><span class="hl-p">Nalabana Bird Sanctuary:</span> Core island inside <strong>Chilika Lake</strong> (migratory birds).</li>
+        <li><span class="hl-pu">Other Key WLS:</span> <strong>Sunabeda</strong> (Nuapada — Barasingha), <strong>Kotagarh</strong> (Kandhamal), <strong>Hadgarh</strong> (Keonjhar), <strong>Karlapat</strong> (Kalahandi), <strong>Nandankanan</strong> (White Tiger & Gharial breeding).</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Row 2: Environmental Movements & Cycles/Forest Types -->
+  <section class="grid-2">
+
+    <article class="card accent-pink">
+      <h3>✊ Indian Environmental Movements</h3>
+      <table>
+        <thead>
+          <tr><th>Movement</th><th>Year & State</th><th>Leader / Key Hook</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Bishnoi</strong></td><td>1730 • RJ</td><td><strong>Amrita Devi</strong>; Khejri trees (Jodhpur)</td></tr>
+          <tr><td><strong>Chipko</strong></td><td>1973 • UK</td><td><strong>Sunderlal Bahuguna, Gaura Devi</strong> (Chamoli)</td></tr>
+          <tr><td><strong>Silent Valley</strong></td><td>1973 • KL</td><td><strong>KSSP</strong>; saved Lion-tailed Macaque</td></tr>
+          <tr><td><strong>Jungle Bachao</strong></td><td>1982 • JH</td><td>Singhbhum tribals (Sal vs Teak)</td></tr>
+          <tr><td><strong>Appiko</strong></td><td>1983 • KA</td><td><strong>Pandurang Hegde</strong> ("Southern Chipko")</td></tr>
+          <tr><td><strong>Narmada Bachao</strong></td><td>1985 • MP/GJ</td><td><strong>Medha Patkar</strong>; Sardar Sarovar Dam</td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="card accent-cyan">
+      <h3>🔄 Biogeochemical Cycles & Indian Forest Types</h3>
+      <ul>
+        <li><span class="hl-c">Gaseous Cycles:</span> <strong>Carbon, Nitrogen, Water</strong> (reservoir = atmosphere/hydrosphere; fast).</li>
+        <li><span class="hl-r">Sedimentary Cycles:</span> <strong>Phosphorus, Sulphur</strong> (reservoir = Earth's crust; slow). <br>⚠️ <strong>Trap:</strong> Phosphorus cycle has <strong>NO atmospheric/gaseous phase</strong>.</li>
+        <li><span class="hl-y">Nitrogen Cycle Bacteria:</span>
+          <br>• <strong>Fixation:</strong> <em>Rhizobium</em> (legumes), <em>Azotobacter</em>, <em>Anabaena</em>
+          <br>• <strong>Nitrification:</strong> <em>Nitrosomonas</em> (NH₃→NO₂⁻), <em>Nitrobacter</em> (NO₂⁻→NO₃⁻)
+          <br>• <strong>Denitrification:</strong> <em>Pseudomonas</em> (NO₃⁻→N₂ gas)</li>
+        <li><span class="hl-g">5 Indian Forest Types:</span>
+          <br>1. <strong>Tropical Deciduous (Monsoon):</strong> <span class="hl-y">Largest area in India</span> (Sal, Teak, Sandalwood).
+          <br>2. <strong>Tropical Evergreen:</strong> Western Ghats, NE India, A&N (&gt;200 cm rain).
+          <br>3. <strong>Tropical Thorn:</strong> Semi-arid Rajasthan, Gujarat (Acacia, Cactus).
+          <br>4. <strong>Montane:</strong> Himalayas (Pine, Deodar, Alpine).
+          <br>5. <strong>Littoral & Swamp:</strong> Mangroves (Sundarbans, Bhitarkanika — <em>Sundari</em>).</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <div id="sticky-layer"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'sketchnote_isfr_odisha_movements_cycles_v1';
+  const btnAddNote = document.getElementById('btn-add-note');
+  const btnHighlight = document.getElementById('btn-highlight');
+  const hlColorPicker = document.getElementById('hl-color-picker');
+  const btnSave = document.getElementById('btn-save');
+  const stickyLayer = document.getElementById('sticky-layer');
+  let highlightMode = false;
+  const NOTE_COLORS = ['#fff59d', '#ffcc80', '#f48fb1', '#80deea', '#a5d6a7'];
+
+  function getContrastColor(hex) {
+    const c = hex.replace('#', '');
+    const yiq = ((parseInt(c.substr(0,2),16)*299)+(parseInt(c.substr(2,2),16)*587)+(parseInt(c.substr(4,2),16)*114))/1000;
+    return yiq >= 135 ? '#111111' : '#ffffff';
+  }
+
+  function saveNotesToLocal() {
+    const notes = [];
+    document.querySelectorAll('.sticky-note').forEach(el => {
+      notes.push({
+        id: el.dataset.id, left: el.style.left, top: el.style.top,
+        width: el.style.width, height: el.style.height, bg: el.style.backgroundColor,
+        html: el.querySelector('.sticky-body').innerHTML
+      });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+  }
+
+  function hydrateNote(noteEl) {
+    const header = noteEl.querySelector('.sticky-header');
+    const body = noteEl.querySelector('.sticky-body');
+    const delBtn = noteEl.querySelector('.sticky-del');
+    let isDragging = false, startX, startY, origLeft, origTop;
+    header.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-del')) return;
+      isDragging = true; startX = e.clientX; startY = e.clientY;
+      origLeft = noteEl.offsetLeft; origTop = noteEl.offsetTop; noteEl.style.zIndex = 6000;
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      noteEl.style.left = (origLeft + (e.clientX - startX)) + 'px';
+      noteEl.style.top = (origTop + (e.clientY - startY)) + 'px';
+    });
+    document.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; saveNotesToLocal(); } });
+    noteEl.querySelectorAll('.sticky-dot').forEach(dot => {
+      dot.addEventListener('click', () => { noteEl.style.backgroundColor = dot.dataset.color; saveNotesToLocal(); });
+    });
+    delBtn.addEventListener('click', () => { noteEl.remove(); saveNotesToLocal(); });
+    body.addEventListener('input', saveNotesToLocal);
+    noteEl.addEventListener('mouseup', saveNotesToLocal);
+  }
+
+  function createStickyNote(data = {}) {
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.dataset.id = data.id || 'note_' + Date.now();
+    note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random()*100)) + 'px';
+    note.style.top = data.top || (window.scrollY + 110 + Math.floor(Math.random()*70)) + 'px';
+    if (data.width) note.style.width = data.width;
+    if (data.height) note.style.height = data.height;
+    note.style.backgroundColor = data.bg || NOTE_COLORS[0];
+    const dotsHtml = NOTE_COLORS.map(c => `<span class="sticky-dot" data-color="${c}" style="background:${c}"></span>`).join('');
+    note.innerHTML = `<div class="sticky-header"><div class="sticky-colors">${dotsHtml}</div><button class="sticky-del">✕</button></div><div class="sticky-body" contenteditable="true">${data.html || 'Note...'}</div>`;
+    stickyLayer.appendChild(note);
+    hydrateNote(note);
+    saveNotesToLocal();
+  }
+
+  btnAddNote.addEventListener('click', () => createStickyNote());
+  btnHighlight.addEventListener('click', () => { highlightMode = !highlightMode; btnHighlight.classList.toggle('active', highlightMode); });
+
+  document.addEventListener('mouseup', (e) => {
+    if (!highlightMode || e.target.closest('#workspace-bar') || e.target.closest('.sticky-note')) return;
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.className = 'user-highlight';
+    span.style.backgroundColor = hlColorPicker.value;
+    span.style.color = getContrastColor(hlColorPicker.value);
+    try { range.surroundContents(span); sel.removeAllRanges(); }
+    catch { const frag = range.extractContents(); span.appendChild(frag); range.insertNode(span); sel.removeAllRanges(); }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('user-highlight')) {
+      const span = e.target, parent = span.parentNode;
+      while (span.firstChild) parent.insertBefore(span.firstChild, span);
+      parent.removeChild(span); parent.normalize();
+    }
+  });
+
+  btnSave.addEventListener('click', () => {
+    const clone = document.documentElement.cloneNode(true);
+    const bar = clone.querySelector('#workspace-bar');
+    if (bar) bar.remove();
+    const blob = new Blob(['<!DOCTYPE html>\n' + clone.outerHTML], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'isfr2023-odisha-wls-movements-cycles.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  });
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) { try { JSON.parse(saved).forEach(n => createStickyNote(n)); } catch {} }
+})();
+</script>
+</body>
+</html>
