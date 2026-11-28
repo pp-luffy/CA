@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biodiversity, Marine, Pollution Treaties & Ozone — Sketchnote Visual Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --card-bg: #242424;
+    --card-border: #3a3a3a;
+    --text: #f0f0f0;
+    --muted: #b8b8b8;
+    --yellow: #ffd54f;
+    --cyan: #4dd0e1;
+    --green: #81c784;
+    --pink: #f48fb1;
+    --orange: #ffb74d;
+    --purple: #ce93d8;
+    --red: #ef9a9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    position: relative;
+    margin: 0;
+    padding: 80px 24px 60px;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(#2c2c2c 1px, transparent 1px),
+      radial-gradient(#252525 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    color: var(--text);
+    font-family: 'Patrick Hand', cursive;
+    font-size: 18px;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .hand-title {
+    font-family: 'Kalam', cursive;
+    margin-top: 0;
+    letter-spacing: 0.3px;
+  }
+
+  /* Interactive Action Bar */
+  #workspace-bar {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(24, 24, 24, 0.92);
+    border: 2px dashed var(--yellow);
+    padding: 8px 14px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+  }
+
+  .ws-btn {
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #555;
+    background: #2c2c2c;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+  }
+
+  .ws-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--yellow);
+  }
+
+  .ws-btn.active {
+    background: var(--yellow);
+    color: #111;
+    border-color: var(--yellow);
+  }
+
+  #hl-color-picker {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* Header */
+  .board-header {
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 28px;
+  }
+
+  .board-header h1 {
+    font-size: 2.6rem;
+    color: var(--yellow);
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 #000;
+  }
+
+  .board-header .subtitle {
+    color: var(--cyan);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  /* Ultra-Short Revision Sheet */
+  .quick-revision {
+    max-width: 1280px;
+    margin: 0 auto 36px;
+    background: linear-gradient(135deg, #232822 0%, #1f2428 100%);
+    border: 2.5px dashed var(--green);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+  }
+
+  .quick-revision h2 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+    gap: 12px;
+  }
+
+  .qr-pill {
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 4px solid var(--yellow);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.98rem;
+  }
+
+  .qr-pill strong { color: var(--yellow); }
+  .qr-pill.cyan { border-left-color: var(--cyan); }
+  .qr-pill.cyan strong { color: var(--cyan); }
+  .qr-pill.pink { border-left-color: var(--pink); }
+  .qr-pill.pink strong { color: var(--pink); }
+  .qr-pill.orange { border-left-color: var(--orange); }
+  .qr-pill.orange strong { color: var(--orange); }
+  .qr-pill.red { border-left-color: var(--red); }
+  .qr-pill.red strong { color: var(--red); }
+  .qr-pill.purple { border-left-color: var(--purple); }
+  .qr-pill.purple strong { color: var(--purple); }
+
+  /* Section Dividers */
+  .section-label {
+    max-width: 1280px;
+    margin: 34px auto 16px;
+    font-family: 'Kalam', cursive;
+    font-size: 1.65rem;
+    color: var(--orange);
+    border-bottom: 2px dashed #444;
+    padding-bottom: 4px;
+  }
+
+  /* Categorised Polaroid Grid */
+  .masonry-grid {
+    max-width: 1280px;
+    margin: 0 auto 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    align-items: start;
+  }
+
+  .polaroid {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 18px 20px 24px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.55);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .polaroid:hover {
+    transform: translateY(-3px);
+  }
+
+  .polaroid::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1.5deg);
+    width: 78px;
+    height: 18px;
+    background: rgba(255, 213, 79, 0.25);
+    border: 1px solid rgba(255, 213, 79, 0.4);
+  }
+
+  .polaroid h3 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px dashed #444;
+  }
+
+  .accent-yellow h3 { color: var(--yellow); }
+  .accent-cyan h3 { color: var(--cyan); }
+  .accent-green h3 { color: var(--green); }
+  .accent-pink h3 { color: var(--pink); }
+  .accent-orange h3 { color: var(--orange); }
+  .accent-purple h3 { color: var(--purple); }
+  .accent-red h3 { color: var(--red); }
+
+  ul {
+    margin: 6px 0 0;
+    padding-left: 20px;
+  }
+
+  li { margin-bottom: 7px; }
+
+  .hl-y { color: var(--yellow); font-weight: bold; }
+  .hl-c { color: var(--cyan); font-weight: bold; }
+  .hl-g { color: var(--green); font-weight: bold; }
+  .hl-p { color: var(--pink); font-weight: bold; }
+  .hl-o { color: var(--orange); font-weight: bold; }
+  .hl-r { color: var(--red); font-weight: bold; }
+  .hl-pu { color: var(--purple); font-weight: bold; }
+
+  .yr-tag {
+    display: inline-block;
+    padding: 0 7px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--cyan);
+    border: 1px solid rgba(77, 208, 225, 0.45);
+    margin-left: 4px;
+  }
+
+  /* User Highlight Span */
+  .user-highlight {
+    border-radius: 4px;
+    padding: 0 3px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .user-highlight:hover {
+    opacity: 0.8;
+    text-decoration: line-through;
+  }
+
+  /* Sticky Notes */
+  .sticky-note {
+    position: absolute;
+    width: 220px;
+    min-width: 150px;
+    min-height: 120px;
+    background: #fff59d;
+    color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.6);
+    z-index: 5000;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    overflow: hidden;
+  }
+
+  .sticky-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 8px;
+    background: rgba(0, 0, 0, 0.12);
+    cursor: move;
+    user-select: none;
+  }
+
+  .sticky-colors {
+    display: flex;
+    gap: 5px;
+  }
+
+  .sticky-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.4);
+    cursor: pointer;
+  }
+
+  .sticky-del {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: #222;
+    font-size: 15px;
+  }
+
+  .sticky-body {
+    flex: 1;
+    padding: 8px 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 17px;
+    outline: none;
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Interactive Workspace Bar -->
+  <div id="workspace-bar">
+    <button class="ws-btn" id="btn-add-note">📝 ADD NOTES</button>
+    <button class="ws-btn" id="btn-highlight">🖍️ HIGHLIGHT</button>
+    <input type="color" id="hl-color-picker" value="#ffd54f" title="Highlighter Color">
+    <button class="ws-btn" id="btn-save">☁️ SAVE</button>
+  </div>
+
+  <!-- Header -->
+  <header class="board-header">
+    <h1>🌐 Biodiversity, Marine, Pollution Treaties & Ozone</h1>
+    <p class="subtitle">CBD & Protocols • CITES/CMS/Ramsar • High Seas & Marine • Ozone Depletion • Hazardous Chemicals • Global Bodies</p>
+  </header>
+
+  <!-- Step 3: Ultra-Short Quick Revision Sheet -->
+  <section class="quick-revision">
+    <h2>⚡ ULTRA-SHORT QUICK REVISION SHEET</h2>
+    <div class="qr-grid">
+      <div class="qr-pill"><strong>CBD Family:</strong> CBD (1992) → <strong>Cartagena</strong> (LMOs/Biosafety) → <strong>Nagoya</strong> (ABS) → <strong>Nagoya-KL</strong> (Liability) → <strong>Kunming-Montreal</strong> (30×30)</div>
+      <div class="qr-pill cyan"><strong>Big 3 Wildlife Treaties:</strong> <strong>CITES</strong> (Washington, Trade) | <strong>CMS</strong> (Bonn, Migratory) | <strong>Ramsar</strong> (Wetlands, Montreux Record)</div>
+      <div class="qr-pill pink"><strong>Ozone Essentials:</strong> Vienna (1985) → Montreal (1987, ODS) → <strong>Kigali (2016, HFCs = GHG, NOT ODS!)</strong> | World Ozone Day = <strong>16 Sept</strong> | Hole &lt; <strong>220 DU</strong></div>
+      <div class="qr-pill red"><strong>4 Chemical/Waste Treaties:</strong> <strong>Basel</strong> (Hazardous Waste) | <strong>Rotterdam</strong> (PIC Chemicals) | <strong>Stockholm</strong> (POPs / Dirty Dozen) | <strong>Minamata</strong> (Mercury)</div>
+      <div class="qr-pill orange"><strong>BBNJ (High Seas Treaty):</strong> Adopted 2023, <strong>in force 17 Jan 2026</strong> (under UNCLOS; India signed, ratification pending)</div>
+      <div class="qr-pill purple"><strong>Hotspots (Norman Myers):</strong> 36 globally; <strong>4 in India</strong> — Himalayas, Indo-Burma, Sundaland (Nicobar), Western Ghats & Sri Lanka</div>
+    </div>
+  </section>
+
+  <!-- Section 1: Core Biodiversity Conventions -->
+  <div class="section-label">🦋 Core Biodiversity Conventions & Global Frameworks</div>
+  <section class="masonry-grid">
+
+    <article class="polaroid accent-green">
+      <h3>CBD & Its Protocols (Rio Convention)</h3>
+      <ul>
+        <li><span class="hl-g">Convention on Biological Diversity (CBD)</span> <span class="yr-tag">1992 / 1993</span>: 3 goals — <strong>conservation</strong>, <strong>sustainable use</strong>, and <strong>fair & equitable benefit-sharing</strong>.</li>
+        <li><span class="hl-c">Cartagena Protocol</span> <span class="yr-tag">2000 / 2003</span>: Biosafety protocol under CBD; regulates safe handling/transport of <strong>Living Modified Organisms (LMOs)</strong> via <strong>Advance Informed Agreement (AIA)</strong>.</li>
+        <li><span class="hl-y">Nagoya Protocol</span> <span class="yr-tag">2010 / 2014</span>: <strong>Access & Benefit Sharing (ABS)</strong> of genetic resources.</li>
+        <li><span class="hl-o">Nagoya–Kuala Lumpur Supplementary Protocol</span> <span class="yr-tag">2010 / 2018</span>: Liability and redress for damage caused by LMOs (supplementary to Cartagena).</li>
+        <li><span class="hl-p">Kunming–Montreal GBF (COP 15)</span> <span class="yr-tag">2022</span>: Replaced Aichi Targets; famous for the <span class="hl-y">"30×30" target</span> (protect 30% of land & oceans by 2030).</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-yellow">
+      <h3>CITES, CMS & Ramsar Conventions</h3>
+      <ul>
+        <li><span class="hl-y">CITES (Washington Convention)</span> <span class="yr-tag">1973 / 1975</span>: Regulates international trade in endangered wild fauna & flora; legally binding; <strong>3 Appendices (I, II, III)</strong>.</li>
+        <li><span class="hl-c">CMS (Bonn Convention)</span> <span class="yr-tag">1979 / 1983</span>: Conservation of Migratory Species of Wild Animals (Appendices I & II). India hosted <strong>COP 13 (Gandhinagar, 2020)</strong>.</li>
+        <li><span class="hl-g">Ramsar Convention</span> <span class="yr-tag">1971 / 1975</span>: Conservation and wise use of <strong>Wetlands</strong>. Maintains the <span class="hl-r">Montreux Record</span> (register of wetlands facing ecological change).</li>
+        <li><span class="hl-pu">World Heritage Convention (WHC)</span> <span class="yr-tag">1972 / 1975</span>: UNESCO treaty protecting Cultural, Natural & Mixed sites of Outstanding Universal Value.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-cyan">
+      <h3>Plants, Forests, MAB & Hotspots</h3>
+      <ul>
+        <li><span class="hl-c">ITPGRFA (Seed Treaty)</span> <span class="yr-tag">2001 / 2004</span>: FAO treaty on Plant Genetic Resources for Food & Agriculture; ensures farmers' rights & seed exchange.</li>
+        <li><span class="hl-c">IPPC (Plant Protection)</span> <span class="yr-tag">1951 / 1952</span>: Prevents introduction and spread of pests affecting plants & plant products.</li>
+        <li><span class="hl-g">ITTA (Tropical Timber)</span> <span class="yr-tag">1983 / rev. 2006</span>: Promotes sustainable management & legal trade of tropical timber (administered by <strong>ITTO</strong>).</li>
+        <li><span class="hl-y">Bonn Challenge</span> <span class="yr-tag">2011</span>: Restore <strong>150M ha</strong> of degraded land by 2020 & <strong>350M ha by 2030</strong> (India pledged <strong>26M ha</strong> by 2030).</li>
+        <li><span class="hl-o">UNESCO MAB Programme</span> <span class="yr-tag">1971</span>: <em>Man and the Biosphere</em> — intergovernmental programme behind World Network of Biosphere Reserves.</li>
+        <li><span class="hl-p">Biodiversity Hotspots</span> <span class="yr-tag">1988, Norman Myers</span>: <strong>36 globally</strong>; <strong>4 in India</strong>: <em>Himalayas, Indo-Burma, Sundaland (Nicobar), Western Ghats & Sri Lanka</em>.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Section 2: Marine, Polar, Ozone & Pollution Treaties -->
+  <div class="section-label">🌊 Marine Treaties, Ozone Depletion & Hazardous Chemicals</div>
+  <section class="masonry-grid">
+
+    <article class="polaroid accent-purple">
+      <h3>Marine, Polar & Environmental Rights</h3>
+      <ul>
+        <li><span class="hl-pu">BBNJ Agreement (High Seas Treaty)</span> <span class="yr-tag">2023 / Jan 2026</span>: First legally binding treaty under <strong>UNCLOS</strong> for marine biodiversity in Areas Beyond National Jurisdiction (in force <strong>17 Jan 2026</strong>; India signed, ratification pending).</li>
+        <li><span class="hl-c">ICRW (Whaling Convention)</span> <span class="yr-tag">1946 / 1948</span>: Created the <strong>International Whaling Commission (IWC)</strong> to regulate whale conservation & whaling.</li>
+        <li><span class="hl-o">MARPOL (73/78)</span> <span class="yr-tag">1973 / 1978</span>: Main international convention preventing <strong>marine pollution from ships</strong> (oil, chemicals, garbage).</li>
+        <li><span class="hl-r">London Convention</span> <span class="yr-tag">1972</span>: Prevents marine pollution by regulating the <strong>dumping of wastes at sea</strong>.</li>
+        <li><span class="hl-g">Antarctic Treaty & Madrid Protocol</span> <span class="yr-tag">1959 / 1991</span>: Designates Antarctica as a natural reserve for peace & science; <strong>bans mining</strong>.</li>
+        <li><span class="hl-y">Aarhus Convention</span> <span class="yr-tag">1998</span>: Grants public rights to environmental information, participation, and justice.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-pink">
+      <h3>☀️ Ozone Layer Depletion (Complete Pack)</h3>
+      <ul>
+        <li><span class="hl-p">Vienna Convention</span> <span class="yr-tag">1985 / 1988</span>: Framework for protecting the Ozone Layer.</li>
+        <li><span class="hl-y">Montreal Protocol</span> <span class="yr-tag">1987</span>: Phases out <strong>Ozone Depleting Substances (ODS)</strong> — CFCs, Halons, HCFCs, Carbon Tetrachloride, Methyl Bromide.</li>
+        <li><span class="hl-r">Kigali Amendment</span> <span class="yr-tag">2016</span>: Phases down <strong>HFCs</strong>. <br>⚠️ <strong>Exam Trap:</strong> HFCs do <strong>NOT</strong> deplete ozone; they are potent GHGs!</li>
+        <li><span class="hl-c">World Ozone Day:</span> <strong>16 September</strong> (signing of Montreal Protocol, 16 Sept 1987).</li>
+        <li><span class="hl-g">Dobson Unit (DU):</span> Measures ozone thickness; below <strong>220 DU</strong> = "Ozone Hole".</li>
+        <li><span class="hl-o">Good vs. Bad Ozone:</span> <strong>Stratospheric</strong> = Good (blocks UV-B); <strong>Tropospheric</strong> = Bad (secondary air pollutant & GHG).</li>
+        <li><span class="hl-pu">Polar Stratospheric Clouds (PSCs):</span> Ice clouds over Antarctica accelerating chlorine reactions → Antarctic Ozone Hole in spring (Sept–Oct).</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-red">
+      <h3>☣️ Hazardous Waste & Chemical Treaties</h3>
+      <ul>
+        <li><span class="hl-r">Basel Convention</span> <span class="yr-tag">1989 / 1992</span>: Controls transboundary movement and disposal of <strong>Hazardous Wastes</strong>.</li>
+        <li><span class="hl-o">Rotterdam Convention</span> <span class="yr-tag">1998 / 2004</span>: <strong>Prior Informed Consent (PIC)</strong> procedure for hazardous chemicals and pesticides in international trade.</li>
+        <li><span class="hl-y">Stockholm Convention</span> <span class="yr-tag">2001 / 2004</span>: Eliminates or restricts <strong>Persistent Organic Pollutants (POPs)</strong> (initially the <strong>"Dirty Dozen"</strong>).</li>
+        <li><span class="hl-p">Minamata Convention</span> <span class="yr-tag">2013 / 2017</span>: Protects human health and the environment from <strong>Mercury</strong> emissions and releases.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Section 3: Global Biodiversity Organisations & Alliances -->
+  <div class="section-label">🏛️ Key Global Biodiversity Organisations & Alliances</div>
+  <section class="masonry-grid">
+
+    <article class="polaroid accent-green">
+      <h3>IUCN, TRAFFIC & IPBES</h3>
+      <ul>
+        <li><span class="hl-g">IUCN:</span> Publishes the <strong>Red List of Threatened Species</strong> (<strong>9 categories</strong> from <em>Not Evaluated</em> to <em>Extinct</em>).</li>
+        <li><span class="hl-y">TRAFFIC:</span> Joint wildlife trade monitoring network of <strong>WWF and IUCN</strong>.</li>
+        <li><span class="hl-c">IPBES:</span> Intergovernmental Science-Policy Platform on Biodiversity & Ecosystem Services (often called the <strong>"IPCC for biodiversity"</strong>).</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-orange">
+      <h3>GTF, IBCA & Bird/Wetland NGOs</h3>
+      <ul>
+        <li><span class="hl-o">Global Tiger Forum (GTF):</span> Only intergovernmental body solely dedicated to wild tiger conservation (<strong>HQ: New Delhi</strong>).</li>
+        <li><span class="hl-y">International Big Cat Alliance (IBCA):</span> India-led coalition for <strong>7 big cats</strong> — <em>Tiger, Lion, Leopard, Snow Leopard, Puma, Jaguar, Cheetah</em>.</li>
+        <li><span class="hl-c">BirdLife International & Wetlands International:</span> Key NGOs designating <strong>Important Bird Areas (IBAs)</strong> and advising Ramsar.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Container for Sticky Notes -->
+  <div id="sticky-layer"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'sketchnote_biodiversity_ozone_treaties_v1';
+  const btnAddNote = document.getElementById('btn-add-note');
+  const btnHighlight = document.getElementById('btn-highlight');
+  const hlColorPicker = document.getElementById('hl-color-picker');
+  const btnSave = document.getElementById('btn-save');
+  const stickyLayer = document.getElementById('sticky-layer');
+
+  let highlightMode = false;
+  const NOTE_COLORS = ['#fff59d', '#ffcc80', '#f48fb1', '#80deea', '#a5d6a7'];
+
+  function getContrastColor(hex) {
+    const c = hex.replace('#', '');
+    const r = parseInt(c.substr(0, 2), 16);
+    const g = parseInt(c.substr(2, 2), 16);
+    const b = parseInt(c.substr(4, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return yiq >= 135 ? '#111111' : '#ffffff';
+  }
+
+  function saveNotesToLocal() {
+    const notes = [];
+    document.querySelectorAll('.sticky-note').forEach(el => {
+      notes.push({
+        id: el.dataset.id,
+        left: el.style.left,
+        top: el.style.top,
+        width: el.style.width,
+        height: el.style.height,
+        bg: el.style.backgroundColor,
+        html: el.querySelector('.sticky-body').innerHTML
+      });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+  }
+
+  function hydrateNote(noteEl) {
+    const header = noteEl.querySelector('.sticky-header');
+    const body = noteEl.querySelector('.sticky-body');
+    const delBtn = noteEl.querySelector('.sticky-del');
+
+    let isDragging = false, startX, startY, origLeft, origTop;
+    header.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-del')) return;
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origLeft = noteEl.offsetLeft;
+      origTop = noteEl.offsetTop;
+      noteEl.style.zIndex = 6000;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      noteEl.style.left = (origLeft + (e.clientX - startX)) + 'px';
+      noteEl.style.top = (origTop + (e.clientY - startY)) + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        saveNotesToLocal();
+      }
+    });
+
+    noteEl.querySelectorAll('.sticky-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        noteEl.style.backgroundColor = dot.dataset.color;
+        saveNotesToLocal();
+      });
+    });
+
+    delBtn.addEventListener('click', () => {
+      noteEl.remove();
+      saveNotesToLocal();
+    });
+
+    body.addEventListener('input', saveNotesToLocal);
+    noteEl.addEventListener('mouseup', saveNotesToLocal);
+  }
+
+  function createStickyNote(data = {}) {
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.dataset.id = data.id || 'note_' + Date.now();
+    note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random() * 120)) + 'px';
+    note.style.top = data.top || (window.scrollY + 120 + Math.floor(Math.random() * 80)) + 'px';
+    if (data.width) note.style.width = data.width;
+    if (data.height) note.style.height = data.height;
+    note.style.backgroundColor = data.bg || NOTE_COLORS[0];
+
+    const dotsHtml = NOTE_COLORS.map(c =>
+      `<span class="sticky-dot" data-color="${c}" style="background:${c}"></span>`
+    ).join('');
+
+    note.innerHTML = `
+      <div class="sticky-header">
+        <div class="sticky-colors">${dotsHtml}</div>
+        <button class="sticky-del" title="Delete Note">✕</button>
+      </div>
+      <div class="sticky-body" contenteditable="true">${data.html || 'Write your revision note...'}</div>
+    `;
+
+    stickyLayer.appendChild(note);
+    hydrateNote(note);
+    saveNotesToLocal();
+  }
+
+  btnAddNote.addEventListener('click', () => createStickyNote());
+
+  btnHighlight.addEventListener('click', () => {
+    highlightMode = !highlightMode;
+    btnHighlight.classList.toggle('active', highlightMode);
+  });
+
+  document.addEventListener('mouseup', (e) => {
+    if (!highlightMode) return;
+    if (e.target.closest('#workspace-bar') || e.target.closest('.sticky-note')) return;
+
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.className = 'user-highlight';
+    const color = hlColorPicker.value;
+    span.style.backgroundColor = color;
+    span.style.color = getContrastColor(color);
+    span.title = 'Click to remove highlight';
+
+    try {
+      range.surroundContents(span);
+      sel.removeAllRanges();
+    } catch (err) {
+      const frag = range.extractContents();
+      span.appendChild(frag);
+      range.insertNode(span);
+      sel.removeAllRanges();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('user-highlight')) {
+      const span = e.target;
+      const parent = span.parentNode;
+      while (span.firstChild) parent.insertBefore(span.firstChild, span);
+      parent.removeChild(span);
+      parent.normalize();
+    }
+  });
+
+  function initHydration() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.length > 0) {
+          stickyLayer.innerHTML = '';
+          parsed.forEach(n => createStickyNote(n));
+          return;
+        }
+      } catch (e) {}
+    }
+    document.querySelectorAll('.sticky-note').forEach(hydrateNote);
+  }
+
+  btnSave.addEventListener('click', () => {
+    const clone = document.documentElement.cloneNode(true);
+    const bar = clone.querySelector('#workspace-bar');
+    if (bar) bar.remove();
+
+    const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'biodiversity-marine-pollution-ozone.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  initHydration();
+})();
+</script>
+</body>
+</html>
