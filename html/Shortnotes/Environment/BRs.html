@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>18 Biosphere Reserves of India — Sketchnote Visual Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --card-bg: #242424;
+    --card-border: #3a3a3a;
+    --text: #f0f0f0;
+    --muted: #b8b8b8;
+    --yellow: #ffd54f;
+    --cyan: #4dd0e1;
+    --green: #81c784;
+    --pink: #f48fb1;
+    --orange: #ffb74d;
+    --purple: #ce93d8;
+    --red: #ef9a9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    position: relative;
+    margin: 0;
+    padding: 80px 24px 60px;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(#2c2c2c 1px, transparent 1px),
+      radial-gradient(#252525 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    color: var(--text);
+    font-family: 'Patrick Hand', cursive;
+    font-size: 18px;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .hand-title {
+    font-family: 'Kalam', cursive;
+    margin-top: 0;
+    letter-spacing: 0.3px;
+  }
+
+  /* Interactive Action Bar */
+  #workspace-bar {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(24, 24, 24, 0.92);
+    border: 2px dashed var(--yellow);
+    padding: 8px 14px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+  }
+
+  .ws-btn {
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #555;
+    background: #2c2c2c;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+  }
+
+  .ws-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--yellow);
+  }
+
+  .ws-btn.active {
+    background: var(--yellow);
+    color: #111;
+    border-color: var(--yellow);
+  }
+
+  #hl-color-picker {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* Header */
+  .board-header {
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 28px;
+  }
+
+  .board-header h1 {
+    font-size: 2.6rem;
+    color: var(--yellow);
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 #000;
+  }
+
+  .board-header .subtitle {
+    color: var(--cyan);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  /* Ultra-Short Revision Sheet */
+  .quick-revision {
+    max-width: 1280px;
+    margin: 0 auto 36px;
+    background: linear-gradient(135deg, #232822 0%, #1f2428 100%);
+    border: 2.5px dashed var(--green);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+  }
+
+  .quick-revision h2 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+
+  .qr-pill {
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 4px solid var(--yellow);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.98rem;
+  }
+
+  .qr-pill strong { color: var(--yellow); }
+  .qr-pill.cyan { border-left-color: var(--cyan); }
+  .qr-pill.cyan strong { color: var(--cyan); }
+  .qr-pill.pink { border-left-color: var(--pink); }
+  .qr-pill.pink strong { color: var(--pink); }
+  .qr-pill.orange { border-left-color: var(--orange); }
+  .qr-pill.orange strong { color: var(--orange); }
+  .qr-pill.red { border-left-color: var(--red); }
+  .qr-pill.red strong { color: var(--red); }
+
+  /* Section Dividers */
+  .section-label {
+    max-width: 1280px;
+    margin: 34px auto 16px;
+    font-family: 'Kalam', cursive;
+    font-size: 1.65rem;
+    color: var(--orange);
+    border-bottom: 2px dashed #444;
+    padding-bottom: 4px;
+  }
+
+  /* Polaroid / Spatial Masonry Grid */
+  .masonry-grid {
+    max-width: 1280px;
+    margin: 0 auto 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    align-items: start;
+  }
+
+  .polaroid {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 18px 20px 24px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.55);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .polaroid:hover {
+    transform: translateY(-3px);
+  }
+
+  .polaroid::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 78px;
+    height: 18px;
+    background: rgba(255, 213, 79, 0.25);
+    border: 1px solid rgba(255, 213, 79, 0.4);
+  }
+
+  .polaroid h3 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px dashed #444;
+  }
+
+  .accent-yellow h3 { color: var(--yellow); }
+  .accent-cyan h3 { color: var(--cyan); }
+  .accent-green h3 { color: var(--green); }
+  .accent-pink h3 { color: var(--pink); }
+  .accent-orange h3 { color: var(--orange); }
+  .accent-purple h3 { color: var(--purple); }
+  .accent-red h3 { color: var(--red); }
+
+  ul {
+    margin: 6px 0 0;
+    padding-left: 20px;
+  }
+
+  li { margin-bottom: 6px; }
+
+  .hl-y { color: var(--yellow); font-weight: bold; }
+  .hl-c { color: var(--cyan); font-weight: bold; }
+  .hl-g { color: var(--green); font-weight: bold; }
+  .hl-p { color: var(--pink); font-weight: bold; }
+  .hl-o { color: var(--orange); font-weight: bold; }
+  .hl-r { color: var(--red); font-weight: bold; }
+
+  .badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-left: 4px;
+  }
+
+  .badge-unesco { background: rgba(129, 199, 132, 0.2); color: var(--green); border: 1px solid var(--green); }
+  .badge-nat { background: rgba(239, 154, 154, 0.18); color: var(--red); border: 1px solid var(--red); }
+
+  /* Concentric Zones Visual */
+  .zone-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 14px 0;
+  }
+
+  .zone-outer {
+    width: 100%;
+    max-width: 310px;
+    border: 2.5px dashed var(--cyan);
+    background: rgba(77, 208, 225, 0.08);
+    border-radius: 50%;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .zone-mid {
+    border: 2.5px dashed var(--orange);
+    background: rgba(255, 183, 77, 0.1);
+    border-radius: 50%;
+    padding: 18px;
+    margin-top: 6px;
+  }
+
+  .zone-core {
+    border: 2.5px solid var(--red);
+    background: rgba(239, 154, 154, 0.18);
+    border-radius: 50%;
+    padding: 16px 10px;
+    margin-top: 6px;
+    font-weight: bold;
+    color: var(--red);
+  }
+
+  .zone-label { font-size: 0.9rem; font-weight: bold; }
+
+  /* Full Width Tables */
+  .table-wrap {
+    max-width: 1280px;
+    margin: 0 auto 28px;
+    overflow-x: auto;
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.55);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.98rem;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px dashed #3e3e3e;
+  }
+
+  th {
+    font-family: 'Kalam', cursive;
+    color: var(--yellow);
+    font-size: 1.08rem;
+    border-bottom: 2px solid #555;
+  }
+
+  tr:hover td {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  /* User Highlight Span */
+  .user-highlight {
+    border-radius: 4px;
+    padding: 0 3px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .user-highlight:hover {
+    opacity: 0.8;
+    text-decoration: line-through;
+  }
+
+  /* Sticky Notes */
+  .sticky-note {
+    position: absolute;
+    width: 220px;
+    min-width: 150px;
+    min-height: 120px;
+    background: #fff59d;
+    color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.6);
+    z-index: 5000;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    overflow: hidden;
+  }
+
+  .sticky-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 8px;
+    background: rgba(0, 0, 0, 0.12);
+    cursor: move;
+    user-select: none;
+  }
+
+  .sticky-colors {
+    display: flex;
+    gap: 5px;
+  }
+
+  .sticky-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.4);
+    cursor: pointer;
+  }
+
+  .sticky-del {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: #222;
+    font-size: 15px;
+  }
+
+  .sticky-body {
+    flex: 1;
+    padding: 8px 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 17px;
+    outline: none;
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Interactive Workspace Bar -->
+  <div id="workspace-bar">
+    <button class="ws-btn" id="btn-add-note">📝 ADD NOTES</button>
+    <button class="ws-btn" id="btn-highlight">🖍️ HIGHLIGHT</button>
+    <input type="color" id="hl-color-picker" value="#ffd54f" title="Highlighter Color">
+    <button class="ws-btn" id="btn-save">☁️ SAVE</button>
+  </div>
+
+  <!-- Header -->
+  <header class="board-header">
+    <h1>🌿 18 Biosphere Reserves of India</h1>
+    <p class="subtitle">Spatial Map Clusters • UNESCO MAB Status • 3-Zone Architecture • Exam Traps</p>
+  </header>
+
+  <!-- Step 3: Ultra-Short Quick Revision Sheet -->
+  <section class="quick-revision">
+    <h2>⚡ ULTRA-SHORT QUICK REVISION SHEET</h2>
+    <div class="qr-grid">
+      <div class="qr-pill"><strong>Total:</strong> 18 Notified BRs | <strong>13</strong> UNESCO MAB (WNBR) | <strong>5</strong> National Only</div>
+      <div class="qr-pill cyan"><strong>Extremes:</strong> First = Nilgiri (1986) | Largest = Great Rann of Kutch (~12,454 sq km) | Smallest = Dibru-Saikhowa (~765 sq km)</div>
+      <div class="qr-pill pink"><strong>Latest UNESCO:</strong> Cold Desert, Himachal Pradesh (2025)</div>
+      <div class="qr-pill red"><strong>5 Non-UNESCO ("3 NE + Kutch + Tirupati"):</strong> Manas, Dibru-Saikhowa, Dihang-Dibang, Great Rann of Kutch, Seshachalam Hills</div>
+      <div class="qr-pill orange"><strong>Hierarchy:</strong> BR = Largest area (landscape); NP = Strictest legal protection (WPA 1972 Sec 35)</div>
+      <div class="qr-pill"><strong>Top Traps:</strong> Cold Desert = HP (NOT Ladakh); Achanakmar-Amarkantak = MP + CG; Nanda Devi = UK; Zero BR in J&K/Ladakh</div>
+    </div>
+  </section>
+
+  <!-- Section 1: Spatial Memory Map (6 Regional Clusters) -->
+  <div class="section-label">🗺️ Spatial Memory Map — 6 Regional Clusters (All 18 Reserves)</div>
+  <section class="masonry-grid">
+
+    <article class="polaroid accent-cyan">
+      <h3>1. The Himalayas (2)</h3>
+      <ul>
+        <li><span class="hl-c">Cold Desert</span> — Himachal Pradesh (Lahaul-Spiti valley, includes Pin Valley NP) <span class="badge badge-unesco">UNESCO 2025</span></li>
+        <li><span class="hl-c">Nanda Devi</span> — Uttarakhand (named after Himalayan peak) <span class="badge badge-unesco">UNESCO 2004</span></li>
+      </ul>
+      <p><span class="hl-y">Hook:</span> Only <strong>HP & UK</strong> — there is <strong>NO</strong> biosphere reserve in J&K or Ladakh.</p>
+    </article>
+
+    <article class="polaroid accent-green">
+      <h3>2. The Northeast (5) — "S-A-A-A-M"</h3>
+      <ul>
+        <li><span class="hl-g">Khangchendzonga</span> — Sikkim (mountain) <span class="badge badge-unesco">UNESCO 2018</span></li>
+        <li><span class="hl-g">Dihang-Dibang</span> — Arunachal Pradesh (2 Brahmaputra tributaries) <span class="badge badge-nat">National</span></li>
+        <li><span class="hl-g">Manas</span> — Assam (Brahmaputra valley) <span class="badge badge-nat">National</span></li>
+        <li><span class="hl-g">Dibru-Saikhowa</span> — Assam (Dibru = Dibrugarh; smallest ~765 sq km) <span class="badge badge-nat">National</span></li>
+        <li><span class="hl-g">Nokrek</span> — Meghalaya (highest peak of Garo Hills) <span class="badge badge-unesco">UNESCO 2009</span></li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-orange">
+      <h3>3. Central India — MP Belt (3) — "P-P-A"</h3>
+      <ul>
+        <li><span class="hl-o">Panna</span> — Madhya Pradesh (diamonds & tigers) <span class="badge badge-unesco">UNESCO 2020</span></li>
+        <li><span class="hl-o">Pachmarhi</span> — Madhya Pradesh (MP's only hill station, Satpuras) <span class="badge badge-unesco">UNESCO 2009</span></li>
+        <li><span class="hl-o">Achanakmar-Amarkantak</span> — MP + Chhattisgarh (Amarkantak = MP, Narmada origin; Achanakmar = CG) <span class="badge badge-unesco">UNESCO 2012</span></li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-yellow">
+      <h3>4. West & East Coasts (3)</h3>
+      <ul>
+        <li><span class="hl-y">Great Rann of Kutch (Kachchh)</span> — Gujarat (far West; largest ~12,454 sq km) <span class="badge badge-nat">National</span></li>
+        <li><span class="hl-y">Sundarbans</span> — West Bengal (East; Ganga-Brahmaputra delta) <span class="badge badge-unesco">UNESCO 2001</span></li>
+        <li><span class="hl-y">Simlipal</span> — Odisha (East; Mayurbhanj) <span class="badge badge-unesco">UNESCO 2009</span></li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-pink">
+      <h3>5. South India (4) — North to South</h3>
+      <ul>
+        <li><span class="hl-p">Seshachalam Hills</span> — Andhra Pradesh (Tirupati temple) <span class="badge badge-nat">National</span></li>
+        <li><span class="hl-p">Nilgiri</span> — Karnataka + Kerala + Tamil Nadu (tri-junction; first BR 1986) <span class="badge badge-unesco">UNESCO 2000</span></li>
+        <li><span class="hl-p">Agasthyamalai</span> — Kerala + Tamil Nadu (further south in Western Ghats) <span class="badge badge-unesco">UNESCO 2016</span></li>
+        <li><span class="hl-p">Gulf of Mannar</span> — Tamil Nadu (marine reserve facing Sri Lanka) <span class="badge badge-unesco">UNESCO 2001</span></li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-purple">
+      <h3>6. The Islands (1) & Classic Exam Traps</h3>
+      <ul>
+        <li><span class="hl-c">Great Nicobar</span> — Andaman & Nicobar Islands (southernmost tip of India) <span class="badge badge-unesco">UNESCO 2013</span></li>
+      </ul>
+      <p><span class="hl-r">⚠️ Exam Traps Fixed:</span></p>
+      <ul>
+        <li><strong>Cold Desert</strong> is in <strong>Himachal Pradesh</strong>, NOT Ladakh.</li>
+        <li><strong>Achanakmar-Amarkantak</strong> is shared by <strong>MP & Chhattisgarh</strong> (Amarkantak is in MP, Achanakmar in CG).</li>
+        <li><strong>Nanda Devi</strong> is in <strong>Uttarakhand</strong>.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Section 2: Architecture & Protected Area Comparison -->
+  <div class="section-label">🏛️ 3-Zone Architecture & Protected Area Hierarchy</div>
+  <section class="masonry-grid">
+
+    <article class="polaroid accent-red">
+      <h3>Concentric 3-Zone Structure</h3>
+      <div class="zone-diagram">
+        <div class="zone-outer">
+          <div class="zone-label" style="color: var(--cyan);">Transition / Manipulation Zone</div>
+          <small>Communities live, farm, sustainable use</small>
+          <div class="zone-mid">
+            <div class="zone-label" style="color: var(--orange);">Buffer Zone</div>
+            <small>Research, education, eco-tourism</small>
+            <div class="zone-core">
+              CORE ZONE<br>
+              <small style="font-weight: normal; color: #f0f0f0;">Zero interference • NPs & WLS sit here</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul>
+        <li><strong>Umbrella Concept:</strong> Largest in geographical size & scope; encloses National Parks, Wildlife Sanctuaries & Tiger Reserves.</li>
+        <li><strong>Example (Nilgiri BR):</strong> Encompasses <span class="hl-y">Bandipur NP</span>, <span class="hl-y">Nagarhole NP</span>, <span class="hl-y">Mudumalai NP</span>, <span class="hl-y">Silent Valley NP</span>, and <span class="hl-y">Wayanad WLS</span>.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-yellow" style="grid-column: span 1;">
+      <h3>BR vs National Park vs Wildlife Sanctuary</h3>
+      <ul>
+        <li><span class="hl-y">Biosphere Reserve:</span>
+          <br>• <strong>Scale:</strong> Largest (landscape-level, includes human settlements).
+          <br>• <strong>Legal Backing:</strong> Notified by Central Govt (MoEFCC); <strong>NOT</strong> under WPA 1972.
+          <br>• <strong>Human Activity:</strong> Allowed in Transition Zone; restricted in Core.
+        </li>
+        <li><span class="hl-r">National Park (Strictest Legal Protection):</span>
+          <br>• <strong>Scale:</strong> Medium to large (ecosystem-level).
+          <br>• <strong>Legal Backing:</strong> Wildlife (Protection) Act, 1972 (<strong>Section 35</strong>).
+          <br>• <strong>Human Activity:</strong> Strictly prohibited (no grazing or private rights).
+        </li>
+        <li><span class="hl-g">Wildlife Sanctuary:</span>
+          <br>• <strong>Scale:</strong> Small to large (often species-focused).
+          <br>• <strong>Legal Backing:</strong> Wildlife (Protection) Act, 1972 (<strong>Section 18 / 26A</strong>).
+          <br>• <strong>Human Activity:</strong> Limited activity/grazing may be permitted by the Warden.
+        </li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Section 3: Complete Chronological Master Table -->
+  <div class="section-label">📋 Complete Master List — All 18 Notified Biosphere Reserves</div>
+  <section class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Biosphere Reserve</th>
+          <th>State(s) / UT</th>
+          <th>Notified</th>
+          <th>UNESCO MAB Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Nilgiri</strong></td><td>Tamil Nadu, Kerala, Karnataka</td><td>1986</td><td><span class="badge badge-unesco">Included (2000)</span></td></tr>
+        <tr><td>2</td><td><strong>Nanda Devi</strong></td><td>Uttarakhand</td><td>1988</td><td><span class="badge badge-unesco">Included (2004)</span></td></tr>
+        <tr><td>3</td><td><strong>Nokrek</strong></td><td>Meghalaya</td><td>1988</td><td><span class="badge badge-unesco">Included (2009)</span></td></tr>
+        <tr><td>4</td><td><strong>Great Nicobar</strong></td><td>Andaman & Nicobar Islands</td><td>1989</td><td><span class="badge badge-unesco">Included (2013)</span></td></tr>
+        <tr><td>5</td><td><strong>Gulf of Mannar</strong></td><td>Tamil Nadu</td><td>1989</td><td><span class="badge badge-unesco">Included (2001)</span></td></tr>
+        <tr><td>6</td><td><strong>Manas</strong></td><td>Assam</td><td>1989</td><td><span class="badge badge-nat">National only</span></td></tr>
+        <tr><td>7</td><td><strong>Sundarbans</strong></td><td>West Bengal</td><td>1989</td><td><span class="badge badge-unesco">Included (2001)</span></td></tr>
+        <tr><td>8</td><td><strong>Simlipal</strong></td><td>Odisha</td><td>1994</td><td><span class="badge badge-unesco">Included (2009)</span></td></tr>
+        <tr><td>9</td><td><strong>Dibru-Saikhowa</strong></td><td>Assam</td><td>1997</td><td><span class="badge badge-nat">National only</span></td></tr>
+        <tr><td>10</td><td><strong>Dihang-Dibang</strong></td><td>Arunachal Pradesh</td><td>1998</td><td><span class="badge badge-nat">National only</span></td></tr>
+        <tr><td>11</td><td><strong>Pachmarhi</strong></td><td>Madhya Pradesh</td><td>1999</td><td><span class="badge badge-unesco">Included (2009)</span></td></tr>
+        <tr><td>12</td><td><strong>Khangchendzonga</strong></td><td>Sikkim</td><td>2000</td><td><span class="badge badge-unesco">Included (2018)</span></td></tr>
+        <tr><td>13</td><td><strong>Agasthyamalai</strong></td><td>Kerala, Tamil Nadu</td><td>2001</td><td><span class="badge badge-unesco">Included (2016)</span></td></tr>
+        <tr><td>14</td><td><strong>Achanakmar-Amarkantak</strong></td><td>Madhya Pradesh, Chhattisgarh</td><td>2005</td><td><span class="badge badge-unesco">Included (2012)</span></td></tr>
+        <tr><td>15</td><td><strong>Great Rann of Kutch (Kachchh)</strong></td><td>Gujarat</td><td>2008</td><td><span class="badge badge-nat">National only</span></td></tr>
+        <tr><td>16</td><td><strong>Cold Desert</strong></td><td>Himachal Pradesh</td><td>2009</td><td><span class="badge badge-unesco">Included (2025)</span></td></tr>
+        <tr><td>17</td><td><strong>Seshachalam Hills</strong></td><td>Andhra Pradesh</td><td>2010</td><td><span class="badge badge-nat">National only</span></td></tr>
+        <tr><td>18</td><td><strong>Panna</strong></td><td>Madhya Pradesh</td><td>2011</td><td><span class="badge badge-unesco">Included (2020)</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Container for Sticky Notes -->
+  <div id="sticky-layer"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'sketchnote_biosphere_reserves_v1';
+  const btnAddNote = document.getElementById('btn-add-note');
+  const btnHighlight = document.getElementById('btn-highlight');
+  const hlColorPicker = document.getElementById('hl-color-picker');
+  const btnSave = document.getElementById('btn-save');
+  const stickyLayer = document.getElementById('sticky-layer');
+
+  let highlightMode = false;
+  const NOTE_COLORS = ['#fff59d', '#ffcc80', '#f48fb1', '#80deea', '#a5d6a7'];
+
+  // Auto-contrast helper for highlighted text
+  function getContrastColor(hex) {
+    const c = hex.replace('#', '');
+    const r = parseInt(c.substr(0, 2), 16);
+    const g = parseInt(c.substr(2, 2), 16);
+    const b = parseInt(c.substr(4, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return yiq >= 135 ? '#111111' : '#ffffff';
+  }
+
+  // Persist sticky notes to localStorage
+  function saveNotesToLocal() {
+    const notes = [];
+    document.querySelectorAll('.sticky-note').forEach(el => {
+      notes.push({
+        id: el.dataset.id,
+        left: el.style.left,
+        top: el.style.top,
+        width: el.style.width,
+        height: el.style.height,
+        bg: el.style.backgroundColor,
+        html: el.querySelector('.sticky-body').innerHTML
+      });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+  }
+
+  // Bind drag, color, delete, and edit events to a sticky note
+  function hydrateNote(noteEl) {
+    const header = noteEl.querySelector('.sticky-header');
+    const body = noteEl.querySelector('.sticky-body');
+    const delBtn = noteEl.querySelector('.sticky-del');
+
+    // Dragging
+    let isDragging = false, startX, startY, origLeft, origTop;
+    header.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-del')) return;
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origLeft = noteEl.offsetLeft;
+      origTop = noteEl.offsetTop;
+      noteEl.style.zIndex = 6000;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      noteEl.style.left = (origLeft + (e.clientX - startX)) + 'px';
+      noteEl.style.top = (origTop + (e.clientY - startY)) + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        saveNotesToLocal();
+      }
+    });
+
+    // Color picker dots
+    noteEl.querySelectorAll('.sticky-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        noteEl.style.backgroundColor = dot.dataset.color;
+        saveNotesToLocal();
+      });
+    });
+
+    // Delete
+    delBtn.addEventListener('click', () => {
+      noteEl.remove();
+      saveNotesToLocal();
+    });
+
+    // Save on edit / resize
+    body.addEventListener('input', saveNotesToLocal);
+    noteEl.addEventListener('mouseup', saveNotesToLocal);
+  }
+
+  // Create new sticky note
+  function createStickyNote(data = {}) {
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.dataset.id = data.id || 'note_' + Date.now();
+    note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random() * 120)) + 'px';
+    note.style.top = data.top || (window.scrollY + 120 + Math.floor(Math.random() * 80)) + 'px';
+    if (data.width) note.style.width = data.width;
+    if (data.height) note.style.height = data.height;
+    note.style.backgroundColor = data.bg || NOTE_COLORS[0];
+
+    const dotsHtml = NOTE_COLORS.map(c =>
+      `<span class="sticky-dot" data-color="${c}" style="background:${c}"></span>`
+    ).join('');
+
+    note.innerHTML = `
+      <div class="sticky-header">
+        <div class="sticky-colors">${dotsHtml}</div>
+        <button class="sticky-del" title="Delete Note">✕</button>
+      </div>
+      <div class="sticky-body" contenteditable="true">${data.html || 'Write your revision note...'}</div>
+    `;
+
+    stickyLayer.appendChild(note);
+    hydrateNote(note);
+    saveNotesToLocal();
+  }
+
+  btnAddNote.addEventListener('click', () => createStickyNote());
+
+  // Highlight Mode Toggle
+  btnHighlight.addEventListener('click', () => {
+    highlightMode = !highlightMode;
+    btnHighlight.classList.toggle('active', highlightMode);
+  });
+
+  // Apply Highlight on text selection
+  document.addEventListener('mouseup', (e) => {
+    if (!highlightMode) return;
+    if (e.target.closest('#workspace-bar') || e.target.closest('.sticky-note')) return;
+
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.className = 'user-highlight';
+    const color = hlColorPicker.value;
+    span.style.backgroundColor = color;
+    span.style.color = getContrastColor(color);
+    span.title = 'Click to remove highlight';
+
+    try {
+      range.surroundContents(span);
+      sel.removeAllRanges();
+    } catch (err) {
+      // Fallback for cross-node selections
+      const frag = range.extractContents();
+      span.appendChild(frag);
+      range.insertNode(span);
+      sel.removeAllRanges();
+    }
+  });
+
+  // Undo Highlight (click to unwrap)
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('user-highlight')) {
+      const span = e.target;
+      const parent = span.parentNode;
+      while (span.firstChild) parent.insertBefore(span.firstChild, span);
+      parent.removeChild(span);
+      parent.normalize();
+    }
+  });
+
+  // Smart Hydration: Load from localStorage, or hydrate static DOM notes if localStorage is empty
+  function initHydration() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.length > 0) {
+          stickyLayer.innerHTML = '';
+          parsed.forEach(n => createStickyNote(n));
+          return;
+        }
+      } catch (e) {}
+    }
+    // Hydrate any static notes already embedded in DOM
+    document.querySelectorAll('.sticky-note').forEach(hydrateNote);
+  }
+
+  // Clone-Save Mechanism: safely export clean DOM without breaking active listeners
+  btnSave.addEventListener('click', () => {
+    const clone = document.documentElement.cloneNode(true);
+    const bar = clone.querySelector('#workspace-bar');
+    if (bar) bar.remove();
+
+    const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'biosphere-reserves-sketchnote.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  initHydration();
+})();
+</script>
+</body>
+</html>
