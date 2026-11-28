@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Key Constitutional Amendments of India</title>
+    <title>Key Constitutional Amendments of India (High-Yield)</title>
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #1a1a1a;
             --text-color: #f0f0f0;
-            --card-bg: #2a2a2a;
+            --card-bg: #262626;
             --accent-green: #4cd137;
             --accent-blue: #00a8ff;
-            --accent-yellow: #e1b12c;
+            --accent-yellow: #fbc531;
             --accent-purple: #9c88ff;
             --accent-orange: #e84118;
+            --accent-pink: #fd79a8;
             --highlight: #ffeb3b;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            position: relative;
             font-family: 'Patrick Hand', cursive;
             background-color: var(--bg-color);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
             color: var(--text-color);
             margin: 0;
-            padding: 40px 20px;
+            padding: 80px 20px 60px 20px;
             font-size: 1.2rem;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         h1, h2, h3 {
@@ -33,6 +42,174 @@
             margin: 0;
         }
 
+        /* Interactive Workspace Action Bar */
+        .workspace-bar {
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(24, 24, 24, 0.92);
+            backdrop-filter: blur(8px);
+            padding: 8px 14px;
+            border-radius: 12px;
+            border: 2px solid #444;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6);
+        }
+
+        .ws-btn {
+            font-family: 'Kalam', cursive;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 6px 12px;
+            border: 2px solid #555;
+            border-radius: 8px;
+            background: #2f2f2f;
+            color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ws-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        .ws-btn.active {
+            background: var(--accent-yellow);
+            color: #111;
+            border-color: #fff;
+        }
+
+        .highlight-palette {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding-left: 8px;
+            border-left: 2px dashed #555;
+        }
+
+        .highlight-palette.visible {
+            display: flex;
+        }
+
+        .hl-swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .hl-swatch:hover, .hl-swatch.selected {
+            transform: scale(1.25);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .user-highlight {
+            padding: 0 3px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .user-highlight:hover {
+            opacity: 0.75;
+            text-decoration: line-through;
+        }
+
+        body.highlight-mode {
+            cursor: text;
+        }
+
+        /* Sticky Notes */
+        .sticky-note {
+            position: absolute;
+            width: 240px;
+            min-width: 180px;
+            min-height: 140px;
+            background: #fff3a3;
+            color: #1a1a1a;
+            border-radius: 6px;
+            box-shadow: 6px 8px 18px rgba(0, 0, 0, 0.55);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            resize: both;
+            overflow: auto;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .sticky-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 8px;
+            background: rgba(0, 0, 0, 0.12);
+            cursor: move;
+            user-select: none;
+        }
+
+        .sticky-colors {
+            display: flex;
+            gap: 5px;
+        }
+
+        .sticky-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+
+        .sticky-close {
+            background: transparent;
+            border: none;
+            color: #1a1a1a;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 4px;
+        }
+
+        .sticky-body {
+            flex: 1;
+            padding: 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.05rem;
+            outline: none;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--accent-green);
+            color: #111;
+            font-family: 'Kalam', cursive;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6);
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -41,46 +218,57 @@
         .header h1 {
             font-size: 3rem;
             color: var(--accent-orange);
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.6);
             transform: rotate(-1deg);
         }
 
-        /* Revision Sheet */
+        .header p {
+            color: #bbb;
+            margin-top: 6px;
+            font-size: 1.15rem;
+        }
+
+        /* Ultra-Short Revision Sheet */
         .revision-sheet {
-            background-color: #222;
+            background-color: #212121;
             border: 3px dashed var(--accent-green);
             border-radius: 12px;
-            padding: 20px 30px;
-            max-width: 900px;
-            margin: 0 auto 50px auto;
-            box-shadow: 8px 8px 15px rgba(0,0,0,0.4);
-            transform: rotate(0.5deg);
+            padding: 22px 28px;
+            max-width: 960px;
+            margin: 0 auto 55px auto;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.5);
+            transform: rotate(0.4deg);
         }
 
         .revision-sheet h2 {
             color: var(--accent-green);
-            font-size: 1.8rem;
+            font-size: 1.85rem;
             border-bottom: 2px solid var(--accent-green);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
         }
 
         .revision-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
         }
 
         .rev-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 8px 12px;
             border-radius: 6px;
             border-left: 4px solid var(--accent-orange);
+            font-size: 1.08rem;
+        }
+
+        .rev-item.new-item {
+            border-left-color: var(--accent-blue);
         }
 
         /* Timeline Layout */
         .timeline-container {
-            max-width: 900px;
+            max-width: 920px;
             margin: 0 auto;
             position: relative;
         }
@@ -92,7 +280,7 @@
             left: 30px;
             height: 100%;
             width: 4px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.22);
             border-radius: 2px;
         }
 
@@ -101,25 +289,29 @@
             background: var(--card-bg);
             margin-bottom: 30px;
             margin-left: 70px;
-            padding: 20px;
+            padding: 22px 24px 26px 24px;
             border-radius: 10px;
             border: 2px solid #444;
-            box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 8px solid #353535;
+            box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.6);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
 
         .timeline-card:hover {
-            transform: rotate(-1deg) scale(1.02) translateY(-2px);
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
+            transform: rotate(-0.8deg) scale(1.015) translateY(-2px);
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.8);
             border-color: var(--accent-blue);
             z-index: 10;
         }
 
-        /* Timeline Connector Node */
+        .timeline-card.critical {
+            border-color: var(--accent-orange);
+        }
+
         .timeline-card::before {
             content: '';
             position: absolute;
-            top: 25px;
+            top: 26px;
             left: -48px;
             width: 16px;
             height: 16px;
@@ -129,15 +321,18 @@
             z-index: 2;
         }
 
-        /* Connector Line */
+        .timeline-card.critical::before {
+            background: var(--accent-orange);
+        }
+
         .timeline-card::after {
             content: '';
             position: absolute;
-            top: 31px;
+            top: 32px;
             left: -30px;
             width: 30px;
             height: 2px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .time-badge {
@@ -146,33 +341,42 @@
             color: #fff;
             font-family: 'Kalam', cursive;
             font-weight: 700;
-            padding: 5px 12px;
+            padding: 4px 12px;
             border-radius: 4px;
             font-size: 1.1rem;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             transform: rotate(-2deg);
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.35);
         }
-        
+
         .gov-badge {
             display: inline-block;
-            background: #444;
+            background: #3d3d3d;
             color: #ddd;
-            font-size: 0.9rem;
-            padding: 2px 8px;
+            font-size: 0.92rem;
+            padding: 3px 10px;
             border-radius: 4px;
             margin-left: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .card-title {
             color: var(--accent-blue);
-            font-size: 1.6rem;
+            font-size: 1.65rem;
             margin-bottom: 10px;
         }
 
         .card-content {
-            margin-bottom: 15px;
+            margin-bottom: 14px;
+        }
+
+        .card-content ul {
+            margin: 6px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .card-content li {
+            margin-bottom: 4px;
         }
 
         .highlight {
@@ -180,7 +384,6 @@
             font-weight: bold;
         }
 
-        /* Tags */
         .tag-container {
             display: flex;
             flex-wrap: wrap;
@@ -188,7 +391,7 @@
         }
 
         .tag {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: bold;
             color: #000;
             padding: 3px 10px;
@@ -201,134 +404,284 @@
         .tag.gov { background: var(--accent-purple); color: #fff; }
         .tag.rights { background: var(--accent-blue); color: #fff; }
         .tag.eco { background: var(--accent-yellow); color: #000; }
+        .tag.quota { background: var(--accent-pink); color: #111; }
+
+        @media (max-width: 650px) {
+            body { padding-top: 100px; }
+            .workspace-bar { right: 10px; left: 10px; justify-content: center; flex-wrap: wrap; }
+            .timeline-card { margin-left: 48px; }
+            .timeline-container::before { left: 18px; }
+            .timeline-card::before { left: -38px; }
+            .timeline-card::after { left: -20px; width: 20px; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Interactive Workspace Bar -->
+    <div class="workspace-bar" id="workspaceBar">
+        <button class="ws-btn" id="addNoteBtn" title="Add Draggable Sticky Note">📝 ADD NOTES</button>
+        <button class="ws-btn" id="highlightBtn" title="Toggle Text Highlighter (Click highlight to undo)">🖍️ HIGHLIGHT</button>
+        <div class="highlight-palette" id="highlightPalette">
+            <span class="hl-swatch selected" data-color="#ffeb3b" style="background:#ffeb3b;" title="Yellow"></span>
+            <span class="hl-swatch" data-color="#4cd137" style="background:#4cd137;" title="Green"></span>
+            <span class="hl-swatch" data-color="#00a8ff" style="background:#00a8ff;" title="Blue"></span>
+            <span class="hl-swatch" data-color="#e84118" style="background:#e84118;" title="Red-Orange"></span>
+            <span class="hl-swatch" data-color="#9c88ff" style="background:#9c88ff;" title="Purple"></span>
+        </div>
+        <button class="ws-btn" id="saveBtn" title="Export Clean HTML Snapshot">☁️ SAVE</button>
+    </div>
+
+    <div class="toast" id="toast">Saved!</div>
+
     <div class="header">
-        <h1>📜 Key Constitutional Amendments</h1>
+        <h1>📜 High-Yield Constitutional Amendments</h1>
+        <p>Curated Exam Board • FR vs DPSP • Emergency • Federalism • Reservations • Recent Landmarks</p>
     </div>
 
     <!-- Ultra-Short Revision Sheet -->
     <div class="revision-sheet">
         <h2>⚡ Quick Revision Cheat-Sheet</h2>
         <div class="revision-grid">
-            <div class="rev-item"><span class="highlight">1st (1951):</span> 9th Schedule (Land Reforms).</div>
-            <div class="rev-item"><span class="highlight">7th (1956):</span> State Reorg (14 States, 6 UTs).</div>
-            <div class="rev-item"><span class="highlight">24th (1971):</span> Parl can amend FRs.</div>
-            <div class="rev-item"><span class="highlight">26th (1971):</span> Abolished Privy Purses.</div>
-            <div class="rev-item"><span class="highlight">36th (1975):</span> Sikkim = 22nd State.</div>
-            <div class="rev-item"><span class="highlight">42nd (1976):</span> "Mini-Constitution" (Soc, Sec, Int), Fund. Duties.</div>
-            <div class="rev-item"><span class="highlight">44th (1978):</span> Removed Right to Property from FRs.</div>
-            <div class="rev-item"><span class="highlight">52nd (1985):</span> Anti-Defection (10th Schedule).</div>
-            <div class="rev-item"><span class="highlight">61st (1989):</span> Voting age 21 → 18.</div>
-            <div class="rev-item"><span class="highlight">69th (1991):</span> Delhi = NCT.</div>
-            <div class="rev-item"><span class="highlight">73rd & 74th (1992):</span> Panchayats (11th Sch) & Municipalities (12th Sch).</div>
-            <div class="rev-item"><span class="highlight">86th (2002):</span> Right to Education (Art 21A).</div>
-            <div class="rev-item"><span class="highlight">89th (2003):</span> NC for SCs & STs separated.</div>
-            <div class="rev-item"><span class="highlight">91st (2003):</span> CoM size capped at 15%.</div>
-            <div class="rev-item"><span class="highlight">92nd (2003):</span> Bodo, Dogri, Maithili, Santhali added.</div>
-            <div class="rev-item"><span class="highlight">97th (2011):</span> Co-operative Societies.</div>
-            <div class="rev-item"><span class="highlight">99th (2014):</span> NJAC (Later struck down).</div>
-            <div class="rev-item"><span class="highlight">100th (2015):</span> India-B'desh Land Boundary Agreement.</div>
-            <div class="rev-item"><span class="highlight">101st (2016):</span> GST.</div>
-            <div class="rev-item"><span class="highlight">102nd (2018):</span> NCBC gets constitutional status.</div>
-            <div class="rev-item"><span class="highlight">103rd (2019):</span> 10% EWS Quota.</div>
-            <div class="rev-item"><span class="highlight">104th (2020):</span> SC/ST quota extended, Anglo-Indian seats abolished.</div>
-            <div class="rev-item"><span class="highlight">105th (2021):</span> States can identify own OBCs.</div>
-            <div class="rev-item"><span class="highlight">106th (2023):</span> 33% Women's Reservation.</div>
+            <div class="rev-item"><span class="highlight">1st (1951):</span> 9th Schedule, Art 15(4), Speech restrictions.</div>
+            <div class="rev-item new-item"><span class="highlight">4th (1955):</span> Property compensation adequacy non-justiciable; State monopolies.</div>
+            <div class="rev-item new-item"><span class="highlight">9th (1960):</span> Berubari Union ceded to Pakistan (Art 368 needed).</div>
+            <div class="rev-item new-item"><span class="highlight">17th (1964):</span> Market value for personal land; +44 Acts to 9th Sch.</div>
+            <div class="rev-item"><span class="highlight">24th (1971):</span> Parl can amend FRs; President's assent mandatory.</div>
+            <div class="rev-item new-item"><span class="highlight">25th (1971):</span> Art 31C — DPSPs 39(b)&amp;(c) over Art 14/19; "amount" replaced "compensation".</div>
+            <div class="rev-item new-item"><span class="highlight">31st (1973):</span> Lok Sabha seats raised 525 → 545.</div>
+            <div class="rev-item new-item"><span class="highlight">38th (1975):</span> Emergency &amp; Ordinance satisfaction made non-justiciable.</div>
+            <div class="rev-item new-item"><span class="highlight">39th (1975):</span> PM/Pres/VP/Speaker polls beyond SC review (Struck down).</div>
+            <div class="rev-item"><span class="highlight">42nd (1976):</span> Mini-Constitution — Soc/Sec/Int, FDs (51A), 5 subjects to Concurrent, Tribunals.</div>
+            <div class="rev-item new-item"><span class="highlight">43rd (1977):</span> Restored SC/HC judicial review &amp; writs; repealed Art 31D.</div>
+            <div class="rev-item"><span class="highlight">44th (1978):</span> Right to Property → Art 300A; "Armed Rebellion"; Art 20 &amp; 21 inviolable.</div>
+            <div class="rev-item"><span class="highlight">52nd (1985):</span> Anti-Defection Law (10th Schedule).</div>
+            <div class="rev-item"><span class="highlight">61st (1989):</span> Voting age reduced 21 → 18 (Art 326).</div>
+            <div class="rev-item"><span class="highlight">73rd &amp; 74th (1992):</span> Panchayats (Part IX, 11th Sch) &amp; Municipalities (IXA, 12th Sch).</div>
+            <div class="rev-item new-item"><span class="highlight">77th (1995):</span> Art 16(4A) — Reservation in promotions for SC/STs.</div>
+            <div class="rev-item new-item"><span class="highlight">81st (2000):</span> Art 16(4B) — Backlog vacancies exempt from 50% cap.</div>
+            <div class="rev-item new-item"><span class="highlight">84th (2001):</span> Froze LS &amp; Assembly seat allocation till 2026 (1971 Census).</div>
+            <div class="rev-item new-item"><span class="highlight">85th (2001):</span> Consequential seniority in promotions for SC/STs.</div>
+            <div class="rev-item"><span class="highlight">86th (2002):</span> Right to Education (Art 21A), Art 45 &amp; Art 51A(k).</div>
+            <div class="rev-item"><span class="highlight">91st (2003):</span> CoM capped at 15%; omitted 1/3rd split in 10th Sch.</div>
+            <div class="rev-item new-item"><span class="highlight">93rd (2005):</span> Art 15(5) — Quota in private unaided educational institutions.</div>
+            <div class="rev-item"><span class="highlight">97th (2011):</span> Co-operative Societies (Art 19(1)(c), Art 43B, Part IXB).</div>
+            <div class="rev-item"><span class="highlight">99th (2014):</span> NJAC (Struck down in 4th Judges Case, 2015).</div>
+            <div class="rev-item"><span class="highlight">100th (2015):</span> India–Bangladesh Land Boundary Agreement (LBA).</div>
+            <div class="rev-item"><span class="highlight">101st (2016):</span> GST &amp; GST Council (Art 279A).</div>
+            <div class="rev-item"><span class="highlight">102nd (2018):</span> NCBC constitutional status (Art 338B).</div>
+            <div class="rev-item"><span class="highlight">103rd (2019):</span> 10% EWS Quota (Art 15(6) &amp; 16(6)).</div>
+            <div class="rev-item"><span class="highlight">104th (2020):</span> SC/ST quota extended till 2030; Anglo-Indian seats abolished.</div>
+            <div class="rev-item"><span class="highlight">105th (2021):</span> Restored States' power to identify SEBCs/OBCs.</div>
+            <div class="rev-item"><span class="highlight">106th (2023):</span> Nari Shakti Vandan Adhiniyam — 33% Women's Reservation.</div>
         </div>
     </div>
 
     <!-- Dynamic Timeline Board -->
     <div class="timeline-container">
-        
-        <div class="timeline-card">
+
+        <div class="timeline-card critical">
             <div class="time-badge">1951</div><div class="gov-badge">J. Nehru (INC)</div>
             <h3 class="card-title">1st Amendment</h3>
             <div class="card-content">
-                Added the <span class="highlight">9th Schedule</span> to protect land reform laws from judicial review. Introduced reasonable restrictions on Freedom of Speech and Expression. Empowered the state to make special provisions for socially and educationally backward classes.
+                <ul>
+                    <li>Added the <span class="highlight">9th Schedule</span> (via Art 31B) and <span class="highlight">Article 31A</span> to shield land reform and zamindari abolition laws from judicial review.</li>
+                    <li>Inserted <span class="highlight">Article 15(4)</span> empowering the state to make special provisions for socially and educationally backward classes (response to <em>Champakam Dorairajan</em>).</li>
+                    <li>Added 3 new grounds of reasonable restrictions on <span class="highlight">Freedom of Speech (Art 19(2))</span>: Public Order, Friendly Relations with Foreign States, and Incitement to an Offence.</li>
+                </ul>
             </div>
             <div class="tag-container">
                 <span class="tag struct">9th Schedule</span>
-                <span class="tag rights">Speech Restrictions</span>
+                <span class="tag rights">Art 15(4)</span>
+                <span class="tag alert">Speech Restrictions</span>
             </div>
         </div>
 
         <div class="timeline-card">
-            <div class="time-badge">1956</div><div class="gov-badge">J. Nehru (INC)</div>
-            <h3 class="card-title">7th Amendment</h3>
+            <div class="time-badge">1955</div><div class="gov-badge">J. Nehru (INC)</div>
+            <h3 class="card-title">4th Amendment</h3>
             <div class="card-content">
-                Implemented the States Reorganisation Commission's recommendations. Abolished the classification of states and reorganized India into <span class="highlight">14 States and 6 Union Territories</span> on linguistic lines.
+                <ul>
+                    <li>Made the <span class="highlight">adequacy of compensation</span> paid for compulsory acquisition of private property <span class="highlight">non-justiciable</span> (courts could not question the amount).</li>
+                    <li>Authorized the State to nationalize any trade or business (State monopolies immune from Art 19(1)(g) challenges).</li>
+                    <li>Expanded the scope of <span class="highlight">Article 31A</span> and added more acts to the 9th Schedule.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag struct">State Reorganization</span>
+                <span class="tag eco">Property Compensation</span>
+                <span class="tag gov">State Monopolies</span>
             </div>
         </div>
 
         <div class="timeline-card">
+            <div class="time-badge">1960</div><div class="gov-badge">J. Nehru (INC)</div>
+            <h3 class="card-title">9th Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>Facilitated the cession of Indian territory (<span class="highlight">Berubari Union</span> in West Bengal) to Pakistan under the 1958 Indo-Pak Agreement.</li>
+                    <li>Enacted after the Supreme Court's <span class="highlight">Berubari Union Case (1960)</span> held that Parliament cannot cede Indian territory to a foreign state under Art 3 — it requires a <span class="highlight">Constitutional Amendment under Article 368</span>.</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">Berubari Union</span>
+                <span class="tag gov">Art 368 Mandate</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">1964</div><div class="gov-badge">Lal Bahadur Shastri (INC)</div>
+            <h3 class="card-title">17th Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>Prohibited the acquisition of land under <span class="highlight">personal cultivation</span> unless compensation at <span class="highlight">full market value</span> was paid.</li>
+                    <li>Inserted <span class="highlight">44 more land reform acts</span> into the 9th Schedule — this directly triggered the landmark <em>Golaknath Case (1967)</em>.</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">9th Schedule (+44 Acts)</span>
+                <span class="tag alert">Trigger for Golaknath</span>
+            </div>
+        </div>
+
+        <div class="timeline-card critical">
             <div class="time-badge">1971</div><div class="gov-badge">Indira Gandhi (INC)</div>
             <h3 class="card-title">24th Amendment</h3>
             <div class="card-content">
-                Affirmed the Parliament's power to amend any part of the Constitution, including <span class="highlight">Fundamental Rights</span>. Made it mandatory for the President to give assent to Constitutional Amendment Bills.
+                <ul>
+                    <li>Enacted to nullify the <em>Golaknath Case (1967)</em>. Affirmed Parliament's power to amend any part of the Constitution, including <span class="highlight">Fundamental Rights</span> (amended Art 13 and Art 368).</li>
+                    <li>Made it <span class="highlight">compulsory for the President</span> to give assent to a Constitutional Amendment Bill (no veto/return power).</li>
+                </ul>
             </div>
             <div class="tag-container">
                 <span class="tag gov">Amend Fundamental Rights</span>
+                <span class="tag alert">Mandatory Pres Assent</span>
+            </div>
+        </div>
+
+        <div class="timeline-card critical">
+            <div class="time-badge">1971</div><div class="gov-badge">Indira Gandhi (INC)</div>
+            <h3 class="card-title">25th Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>Curtailed the Right to Property: replaced the word <span class="highlight">"compensation"</span> with <span class="highlight">"amount"</span> in Art 31(2) to bypass judicial scrutiny of market value.</li>
+                    <li>Inserted <span class="highlight">Article 31C</span>, providing that any law giving effect to socialist DPSPs under <span class="highlight">Article 39(b) and 39(c)</span> cannot be declared void for violating <span class="highlight">Articles 14, 19, or 31</span>.</li>
+                    <li>Also barred judicial review of such declarations — this second part was <span class="highlight">struck down in Kesavananda Bharati (1973)</span> as violating the Basic Structure.</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag rights">Article 31C</span>
+                <span class="tag alert">DPSP 39(b)&amp;(c) &gt; FR</span>
+                <span class="tag eco">Property Curtailed</span>
             </div>
         </div>
 
         <div class="timeline-card">
-            <div class="time-badge">1971</div><div class="gov-badge">Indira Gandhi (INC)</div>
-            <h3 class="card-title">26th Amendment</h3>
+            <div class="time-badge">1973</div><div class="gov-badge">Indira Gandhi (INC)</div>
+            <h3 class="card-title">31st Amendment</h3>
             <div class="card-content">
-                Abolished the <span class="highlight">privy purses</span> and privileges of the former rulers of princely states.
+                <ul>
+                    <li>Increased the number of <span class="highlight">Lok Sabha seats from 525 to 545</span> (following the 1971 Census).</li>
+                    <li>Reduced the representation of Union Territories in the Lok Sabha from 25 to 20.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag eco">End of Privy Purses</span>
+                <span class="tag struct">Lok Sabha: 525 → 545</span>
             </div>
         </div>
 
         <div class="timeline-card">
             <div class="time-badge">1975</div><div class="gov-badge">Indira Gandhi (INC)</div>
-            <h3 class="card-title">36th Amendment</h3>
+            <h3 class="card-title">38th Amendment</h3>
             <div class="card-content">
-                Made <span class="highlight">Sikkim</span> a full-fledged State of the Indian Union (the 22nd state).
+                <ul>
+                    <li>Made the declaration of <span class="highlight">Emergency by the President non-justiciable</span>.</li>
+                    <li>Made the promulgation of <span class="highlight">Ordinances</span> by the President, Governors, and UT Administrators non-justiciable.</li>
+                    <li>Empowered the President to declare different proclamations of National Emergency on different grounds simultaneously. <em>(Judicial review bar was later removed by the 44th Amendment.)</em></li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag struct">Sikkim added</span>
+                <span class="tag alert">Emergency Era</span>
+                <span class="tag gov">Non-Justiciable Ordinances</span>
             </div>
         </div>
 
-        <div class="timeline-card" style="border-color: var(--accent-orange);">
+        <div class="timeline-card critical">
+            <div class="time-badge">1975</div><div class="gov-badge">Indira Gandhi (INC)</div>
+            <h3 class="card-title">39th Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>Placed election disputes relating to the <span class="highlight">President, Vice-President, Prime Minister, and Speaker of Lok Sabha</span> beyond the jurisdiction of the judiciary (to be decided by a body determined by Parliament).</li>
+                    <li><span class="highlight">Struck down by the Supreme Court</span> in <em>Indira Nehru Gandhi v. Raj Narain (1975)</em> for violating free &amp; fair elections and judicial review (Basic Structure).</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag alert">Struck Down (Basic Structure)</span>
+                <span class="tag gov">PM Election Dispute</span>
+            </div>
+        </div>
+
+        <div class="timeline-card critical">
             <div class="time-badge">1976</div><div class="gov-badge">Indira Gandhi (INC)</div>
             <h3 class="card-title">42nd Amendment (Mini-Constitution)</h3>
             <div class="card-content">
-                Enacted during the Emergency. Added <span class="highlight">"Socialist, Secular, and Integrity"</span> to the Preamble. Added <span class="highlight">Fundamental Duties (Article 51A)</span>. Made the President bound by Cabinet advice. Shifted five subjects (including Education) to the Concurrent List.
+                <ul>
+                    <li>Based on the <span class="highlight">Swaran Singh Committee</span> recommendations during Emergency.</li>
+                    <li>Added <span class="highlight">"Socialist, Secular, and Integrity"</span> to the Preamble.</li>
+                    <li>Added <span class="highlight">Fundamental Duties</span> (Part IVA, Article 51A) and 3 new DPSPs: <span class="highlight">Art 39A</span> (free legal aid), <span class="highlight">Art 43A</span> (workers in management), <span class="highlight">Art 48A</span> (environment &amp; wildlife) + modified Art 39(f).</li>
+                    <li>Made the <span class="highlight">President bound by Cabinet advice</span> (Art 74). Added <span class="highlight">Tribunals (Part XIV-A: Art 323A &amp; 323B)</span>.</li>
+                    <li>Shifted <span class="highlight">5 subjects from State to Concurrent List</span>: Education, Forests, Protection of Wild Animals &amp; Birds, Weights &amp; Measures, and Administration of Justice.</li>
+                    <li>Extended Art 31C to protect <em>all</em> DPSPs over Art 14 &amp; 19 (later struck down in <em>Minerva Mills, 1980</em>).</li>
+                </ul>
             </div>
             <div class="tag-container">
                 <span class="tag alert">Emergency Era</span>
                 <span class="tag struct">Mini-Constitution</span>
                 <span class="tag rights">Fundamental Duties</span>
+                <span class="tag gov">5 Concurrent Subjects</span>
             </div>
         </div>
 
         <div class="timeline-card">
+            <div class="time-badge">1977</div><div class="gov-badge">Morarji Desai (Janata)</div>
+            <h3 class="card-title">43rd Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>First step in undoing 42nd Amendment excesses: <span class="highlight">restored the jurisdiction of the Supreme Court and High Courts</span> regarding judicial review and issuing writs.</li>
+                    <li>Repealed <span class="highlight">Article 31D</span>, depriving Parliament of special powers to enact laws dealing with "anti-national activities".</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag gov">Judicial Review Restored</span>
+                <span class="tag rights">Art 31D Repealed</span>
+            </div>
+        </div>
+
+        <div class="timeline-card critical">
             <div class="time-badge">1978</div><div class="gov-badge">Morarji Desai (Janata)</div>
             <h3 class="card-title">44th Amendment</h3>
             <div class="card-content">
-                Reversed many excesses of the 42nd Amendment. <span class="highlight">Removed the Right to Property</span> from Fundamental Rights (made it a legal right). Replaced "internal disturbance" with <span class="highlight">"armed rebellion"</span> for National Emergency. Allowed the President to return Cabinet advice once.
+                <ul>
+                    <li><span class="highlight">Removed Right to Property</span> from Fundamental Rights (repealed Art 19(1)(f) &amp; Art 31) and made it a legal/constitutional right under <span class="highlight">Article 300A</span>.</li>
+                    <li>Replaced "internal disturbance" with <span class="highlight">"armed rebellion"</span> as a ground for National Emergency; required <span class="highlight">written recommendation of the Cabinet</span>.</li>
+                    <li>Guaranteed that <span class="highlight">Articles 20 and 21 cannot be suspended</span> even during a National Emergency.</li>
+                    <li>Empowered the President to <span class="highlight">send back Cabinet advice once</span> for reconsideration. Restored Lok Sabha/Assembly term from 6 years back to 5 years.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag rights">Prop Right Removed</span>
+                <span class="tag rights">Art 300A (Property)</span>
                 <span class="tag alert">Armed Rebellion</span>
+                <span class="tag rights">Art 20 &amp; 21 Inviolable</span>
             </div>
         </div>
 
-        <div class="timeline-card">
+        <div class="timeline-card critical">
             <div class="time-badge">1985</div><div class="gov-badge">Rajiv Gandhi (INC)</div>
             <h3 class="card-title">52nd Amendment</h3>
             <div class="card-content">
-                Introduced the <span class="highlight">Anti-Defection Law</span> by adding the <span class="highlight">10th Schedule</span> to disqualify MPs and MLAs for defection.
+                <ul>
+                    <li>Introduced the <span class="highlight">Anti-Defection Law</span> by adding the <span class="highlight">10th Schedule</span> to disqualify MPs and MLAs on grounds of defection.</li>
+                    <li>Amended Articles 101, 102, 190, and 191. Presiding Officer's decision is subject to judicial review (<em>Kihoto Hollohan, 1992</em>).</li>
+                </ul>
             </div>
             <div class="tag-container">
                 <span class="tag struct">Anti-Defection (10th Sch)</span>
@@ -339,56 +692,103 @@
             <div class="time-badge">1989</div><div class="gov-badge">Rajiv Gandhi (INC)</div>
             <h3 class="card-title">61st Amendment</h3>
             <div class="card-content">
-                Reduced the <span class="highlight">voting age</span> for Lok Sabha and Legislative Assembly elections from <span class="highlight">21 years to 18 years</span>.
+                <ul>
+                    <li>Reduced the <span class="highlight">voting age from 21 years to 18 years</span> for Lok Sabha and State Legislative Assembly elections by amending <span class="highlight">Article 326</span>.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag rights">Voting Age 18</span>
+                <span class="tag rights">Voting Age 18 (Art 326)</span>
             </div>
         </div>
 
-        <div class="timeline-card">
-            <div class="time-badge">1991</div><div class="gov-badge">P.V. Narasimha Rao (INC)</div>
-            <h3 class="card-title">69th Amendment</h3>
-            <div class="card-content">
-                Granted special status to Delhi, designating it as the <span class="highlight">National Capital Territory (NCT)</span>, and provided it with a legislative assembly and a council of ministers.
-            </div>
-            <div class="tag-container">
-                <span class="tag struct">Delhi = NCT</span>
-            </div>
-        </div>
-
-        <div class="timeline-card">
+        <div class="timeline-card critical">
             <div class="time-badge">1992</div><div class="gov-badge">P.V. Narasimha Rao (INC)</div>
-            <h3 class="card-title">73rd & 74th Amendments</h3>
+            <h3 class="card-title">73rd &amp; 74th Amendments</h3>
             <div class="card-content">
-                73rd: Granted constitutional status to <span class="highlight">Panchayati Raj Institutions</span> (Part IX, 11th Sch). <br>
-                74th: Granted constitutional status to <span class="highlight">Municipalities</span> (Part IXA, 12th Sch).
+                <ul>
+                    <li><span class="highlight">73rd Amendment:</span> Constitutional status to <span class="highlight">Panchayati Raj Institutions</span> — added <span class="highlight">Part IX</span> (Art 243–243O) and <span class="highlight">11th Schedule</span> (29 functional items).</li>
+                    <li><span class="highlight">74th Amendment:</span> Constitutional status to <span class="highlight">Urban Local Bodies / Municipalities</span> — added <span class="highlight">Part IXA</span> (Art 243P–243ZG) and <span class="highlight">12th Schedule</span> (18 functional items).</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag struct">Panchayats (11th)</span>
-                <span class="tag struct">Municipalities (12th)</span>
+                <span class="tag struct">Panchayats (11th Sch)</span>
+                <span class="tag struct">Municipalities (12th Sch)</span>
             </div>
         </div>
 
         <div class="timeline-card">
+            <div class="time-badge">1995</div><div class="gov-badge">P.V. Narasimha Rao (INC)</div>
+            <h3 class="card-title">77th Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>Inserted <span class="highlight">Article 16(4A)</span> empowering the State to provide <span class="highlight">reservation in promotions</span> in government jobs for SCs and STs if inadequately represented.</li>
+                    <li>Enacted to nullify the Supreme Court's <em>Indra Sawhney (1992)</em> ruling that barred reservation in promotions.</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag quota">Art 16(4A)</span>
+                <span class="tag rights">Quota in Promotions</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2000</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
+            <h3 class="card-title">81st Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>Inserted <span class="highlight">Article 16(4B)</span> to allow unfilled reserved <span class="highlight">backlog vacancies</span> to be carried forward as a separate class in subsequent years.</li>
+                    <li>Ended the <span class="highlight">50% ceiling limit</span> on reservation for such backlog vacancies (overcoming <em>Indra Sawhney</em>'s carry-forward cap).</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag quota">Art 16(4B)</span>
+                <span class="tag rights">Backlog Exempt from 50% Cap</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2001</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
+            <h3 class="card-title">84th Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>Extended the <span class="highlight">freeze on readjustment of seats</span> in the Lok Sabha and State Legislative Assemblies for another 25 years — <span class="highlight">until 2026</span> (based on the 1971 Census) to incentivize population control.</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag struct">Seat Freeze till 2026</span>
+                <span class="tag gov">Delimitation</span>
+            </div>
+        </div>
+
+        <div class="timeline-card">
+            <div class="time-badge">2001</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
+            <h3 class="card-title">85th Amendment</h3>
+            <div class="card-content">
+                <ul>
+                    <li>Amended <span class="highlight">Article 16(4A)</span> to grant <span class="highlight">consequential seniority</span> in promotions for SC and ST government servants (with retrospective effect from June 1995).</li>
+                    <li>Constitutional validity upheld in the <em>M. Nagaraj Case (2006)</em> subject to backwardness, inadequacy, and administrative efficiency checks.</li>
+                </ul>
+            </div>
+            <div class="tag-container">
+                <span class="tag quota">Consequential Seniority</span>
+                <span class="tag rights">Art 16(4A)</span>
+            </div>
+        </div>
+
+        <div class="timeline-card critical">
             <div class="time-badge">2002</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
             <h3 class="card-title">86th Amendment</h3>
             <div class="card-content">
-                Made the <span class="highlight">Right to Education a Fundamental Right (Article 21A)</span> for children aged 6-14 years. Added a related Fundamental Duty.
+                <ul>
+                    <li>Inserted <span class="highlight">Article 21A</span> making free &amp; compulsory <span class="highlight">Right to Education (6–14 years)</span> a Fundamental Right.</li>
+                    <li>Changed <span class="highlight">Article 45 (DPSP)</span> to early childhood care &amp; education for children below 6 years.</li>
+                    <li>Added the 11th Fundamental Duty under <span class="highlight">Article 51A(k)</span> for parents/guardians to provide education opportunities.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag rights">Right to Education</span>
-            </div>
-        </div>
-
-        <div class="timeline-card">
-            <div class="time-badge">2003</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
-            <h3 class="card-title">89th Amendment</h3>
-            <div class="card-content">
-                Bifurcated the National Commission for SCs and STs into two separate bodies: <span class="highlight">NC for SCs and NC for STs</span>.
-            </div>
-            <div class="tag-container">
-                <span class="tag gov">NC SC/ST Bifurcated</span>
+                <span class="tag rights">Art 21A (RTE)</span>
+                <span class="tag rights">Art 51A(k)</span>
+                <span class="tag struct">Art 45 Updated</span>
             </div>
         </div>
 
@@ -396,21 +796,28 @@
             <div class="time-badge">2003</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
             <h3 class="card-title">91st Amendment</h3>
             <div class="card-content">
-                Limited the <span class="highlight">size of the Council of Ministers</span> at the Center and States to a maximum of <span class="highlight">15%</span> of the total strength of the lower house. Strengthened the Anti-Defection Law.
+                <ul>
+                    <li>Capped the <span class="highlight">size of the Council of Ministers</span> (including PM/CM) at <span class="highlight">15%</span> of the total strength of the Lok Sabha / State Assembly (minimum 12 ministers for States).</li>
+                    <li>Strengthened the <span class="highlight">Anti-Defection Law</span>: omitted the <span class="highlight">1/3rd split exemption</span> (only a 2/3rd merger is now protected) and barred disqualified legislators from holding ministerial posts.</li>
+                </ul>
             </div>
             <div class="tag-container">
                 <span class="tag gov">15% CoM Cap</span>
+                <span class="tag struct">1/3rd Split Omitted</span>
             </div>
         </div>
 
         <div class="timeline-card">
-            <div class="time-badge">2003</div><div class="gov-badge">A.B. Vajpayee (NDA)</div>
-            <h3 class="card-title">92nd Amendment</h3>
+            <div class="time-badge">2005</div><div class="gov-badge">Manmohan Singh (UPA)</div>
+            <h3 class="card-title">93rd Amendment</h3>
             <div class="card-content">
-                Added four new languages—<span class="highlight">Bodo, Dogri, Maithili, and Santhali</span>—to the 8th Schedule.
+                <ul>
+                    <li>Inserted <span class="highlight">Article 15(5)</span> empowering the State to make special provisions (reservations) for socially &amp; educationally backward classes, SCs, and STs in <span class="highlight">private educational institutions</span> (aided or unaided), <span class="highlight">except minority institutions</span>.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag struct">4 Languages Added</span>
+                <span class="tag quota">Art 15(5)</span>
+                <span class="tag rights">Private Inst. Quota</span>
             </div>
         </div>
 
@@ -418,22 +825,29 @@
             <div class="time-badge">2011</div><div class="gov-badge">Manmohan Singh (UPA)</div>
             <h3 class="card-title">97th Amendment</h3>
             <div class="card-content">
-                Granted constitutional status and protection to <span class="highlight">Co-operative Societies</span>.
+                <ul>
+                    <li>Granted constitutional status to <span class="highlight">Co-operative Societies</span>: made forming co-operatives a Fundamental Right under <span class="highlight">Art 19(1)(c)</span>, added DPSP <span class="highlight">Art 43B</span>, and inserted <span class="highlight">Part IXB</span>.</li>
+                    <li><em>Note:</em> In 2021, the SC struck down Part IXB provisions relating to State co-operatives for lacking state ratification (retained for multi-state co-operatives).</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag struct">Co-operatives</span>
+                <span class="tag struct">Part IXB</span>
+                <span class="tag rights">Art 19(1)(c) &amp; 43B</span>
             </div>
         </div>
 
-        <div class="timeline-card" style="border-color: var(--accent-orange);">
+        <div class="timeline-card critical">
             <div class="time-badge">2014</div><div class="gov-badge">Narendra Modi (NDA)</div>
             <h3 class="card-title">99th Amendment</h3>
             <div class="card-content">
-                Established the <span class="highlight">National Judicial Appointments Commission (NJAC)</span> to replace the collegium system (Later struck down by the Supreme Court in 2015).
+                <ul>
+                    <li>Established the <span class="highlight">National Judicial Appointments Commission (NJAC)</span> to replace the Collegium system for appointing SC/HC judges.</li>
+                    <li><span class="highlight">Struck down as unconstitutional</span> by the Supreme Court in the <em>Fourth Judges Case (2015)</em> for violating judicial independence (Basic Structure).</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag alert">Struck Down</span>
-                <span class="tag gov">NJAC</span>
+                <span class="tag alert">Struck Down (2015)</span>
+                <span class="tag gov">NJAC vs Collegium</span>
             </div>
         </div>
 
@@ -441,21 +855,27 @@
             <div class="time-badge">2015</div><div class="gov-badge">Narendra Modi (NDA)</div>
             <h3 class="card-title">100th Amendment</h3>
             <div class="card-content">
-                Operationalized the <span class="highlight">Land Boundary Agreement (LBA)</span> between India and Bangladesh for the exchange of enclaves.
+                <ul>
+                    <li>Operationalized the <span class="highlight">India–Bangladesh Land Boundary Agreement (LBA)</span> of 1974 and its 2011 Protocol, enabling the exchange of enclaves and transfer of territories across Assam, West Bengal, Meghalaya, and Tripura.</li>
+                </ul>
             </div>
             <div class="tag-container">
                 <span class="tag struct">LBA with Bangladesh</span>
             </div>
         </div>
 
-        <div class="timeline-card">
+        <div class="timeline-card critical">
             <div class="time-badge">2016</div><div class="gov-badge">Narendra Modi (NDA)</div>
             <h3 class="card-title">101st Amendment</h3>
             <div class="card-content">
-                Introduced the <span class="highlight">Goods and Services Tax (GST)</span> and established the GST Council.
+                <ul>
+                    <li>Introduced the <span class="highlight">Goods and Services Tax (GST)</span> — "One Nation, One Tax" — conferring concurrent taxing powers on Parliament and State Legislatures (<span class="highlight">Art 246A</span>).</li>
+                    <li>Created the constitutional <span class="highlight">GST Council under Article 279A</span> chaired by the Union Finance Minister.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag eco">GST Introduced</span>
+                <span class="tag eco">GST (Art 246A)</span>
+                <span class="tag gov">GST Council (Art 279A)</span>
             </div>
         </div>
 
@@ -463,21 +883,29 @@
             <div class="time-badge">2018</div><div class="gov-badge">Narendra Modi (NDA)</div>
             <h3 class="card-title">102nd Amendment</h3>
             <div class="card-content">
-                Conferred constitutional status on the <span class="highlight">National Commission for Backward Classes (NCBC)</span>.
+                <ul>
+                    <li>Conferred constitutional status on the <span class="highlight">National Commission for Backward Classes (NCBC)</span> by inserting <span class="highlight">Article 338B</span>.</li>
+                    <li>Inserted <span class="highlight">Article 342A</span> empowering the President to notify Socially and Educationally Backward Classes (SEBCs).</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag gov">NCBC Status</span>
+                <span class="tag gov">NCBC (Art 338B)</span>
+                <span class="tag quota">Art 342A</span>
             </div>
         </div>
 
-        <div class="timeline-card">
+        <div class="timeline-card critical">
             <div class="time-badge">2019</div><div class="gov-badge">Narendra Modi (NDA)</div>
             <h3 class="card-title">103rd Amendment</h3>
             <div class="card-content">
-                Introduced a <span class="highlight">10% reservation for Economically Weaker Sections (EWS)</span> in government jobs and education.
+                <ul>
+                    <li>Introduced a <span class="highlight">10% reservation for Economically Weaker Sections (EWS)</span> in educational institutions and public employment by inserting <span class="highlight">Articles 15(6) and 16(6)</span>.</li>
+                    <li>Upheld by a 3:2 Supreme Court bench in <em>Janhit Abhiyan v. Union of India (2022)</em>.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag rights">10% EWS Quota</span>
+                <span class="tag quota">10% EWS Quota</span>
+                <span class="tag rights">Art 15(6) &amp; 16(6)</span>
             </div>
         </div>
 
@@ -485,10 +913,13 @@
             <div class="time-badge">2020</div><div class="gov-badge">Narendra Modi (NDA)</div>
             <h3 class="card-title">104th Amendment</h3>
             <div class="card-content">
-                Extended the reservation of seats for SCs and STs in the Lok Sabha and State Assemblies to 2030. <span class="highlight">Abolished reserved seats for the Anglo-Indian community.</span>
+                <ul>
+                    <li>Extended the reservation of seats for <span class="highlight">SCs and STs</span> in the Lok Sabha and State Assemblies for another 10 years (until <span class="highlight">2030</span>) under Art 334.</li>
+                    <li><span class="highlight">Abolished the nomination of Anglo-Indian members</span> (2 in Lok Sabha, 1 in State Assemblies).</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag rights">SC/ST Quota Extended</span>
+                <span class="tag quota">SC/ST Quota till 2030</span>
                 <span class="tag alert">Anglo-Indian Seats Removed</span>
             </div>
         </div>
@@ -497,24 +928,301 @@
             <div class="time-badge">2021</div><div class="gov-badge">Narendra Modi (NDA)</div>
             <h3 class="card-title">105th Amendment</h3>
             <div class="card-content">
-                Restored the power of State governments to independently <span class="highlight">identify and maintain their own lists of Socially and Educationally Backward Classes (SEBCs) / OBCs</span>.
+                <ul>
+                    <li>Amended <span class="highlight">Article 342A</span> to restore the power of State governments and UTs to independently <span class="highlight">identify and maintain their own SEBC/OBC lists</span> (overturning the SC's 2021 <em>Maratha Quota</em> interpretation of the 102nd Amendment).</li>
+                </ul>
             </div>
             <div class="tag-container">
                 <span class="tag gov">State OBC Lists Restored</span>
+                <span class="tag quota">Art 342A Clarified</span>
             </div>
         </div>
 
-        <div class="timeline-card">
+        <div class="timeline-card critical">
             <div class="time-badge">2023</div><div class="gov-badge">Narendra Modi (NDA)</div>
             <h3 class="card-title">106th Amendment</h3>
             <div class="card-content">
-                Passed as the Nari Shakti Vandan Adhiniyam. Mandates a <span class="highlight">33% reservation for women</span> in the Lok Sabha, State Legislative Assemblies, and the NCT of Delhi Assembly.
+                <ul>
+                    <li>Enacted as the <span class="highlight">Nari Shakti Vandan Adhiniyam</span>.</li>
+                    <li>Mandates <span class="highlight">33% reservation for women</span> in the Lok Sabha (Art 330A), State Legislative Assemblies (Art 332A), and the NCT of Delhi Assembly (Art 239AA) for 15 years — to come into effect after the next <span class="highlight">Census and Delimitation</span>.</li>
+                </ul>
             </div>
             <div class="tag-container">
-                <span class="tag rights">33% Women's Quota</span>
+                <span class="tag quota">33% Women's Quota</span>
+                <span class="tag rights">Nari Shakti Vandan</span>
             </div>
         </div>
 
     </div>
+
+    <script>
+        (function () {
+            const STORAGE_KEY_NOTES = 'sketchnote_amendments_notes_v2';
+            const STORAGE_KEY_HL = 'sketchnote_amendments_hl_v2';
+            const addNoteBtn = document.getElementById('addNoteBtn');
+            const highlightBtn = document.getElementById('highlightBtn');
+            const highlightPalette = document.getElementById('highlightPalette');
+            const saveBtn = document.getElementById('saveBtn');
+            const toast = document.getElementById('toast');
+
+            let highlightMode = false;
+            let activeColor = '#ffeb3b';
+
+            const noteColors = ['#fff3a3', '#b8f2b6', '#a8e0ff', '#ffc2d4'];
+
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2200);
+            }
+
+            // Auto-contrast helper for highlighted text
+            function getContrastColor(hex) {
+                const c = hex.replace('#', '');
+                const r = parseInt(c.substr(0, 2), 16);
+                const g = parseInt(c.substr(2, 2), 16);
+                const b = parseInt(c.substr(4, 2), 16);
+                const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                return luminance > 0.55 ? '#111111' : '#ffffff';
+            }
+
+            // Highlight Swatch Selection
+            highlightPalette.querySelectorAll('.hl-swatch').forEach(swatch => {
+                swatch.addEventListener('click', () => {
+                    highlightPalette.querySelectorAll('.hl-swatch').forEach(s => s.classList.remove('selected'));
+                    swatch.classList.add('selected');
+                    activeColor = swatch.dataset.color;
+                });
+            });
+
+            // Toggle Highlight Mode
+            highlightBtn.addEventListener('click', () => {
+                highlightMode = !highlightMode;
+                highlightBtn.classList.toggle('active', highlightMode);
+                highlightPalette.classList.toggle('visible', highlightMode);
+                document.body.classList.toggle('highlight-mode', highlightMode);
+                showToast(highlightMode ? 'Highlighter ON (Select text; click highlight to undo)' : 'Highlighter OFF');
+            });
+
+            // Apply Highlight on Text Selection
+            document.addEventListener('mouseup', (e) => {
+                if (!highlightMode) return;
+                if (e.target.closest('.workspace-bar') || e.target.closest('.sticky-note')) return;
+
+                const selection = window.getSelection();
+                if (!selection || selection.isCollapsed || !selection.toString().trim()) return;
+
+                const range = selection.getRangeAt(0);
+                if (range.startContainer !== range.endContainer && range.commonAncestorContainer.nodeType !== 3) {
+                    // Safe fallback for cross-node selections inside a single block
+                    try {
+                        const span = document.createElement('span');
+                        span.className = 'user-highlight';
+                        span.style.backgroundColor = activeColor;
+                        span.style.color = getContrastColor(activeColor);
+                        span.title = 'Click to remove highlight';
+                        span.appendChild(range.extractContents());
+                        range.insertNode(span);
+                        selection.removeAllRanges();
+                        persistHighlights();
+                    } catch (err) {
+                        showToast('Select within a single paragraph to highlight');
+                    }
+                    return;
+                }
+
+                try {
+                    const span = document.createElement('span');
+                    span.className = 'user-highlight';
+                    span.style.backgroundColor = activeColor;
+                    span.style.color = getContrastColor(activeColor);
+                    span.title = 'Click to remove highlight';
+                    range.surroundContents(span);
+                    selection.removeAllRanges();
+                    persistHighlights();
+                } catch (err) {
+                    showToast('Select plain text within one block');
+                }
+            });
+
+            // Undo Highlight on Click
+            document.addEventListener('click', (e) => {
+                if (e.target.classList && e.target.classList.contains('user-highlight')) {
+                    const span = e.target;
+                    const parent = span.parentNode;
+                    while (span.firstChild) {
+                        parent.insertBefore(span.firstChild, span);
+                    }
+                    parent.removeChild(span);
+                    parent.normalize();
+                    persistHighlights();
+                    showToast('Highlight removed');
+                }
+            });
+
+            function persistHighlights() {
+                const container = document.querySelector('.timeline-container');
+                const rev = document.querySelector('.revision-sheet');
+                if (container && rev) {
+                    localStorage.setItem(STORAGE_KEY_HL, JSON.stringify({
+                        rev: rev.innerHTML,
+                        timeline: container.innerHTML
+                    }));
+                }
+            }
+
+            // Sticky Notes Management
+            function attachNoteEvents(note) {
+                const header = note.querySelector('.sticky-header');
+                const closeBtn = note.querySelector('.sticky-close');
+                const body = note.querySelector('.sticky-body');
+                const dots = note.querySelectorAll('.sticky-dot');
+
+                // Dragging
+                let isDragging = false, startX = 0, startY = 0, origLeft = 0, origTop = 0;
+
+                header.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.sticky-dot') || e.target.closest('.sticky-close')) return;
+                    isDragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    origLeft = note.offsetLeft;
+                    origTop = note.offsetTop;
+                    note.style.zIndex = 5001;
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    note.style.left = (origLeft + (e.clientX - startX)) + 'px';
+                    note.style.top = (origTop + (e.clientY - startY)) + 'px';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        note.style.zIndex = 5000;
+                        persistNotes();
+                    }
+                });
+
+                // Color Picker
+                dots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        note.style.background = dot.dataset.color;
+                        persistNotes();
+                    });
+                });
+
+                // Delete Note
+                closeBtn.addEventListener('click', () => {
+                    note.remove();
+                    persistNotes();
+                });
+
+                // Save text & resize changes
+                body.addEventListener('input', persistNotes);
+                note.addEventListener('mouseup', persistNotes);
+            }
+
+            function createStickyNote(data = {}) {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random() * 40)) + 'px';
+                note.style.top = data.top || (window.scrollY + 120 + Math.floor(Math.random() * 40)) + 'px';
+                if (data.width) note.style.width = data.width;
+                if (data.height) note.style.height = data.height;
+                note.style.background = data.color || noteColors[0];
+
+                const dotsHtml = noteColors.map(c =>
+                    `<span class="sticky-dot" data-color="${c}" style="background:${c};" title="Change color"></span>`
+                ).join('');
+
+                note.innerHTML = `
+                    <div class="sticky-header">
+                        <div class="sticky-colors">${dotsHtml}</div>
+                        <button class="sticky-close" title="Delete note">×</button>
+                    </div>
+                    <div class="sticky-body" contenteditable="true">${data.text || 'Write quick note...'}</div>
+                `;
+
+                document.body.appendChild(note);
+                attachNoteEvents(note);
+                return note;
+            }
+
+            function persistNotes() {
+                const notes = Array.from(document.querySelectorAll('.sticky-note')).map(n => ({
+                    left: n.style.left,
+                    top: n.style.top,
+                    width: n.style.width,
+                    height: n.style.height,
+                    color: n.style.background,
+                    text: n.querySelector('.sticky-body').innerHTML
+                }));
+                localStorage.setItem(STORAGE_KEY_NOTES, JSON.stringify(notes));
+            }
+
+            addNoteBtn.addEventListener('click', () => {
+                createStickyNote();
+                persistNotes();
+                showToast('Sticky note added');
+            });
+
+            // Smart Hydration: Load from LocalStorage OR hydrate static notes baked into DOM
+            function hydrateWorkspace() {
+                const savedHL = localStorage.getItem(STORAGE_KEY_HL);
+                if (savedHL) {
+                    try {
+                        const parsed = JSON.parse(savedHL);
+                        if (parsed.rev) document.querySelector('.revision-sheet').innerHTML = parsed.rev;
+                        if (parsed.timeline) document.querySelector('.timeline-container').innerHTML = parsed.timeline;
+                    } catch (e) {}
+                }
+
+                const savedNotes = localStorage.getItem(STORAGE_KEY_NOTES);
+                const staticDomNotes = document.querySelectorAll('.sticky-note');
+
+                if (savedNotes) {
+                    staticDomNotes.forEach(n => n.remove());
+                    try {
+                        JSON.parse(savedNotes).forEach(n => createStickyNote(n));
+                    } catch (e) {}
+                } else if (staticDomNotes.length > 0) {
+                    staticDomNotes.forEach(n => attachNoteEvents(n));
+                    persistNotes();
+                }
+            }
+
+            // Clone-Save Mechanism: Safely clones DOM without breaking active event listeners
+            saveBtn.addEventListener('click', () => {
+                persistNotes();
+                persistHighlights();
+
+                const clone = document.documentElement.cloneNode(true);
+                const cloneBar = clone.querySelector('#workspaceBar');
+                const cloneToast = clone.querySelector('#toast');
+                if (cloneBar) cloneBar.remove();
+                if (cloneToast) cloneToast.remove();
+                clone.querySelector('body')?.classList.remove('highlight-mode');
+
+                const cleanHtml = '<!DOCTYPE html>\n' + clone.outerHTML;
+
+                const blob = new Blob([cleanHtml], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'constitutional-amendments-sketchnote.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showToast('Clean HTML exported (ready for GitHub sync)!');
+            });
+
+            hydrateWorkspace();
+        })();
+    </script>
 </body>
 </html>
