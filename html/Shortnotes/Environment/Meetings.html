@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Summits, Climate Change & COP Timeline — Sketchnote Visual Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --card-bg: #242424;
+    --card-border: #3a3a3a;
+    --text: #f0f0f0;
+    --muted: #b8b8b8;
+    --yellow: #ffd54f;
+    --cyan: #4dd0e1;
+    --green: #81c784;
+    --pink: #f48fb1;
+    --orange: #ffb74d;
+    --purple: #ce93d8;
+    --red: #ef9a9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    position: relative;
+    margin: 0;
+    padding: 80px 24px 60px;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(#2c2c2c 1px, transparent 1px),
+      radial-gradient(#252525 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    color: var(--text);
+    font-family: 'Patrick Hand', cursive;
+    font-size: 18px;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .hand-title {
+    font-family: 'Kalam', cursive;
+    margin-top: 0;
+    letter-spacing: 0.3px;
+  }
+
+  /* Interactive Action Bar */
+  #workspace-bar {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(24, 24, 24, 0.92);
+    border: 2px dashed var(--yellow);
+    padding: 8px 14px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+  }
+
+  .ws-btn {
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #555;
+    background: #2c2c2c;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+  }
+
+  .ws-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--yellow);
+  }
+
+  .ws-btn.active {
+    background: var(--yellow);
+    color: #111;
+    border-color: var(--yellow);
+  }
+
+  #hl-color-picker {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* Header */
+  .board-header {
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 28px;
+  }
+
+  .board-header h1 {
+    font-size: 2.6rem;
+    color: var(--yellow);
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 #000;
+  }
+
+  .board-header .subtitle {
+    color: var(--cyan);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  /* Ultra-Short Revision Sheet */
+  .quick-revision {
+    max-width: 1280px;
+    margin: 0 auto 36px;
+    background: linear-gradient(135deg, #232822 0%, #1f2428 100%);
+    border: 2.5px dashed var(--green);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+  }
+
+  .quick-revision h2 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+    gap: 12px;
+  }
+
+  .qr-pill {
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 4px solid var(--yellow);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.98rem;
+  }
+
+  .qr-pill strong { color: var(--yellow); }
+  .qr-pill.cyan { border-left-color: var(--cyan); }
+  .qr-pill.cyan strong { color: var(--cyan); }
+  .qr-pill.pink { border-left-color: var(--pink); }
+  .qr-pill.pink strong { color: var(--pink); }
+  .qr-pill.orange { border-left-color: var(--orange); }
+  .qr-pill.orange strong { color: var(--orange); }
+  .qr-pill.red { border-left-color: var(--red); }
+  .qr-pill.red strong { color: var(--red); }
+  .qr-pill.purple { border-left-color: var(--purple); }
+  .qr-pill.purple strong { color: var(--purple); }
+
+  /* Section Dividers */
+  .section-label {
+    max-width: 1280px;
+    margin: 36px auto 18px;
+    font-family: 'Kalam', cursive;
+    font-size: 1.65rem;
+    color: var(--orange);
+    border-bottom: 2px dashed #444;
+    padding-bottom: 4px;
+  }
+
+  /* Timeline Layout */
+  .timeline {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto 36px;
+    padding-left: 34px;
+    border-left: 3px dashed var(--cyan);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 22px;
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: 5px 7px 0 rgba(0, 0, 0, 0.55);
+    transition: transform 0.2s;
+  }
+
+  .tl-item:hover {
+    transform: translateX(4px);
+  }
+
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -45px;
+    top: 20px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--cyan);
+  }
+
+  .tl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+    border-bottom: 1px dashed #3f3f3f;
+    padding-bottom: 5px;
+  }
+
+  .tl-title {
+    font-family: 'Kalam', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--yellow);
+  }
+
+  .tl-year {
+    background: rgba(77, 208, 225, 0.16);
+    color: var(--cyan);
+    border: 1.5px solid var(--cyan);
+    padding: 1px 10px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: bold;
+  }
+
+  .tl-item.highlight-latest {
+    border-color: var(--pink);
+    background: linear-gradient(135deg, #2b2228 0%, #242424 100%);
+  }
+
+  .tl-item.highlight-latest .tl-title { color: var(--pink); }
+  .tl-item.highlight-latest::before { background: var(--pink); }
+
+  /* Masonry / Polaroid Grid */
+  .masonry-grid {
+    max-width: 1280px;
+    margin: 0 auto 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 24px;
+    align-items: start;
+  }
+
+  .polaroid {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    padding: 18px 20px 24px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.55);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .polaroid:hover {
+    transform: translateY(-3px);
+  }
+
+  .polaroid::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1.5deg);
+    width: 78px;
+    height: 18px;
+    background: rgba(255, 213, 79, 0.25);
+    border: 1px solid rgba(255, 213, 79, 0.4);
+  }
+
+  .polaroid h3 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px dashed #444;
+  }
+
+  .accent-yellow h3 { color: var(--yellow); }
+  .accent-cyan h3 { color: var(--cyan); }
+  .accent-green h3 { color: var(--green); }
+  .accent-pink h3 { color: var(--pink); }
+  .accent-orange h3 { color: var(--orange); }
+  .accent-purple h3 { color: var(--purple); }
+  .accent-red h3 { color: var(--red); }
+
+  ul {
+    margin: 6px 0 0;
+    padding-left: 20px;
+  }
+
+  li { margin-bottom: 6px; }
+
+  .hl-y { color: var(--yellow); font-weight: bold; }
+  .hl-c { color: var(--cyan); font-weight: bold; }
+  .hl-g { color: var(--green); font-weight: bold; }
+  .hl-p { color: var(--pink); font-weight: bold; }
+  .hl-o { color: var(--orange); font-weight: bold; }
+  .hl-r { color: var(--red); font-weight: bold; }
+  .hl-pu { color: var(--purple); font-weight: bold; }
+
+  /* User Highlight Span */
+  .user-highlight {
+    border-radius: 4px;
+    padding: 0 3px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .user-highlight:hover {
+    opacity: 0.8;
+    text-decoration: line-through;
+  }
+
+  /* Sticky Notes */
+  .sticky-note {
+    position: absolute;
+    width: 220px;
+    min-width: 150px;
+    min-height: 120px;
+    background: #fff59d;
+    color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.6);
+    z-index: 5000;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    overflow: hidden;
+  }
+
+  .sticky-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 8px;
+    background: rgba(0, 0, 0, 0.12);
+    cursor: move;
+    user-select: none;
+  }
+
+  .sticky-colors {
+    display: flex;
+    gap: 5px;
+  }
+
+  .sticky-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.4);
+    cursor: pointer;
+  }
+
+  .sticky-del {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: #222;
+    font-size: 15px;
+  }
+
+  .sticky-body {
+    flex: 1;
+    padding: 8px 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 17px;
+    outline: none;
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Interactive Workspace Bar -->
+  <div id="workspace-bar">
+    <button class="ws-btn" id="btn-add-note">📝 ADD NOTES</button>
+    <button class="ws-btn" id="btn-highlight">🖍️ HIGHLIGHT</button>
+    <input type="color" id="hl-color-picker" value="#ffd54f" title="Highlighter Color">
+    <button class="ws-btn" id="btn-save">☁️ SAVE</button>
+  </div>
+
+  <!-- Header -->
+  <header class="board-header">
+    <h1>🌡️ Global Summits, Climate Change & COP Timeline</h1>
+    <p class="subtitle">Stockholm 1972 → Rio Summits → Kyoto & Paris → COP 1 to COP 31 (Nov 2026) → Climate Funds</p>
+  </header>
+
+  <!-- Step 3: Ultra-Short Quick Revision Sheet -->
+  <section class="quick-revision">
+    <h2>⚡ ULTRA-SHORT QUICK REVISION SHEET</h2>
+    <div class="qr-grid">
+      <div class="qr-pill"><strong>3 Rio Conventions (1992):</strong> UNFCCC (Climate), CBD (Biodiversity), UNCCD (Desertification) + <strong>Agenda 21</strong> (non-binding)</div>
+      <div class="qr-pill cyan"><strong>Kyoto vs Paris:</strong> Kyoto (1997) = Binding Annex I targets (CDM, JI, ET) | Paris (2015) = Well below <strong>2°C (pursue 1.5°C)</strong>, NDCs, Global Stocktake</div>
+      <div class="qr-pill orange"><strong>India's COP 26 Panchamrit:</strong> Net Zero by <strong>2070</strong> | 500 GW non-fossil by 2030 | <strong>Mission LiFE</strong> | Only COP hosted by India = <strong>COP 8 (2002, Delhi)</strong></div>
+      <div class="qr-pill pink"><strong>Latest COP 31 (Nov 2026, Antalya):</strong> Türkiye host / Australia presidency; <strong>Antalya Pact failed</strong>; adopted 35-by-35 Electrification & UAE Just Transition extension</div>
+      <div class="qr-pill red"><strong>Traps:</strong> Global Methane Pledge (30% by 2030) = <strong>India NOT signed</strong> | IPCC (1988) = WMO+UNEP, does NOT conduct own research</div>
+      <div class="qr-pill purple"><strong>World Bank Forest Funds:</strong> <strong>FCPF</strong> (Forest Carbon Partnership Facility) & <strong>BioCarbon Fund ISFL</strong> + Trustee of <strong>GEF</strong></div>
+    </div>
+  </section>
+
+  <!-- Section 1: Major UN Environmental Summits & Rio Milestones -->
+  <div class="section-label">⏳ Timeline 1: Major UN Environmental Summits & Rio Milestones</div>
+  <section class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">Stockholm Conference (UNCHE)</span>
+        <span class="tl-year">1972 • Sweden</span>
+      </div>
+      <ul>
+        <li>First major UN conference on the human environment.</li>
+        <li>Led to creation of <span class="hl-g">UNEP</span> (HQ: Nairobi) and <span class="hl-y">World Environment Day (June 5)</span>.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">Brundtland Commission Report</span>
+        <span class="tl-year">1987</span>
+      </div>
+      <ul>
+        <li>Report titled <span class="hl-c">"Our Common Future"</span>; formally coined and defined <span class="hl-y">Sustainable Development</span>.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">Rio Earth Summit (UNCED)</span>
+        <span class="tl-year">1992 • Rio de Janeiro</span>
+      </div>
+      <ul>
+        <li>Produced the <span class="hl-y">3 Rio Conventions</span>: <strong>UNFCCC</strong> (1992/1994), <strong>CBD</strong> (1992/1993), and <strong>UNCCD</strong> (1994/1996 — only legally binding framework to combat desertification & drought).</li>
+        <li>Adopted <strong>Rio Declaration</strong>, <strong>Forest Principles</strong>, and <span class="hl-g">Agenda 21</span> (non-binding action plan for sustainable development in the 21st century).</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">Rio+10 (WSSD — World Summit on Sustainable Development)</span>
+        <span class="tl-year">2002 • Johannesburg</span>
+      </div>
+      <ul>
+        <li>Focused on full implementation of <strong>Agenda 21</strong> and poverty eradication.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">Rio+20 (UNCSD)</span>
+        <span class="tl-year">2012 • Rio de Janeiro</span>
+      </div>
+      <ul>
+        <li>Outcome document: <span class="hl-c">"The Future We Want"</span>.</li>
+        <li>Initiated the <span class="hl-y">Sustainable Development Goals (SDGs)</span> and <span class="hl-g">PAGE</span> (Partnership for Action on Green Economy).</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">UN Climate Action Summit</span>
+        <span class="tl-year">2019 • New York</span>
+      </div>
+      <ul>
+        <li>Convened by UNSG António Guterres to boost climate ambition.</li>
+        <li>India launched <span class="hl-y">CDRI</span> (Coalition for Disaster Resilient Infrastructure) and <span class="hl-c">LeadIT</span> (Leadership Group for Industry Transition, with Sweden).</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- Section 2: UNFCCC COP Timeline -->
+  <div class="section-label">📅 Timeline 2: Landmark UNFCCC COPs (COP 1 to COP 32)</div>
+  <section class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">COP 1 (Berlin) & COP 3 (Kyoto)</span>
+        <span class="tl-year">1995 & 1997</span>
+      </div>
+      <ul>
+        <li><span class="hl-c">COP 1 (1995, Berlin):</span> First UNFCCC COP; adopted the <strong>Berlin Mandate</strong>.</li>
+        <li><span class="hl-y">COP 3 (1997, Kyoto):</span> Adopted the <span class="hl-y">Kyoto Protocol</span> (in force 2005) — legally binding GHG cuts for developed (Annex I) countries; introduced <strong>3 Market Mechanisms</strong>: Clean Development Mechanism (CDM), Joint Implementation (JI), and Emissions Trading.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">COP 8 (New Delhi) & COP 13 (Bali)</span>
+        <span class="tl-year">2002 & 2007</span>
+      </div>
+      <ul>
+        <li><span class="hl-g">COP 8 (2002, New Delhi):</span> <strong>Only UNFCCC COP hosted by India</strong>; adopted Delhi Ministerial Declaration.</li>
+        <li><span class="hl-o">COP 13 (2007, Bali):</span> Adopted Bali Action Plan; formally introduced <span class="hl-g">REDD+</span>.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">COP 16 (Cancun), COP 18 (Doha) & COP 19 (Warsaw)</span>
+        <span class="tl-year">2010 – 2013</span>
+      </div>
+      <ul>
+        <li><span class="hl-c">COP 16 (2010, Cancun):</span> Cancun Agreements — formally established the <span class="hl-g">Green Climate Fund (GCF)</span> and Technology Mechanism.</li>
+        <li><span class="hl-y">COP 18 (2012, Doha):</span> <strong>Doha Amendment</strong> — established the 2nd commitment period (2013–2020) of the Kyoto Protocol.</li>
+        <li><span class="hl-r">COP 19 (2013, Warsaw):</span> Created the <strong>Warsaw International Mechanism (WIM)</strong> — first formal UNFCCC mechanism for <span class="hl-r">Loss and Damage</span>.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">COP 21 (Paris) & COP 24 (Katowice)</span>
+        <span class="tl-year">2015 & 2018</span>
+      </div>
+      <ul>
+        <li><span class="hl-y">COP 21 (2015, Paris):</span> Adopted the <span class="hl-y">Paris Agreement</span> (in force 2016) — limit global warming well below <strong>2°C</strong> (pursue <strong>1.5°C</strong>), uses <strong>NDCs</strong> & 5-year Global Stocktake. India & France launched the <span class="hl-g">International Solar Alliance (ISA)</span>.</li>
+        <li><span class="hl-c">COP 24 (2018, Katowice, Poland):</span> Finalised the <strong>Katowice Rulebook</strong> (operational rules to implement Paris Agreement).</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">COP 26 (Glasgow) & COP 27 (Sharm el-Sheikh)</span>
+        <span class="tl-year">2021 & 2022</span>
+      </div>
+      <ul>
+        <li><span class="hl-g">COP 26 (2021, Glasgow):</span> <strong>Glasgow Climate Pact</strong> (first explicit mention of "phasing down" unabated coal). India announced <span class="hl-y">Panchamrit</span> (Net Zero by <strong>2070</strong>, 500 GW non-fossil by 2030) and <span class="hl-c">Mission LiFE</span>. Also launched <strong>Global Methane Pledge</strong>.</li>
+        <li><span class="hl-r">COP 27 (2022, Sharm el-Sheikh, Egypt):</span> Historic agreement to establish the <span class="hl-r">Loss and Damage Fund</span> for vulnerable developing countries.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-header">
+        <span class="tl-title">COP 28 (Dubai), COP 29 (Baku) & COP 30 (Belém)</span>
+        <span class="tl-year">2023 – 2025</span>
+      </div>
+      <ul>
+        <li><span class="hl-o">COP 28 (2023, Dubai):</span> First <strong>Global Stocktake</strong>; operationalised Loss & Damage Fund; historic call for <span class="hl-y">"transitioning away from fossil fuels"</span>; target to <strong>triple renewable energy</strong> & <strong>double energy efficiency</strong> by 2030.</li>
+        <li><span class="hl-c">COP 29 (2024, Baku):</span> Adopted <span class="hl-c">NCQG</span> (New Collective Quantified Goal): <strong>$300 billion/year by 2035</strong> for developing nations; finalised <strong>Article 6</strong> carbon market rules.</li>
+        <li><span class="hl-g">COP 30 (2025, Belém, Brazil):</span> Adopted the <strong>59 Belém Adaptation Indicators</strong> and decided to develop a <strong>Just Transition Mechanism</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item highlight-latest">
+      <div class="tl-header">
+        <span class="tl-title">★ COP 31 (Antalya, Türkiye) & Upcoming COP 32</span>
+        <span class="tl-year">Nov 2026 & Nov 2027</span>
+      </div>
+      <ul>
+        <li><span class="hl-p">COP 31 (Nov 2026, Antalya, Türkiye):</span> Hosted by Türkiye (negotiations presided over by Australia). <strong>Failed to adopt the overarching "Antalya Pact"</strong> due to deadlock over fossil fuel phase-out and adaptation finance.</li>
+        <li><strong>Separate Decisions Adopted at COP 31:</strong> <strong>UAE Just Transition Work Programme</strong> (extended 3 years), <strong>Adaptation Fund</strong> (exclusively serving Paris Agreement), and <strong>GGA</strong>; voluntary <span class="hl-y">"35-by-35" Electrification Target</span> (35% final energy from electricity by 2035) and <strong>Wildlife for Climate Declaration</strong>.</li>
+        <li><span class="hl-c">COP 32 (Upcoming — Nov 2027, Addis Ababa, Ethiopia):</span> Unresolved COP 31 items automatically carry over under <strong>Rule 16</strong>.</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- Section 3: Climate Bodies, Forest Funds & Global Initiatives -->
+  <div class="section-label">🏦 Climate Bodies, Forest Carbon Funds & Key Mechanisms</div>
+  <section class="masonry-grid">
+
+    <article class="polaroid accent-cyan">
+      <h3>IPCC & Climate Science</h3>
+      <ul>
+        <li><span class="hl-c">IPCC (1988):</span> <em>Intergovernmental Panel on Climate Change</em> — jointly created by <strong>WMO + UNEP</strong>.</li>
+        <li>Assesses global climate science through <strong>Assessment Reports</strong> (AR6, etc.).</li>
+        <li><span class="hl-r">Exam Trap:</span> IPCC <strong>does NOT conduct its own original research</strong> or monitor climate data directly.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-green">
+      <h3>World Bank Forest & Carbon Funds</h3>
+      <ul>
+        <li><span class="hl-g">FCPF (Forest Carbon Partnership Facility):</span> World Bank global partnership helping developing countries reduce emissions from deforestation/degradation (REDD+ readiness & carbon funds).</li>
+        <li><span class="hl-g">BioCarbon Fund ISFL:</span> World Bank's <em>Initiative for Sustainable Forest Landscapes</em> — reduces GHG emissions from the land sector (agriculture, forestry, land use).</li>
+        <li><span class="hl-y">UN-REDD / REDD+ (2008):</span> Jointly run by <strong>FAO, UNDP, UNEP</strong> for Reducing Emissions from Deforestation and Forest Degradation.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-yellow">
+      <h3>Global Climate Finance: GEF vs. GCF</h3>
+      <ul>
+        <li><span class="hl-y">GEF (Global Environment Facility):</span> World Bank acts as <strong>Trustee</strong>; serves as the financial mechanism for <strong>5 major conventions</strong>: CBD, UNFCCC, UNCCD, Stockholm, and Minamata.</li>
+        <li><span class="hl-c">GCF (Green Climate Fund):</span> Established under UNFCCC (COP 16, Cancun); <strong>HQ: Songdo, South Korea</strong>. World's largest dedicated climate fund for developing countries' mitigation & adaptation.</li>
+      </ul>
+    </article>
+
+    <article class="polaroid accent-red">
+      <h3>Other High-Yield Climate Initiatives</h3>
+      <ul>
+        <li><span class="hl-r">Global Methane Pledge (2021, COP 26):</span> Cut global methane emissions by <strong>30% by 2030</strong> (led by US & EU). <strong>India has NOT signed it</strong> (due to agriculture/livestock concerns).</li>
+        <li><span class="hl-o">EU CBAM (2023 Transitional):</span> <em>Carbon Border Adjustment Mechanism</em> — EU's carbon tariff on carbon-intensive imports (steel, cement, aluminium, etc.).</li>
+        <li><span class="hl-pu">Gothenburg Protocol (1999):</span> Under CLRTAP; abates acidification, eutrophication, and <strong>ground-level ozone</strong>.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- Container for Sticky Notes -->
+  <div id="sticky-layer"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'sketchnote_climate_cop_timeline_v1';
+  const btnAddNote = document.getElementById('btn-add-note');
+  const btnHighlight = document.getElementById('btn-highlight');
+  const hlColorPicker = document.getElementById('hl-color-picker');
+  const btnSave = document.getElementById('btn-save');
+  const stickyLayer = document.getElementById('sticky-layer');
+
+  let highlightMode = false;
+  const NOTE_COLORS = ['#fff59d', '#ffcc80', '#f48fb1', '#80deea', '#a5d6a7'];
+
+  function getContrastColor(hex) {
+    const c = hex.replace('#', '');
+    const r = parseInt(c.substr(0, 2), 16);
+    const g = parseInt(c.substr(2, 2), 16);
+    const b = parseInt(c.substr(4, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return yiq >= 135 ? '#111111' : '#ffffff';
+  }
+
+  function saveNotesToLocal() {
+    const notes = [];
+    document.querySelectorAll('.sticky-note').forEach(el => {
+      notes.push({
+        id: el.dataset.id,
+        left: el.style.left,
+        top: el.style.top,
+        width: el.style.width,
+        height: el.style.height,
+        bg: el.style.backgroundColor,
+        html: el.querySelector('.sticky-body').innerHTML
+      });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+  }
+
+  function hydrateNote(noteEl) {
+    const header = noteEl.querySelector('.sticky-header');
+    const body = noteEl.querySelector('.sticky-body');
+    const delBtn = noteEl.querySelector('.sticky-del');
+
+    let isDragging = false, startX, startY, origLeft, origTop;
+    header.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('sticky-dot') || e.target.classList.contains('sticky-del')) return;
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origLeft = noteEl.offsetLeft;
+      origTop = noteEl.offsetTop;
+      noteEl.style.zIndex = 6000;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      noteEl.style.left = (origLeft + (e.clientX - startX)) + 'px';
+      noteEl.style.top = (origTop + (e.clientY - startY)) + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        saveNotesToLocal();
+      }
+    });
+
+    noteEl.querySelectorAll('.sticky-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        noteEl.style.backgroundColor = dot.dataset.color;
+        saveNotesToLocal();
+      });
+    });
+
+    delBtn.addEventListener('click', () => {
+      noteEl.remove();
+      saveNotesToLocal();
+    });
+
+    body.addEventListener('input', saveNotesToLocal);
+    noteEl.addEventListener('mouseup', saveNotesToLocal);
+  }
+
+  function createStickyNote(data = {}) {
+    const note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.dataset.id = data.id || 'note_' + Date.now();
+    note.style.left = data.left || (window.scrollX + 60 + Math.floor(Math.random() * 120)) + 'px';
+    note.style.top = data.top || (window.scrollY + 120 + Math.floor(Math.random() * 80)) + 'px';
+    if (data.width) note.style.width = data.width;
+    if (data.height) note.style.height = data.height;
+    note.style.backgroundColor = data.bg || NOTE_COLORS[0];
+
+    const dotsHtml = NOTE_COLORS.map(c =>
+      `<span class="sticky-dot" data-color="${c}" style="background:${c}"></span>`
+    ).join('');
+
+    note.innerHTML = `
+      <div class="sticky-header">
+        <div class="sticky-colors">${dotsHtml}</div>
+        <button class="sticky-del" title="Delete Note">✕</button>
+      </div>
+      <div class="sticky-body" contenteditable="true">${data.html || 'Write your revision note...'}</div>
+    `;
+
+    stickyLayer.appendChild(note);
+    hydrateNote(note);
+    saveNotesToLocal();
+  }
+
+  btnAddNote.addEventListener('click', () => createStickyNote());
+
+  btnHighlight.addEventListener('click', () => {
+    highlightMode = !highlightMode;
+    btnHighlight.classList.toggle('active', highlightMode);
+  });
+
+  document.addEventListener('mouseup', (e) => {
+    if (!highlightMode) return;
+    if (e.target.closest('#workspace-bar') || e.target.closest('.sticky-note')) return;
+
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) return;
+
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.className = 'user-highlight';
+    const color = hlColorPicker.value;
+    span.style.backgroundColor = color;
+    span.style.color = getContrastColor(color);
+    span.title = 'Click to remove highlight';
+
+    try {
+      range.surroundContents(span);
+      sel.removeAllRanges();
+    } catch (err) {
+      const frag = range.extractContents();
+      span.appendChild(frag);
+      range.insertNode(span);
+      sel.removeAllRanges();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('user-highlight')) {
+      const span = e.target;
+      const parent = span.parentNode;
+      while (span.firstChild) parent.insertBefore(span.firstChild, span);
+      parent.removeChild(span);
+      parent.normalize();
+    }
+  });
+
+  function initHydration() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.length > 0) {
+          stickyLayer.innerHTML = '';
+          parsed.forEach(n => createStickyNote(n));
+          return;
+        }
+      } catch (e) {}
+    }
+    document.querySelectorAll('.sticky-note').forEach(hydrateNote);
+  }
+
+  btnSave.addEventListener('click', () => {
+    const clone = document.documentElement.cloneNode(true);
+    const bar = clone.querySelector('#workspace-bar');
+    if (bar) bar.remove();
+
+    const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'global-summits-climate-cop-timeline.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  initHydration();
+})();
+</script>
+</body>
+</html>
